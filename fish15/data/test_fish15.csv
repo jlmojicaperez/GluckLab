@@ -1,5 +1,0 @@
-﻿face,leftFish,rightFish,correctResponse,phase_used,trials1.thisRepN,trials1.thisTrialN,trials1.thisN,trials1.thisIndex,trial_response.keys,trial_response.rt,Correct,session,participant,date,expName,psychopyVersion,frameRate,
-girl,green,blue,left,1,0,0,0,3,right,2.4647767999995267,0,001,test,2023-05-17_20h37.56.824,fish15,2023.1.2,144.7485934101042,
-boy,blue,green,left,1,0,1,1,0,left,0.7956702999981644,1,001,test,2023-05-17_20h37.56.824,fish15,2023.1.2,144.7485934101042,
-girl,blue,green,right,1,0,2,2,2,right,0.2996732999999949,1,001,test,2023-05-17_20h37.56.824,fish15,2023.1.2,144.7485934101042,
-boy,green,blue,right,1,0,3,3,1,right,0.6216160000003583,1,001,test,2023-05-17_20h37.56.824,fish15,2023.1.2,144.7485934101042,

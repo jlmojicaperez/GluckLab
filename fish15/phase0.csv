@@ -1,0 +1,11 @@
+face,leftFish,rightFish,correctResponse,phase_used,round_no
+woman,green,purple,left,0,0
+man,green,purple,right,0,1
+man,purple,green,left,0,2
+man,purple,green,left,0,3
+woman,green,purple,left,0,4
+man,green,purple,right,0,5
+man,green,purple,right,0,6
+man,purple,green,left,0,7
+man,purple,green,left,0,8
+man,purple,green,left,0,9

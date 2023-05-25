@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2023.1.2),
-    on May 17, 2023, at 20:41
+    on May 25, 2023, at 16:18
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -30,7 +30,7 @@ import sys  # to get file system encoding
 import psychopy.iohub as io
 from psychopy.hardware import keyboard
 
-# Run 'Before Experiment' code from fish_face_pairing
+# Run 'Before Experiment' code from face_fish_pairing
 import random
 # File names of faces and fishes without extension
 fishes = ["green", "blue", "purple", "yellow"]
@@ -52,6 +52,113 @@ file.write(f"{faces[r2]},{fishes[r3]},{fishes[r4]}\n")
 file.write(f"{faces[r3]},{fishes[r1]},{fishes[r2]}\n")
 file.write(f"{faces[r4]},{fishes[r3]},{fishes[r4]}\n")
 file.close()
+# Run 'Before Experiment' code from phase_gen
+import csv
+
+def generate_phase_file(pairings, phase_faces, phase_fishes, filename, num_rounds):
+    '''
+    Args:
+        pairings: a dictionary containing all the face-fish pairings in the 
+                  format pairings[face] = {fish1, fish2}
+        phase_faces: a list of strings with the base file name of the faces that 
+                     correspond to the desired phase
+        phase_fishes: a list of strings with the base file name of the fishes 
+                      that correspond to the desired phase
+        num_rounds: an integer indicating how many rounds of stimuli are on
+                    the desired phase
+    Returns:
+        None. It instead generates [filename].csv for the desired that lists the
+        stimuli for said phase
+    '''
+    file = open(filename, "w")
+    file.write("face,leftFish,rightFish,correctResponse,phase_used,round_no\n")
+    # filename format should be phaseX.csv where X is the phase number
+    phase_no = filename.split(".")[0][-1]
+    for i in range(num_rounds):
+        # Select a random face
+        r = random.randint(0, len(phase_faces)-1)
+        face = phase_faces[r]
+        
+        # Create a list of the fishes that the face above owns and does not own
+        not_owned_fishes = []
+        owned_fishes = []
+        for fish in phase_fishes:
+            if(fish in pairings[face]):
+                owned_fishes.append(fish)
+            else:
+                not_owned_fishes.append(fish)
+                
+                
+        # Using these lists, select a fish at random from each
+        # These will be the options on screen
+        #print(f"owned len = {len(owned_fishes)}\nnot owned len = {len(not_owned_fishes)}")
+        r = 0
+        if(len(owned_fishes) > 1):
+            r = random.randint(0, len(owned_fishes)-1)
+        #print(f"correct r = {r}")
+        correct = owned_fishes[r]
+        r = 0
+        if(len(not_owned_fishes) > 1):
+            r = random.randint(0, len(not_owned_fishes)-1)
+        #print(f"incorrect r = {r}")
+        incorrect = not_owned_fishes[r]
+        
+        # Select a random position for correct answer
+        positions = ["left", "right"]
+        r = random.randint(0, len(positions)-1)
+        correct_pos = positions[r]
+        
+        # Write the row into the file. Each row has the stimuli for its
+        # corresponfing round
+        if(correct_pos == "left"):
+            file.write(f"{face},{correct},{incorrect},{correct_pos},{phase_no},{i}\n")
+        else: # pos == right
+            file.write(f"{face},{incorrect},{correct},{correct_pos},{phase_no},{i}\n")
+            
+    file.close()
+    
+# Getting the pairings from previously generated pairings file
+pairings = {}
+pairings_file = open("face_fish_pairings.csv", "r")
+reader = csv.DictReader(pairings_file)
+for row in reader:
+    pairings[row["face"]] = [row["fish1"], row["fish2"]]
+pairings_file.close()
+
+# All faces
+faces = list(pairings)
+# All fishes
+fishes = []
+for face in faces:
+    if len(fishes) == 4: #There are only 4 fishes
+        break
+    for fish in pairings[face]:
+        if(fish not in fishes):
+            fishes.append(fish)
+
+phase0_faces = [faces[0], faces[1]]
+phase0_fishes = [pairings[faces[0]][0], pairings[faces[1]][0]]
+phase0_file = "phase0.csv"
+phase0_rounds = 10
+generate_phase_file(pairings, phase0_faces, phase0_fishes, phase0_file, phase0_rounds)
+
+phase1_faces = faces
+phase1_fishes = phase0_fishes
+phase1_file = "phase1.csv"
+phase1_rounds = 8
+generate_phase_file(pairings, phase1_faces, phase1_fishes, phase1_file, phase1_rounds)
+
+phase2_faces = faces
+phase2_fishes = fishes
+phase2_file = "phase2.csv"
+phase2_rounds = 20
+generate_phase_file(pairings, phase2_faces, phase2_fishes, phase2_file, phase2_rounds)
+
+phase3_faces = faces
+phase3_fishes = fishes
+phase3_file = "phase3.csv"
+phase3_rounds = 48
+generate_phase_file(pairings, phase3_faces, phase3_fishes, phase3_file, phase3_rounds)
 # Run 'Before Experiment' code from code_3
 myFaceFileName="temp"
 myLeftFishFileName="temp"
@@ -1005,9 +1112,9 @@ for thisComponent in train_instrComponents:
 routineTimer.reset()
 
 # set up handler to look after randomisation of conditions etc
-trials1 = data.TrialHandler(nReps=5, method='random', 
+trials1 = data.TrialHandler(nReps=1, method='sequential', 
     extraInfo=expInfo, originPath=-1,
-    trialList=data.importConditions('fish14_ExpStim.xlsx', selection='0:4'),
+    trialList=data.importConditions('phase0.csv'),
     seed=None, name='trials1')
 thisExp.addLoop(trials1)  # add the loop to the experiment
 thisTrials1 = trials1.trialList[0]  # so we can initialise stimuli with some values
@@ -1030,6 +1137,8 @@ for thisTrials1 in trials1:
     myFaceFileName= "fishPix/"+face+".png"
     myLeftFishFileName="fishPix/"+leftFish+".png"
     myRightFishFileName="fishPix/"+rightFish+".png"
+    
+    print(f"Phase: {phase_used}\tRound: {round_no}")
     trial_face.setImage(myFaceFileName)
     fishOnLeft.setImage(myLeftFishFileName)
     fishOnRight.setImage(myRightFishFileName)
@@ -1430,7 +1539,7 @@ for thisTrials1 in trials1:
     routineTimer.reset()
     thisExp.nextEntry()
     
-# completed 5 repeats of 'trials1'
+# completed 1 repeats of 'trials1'
 
 
 # --- Prepare to start Routine "next_stage" ---
@@ -1492,9 +1601,9 @@ for thisComponent in next_stageComponents:
 routineTimer.reset()
 
 # set up handler to look after randomisation of conditions etc
-trials2 = data.TrialHandler(nReps=5, method='random', 
+trials2 = data.TrialHandler(nReps=1, method='sequential', 
     extraInfo=expInfo, originPath=-1,
-    trialList=data.importConditions('fish14_ExpStim.xlsx', selection='0:8'),
+    trialList=data.importConditions('phase1.csv', selection='0:-1'),
     seed=None, name='trials2')
 thisExp.addLoop(trials2)  # add the loop to the experiment
 thisTrials2 = trials2.trialList[0]  # so we can initialise stimuli with some values
@@ -1517,6 +1626,8 @@ for thisTrials2 in trials2:
     myFaceFileName= "fishPix/"+face+".png"
     myLeftFishFileName="fishPix/"+leftFish+".png"
     myRightFishFileName="fishPix/"+rightFish+".png"
+    
+    print(f"Phase: {phase_used}\tRound: {round_no}")
     trial_face.setImage(myFaceFileName)
     fishOnLeft.setImage(myLeftFishFileName)
     fishOnRight.setImage(myRightFishFileName)
@@ -1917,7 +2028,7 @@ for thisTrials2 in trials2:
     routineTimer.reset()
     thisExp.nextEntry()
     
-# completed 5 repeats of 'trials2'
+# completed 1 repeats of 'trials2'
 
 
 # --- Prepare to start Routine "next_stage" ---
@@ -1979,9 +2090,9 @@ for thisComponent in next_stageComponents:
 routineTimer.reset()
 
 # set up handler to look after randomisation of conditions etc
-trials3 = data.TrialHandler(nReps=5, method='random', 
+trials3 = data.TrialHandler(nReps=1, method='sequential', 
     extraInfo=expInfo, originPath=-1,
-    trialList=data.importConditions('fish14_ExpStim.xlsx', selection='0:12'),
+    trialList=data.importConditions('phase2.csv', selection='0:-1'),
     seed=None, name='trials3')
 thisExp.addLoop(trials3)  # add the loop to the experiment
 thisTrials3 = trials3.trialList[0]  # so we can initialise stimuli with some values
@@ -2004,6 +2115,8 @@ for thisTrials3 in trials3:
     myFaceFileName= "fishPix/"+face+".png"
     myLeftFishFileName="fishPix/"+leftFish+".png"
     myRightFishFileName="fishPix/"+rightFish+".png"
+    
+    print(f"Phase: {phase_used}\tRound: {round_no}")
     trial_face.setImage(myFaceFileName)
     fishOnLeft.setImage(myLeftFishFileName)
     fishOnRight.setImage(myRightFishFileName)
@@ -2404,7 +2517,7 @@ for thisTrials3 in trials3:
     routineTimer.reset()
     thisExp.nextEntry()
     
-# completed 5 repeats of 'trials3'
+# completed 1 repeats of 'trials3'
 
 
 # --- Prepare to start Routine "test_instr" ---
@@ -2636,9 +2749,9 @@ for thisComponent in test_instrComponents:
 routineTimer.reset()
 
 # set up handler to look after randomisation of conditions etc
-test_trials = data.TrialHandler(nReps=3, method='random', 
+test_trials = data.TrialHandler(nReps=1, method='sequential', 
     extraInfo=expInfo, originPath=-1,
-    trialList=data.importConditions('fish14_ExpStim.xlsx', selection='0:16'),
+    trialList=data.importConditions('phase3.csv', selection='0:-1'),
     seed=None, name='test_trials')
 thisExp.addLoop(test_trials)  # add the loop to the experiment
 thisTest_trial = test_trials.trialList[0]  # so we can initialise stimuli with some values
@@ -2661,6 +2774,8 @@ for thisTest_trial in test_trials:
     myFaceFileName= "fishPix/"+face+".png"
     myLeftFishFileName="fishPix/"+leftFish+".png"
     myRightFishFileName="fishPix/"+rightFish+".png"
+    
+    print(f"Phase: {phase_used}\tRound: {round_no}")
     trial_face.setImage(myFaceFileName)
     fishOnLeft.setImage(myLeftFishFileName)
     fishOnRight.setImage(myRightFishFileName)
@@ -3035,7 +3150,7 @@ for thisTest_trial in test_trials:
     routineTimer.reset()
     thisExp.nextEntry()
     
-# completed 3 repeats of 'test_trials'
+# completed 1 repeats of 'test_trials'
 
 
 # --- Prepare to start Routine "goodbye" ---
