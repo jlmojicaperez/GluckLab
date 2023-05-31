@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2023.1.2),
-    on May 25, 2023, at 16:18
+    on May 30, 2023, at 16:12
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -32,6 +32,7 @@ from psychopy.hardware import keyboard
 
 # Run 'Before Experiment' code from face_fish_pairing
 import random
+import os
 # File names of faces and fishes without extension
 fishes = ["green", "blue", "purple", "yellow"]
 faces = ["boy", "girl", "man", "woman"]
@@ -45,18 +46,24 @@ for _ in range(4):
     random_numbers.append(r)
 
 r1, r2, r3, r4 = random_numbers
-file = open("face_fish_pairings.csv", "w")
+exp_files_path = os.getcwd() + "/experimentFiles/"
+pairs_filename = "face_fish_pairings.csv"
+pairings_filepath = exp_files_path + pairs_filename
+file = open(pairings_filepath, "w")
 file.write("face,fish1,fish2\n")
 file.write(f"{faces[r1]},{fishes[r1]},{fishes[r2]}\n")
-file.write(f"{faces[r2]},{fishes[r3]},{fishes[r4]}\n")
-file.write(f"{faces[r3]},{fishes[r1]},{fishes[r2]}\n")
+file.write(f"{faces[r2]},{fishes[r1]},{fishes[r2]}\n")
+file.write(f"{faces[r3]},{fishes[r3]},{fishes[r4]}\n")
 file.write(f"{faces[r4]},{fishes[r3]},{fishes[r4]}\n")
 file.close()
 # Run 'Before Experiment' code from phase_gen
 import csv
+import os
 
-def generate_phase_file(pairings, phase_faces, phase_fishes, filename, num_rounds):
+def generate_phase_file(pairings, phase_faces, phase_fishes, filename):
     '''
+    Generates a csv file with every valid combination of face 
+    left_fish and right_fish. 
     Args:
         pairings: a dictionary containing all the face-fish pairings in the 
                   format pairings[face] = {fish1, fish2}
@@ -64,21 +71,16 @@ def generate_phase_file(pairings, phase_faces, phase_fishes, filename, num_round
                      correspond to the desired phase
         phase_fishes: a list of strings with the base file name of the fishes 
                       that correspond to the desired phase
-        num_rounds: an integer indicating how many rounds of stimuli are on
-                    the desired phase
     Returns:
-        None. It instead generates [filename].csv for the desired that lists the
-        stimuli for said phase
+        None. It instead generates [filename].csv for the that lists the
+        stimuli for the desired phase
     '''
     file = open(filename, "w")
-    file.write("face,leftFish,rightFish,correctResponse,phase_used,round_no\n")
+    file.write("face,leftFish,rightFish,correctResponse,phase_used\n")
     # filename format should be phaseX.csv where X is the phase number
     phase_no = filename.split(".")[0][-1]
-    for i in range(num_rounds):
-        # Select a random face
-        r = random.randint(0, len(phase_faces)-1)
-        face = phase_faces[r]
-        
+    
+    for face in phase_faces:
         # Create a list of the fishes that the face above owns and does not own
         not_owned_fishes = []
         owned_fishes = []
@@ -88,38 +90,73 @@ def generate_phase_file(pairings, phase_faces, phase_fishes, filename, num_round
             else:
                 not_owned_fishes.append(fish)
                 
-                
-        # Using these lists, select a fish at random from each
-        # These will be the options on screen
-        #print(f"owned len = {len(owned_fishes)}\nnot owned len = {len(not_owned_fishes)}")
-        r = 0
         if(len(owned_fishes) > 1):
-            r = random.randint(0, len(owned_fishes)-1)
-        #print(f"correct r = {r}")
-        correct = owned_fishes[r]
-        r = 0
-        if(len(not_owned_fishes) > 1):
-            r = random.randint(0, len(not_owned_fishes)-1)
-        #print(f"incorrect r = {r}")
-        incorrect = not_owned_fishes[r]
-        
-        # Select a random position for correct answer
-        positions = ["left", "right"]
-        r = random.randint(0, len(positions)-1)
-        correct_pos = positions[r]
-        
-        # Write the row into the file. Each row has the stimuli for its
-        # corresponfing round
-        if(correct_pos == "left"):
-            file.write(f"{face},{correct},{incorrect},{correct_pos},{phase_no},{i}\n")
-        else: # pos == right
-            file.write(f"{face},{incorrect},{correct},{correct_pos},{phase_no},{i}\n")
-            
+            # All the other phases. Do it this way because range would be empty
+            # if there's only 1 owned fish
+            for i in range(len(owned_fishes)):
+                correct = owned_fishes[i]
+                incorrect = not_owned_fishes[i]
+                file.write(f"{face},{correct},{incorrect},left,{phase_no}\n")
+                file.write(f"{face},{incorrect},{correct},right,{phase_no}\n")
+        else: # Phase 0
+            correct = owned_fishes[0]
+            incorrect = not_owned_fishes[0]
+            file.write(f"{face},{correct},{incorrect},left,{phase_no}\n")
+            file.write(f"{face},{incorrect},{correct},right,{phase_no}\n")
+                
     file.close()
+
+def remove_crit_pairs(faces, fishes, filename, pairings):
+    '''
+    Removes and returns the critical pairs from the phase file with 
+    name `filename`. This should only be used for a phase which is not the test
+    phase and was generated with all the faces and fishes, i.e. phase 2.
+    Args:
+        faces: a list of all the faces
+        fishes: a list of all the fishes
+        filaneme: the file name of the phase file to modify
+        pairings: a dictionary containing all the face-fish pairings in the 
+                  format pairings[face] = {fish1, fish2}
+    Returns:
+        a set of all stimuli containing critical pairs 
+        in comma separated string format
+    '''
+
+    # Phase 3 critical pairs:
+    # Face B: Fish c/d, Face D: fish c/d
+    do_not_include = {faces[1]: pairings[faces[1]][1], faces[3]: pairings[faces[3]][1]}
     
+    file = open(filename, "r")
+    reader = csv.DictReader(file)
+    adjusted_file_text = "face,leftFish,rightFish,correctResponse,phase_used\n"
+    crit_pairs_stims = set()
+    for row in reader:
+        face = row["face"]
+        fish1 = row["leftFish"]
+        fish2 = row["rightFish"]
+        correct = row["correctResponse"]
+        phase_no = row["phase_used"]
+        # If the face is not one of the critical pairs of phase 3 then 
+        # it should be included in phase 2
+        should_include = not ((face in do_not_include) and (fish1 == do_not_include[face] or fish2 == do_not_include[face]))
+        
+        if (should_include): # not a critical pair
+            adjusted_file_text += ",".join([face, fish1, fish2, correct, phase_no]) + "\n"
+        else: # critical pair
+            stim =  ",".join([face, fish1, fish2, correct])
+            crit_pairs_stims.add(stim)
+            continue
+    file.close()
+    file = open(filename, "w")
+    file.write(adjusted_file_text)
+    file.close()
+    return crit_pairs_stims
+            
 # Getting the pairings from previously generated pairings file
+exp_files_path = os.getcwd() + "/experimentFiles/"
 pairings = {}
-pairings_file = open("face_fish_pairings.csv", "r")
+#pairings_file = open(exp_files_path + "face_fish_pairings.csv", "r")
+pairings_file = open(pairings_filepath, "r")
 reader = csv.DictReader(pairings_file)
 for row in reader:
     pairings[row["face"]] = [row["fish1"], row["fish2"]]
@@ -136,29 +173,29 @@ for face in faces:
         if(fish not in fishes):
             fishes.append(fish)
 
-phase0_faces = [faces[0], faces[1]]
-phase0_fishes = [pairings[faces[0]][0], pairings[faces[1]][0]]
-phase0_file = "phase0.csv"
-phase0_rounds = 10
-generate_phase_file(pairings, phase0_faces, phase0_fishes, phase0_file, phase0_rounds)
+
+# Face A and Face C
+phase0_faces = [faces[0], faces[2]]
+phase0_fishes = [pairings[faces[0]][0], pairings[faces[2]][0]]
+phase0_file = exp_files_path + "phase0.csv"
+generate_phase_file(pairings, phase0_faces, phase0_fishes, phase0_file)
 
 phase1_faces = faces
 phase1_fishes = phase0_fishes
-phase1_file = "phase1.csv"
-phase1_rounds = 8
-generate_phase_file(pairings, phase1_faces, phase1_fishes, phase1_file, phase1_rounds)
+phase1_file = exp_files_path + "phase1.csv"
+generate_phase_file(pairings, phase1_faces, phase1_fishes, phase1_file)
 
 phase2_faces = faces
 phase2_fishes = fishes
-phase2_file = "phase2.csv"
-phase2_rounds = 20
-generate_phase_file(pairings, phase2_faces, phase2_fishes, phase2_file, phase2_rounds)
+phase2_file = exp_files_path + "phase2.csv"
+generate_phase_file(pairings, phase2_faces, phase2_fishes, phase2_file)
+# critical pairs are not supposed to be in phase 2
+crit_pairs_stims = remove_crit_pairs(phase2_faces, phase2_fishes, phase2_file, pairings)
 
 phase3_faces = faces
 phase3_fishes = fishes
-phase3_file = "phase3.csv"
-phase3_rounds = 48
-generate_phase_file(pairings, phase3_faces, phase3_fishes, phase3_file, phase3_rounds)
+phase3_file = exp_files_path + "phase3.csv"
+generate_phase_file(pairings, phase3_faces, phase3_fishes, phase3_file)
 # Run 'Before Experiment' code from code_3
 myFaceFileName="temp"
 myLeftFishFileName="temp"
@@ -187,6 +224,8 @@ myRightFishFileName="temp"
 showLeftFish="temp"
 showRightFish="temp"
 myFeedbackImpage="temp"
+# Run 'Before Experiment' code from end_data_log
+#data_file.close()
 
 
 # Ensure that relative paths start from the same directory as this script
@@ -194,10 +233,11 @@ _thisDir = os.path.dirname(os.path.abspath(__file__))
 os.chdir(_thisDir)
 # Store info about the experiment session
 psychopyVersion = '2023.1.2'
-expName = 'fish15'  # from the Builder filename that created this script
+expName = 'Fish15'  # from the Builder filename that created this script
 expInfo = {
     'session': '001',
     'participant': '',
+    'experimenter': '',
 }
 # --- Show participant info dialog --
 dlg = gui.DlgFromDict(dictionary=expInfo, sortKeys=False, title=expName)
@@ -208,7 +248,7 @@ expInfo['expName'] = expName
 expInfo['psychopyVersion'] = psychopyVersion
 
 # Data file name stem = absolute path + name; later add .psyexp, .csv, .log, etc
-filename = _thisDir + os.sep + u'data/%s_%s' % (expInfo['participant'], expName)
+filename = _thisDir + os.sep + u'psychopyOutput/%s_%s' % (expInfo['participant'], expName)
 
 # An ExperimentHandler isn't essential but helps with data saving
 thisExp = data.ExperimentHandler(name=expName, version='',
@@ -366,6 +406,7 @@ myNewErr = 0
 myOldTrials = 0
 myNewTrials = 0
 
+
 # --- Initialize components for Routine "runTrial" ---
 trial_face = visual.ImageStim(
     win=win,
@@ -412,7 +453,7 @@ FB2_face = visual.ImageStim(
 FB2_Circle = visual.ImageStim(
     win=win,
     name='FB2_Circle', 
-    image='fishPix/TheCircle.jpg', mask=None, anchor='center',
+    image='fishPix/TheCircle.png', mask=None, anchor='center',
     ori=0, pos=[0,0], size=None,
     color=[1,1,1], colorSpace='rgb', opacity=1,
     flipHoriz=False, flipVert=False,
@@ -490,7 +531,7 @@ FB2_face_2 = visual.ImageStim(
 FB2_Circle_2 = visual.ImageStim(
     win=win,
     name='FB2_Circle_2', 
-    image='fishPix/TheCircle.jpg', mask=None, anchor='center',
+    image='fishPix/TheCircle.png', mask=None, anchor='center',
     ori=0, pos=[0,0], size=None,
     color=[1,1,1], colorSpace='rgb', opacity=1,
     flipHoriz=False, flipVert=False,
@@ -568,7 +609,7 @@ FB3_face = visual.ImageStim(
 FB3_Circle = visual.ImageStim(
     win=win,
     name='FB3_Circle', 
-    image='fishPix/TheCircle.jpg', mask=None, anchor='center',
+    image='fishPix/TheCircle.png', mask=None, anchor='center',
     ori=0, pos=[0,0], size=None,
     color=[1,1,1], colorSpace='rgb', opacity=1,
     flipHoriz=False, flipVert=False,
@@ -703,7 +744,7 @@ noFB_face = visual.ImageStim(
 noFB_Circle = visual.ImageStim(
     win=win,
     name='noFB_Circle', 
-    image='fishPix/TheCircle.jpg', mask=None, anchor='center',
+    image='fishPix/TheCircle.png', mask=None, anchor='center',
     ori=0, pos=[0,0], size=None,
     color=[1,1,1], colorSpace='rgb', opacity=1,
     flipHoriz=False, flipVert=False,
@@ -773,6 +814,43 @@ continueRoutine = True
 conditions_key.keys = []
 conditions_key.rt = []
 _conditions_key_allKeys = []
+# Run 'Begin Routine' code from start_data_log
+import os
+import datetime
+
+participant = expInfo["participant"]
+experimenter = expInfo["experimenter"]
+
+data_path = os.getcwd() + "/data/"
+data_filename = expName + "_" + participant + ".csv"
+data_file = open(data_path + data_filename, "w")
+
+expDateTime = datetime.datetime.now()
+# Weekday(full name), Month(full name) Day(dd), Year(yyyy)
+date = expDateTime.strftime("%A, %B %d, %Y")
+# Hour(00-12):Minute(00-59):Second(00-59) AM/PM
+time = expDateTime.strftime("%I:%M:%S %p")
+
+# Getting the critical pairs
+crit_pairs = []
+for stim in crit_pairs_stims:
+    face, fish1, fish2, correct = stim.split(",")
+    pair1 = (face, fish1, fish2)
+    pair2 = (face, fish2, fish1)
+    if(pair1 not in crit_pairs and pair2 not in crit_pairs):
+        crit_pairs.append(pair1)
+        
+# Keep track of phase number
+current_phase = 0
+
+data_file.write(f"{expName}\n")
+data_file.write(f"Subject ID: {participant}\n")
+data_file.write(f"Experimenter: {experimenter}\n")
+data_file.write(f"\"{date}\"\n")
+data_file.write(f"Time: {time}\n")
+data_file.write(f"\"Note: Critical Pairs = {crit_pairs}\"\n")
+
+
 # keep track of which components have finished
 startupComponents = [terms_of_use, conditions_key]
 for thisComponent in startupComponents:
@@ -873,6 +951,17 @@ continueRoutine = True
 train_instr_key.keys = []
 train_instr_key.rt = []
 _train_instr_key_allKeys = []
+# Run 'Begin Routine' code from start_phase_log_train
+# Initialize phase number
+current_phase = 0
+
+# Initialize trials for the curent phase
+current_trial = 1
+
+data_file.write(f"----- PHASE {current_phase} -----\n")
+header = "Trial,Face,Left Fish,Right Fish,Correct Response,Subject Response,Response Time,Correct/Incorrect\n"
+data_file.write(header)
+
 # keep track of which components have finished
 train_instrComponents = [train_text1, train_text2, train_text3, train_text4, train_text5, train_text6, train_text7, train_text8, train_text9, train_instr_key]
 for thisComponent in train_instrComponents:
@@ -1112,9 +1201,9 @@ for thisComponent in train_instrComponents:
 routineTimer.reset()
 
 # set up handler to look after randomisation of conditions etc
-trials1 = data.TrialHandler(nReps=1, method='sequential', 
+trials1 = data.TrialHandler(nReps=5, method='random', 
     extraInfo=expInfo, originPath=-1,
-    trialList=data.importConditions('phase0.csv'),
+    trialList=data.importConditions('experimentFiles/phase0.csv'),
     seed=None, name='trials1')
 thisExp.addLoop(trials1)  # add the loop to the experiment
 thisTrials1 = trials1.trialList[0]  # so we can initialise stimuli with some values
@@ -1137,8 +1226,6 @@ for thisTrials1 in trials1:
     myFaceFileName= "fishPix/"+face+".png"
     myLeftFishFileName="fishPix/"+leftFish+".png"
     myRightFishFileName="fishPix/"+rightFish+".png"
-    
-    print(f"Phase: {phase_used}\tRound: {round_no}")
     trial_face.setImage(myFaceFileName)
     fishOnLeft.setImage(myLeftFishFileName)
     fishOnRight.setImage(myRightFishFileName)
@@ -1258,7 +1345,7 @@ for thisTrials1 in trials1:
             win.callOnFlip(trial_response.clock.reset)  # t=0 on next screen flip
             win.callOnFlip(trial_response.clearEvents, eventType='keyboard')  # clear events on next screen flip
         if trial_response.status == STARTED and not waitOnFlip:
-            theseKeys = trial_response.getKeys(keyList=['left','right'], waitRelease=False)
+            theseKeys = trial_response.getKeys(keyList=['lctrl','rctrl'], waitRelease=False)
             _trial_response_allKeys.extend(theseKeys)
             if len(_trial_response_allKeys):
                 trial_response.keys = _trial_response_allKeys[-1].name  # just the last key pressed
@@ -1299,6 +1386,13 @@ for thisTrials1 in trials1:
     # Run 'End Routine' code from code
     nFBleft=0
     nFBright=0
+    
+    if(trial_response.keys == "lctrl"):
+        trial_response.keys = "left"
+    else:
+        trial_response.keys = "right"
+        
+    
     if (trial_response.keys=='left') :
         myChosen="left"
         myCircleHoriz = -0.13
@@ -1325,6 +1419,23 @@ for thisTrials1 in trials1:
         showLeftFish="fishPix/blank.png"
         showRightFish=myRightFishFileName
     
+    # Run 'End Routine' code from log_trial
+    # 1 if correct, 0 otherwise
+    correct = "1" if trial_response.keys == correctResponse else "0"
+    # Add a star if this stimulus contains a critical pair
+    stim_vars = [face, leftFish, rightFish, correctResponse]
+    stim = ",".join(stim_vars)
+    if (stim in crit_pairs_stims):
+        correct += "*"
+    # Convert all the variables we want to log into strings and store them in a list
+    # so we can join them later
+    log_vars = [ str(x) for x in [current_trial, face, leftFish, rightFish, 
+                correctResponse, trial_response.keys, trial_response.rt, correct]]
+    
+    log_text = ",".join(log_vars) + "\n"
+    data_file.write(log_text)
+    
+    current_trial += 1
     # the Routine "runTrial" was not non-slip safe, so reset the non-slip timer
     routineTimer.reset()
     
@@ -1539,7 +1650,7 @@ for thisTrials1 in trials1:
     routineTimer.reset()
     thisExp.nextEntry()
     
-# completed 1 repeats of 'trials1'
+# completed 5 repeats of 'trials1'
 
 
 # --- Prepare to start Routine "next_stage" ---
@@ -1549,6 +1660,18 @@ continueRoutine = True
 CriterionReached=False
 myConsecutiveCorrect=0
 myCriterion = myCriterion+4
+
+# Run 'Begin Routine' code from start_phase_log
+# Update phase number
+current_phase += 1
+
+# Initialize trials for the curent phase
+current_trial = 1
+
+data_file.write(f"----- PHASE {current_phase} -----\n")
+header = "Trial,Face,Left Fish,Right Fish,Correct Response,Subject Response,Response Time,Correct/Incorrect\n"
+data_file.write(header)
+
 # keep track of which components have finished
 next_stageComponents = []
 for thisComponent in next_stageComponents:
@@ -1601,9 +1724,9 @@ for thisComponent in next_stageComponents:
 routineTimer.reset()
 
 # set up handler to look after randomisation of conditions etc
-trials2 = data.TrialHandler(nReps=1, method='sequential', 
+trials2 = data.TrialHandler(nReps=5, method='random', 
     extraInfo=expInfo, originPath=-1,
-    trialList=data.importConditions('phase1.csv', selection='0:-1'),
+    trialList=data.importConditions('experimentFiles/phase1.csv'),
     seed=None, name='trials2')
 thisExp.addLoop(trials2)  # add the loop to the experiment
 thisTrials2 = trials2.trialList[0]  # so we can initialise stimuli with some values
@@ -1626,8 +1749,6 @@ for thisTrials2 in trials2:
     myFaceFileName= "fishPix/"+face+".png"
     myLeftFishFileName="fishPix/"+leftFish+".png"
     myRightFishFileName="fishPix/"+rightFish+".png"
-    
-    print(f"Phase: {phase_used}\tRound: {round_no}")
     trial_face.setImage(myFaceFileName)
     fishOnLeft.setImage(myLeftFishFileName)
     fishOnRight.setImage(myRightFishFileName)
@@ -1747,7 +1868,7 @@ for thisTrials2 in trials2:
             win.callOnFlip(trial_response.clock.reset)  # t=0 on next screen flip
             win.callOnFlip(trial_response.clearEvents, eventType='keyboard')  # clear events on next screen flip
         if trial_response.status == STARTED and not waitOnFlip:
-            theseKeys = trial_response.getKeys(keyList=['left','right'], waitRelease=False)
+            theseKeys = trial_response.getKeys(keyList=['lctrl','rctrl'], waitRelease=False)
             _trial_response_allKeys.extend(theseKeys)
             if len(_trial_response_allKeys):
                 trial_response.keys = _trial_response_allKeys[-1].name  # just the last key pressed
@@ -1788,6 +1909,13 @@ for thisTrials2 in trials2:
     # Run 'End Routine' code from code
     nFBleft=0
     nFBright=0
+    
+    if(trial_response.keys == "lctrl"):
+        trial_response.keys = "left"
+    else:
+        trial_response.keys = "right"
+        
+    
     if (trial_response.keys=='left') :
         myChosen="left"
         myCircleHoriz = -0.13
@@ -1814,6 +1942,23 @@ for thisTrials2 in trials2:
         showLeftFish="fishPix/blank.png"
         showRightFish=myRightFishFileName
     
+    # Run 'End Routine' code from log_trial
+    # 1 if correct, 0 otherwise
+    correct = "1" if trial_response.keys == correctResponse else "0"
+    # Add a star if this stimulus contains a critical pair
+    stim_vars = [face, leftFish, rightFish, correctResponse]
+    stim = ",".join(stim_vars)
+    if (stim in crit_pairs_stims):
+        correct += "*"
+    # Convert all the variables we want to log into strings and store them in a list
+    # so we can join them later
+    log_vars = [ str(x) for x in [current_trial, face, leftFish, rightFish, 
+                correctResponse, trial_response.keys, trial_response.rt, correct]]
+    
+    log_text = ",".join(log_vars) + "\n"
+    data_file.write(log_text)
+    
+    current_trial += 1
     # the Routine "runTrial" was not non-slip safe, so reset the non-slip timer
     routineTimer.reset()
     
@@ -2028,7 +2173,7 @@ for thisTrials2 in trials2:
     routineTimer.reset()
     thisExp.nextEntry()
     
-# completed 1 repeats of 'trials2'
+# completed 5 repeats of 'trials2'
 
 
 # --- Prepare to start Routine "next_stage" ---
@@ -2038,6 +2183,18 @@ continueRoutine = True
 CriterionReached=False
 myConsecutiveCorrect=0
 myCriterion = myCriterion+4
+
+# Run 'Begin Routine' code from start_phase_log
+# Update phase number
+current_phase += 1
+
+# Initialize trials for the curent phase
+current_trial = 1
+
+data_file.write(f"----- PHASE {current_phase} -----\n")
+header = "Trial,Face,Left Fish,Right Fish,Correct Response,Subject Response,Response Time,Correct/Incorrect\n"
+data_file.write(header)
+
 # keep track of which components have finished
 next_stageComponents = []
 for thisComponent in next_stageComponents:
@@ -2090,9 +2247,9 @@ for thisComponent in next_stageComponents:
 routineTimer.reset()
 
 # set up handler to look after randomisation of conditions etc
-trials3 = data.TrialHandler(nReps=1, method='sequential', 
+trials3 = data.TrialHandler(nReps=5, method='sequential', 
     extraInfo=expInfo, originPath=-1,
-    trialList=data.importConditions('phase2.csv', selection='0:-1'),
+    trialList=data.importConditions('experimentFiles/phase2.csv'),
     seed=None, name='trials3')
 thisExp.addLoop(trials3)  # add the loop to the experiment
 thisTrials3 = trials3.trialList[0]  # so we can initialise stimuli with some values
@@ -2115,8 +2272,6 @@ for thisTrials3 in trials3:
     myFaceFileName= "fishPix/"+face+".png"
     myLeftFishFileName="fishPix/"+leftFish+".png"
     myRightFishFileName="fishPix/"+rightFish+".png"
-    
-    print(f"Phase: {phase_used}\tRound: {round_no}")
     trial_face.setImage(myFaceFileName)
     fishOnLeft.setImage(myLeftFishFileName)
     fishOnRight.setImage(myRightFishFileName)
@@ -2236,7 +2391,7 @@ for thisTrials3 in trials3:
             win.callOnFlip(trial_response.clock.reset)  # t=0 on next screen flip
             win.callOnFlip(trial_response.clearEvents, eventType='keyboard')  # clear events on next screen flip
         if trial_response.status == STARTED and not waitOnFlip:
-            theseKeys = trial_response.getKeys(keyList=['left','right'], waitRelease=False)
+            theseKeys = trial_response.getKeys(keyList=['lctrl','rctrl'], waitRelease=False)
             _trial_response_allKeys.extend(theseKeys)
             if len(_trial_response_allKeys):
                 trial_response.keys = _trial_response_allKeys[-1].name  # just the last key pressed
@@ -2277,6 +2432,13 @@ for thisTrials3 in trials3:
     # Run 'End Routine' code from code
     nFBleft=0
     nFBright=0
+    
+    if(trial_response.keys == "lctrl"):
+        trial_response.keys = "left"
+    else:
+        trial_response.keys = "right"
+        
+    
     if (trial_response.keys=='left') :
         myChosen="left"
         myCircleHoriz = -0.13
@@ -2303,6 +2465,23 @@ for thisTrials3 in trials3:
         showLeftFish="fishPix/blank.png"
         showRightFish=myRightFishFileName
     
+    # Run 'End Routine' code from log_trial
+    # 1 if correct, 0 otherwise
+    correct = "1" if trial_response.keys == correctResponse else "0"
+    # Add a star if this stimulus contains a critical pair
+    stim_vars = [face, leftFish, rightFish, correctResponse]
+    stim = ",".join(stim_vars)
+    if (stim in crit_pairs_stims):
+        correct += "*"
+    # Convert all the variables we want to log into strings and store them in a list
+    # so we can join them later
+    log_vars = [ str(x) for x in [current_trial, face, leftFish, rightFish, 
+                correctResponse, trial_response.keys, trial_response.rt, correct]]
+    
+    log_text = ",".join(log_vars) + "\n"
+    data_file.write(log_text)
+    
+    current_trial += 1
     # the Routine "runTrial" was not non-slip safe, so reset the non-slip timer
     routineTimer.reset()
     
@@ -2517,7 +2696,7 @@ for thisTrials3 in trials3:
     routineTimer.reset()
     thisExp.nextEntry()
     
-# completed 1 repeats of 'trials3'
+# completed 5 repeats of 'trials3'
 
 
 # --- Prepare to start Routine "test_instr" ---
@@ -2526,6 +2705,18 @@ continueRoutine = True
 test_instr_key.keys = []
 test_instr_key.rt = []
 _test_instr_key_allKeys = []
+# Run 'Begin Routine' code from start_phase_log_test
+# Update phase number
+current_phase += 1
+
+# Initialize trials for the curent phase
+current_trial = 1
+
+
+data_file.write(f"----- PHASE {current_phase} -----\n")
+header = "Trial,Face,Left Fish,Right Fish,Correct Response,Subject Response,Response Time,Correct/Incorrect\n"
+data_file.write(header)
+
 # keep track of which components have finished
 test_instrComponents = [test_text1, test_text2, test_text3, test_text4, test_text5, test_text6, test_text7, test_text8, test_instr_key]
 for thisComponent in test_instrComponents:
@@ -2749,9 +2940,9 @@ for thisComponent in test_instrComponents:
 routineTimer.reset()
 
 # set up handler to look after randomisation of conditions etc
-test_trials = data.TrialHandler(nReps=1, method='sequential', 
+test_trials = data.TrialHandler(nReps=3, method='random', 
     extraInfo=expInfo, originPath=-1,
-    trialList=data.importConditions('phase3.csv', selection='0:-1'),
+    trialList=data.importConditions('experimentFiles/phase3.csv'),
     seed=None, name='test_trials')
 thisExp.addLoop(test_trials)  # add the loop to the experiment
 thisTest_trial = test_trials.trialList[0]  # so we can initialise stimuli with some values
@@ -2774,8 +2965,6 @@ for thisTest_trial in test_trials:
     myFaceFileName= "fishPix/"+face+".png"
     myLeftFishFileName="fishPix/"+leftFish+".png"
     myRightFishFileName="fishPix/"+rightFish+".png"
-    
-    print(f"Phase: {phase_used}\tRound: {round_no}")
     trial_face.setImage(myFaceFileName)
     fishOnLeft.setImage(myLeftFishFileName)
     fishOnRight.setImage(myRightFishFileName)
@@ -2895,7 +3084,7 @@ for thisTest_trial in test_trials:
             win.callOnFlip(trial_response.clock.reset)  # t=0 on next screen flip
             win.callOnFlip(trial_response.clearEvents, eventType='keyboard')  # clear events on next screen flip
         if trial_response.status == STARTED and not waitOnFlip:
-            theseKeys = trial_response.getKeys(keyList=['left','right'], waitRelease=False)
+            theseKeys = trial_response.getKeys(keyList=['lctrl','rctrl'], waitRelease=False)
             _trial_response_allKeys.extend(theseKeys)
             if len(_trial_response_allKeys):
                 trial_response.keys = _trial_response_allKeys[-1].name  # just the last key pressed
@@ -2936,6 +3125,13 @@ for thisTest_trial in test_trials:
     # Run 'End Routine' code from code
     nFBleft=0
     nFBright=0
+    
+    if(trial_response.keys == "lctrl"):
+        trial_response.keys = "left"
+    else:
+        trial_response.keys = "right"
+        
+    
     if (trial_response.keys=='left') :
         myChosen="left"
         myCircleHoriz = -0.13
@@ -2962,6 +3158,23 @@ for thisTest_trial in test_trials:
         showLeftFish="fishPix/blank.png"
         showRightFish=myRightFishFileName
     
+    # Run 'End Routine' code from log_trial
+    # 1 if correct, 0 otherwise
+    correct = "1" if trial_response.keys == correctResponse else "0"
+    # Add a star if this stimulus contains a critical pair
+    stim_vars = [face, leftFish, rightFish, correctResponse]
+    stim = ",".join(stim_vars)
+    if (stim in crit_pairs_stims):
+        correct += "*"
+    # Convert all the variables we want to log into strings and store them in a list
+    # so we can join them later
+    log_vars = [ str(x) for x in [current_trial, face, leftFish, rightFish, 
+                correctResponse, trial_response.keys, trial_response.rt, correct]]
+    
+    log_text = ",".join(log_vars) + "\n"
+    data_file.write(log_text)
+    
+    current_trial += 1
     # the Routine "runTrial" was not non-slip safe, so reset the non-slip timer
     routineTimer.reset()
     
@@ -3150,7 +3363,7 @@ for thisTest_trial in test_trials:
     routineTimer.reset()
     thisExp.nextEntry()
     
-# completed 1 repeats of 'test_trials'
+# completed 3 repeats of 'test_trials'
 
 
 # --- Prepare to start Routine "goodbye" ---
