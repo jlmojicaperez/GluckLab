@@ -1,0 +1,9 @@
+face,leftFish,rightFish,correctResponse,phase_used
+man,purple,yellow,left,1
+man,yellow,purple,right,1
+girl,purple,yellow,left,1
+girl,yellow,purple,right,1
+woman,yellow,purple,left,1
+woman,purple,yellow,right,1
+boy,yellow,purple,left,1
+boy,purple,yellow,right,1
