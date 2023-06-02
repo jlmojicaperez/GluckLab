@@ -1,5 +1,5 @@
 face,leftFish,rightFish,correctResponse,phase_used
-man,purple,yellow,left,0
-man,yellow,purple,right,0
-woman,yellow,purple,left,0
-woman,purple,yellow,right,0
+man,purple,green,left,0
+man,green,purple,right,0
+boy,green,purple,left,0
+boy,purple,green,right,0

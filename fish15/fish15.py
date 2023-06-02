@@ -1,8 +1,8 @@
-﻿#!/usr/bin/env python
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2023.1.2),
-    on June 02, 2023, at 13:44
+    on June 02, 2023, at 13:45
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -32,7 +32,6 @@ from psychopy.hardware import keyboard
 
 # Run 'Before Experiment' code from face_fish_pairing
 import random
-import os
 # File names of faces and fishes without extension
 fishes = ["green", "blue", "purple", "yellow"]
 faces = ["boy", "girl", "man", "woman"]
@@ -58,7 +57,6 @@ file.write(f"{faces[r4]},{fishes[r3]},{fishes[r4]}\n")
 file.close()
 # Run 'Before Experiment' code from phase_gen
 import csv
-import os
 
 def generate_phase_file(pairings, phase_faces, phase_fishes, filename):
     '''
@@ -251,7 +249,7 @@ filename = _thisDir + os.sep + u'psychopyOutput/%s_%s' % (expInfo['participant']
 # An ExperimentHandler isn't essential but helps with data saving
 thisExp = data.ExperimentHandler(name=expName, version='',
     extraInfo=expInfo, runtimeInfo=None,
-    originPath='C:\\Users\\josel\\gluck_lab\\GluckLab\\fish15\\fish15_lastrun.py',
+    originPath='C:\\Users\\josel\\gluck_lab\\GluckLab\\fish15\\fish15.py',
     savePickle=True, saveWideText=True,
     dataFileName=filename)
 logging.console.setLevel(logging.WARNING)  # this outputs to the screen, not a file

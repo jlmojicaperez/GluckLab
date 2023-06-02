@@ -1,8 +1,0 @@
-﻿face,leftFish,rightFish,correctResponse,phase_used,trials1.thisRepN,trials1.thisTrialN,trials1.thisN,trials1.thisIndex,trial_response.keys,trial_response.rt,Correct,session,participant,experimenter,date,expName,psychopyVersion,frameRate,
-man,purple,yellow,left,0,0,0,0,0,rctrl,2.221784100001969,0,001,test,jose,2023-05-30_16h13.10.118,Fish15,2023.1.2,144.87840355710577,
-man,yellow,purple,right,0,0,1,1,1,lctrl,0.04242720000183908,0,001,test,jose,2023-05-30_16h13.10.118,Fish15,2023.1.2,144.87840355710577,
-woman,purple,yellow,right,0,0,2,2,3,rctrl,0.4141961999994237,1,001,test,jose,2023-05-30_16h13.10.118,Fish15,2023.1.2,144.87840355710577,
-woman,yellow,purple,left,0,0,3,3,2,lctrl,0.1475367000020924,1,001,test,jose,2023-05-30_16h13.10.118,Fish15,2023.1.2,144.87840355710577,
-woman,purple,yellow,right,0,1,0,4,3,rctrl,0.07908390000011423,1,001,test,jose,2023-05-30_16h13.10.118,Fish15,2023.1.2,144.87840355710577,
-man,yellow,purple,right,0,1,1,5,1,lctrl,0.02908410000236472,0,001,test,jose,2023-05-30_16h13.10.118,Fish15,2023.1.2,144.87840355710577,
-man,purple,yellow,left,0,1,2,6,0,rctrl,0.4504101000020455,0,001,test,jose,2023-05-30_16h13.10.118,Fish15,2023.1.2,144.87840355710577,
