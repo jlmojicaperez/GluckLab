@@ -6,7 +6,7 @@ Repository for the development of the Fish v.15 and Choose v.34 experiments for 
 ## How to run the experiment
 ### Method 1 (recommnended): Psychopy Standalone App
 
-- Download and install the Pyschopy standalone app according to [this instructions.][PsychopyDownloadInstructions]
+- Download and install the Pyschopy standalone app according to [these instructions.][PsychopyDownloadInstructions]
 MacOS and other versions of the Standalone app can be found [here.][PsychopyReleases]
 
 - Clone this repository
