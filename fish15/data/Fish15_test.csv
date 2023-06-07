@@ -1,0 +1,92 @@
+Fish15
+Subject ID: test
+Experimenter: test
+"Monday, June 05, 2023"
+Time: 03:27:49 PM
+"Note: Critical Pairs = [('girl', 'yellow', 'blue'), ('woman', 'blue', 'yellow')]"
+----- PHASE 0 -----
+Trial,Face,Left Fish,Right Fish,Correct Response,Subject Response,Response Time,Correct/Incorrect
+1,boy,purple,green,right,right,1.2709273999998913,1
+2,man,purple,green,left,left,0.9131827000001067,1
+3,boy,green,purple,left,left,0.5228504999995494,1
+4,man,green,purple,right,right,1.1543213999993895,1
+----- PHASE 1 -----
+Trial,Face,Left Fish,Right Fish,Correct Response,Subject Response,Response Time,Correct/Incorrect
+1,boy,green,purple,left,left,1.6610435000002326,1
+2,man,green,purple,right,right,8.566958199999135,1
+3,girl,purple,green,left,right,0.9504127999998673,0
+4,woman,purple,green,right,right,0.4289392000000589,1
+5,woman,green,purple,left,left,0.3358386999998402,1
+6,boy,purple,green,right,right,0.5689253999998982,1
+7,girl,green,purple,right,right,0.34891309999966325,1
+8,man,purple,green,left,left,0.267073299999538,1
+9,man,green,purple,right,right,0.6091366999999082,1
+10,boy,green,purple,left,left,3.495931099999325,1
+11,man,purple,green,left,left,0.5560495999998238,1
+----- PHASE 2 -----
+Trial,Face,Left Fish,Right Fish,Correct Response,Subject Response,Response Time,Correct/Incorrect
+1,man,purple,green,left,left,2.4655488999997033,1
+2,man,green,purple,right,right,0.8336631000001944,1
+3,man,blue,yellow,left,left,1.5063617999994676,1
+4,man,yellow,blue,right,right,0.2655304999998407,1
+5,girl,purple,green,left,left,0.9376352999997835,1
+6,girl,green,purple,right,right,0.1808811999990212,1
+7,boy,green,purple,left,left,0.4135644999996657,1
+8,boy,purple,green,right,right,0.17803230000026815,1
+9,boy,yellow,blue,left,left,0.43594259999917995,1
+10,boy,blue,yellow,right,right,0.49795520000043325,1
+11,woman,green,purple,left,left,0.3406762999993589,1
+12,woman,purple,green,right,right,2.225302699999702,1
+----- PHASE 3 -----
+Trial,Face,Left Fish,Right Fish,Correct Response,Subject Response,Response Time,Correct/Incorrect
+1,boy,green,purple,left,left,0.6700003999994806,1
+2,man,blue,yellow,left,left,2.324383299999681,1
+3,boy,blue,yellow,right,right,0.75802879999992,1
+4,woman,blue,yellow,right,right,1.3258311999989019,1*
+5,woman,purple,green,right,right,1.3654711999997744,1
+6,boy,purple,green,right,right,0.29297109999970417,1
+7,man,green,purple,right,right,1.1106935999996495,1
+8,man,yellow,blue,right,right,0.5832618999993429,1
+9,girl,green,purple,right,right,0.3741948999995657,1
+10,girl,yellow,blue,right,right,1.7844603999992614,1*
+11,woman,green,purple,left,left,2.094717799999671,1
+12,man,purple,green,left,left,1.0114358999990145,1
+13,woman,yellow,blue,left,left,1.5006517000001622,1*
+14,girl,blue,yellow,left,left,3.8430406999996194,1*
+15,boy,yellow,blue,left,left,0.38860180000028777,1
+16,girl,purple,green,left,left,0.5546580999998696,1
+17,girl,purple,green,left,left,0.6455294999996113,1
+18,girl,green,purple,right,right,1.4001650999998674,1
+19,boy,yellow,blue,left,left,0.8217371999999159,1
+20,woman,yellow,blue,left,left,1.6832507999997688,1*
+21,boy,blue,yellow,right,right,1.100080700000035,1
+22,woman,green,purple,left,left,1.1140390999999,1
+23,boy,green,purple,left,left,0.7774797000001854,1
+24,man,purple,green,left,left,0.7929383999999118,1
+25,man,yellow,blue,right,right,0.6101313999997728,1
+26,girl,blue,yellow,left,left,0.8779397999996945,1*
+27,woman,blue,yellow,right,right,1.5030367999997907,1*
+28,boy,purple,green,right,right,0.721252800000002,1
+29,man,blue,yellow,left,left,24.626439699999537,1
+30,man,green,purple,right,left,2.1501971999996385,0
+31,girl,yellow,blue,right,right,3.6850399999993897,1*
+32,woman,purple,green,right,right,0.8839105999995809,1
+33,boy,yellow,blue,left,left,0.5548706999998103,1
+34,man,yellow,blue,right,right,0.6437188999998398,1
+35,man,green,purple,right,right,3.1810887999999977,1
+36,woman,green,purple,left,left,0.4549955999991653,1
+37,woman,blue,yellow,right,right,0.6612262999997256,1*
+38,girl,green,purple,right,right,0.39512199999990116,1
+39,woman,yellow,blue,left,left,0.4767824999989898,1*
+40,girl,blue,yellow,left,left,0.4349836999999752,1*
+41,boy,purple,green,right,right,0.7927532000003339,1
+42,girl,yellow,blue,right,right,1.9632952999991176,1*
+43,boy,blue,yellow,right,right,1.0506848999993963,1
+44,woman,purple,green,right,right,2.0093607999997403,1
+45,boy,green,purple,left,left,0.916952699999456,1
+46,man,purple,green,left,left,4.196795799999563,1
+47,man,blue,yellow,left,left,0.9899930999999924,1
+48,girl,purple,green,left,left,5.676965999999993,1
+----- SUMMARY STATISTICS -----
+Generalization,Retention,Acquisition,Acquisition Trials
+1.0,0.9722222222222222,0.9629629629629629,27
