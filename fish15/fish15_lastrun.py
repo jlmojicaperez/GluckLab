@@ -1,8 +1,8 @@
 ﻿#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-This experiment was created using PsychoPy3 Experiment Builder (v2023.1.2),
-    on June 06, 2023, at 17:15
+This experiment was created using PsychoPy3 Experiment Builder (v2022.2.5),
+    on June 07, 2023, at 13:34
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -14,8 +14,7 @@ If you publish work using this script the most relevant publication is:
 # --- Import packages ---
 from psychopy import locale_setup
 from psychopy import prefs
-from psychopy import plugins
-plugins.activatePlugins()
+prefs.hardware['audioLib'] = 'ptb'
 from psychopy import sound, gui, visual, core, data, event, logging, clock, colors, layout
 from psychopy.constants import (NOT_STARTED, STARTED, PLAYING, PAUSED,
                                 STOPPED, FINISHED, PRESSED, RELEASED, FOREVER)
@@ -30,7 +29,7 @@ import sys  # to get file system encoding
 import psychopy.iohub as io
 from psychopy.hardware import keyboard
 
-# Run 'Before Experiment' code from LICENSE
+# Run 'Before Experiment' code from license_and_terms
 '''
 Fish v. 15 software, running on PsychoPy (v.2023.1.2)
 
@@ -59,7 +58,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 Author's contact information: 
-    email: jlmojicaperez@acm.org
+    email: jmojicaperez@acm.org
 '''
 # Run 'Before Experiment' code from face_fish_pairing
 import random
@@ -260,7 +259,7 @@ myFeedbackImpage="temp"
 _thisDir = os.path.dirname(os.path.abspath(__file__))
 os.chdir(_thisDir)
 # Store info about the experiment session
-psychopyVersion = '2023.1.2'
+psychopyVersion = '2022.2.5'
 expName = 'Fish15'  # from the Builder filename that created this script
 expInfo = {
     'session': '001',
@@ -296,7 +295,6 @@ win = visual.Window(
     size=[1536, 960], fullscr=True, screen=0, 
     winType='pyglet', allowStencil=False,
     monitor='testMonitor', color='white', colorSpace='rgb',
-    backgroundImage='', backgroundFit='none',
     blendMode='avg', useFBO=True)
 win.mouseVisible = False
 # store frame rate of monitor if we can measure it
@@ -367,7 +365,7 @@ myNewTrials = 0
 trial_face = visual.ImageStim(
     win=win,
     name='trial_face', 
-    image='default.png', mask=None, anchor='center',
+    image='sin', mask=None, anchor='center',
     ori=0, pos=(0, 0.45), size=None,
     color=[1,1,1], colorSpace='rgb', opacity=1,
     flipHoriz=False, flipVert=False,
@@ -382,7 +380,7 @@ trial_text = visual.TextStim(win=win, name='trial_text',
 fishOnLeft = visual.ImageStim(
     win=win,
     name='fishOnLeft', 
-    image='default.png', mask=None, anchor='center',
+    image='sin', mask=None, anchor='center',
     ori=0, pos=(-0.15, 0), size=None,
     color=[1,1,1], colorSpace='rgb', opacity=1,
     flipHoriz=False, flipVert=False,
@@ -390,7 +388,7 @@ fishOnLeft = visual.ImageStim(
 fishOnRight = visual.ImageStim(
     win=win,
     name='fishOnRight', 
-    image='default.png', mask=None, anchor='center',
+    image='sin', mask=None, anchor='center',
     ori=0, pos=(+0.2, 0), size=None,
     color=[1,1,1], colorSpace='rgb', opacity=1,
     flipHoriz=False, flipVert=False,
@@ -401,7 +399,7 @@ trial_response = keyboard.Keyboard()
 FB2_face = visual.ImageStim(
     win=win,
     name='FB2_face', 
-    image='default.png', mask=None, anchor='center',
+    image='sin', mask=None, anchor='center',
     ori=0, pos=(0, 0.45), size=None,
     color=[1,1,1], colorSpace='rgb', opacity=1,
     flipHoriz=False, flipVert=False,
@@ -417,7 +415,7 @@ FB2_Circle = visual.ImageStim(
 FB1_leftFish = visual.ImageStim(
     win=win,
     name='FB1_leftFish', 
-    image='default.png', mask=None, anchor='center',
+    image='sin', mask=None, anchor='center',
     ori=0, pos=(-0.15, 0), size=None,
     color=[1,1,1], colorSpace='rgb', opacity=1,
     flipHoriz=False, flipVert=False,
@@ -425,7 +423,7 @@ FB1_leftFish = visual.ImageStim(
 FB1_rightFish = visual.ImageStim(
     win=win,
     name='FB1_rightFish', 
-    image='default.png', mask=None, anchor='center',
+    image='sin', mask=None, anchor='center',
     ori=0, pos=(+0.2, 0), size=None,
     color=[1,1,1], colorSpace='rgb', opacity=1,
     flipHoriz=False, flipVert=False,
@@ -433,7 +431,7 @@ FB1_rightFish = visual.ImageStim(
 FB1_text = visual.ImageStim(
     win=win,
     name='FB1_text', 
-    image='default.png', mask=None, anchor='center',
+    image='sin', mask=None, anchor='center',
     ori=0, pos=(0, -0.3), size=None,
     color=[1,1,1], colorSpace='rgb', opacity=1,
     flipHoriz=False, flipVert=False,
@@ -445,7 +443,7 @@ FB1_text = visual.ImageStim(
 trial_face = visual.ImageStim(
     win=win,
     name='trial_face', 
-    image='default.png', mask=None, anchor='center',
+    image='sin', mask=None, anchor='center',
     ori=0, pos=(0, 0.45), size=None,
     color=[1,1,1], colorSpace='rgb', opacity=1,
     flipHoriz=False, flipVert=False,
@@ -460,7 +458,7 @@ trial_text = visual.TextStim(win=win, name='trial_text',
 fishOnLeft = visual.ImageStim(
     win=win,
     name='fishOnLeft', 
-    image='default.png', mask=None, anchor='center',
+    image='sin', mask=None, anchor='center',
     ori=0, pos=(-0.15, 0), size=None,
     color=[1,1,1], colorSpace='rgb', opacity=1,
     flipHoriz=False, flipVert=False,
@@ -468,7 +466,7 @@ fishOnLeft = visual.ImageStim(
 fishOnRight = visual.ImageStim(
     win=win,
     name='fishOnRight', 
-    image='default.png', mask=None, anchor='center',
+    image='sin', mask=None, anchor='center',
     ori=0, pos=(+0.2, 0), size=None,
     color=[1,1,1], colorSpace='rgb', opacity=1,
     flipHoriz=False, flipVert=False,
@@ -479,7 +477,7 @@ trial_response = keyboard.Keyboard()
 FB2_face_2 = visual.ImageStim(
     win=win,
     name='FB2_face_2', 
-    image='default.png', mask=None, anchor='center',
+    image='sin', mask=None, anchor='center',
     ori=0, pos=(0, 0.45), size=None,
     color=[1,1,1], colorSpace='rgb', opacity=1,
     flipHoriz=False, flipVert=False,
@@ -495,7 +493,7 @@ FB2_Circle_2 = visual.ImageStim(
 FB2_leftFish = visual.ImageStim(
     win=win,
     name='FB2_leftFish', 
-    image='default.png', mask=None, anchor='center',
+    image='sin', mask=None, anchor='center',
     ori=0, pos=(-0.15, 0), size=None,
     color=[1,1,1], colorSpace='rgb', opacity=1,
     flipHoriz=False, flipVert=False,
@@ -503,7 +501,7 @@ FB2_leftFish = visual.ImageStim(
 FB2_rightFish = visual.ImageStim(
     win=win,
     name='FB2_rightFish', 
-    image='default.png', mask=None, anchor='center',
+    image='sin', mask=None, anchor='center',
     ori=0, pos=(+0.2, 0), size=None,
     color=[1,1,1], colorSpace='rgb', opacity=1,
     flipHoriz=False, flipVert=False,
@@ -511,7 +509,7 @@ FB2_rightFish = visual.ImageStim(
 FB2_text = visual.ImageStim(
     win=win,
     name='FB2_text', 
-    image='default.png', mask=None, anchor='center',
+    image='sin', mask=None, anchor='center',
     ori=0, pos=(0, -0.3), size=None,
     color=[1,1,1], colorSpace='rgb', opacity=1,
     flipHoriz=False, flipVert=False,
@@ -523,7 +521,7 @@ FB2_text = visual.ImageStim(
 trial_face = visual.ImageStim(
     win=win,
     name='trial_face', 
-    image='default.png', mask=None, anchor='center',
+    image='sin', mask=None, anchor='center',
     ori=0, pos=(0, 0.45), size=None,
     color=[1,1,1], colorSpace='rgb', opacity=1,
     flipHoriz=False, flipVert=False,
@@ -538,7 +536,7 @@ trial_text = visual.TextStim(win=win, name='trial_text',
 fishOnLeft = visual.ImageStim(
     win=win,
     name='fishOnLeft', 
-    image='default.png', mask=None, anchor='center',
+    image='sin', mask=None, anchor='center',
     ori=0, pos=(-0.15, 0), size=None,
     color=[1,1,1], colorSpace='rgb', opacity=1,
     flipHoriz=False, flipVert=False,
@@ -546,7 +544,7 @@ fishOnLeft = visual.ImageStim(
 fishOnRight = visual.ImageStim(
     win=win,
     name='fishOnRight', 
-    image='default.png', mask=None, anchor='center',
+    image='sin', mask=None, anchor='center',
     ori=0, pos=(+0.2, 0), size=None,
     color=[1,1,1], colorSpace='rgb', opacity=1,
     flipHoriz=False, flipVert=False,
@@ -557,7 +555,7 @@ trial_response = keyboard.Keyboard()
 FB3_face = visual.ImageStim(
     win=win,
     name='FB3_face', 
-    image='default.png', mask=None, anchor='center',
+    image='sin', mask=None, anchor='center',
     ori=0, pos=(0, 0.45), size=None,
     color=[1,1,1], colorSpace='rgb', opacity=1,
     flipHoriz=False, flipVert=False,
@@ -573,7 +571,7 @@ FB3_Circle = visual.ImageStim(
 FB3_leftFish = visual.ImageStim(
     win=win,
     name='FB3_leftFish', 
-    image='default.png', mask=None, anchor='center',
+    image='sin', mask=None, anchor='center',
     ori=0, pos=(-0.15, 0), size=None,
     color=[1,1,1], colorSpace='rgb', opacity=1,
     flipHoriz=False, flipVert=False,
@@ -581,7 +579,7 @@ FB3_leftFish = visual.ImageStim(
 FB3_rightFish = visual.ImageStim(
     win=win,
     name='FB3_rightFish', 
-    image='default.png', mask=None, anchor='center',
+    image='sin', mask=None, anchor='center',
     ori=0, pos=(+0.2, 0), size=None,
     color=[1,1,1], colorSpace='rgb', opacity=1,
     flipHoriz=False, flipVert=False,
@@ -589,7 +587,7 @@ FB3_rightFish = visual.ImageStim(
 FB3_text = visual.ImageStim(
     win=win,
     name='FB3_text', 
-    image='default.png', mask=None, anchor='center',
+    image='sin', mask=None, anchor='center',
     ori=0, pos=(0, -0.3), size=None,
     color=[1,1,1], colorSpace='rgb', opacity=1,
     flipHoriz=False, flipVert=False,
@@ -658,7 +656,7 @@ test_instr_key = keyboard.Keyboard()
 trial_face = visual.ImageStim(
     win=win,
     name='trial_face', 
-    image='default.png', mask=None, anchor='center',
+    image='sin', mask=None, anchor='center',
     ori=0, pos=(0, 0.45), size=None,
     color=[1,1,1], colorSpace='rgb', opacity=1,
     flipHoriz=False, flipVert=False,
@@ -673,7 +671,7 @@ trial_text = visual.TextStim(win=win, name='trial_text',
 fishOnLeft = visual.ImageStim(
     win=win,
     name='fishOnLeft', 
-    image='default.png', mask=None, anchor='center',
+    image='sin', mask=None, anchor='center',
     ori=0, pos=(-0.15, 0), size=None,
     color=[1,1,1], colorSpace='rgb', opacity=1,
     flipHoriz=False, flipVert=False,
@@ -681,7 +679,7 @@ fishOnLeft = visual.ImageStim(
 fishOnRight = visual.ImageStim(
     win=win,
     name='fishOnRight', 
-    image='default.png', mask=None, anchor='center',
+    image='sin', mask=None, anchor='center',
     ori=0, pos=(+0.2, 0), size=None,
     color=[1,1,1], colorSpace='rgb', opacity=1,
     flipHoriz=False, flipVert=False,
@@ -692,7 +690,7 @@ trial_response = keyboard.Keyboard()
 noFB_face = visual.ImageStim(
     win=win,
     name='noFB_face', 
-    image='default.png', mask=None, anchor='center',
+    image='sin', mask=None, anchor='center',
     ori=0, pos=(0, 0.45), size=None,
     color=[1,1,1], colorSpace='rgb', opacity=1,
     flipHoriz=False, flipVert=False,
@@ -708,7 +706,7 @@ noFB_Circle = visual.ImageStim(
 noFB_leftFish = visual.ImageStim(
     win=win,
     name='noFB_leftFish', 
-    image='default.png', mask=None, anchor='center',
+    image='sin', mask=None, anchor='center',
     ori=0, pos=(-0.15, 0), size=None,
     color=[1,1,1], colorSpace='rgb', opacity=1,
     flipHoriz=False, flipVert=False,
@@ -716,7 +714,7 @@ noFB_leftFish = visual.ImageStim(
 noFB_rightFish = visual.ImageStim(
     win=win,
     name='noFB_rightFish', 
-    image='default.png', mask=None, anchor='center',
+    image='sin', mask=None, anchor='center',
     ori=0, pos=(+0.2, 0), size=None,
     color=[1,1,1], colorSpace='rgb', opacity=1,
     flipHoriz=False, flipVert=False,
@@ -766,6 +764,7 @@ routineTimer = core.Clock()  # to track time remaining of each (possibly non-sli
 
 # --- Prepare to start Routine "startup" ---
 continueRoutine = True
+routineForceEnded = False
 # update component parameters for each repeat
 conditions_key.keys = []
 conditions_key.rt = []
@@ -822,7 +821,6 @@ _timeToFirstFrame = win.getFutureFlipTime(clock="now")
 frameN = -1
 
 # --- Run Routine "startup" ---
-routineForceEnded = not continueRoutine
 while continueRoutine:
     # get current time
     t = routineTimer.getTime()
@@ -832,8 +830,6 @@ while continueRoutine:
     # update/draw components on each frame
     
     # *License_And_Terms* updates
-    
-    # if License_And_Terms is starting this frame...
     if License_And_Terms.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
         # keep track of start time/frame for later
         License_And_Terms.frameNStart = frameN  # exact frame index
@@ -842,26 +838,16 @@ while continueRoutine:
         win.timeOnFlip(License_And_Terms, 'tStartRefresh')  # time at next scr refresh
         # add timestamp to datafile
         thisExp.timestampOnFlip(win, 'License_And_Terms.started')
-        # update status
-        License_And_Terms.status = STARTED
         License_And_Terms.setAutoDraw(True)
-    
-    # if License_And_Terms is active this frame...
-    if License_And_Terms.status == STARTED:
-        # update params
-        pass
     
     # *conditions_key* updates
     waitOnFlip = False
-    
-    # if conditions_key is starting this frame...
     if conditions_key.status == NOT_STARTED and tThisFlip >= 0.25-frameTolerance:
         # keep track of start time/frame for later
         conditions_key.frameNStart = frameN  # exact frame index
         conditions_key.tStart = t  # local t and not account for scr refresh
         conditions_key.tStartRefresh = tThisFlipGlobal  # on global time
         win.timeOnFlip(conditions_key, 'tStartRefresh')  # time at next scr refresh
-        # update status
         conditions_key.status = STARTED
         # keyboard checking is just starting
         waitOnFlip = True
@@ -879,8 +865,6 @@ while continueRoutine:
     # check for quit (typically the Esc key)
     if endExpNow or defaultKeyboard.getKeys(keyList=["escape"]):
         core.quit()
-        if eyetracker:
-            eyetracker.setConnectionState(False)
     
     # check if all components have finished
     if not continueRoutine:  # a component has requested a forced-end of Routine
@@ -905,6 +889,7 @@ routineTimer.reset()
 
 # --- Prepare to start Routine "train_instr" ---
 continueRoutine = True
+routineForceEnded = False
 # update component parameters for each repeat
 train_instr_key.keys = []
 train_instr_key.rt = []
@@ -948,7 +933,6 @@ _timeToFirstFrame = win.getFutureFlipTime(clock="now")
 frameN = -1
 
 # --- Run Routine "train_instr" ---
-routineForceEnded = not continueRoutine
 while continueRoutine:
     # get current time
     t = routineTimer.getTime()
@@ -958,34 +942,22 @@ while continueRoutine:
     # update/draw components on each frame
     
     # *train_instructions_text* updates
-    
-    # if train_instructions_text is starting this frame...
     if train_instructions_text.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
         # keep track of start time/frame for later
         train_instructions_text.frameNStart = frameN  # exact frame index
         train_instructions_text.tStart = t  # local t and not account for scr refresh
         train_instructions_text.tStartRefresh = tThisFlipGlobal  # on global time
         win.timeOnFlip(train_instructions_text, 'tStartRefresh')  # time at next scr refresh
-        # update status
-        train_instructions_text.status = STARTED
         train_instructions_text.setAutoDraw(True)
-    
-    # if train_instructions_text is active this frame...
-    if train_instructions_text.status == STARTED:
-        # update params
-        pass
     
     # *train_instr_key* updates
     waitOnFlip = False
-    
-    # if train_instr_key is starting this frame...
     if train_instr_key.status == NOT_STARTED and tThisFlip >= 0.25-frameTolerance:
         # keep track of start time/frame for later
         train_instr_key.frameNStart = frameN  # exact frame index
         train_instr_key.tStart = t  # local t and not account for scr refresh
         train_instr_key.tStartRefresh = tThisFlipGlobal  # on global time
         win.timeOnFlip(train_instr_key, 'tStartRefresh')  # time at next scr refresh
-        # update status
         train_instr_key.status = STARTED
         # keyboard checking is just starting
         waitOnFlip = True
@@ -1003,8 +975,6 @@ while continueRoutine:
     # check for quit (typically the Esc key)
     if endExpNow or defaultKeyboard.getKeys(keyList=["escape"]):
         core.quit()
-        if eyetracker:
-            eyetracker.setConnectionState(False)
     
     # check if all components have finished
     if not continueRoutine:  # a component has requested a forced-end of Routine
@@ -1048,6 +1018,7 @@ for thisTrials1 in trials1:
     
     # --- Prepare to start Routine "runTrial" ---
     continueRoutine = True
+    routineForceEnded = False
     # update component parameters for each repeat
     # Run 'Begin Routine' code from code_3
     myFaceFileName= "fishPix/"+face+".png"
@@ -1074,7 +1045,6 @@ for thisTrials1 in trials1:
     frameN = -1
     
     # --- Run Routine "runTrial" ---
-    routineForceEnded = not continueRoutine
     while continueRoutine:
         # get current time
         t = routineTimer.getTime()
@@ -1084,88 +1054,49 @@ for thisTrials1 in trials1:
         # update/draw components on each frame
         
         # *trial_face* updates
-        
-        # if trial_face is starting this frame...
         if trial_face.status == NOT_STARTED and tThisFlip >= 0.1-frameTolerance:
             # keep track of start time/frame for later
             trial_face.frameNStart = frameN  # exact frame index
             trial_face.tStart = t  # local t and not account for scr refresh
             trial_face.tStartRefresh = tThisFlipGlobal  # on global time
             win.timeOnFlip(trial_face, 'tStartRefresh')  # time at next scr refresh
-            # update status
-            trial_face.status = STARTED
             trial_face.setAutoDraw(True)
         
-        # if trial_face is active this frame...
-        if trial_face.status == STARTED:
-            # update params
-            pass
-        
         # *trial_text* updates
-        
-        # if trial_text is starting this frame...
         if trial_text.status == NOT_STARTED and tThisFlip >= 0.25-frameTolerance:
             # keep track of start time/frame for later
             trial_text.frameNStart = frameN  # exact frame index
             trial_text.tStart = t  # local t and not account for scr refresh
             trial_text.tStartRefresh = tThisFlipGlobal  # on global time
             win.timeOnFlip(trial_text, 'tStartRefresh')  # time at next scr refresh
-            # update status
-            trial_text.status = STARTED
             trial_text.setAutoDraw(True)
         
-        # if trial_text is active this frame...
-        if trial_text.status == STARTED:
-            # update params
-            pass
-        
         # *fishOnLeft* updates
-        
-        # if fishOnLeft is starting this frame...
         if fishOnLeft.status == NOT_STARTED and tThisFlip >= .25-frameTolerance:
             # keep track of start time/frame for later
             fishOnLeft.frameNStart = frameN  # exact frame index
             fishOnLeft.tStart = t  # local t and not account for scr refresh
             fishOnLeft.tStartRefresh = tThisFlipGlobal  # on global time
             win.timeOnFlip(fishOnLeft, 'tStartRefresh')  # time at next scr refresh
-            # update status
-            fishOnLeft.status = STARTED
             fishOnLeft.setAutoDraw(True)
         
-        # if fishOnLeft is active this frame...
-        if fishOnLeft.status == STARTED:
-            # update params
-            pass
-        
         # *fishOnRight* updates
-        
-        # if fishOnRight is starting this frame...
         if fishOnRight.status == NOT_STARTED and tThisFlip >= 0.25-frameTolerance:
             # keep track of start time/frame for later
             fishOnRight.frameNStart = frameN  # exact frame index
             fishOnRight.tStart = t  # local t and not account for scr refresh
             fishOnRight.tStartRefresh = tThisFlipGlobal  # on global time
             win.timeOnFlip(fishOnRight, 'tStartRefresh')  # time at next scr refresh
-            # update status
-            fishOnRight.status = STARTED
             fishOnRight.setAutoDraw(True)
-        
-        # if fishOnRight is active this frame...
-        if fishOnRight.status == STARTED:
-            # update params
-            pass
         
         # *trial_response* updates
         waitOnFlip = False
-        
-        # if trial_response is starting this frame...
         if trial_response.status == NOT_STARTED and tThisFlip >= 0.5-frameTolerance:
             # keep track of start time/frame for later
             trial_response.frameNStart = frameN  # exact frame index
             trial_response.tStart = t  # local t and not account for scr refresh
             trial_response.tStartRefresh = tThisFlipGlobal  # on global time
             win.timeOnFlip(trial_response, 'tStartRefresh')  # time at next scr refresh
-            # update status
             trial_response.status = STARTED
             # keyboard checking is just starting
             waitOnFlip = True
@@ -1183,8 +1114,6 @@ for thisTrials1 in trials1:
         # check for quit (typically the Esc key)
         if endExpNow or defaultKeyboard.getKeys(keyList=["escape"]):
             core.quit()
-            if eyetracker:
-                eyetracker.setConnectionState(False)
         
         # check if all components have finished
         if not continueRoutine:  # a component has requested a forced-end of Routine
@@ -1295,6 +1224,7 @@ for thisTrials1 in trials1:
     
     # --- Prepare to start Routine "doFB1" ---
     continueRoutine = True
+    routineForceEnded = False
     # update component parameters for each repeat
     FB2_face.setImage(myFaceFileName)
     FB2_Circle.setPos([myCircleHoriz, myCircleVert])
@@ -1316,7 +1246,6 @@ for thisTrials1 in trials1:
     frameN = -1
     
     # --- Run Routine "doFB1" ---
-    routineForceEnded = not continueRoutine
     while continueRoutine:
         # get current time
         t = routineTimer.getTime()
@@ -1326,155 +1255,88 @@ for thisTrials1 in trials1:
         # update/draw components on each frame
         
         # *FB2_face* updates
-        
-        # if FB2_face is starting this frame...
         if FB2_face.status == NOT_STARTED and tThisFlip >= 0-frameTolerance:
             # keep track of start time/frame for later
             FB2_face.frameNStart = frameN  # exact frame index
             FB2_face.tStart = t  # local t and not account for scr refresh
             FB2_face.tStartRefresh = tThisFlipGlobal  # on global time
             win.timeOnFlip(FB2_face, 'tStartRefresh')  # time at next scr refresh
-            # update status
-            FB2_face.status = STARTED
             FB2_face.setAutoDraw(True)
-        
-        # if FB2_face is active this frame...
-        if FB2_face.status == STARTED:
-            # update params
-            pass
-        
-        # if FB2_face is stopping this frame...
         if FB2_face.status == STARTED:
             # is it time to stop? (based on global clock, using actual start)
             if tThisFlipGlobal > FB2_face.tStartRefresh + myISIduration-frameTolerance:
                 # keep track of stop time/frame for later
                 FB2_face.tStop = t  # not accounting for scr refresh
                 FB2_face.frameNStop = frameN  # exact frame index
-                # update status
-                FB2_face.status = FINISHED
                 FB2_face.setAutoDraw(False)
         
         # *FB2_Circle* updates
-        
-        # if FB2_Circle is starting this frame...
         if FB2_Circle.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
             # keep track of start time/frame for later
             FB2_Circle.frameNStart = frameN  # exact frame index
             FB2_Circle.tStart = t  # local t and not account for scr refresh
             FB2_Circle.tStartRefresh = tThisFlipGlobal  # on global time
             win.timeOnFlip(FB2_Circle, 'tStartRefresh')  # time at next scr refresh
-            # update status
-            FB2_Circle.status = STARTED
             FB2_Circle.setAutoDraw(True)
-        
-        # if FB2_Circle is active this frame...
-        if FB2_Circle.status == STARTED:
-            # update params
-            pass
-        
-        # if FB2_Circle is stopping this frame...
         if FB2_Circle.status == STARTED:
             # is it time to stop? (based on global clock, using actual start)
             if tThisFlipGlobal > FB2_Circle.tStartRefresh + myISIduration-frameTolerance:
                 # keep track of stop time/frame for later
                 FB2_Circle.tStop = t  # not accounting for scr refresh
                 FB2_Circle.frameNStop = frameN  # exact frame index
-                # update status
-                FB2_Circle.status = FINISHED
                 FB2_Circle.setAutoDraw(False)
         
         # *FB1_leftFish* updates
-        
-        # if FB1_leftFish is starting this frame...
         if FB1_leftFish.status == NOT_STARTED and tThisFlip >= 0-frameTolerance:
             # keep track of start time/frame for later
             FB1_leftFish.frameNStart = frameN  # exact frame index
             FB1_leftFish.tStart = t  # local t and not account for scr refresh
             FB1_leftFish.tStartRefresh = tThisFlipGlobal  # on global time
             win.timeOnFlip(FB1_leftFish, 'tStartRefresh')  # time at next scr refresh
-            # update status
-            FB1_leftFish.status = STARTED
             FB1_leftFish.setAutoDraw(True)
-        
-        # if FB1_leftFish is active this frame...
-        if FB1_leftFish.status == STARTED:
-            # update params
-            pass
-        
-        # if FB1_leftFish is stopping this frame...
         if FB1_leftFish.status == STARTED:
             # is it time to stop? (based on global clock, using actual start)
             if tThisFlipGlobal > FB1_leftFish.tStartRefresh + myISIduration-frameTolerance:
                 # keep track of stop time/frame for later
                 FB1_leftFish.tStop = t  # not accounting for scr refresh
                 FB1_leftFish.frameNStop = frameN  # exact frame index
-                # update status
-                FB1_leftFish.status = FINISHED
                 FB1_leftFish.setAutoDraw(False)
         
         # *FB1_rightFish* updates
-        
-        # if FB1_rightFish is starting this frame...
         if FB1_rightFish.status == NOT_STARTED and tThisFlip >= 0-frameTolerance:
             # keep track of start time/frame for later
             FB1_rightFish.frameNStart = frameN  # exact frame index
             FB1_rightFish.tStart = t  # local t and not account for scr refresh
             FB1_rightFish.tStartRefresh = tThisFlipGlobal  # on global time
             win.timeOnFlip(FB1_rightFish, 'tStartRefresh')  # time at next scr refresh
-            # update status
-            FB1_rightFish.status = STARTED
             FB1_rightFish.setAutoDraw(True)
-        
-        # if FB1_rightFish is active this frame...
-        if FB1_rightFish.status == STARTED:
-            # update params
-            pass
-        
-        # if FB1_rightFish is stopping this frame...
         if FB1_rightFish.status == STARTED:
             # is it time to stop? (based on global clock, using actual start)
             if tThisFlipGlobal > FB1_rightFish.tStartRefresh + myISIduration-frameTolerance:
                 # keep track of stop time/frame for later
                 FB1_rightFish.tStop = t  # not accounting for scr refresh
                 FB1_rightFish.frameNStop = frameN  # exact frame index
-                # update status
-                FB1_rightFish.status = FINISHED
                 FB1_rightFish.setAutoDraw(False)
         
         # *FB1_text* updates
-        
-        # if FB1_text is starting this frame...
         if FB1_text.status == NOT_STARTED and tThisFlip >= 0-frameTolerance:
             # keep track of start time/frame for later
             FB1_text.frameNStart = frameN  # exact frame index
             FB1_text.tStart = t  # local t and not account for scr refresh
             FB1_text.tStartRefresh = tThisFlipGlobal  # on global time
             win.timeOnFlip(FB1_text, 'tStartRefresh')  # time at next scr refresh
-            # update status
-            FB1_text.status = STARTED
             FB1_text.setAutoDraw(True)
-        
-        # if FB1_text is active this frame...
-        if FB1_text.status == STARTED:
-            # update params
-            pass
-        
-        # if FB1_text is stopping this frame...
         if FB1_text.status == STARTED:
             # is it time to stop? (based on global clock, using actual start)
             if tThisFlipGlobal > FB1_text.tStartRefresh + myISIduration-frameTolerance:
                 # keep track of stop time/frame for later
                 FB1_text.tStop = t  # not accounting for scr refresh
                 FB1_text.frameNStop = frameN  # exact frame index
-                # update status
-                FB1_text.status = FINISHED
                 FB1_text.setAutoDraw(False)
         
         # check for quit (typically the Esc key)
         if endExpNow or defaultKeyboard.getKeys(keyList=["escape"]):
             core.quit()
-            if eyetracker:
-                eyetracker.setConnectionState(False)
         
         # check if all components have finished
         if not continueRoutine:  # a component has requested a forced-end of Routine
@@ -1509,6 +1371,7 @@ for thisTrials1 in trials1:
 
 # --- Prepare to start Routine "next_stage" ---
 continueRoutine = True
+routineForceEnded = False
 # update component parameters for each repeat
 # Run 'Begin Routine' code from code_4
 CriterionReached=False
@@ -1541,7 +1404,6 @@ _timeToFirstFrame = win.getFutureFlipTime(clock="now")
 frameN = -1
 
 # --- Run Routine "next_stage" ---
-routineForceEnded = not continueRoutine
 while continueRoutine:
     # get current time
     t = routineTimer.getTime()
@@ -1553,8 +1415,6 @@ while continueRoutine:
     # check for quit (typically the Esc key)
     if endExpNow or defaultKeyboard.getKeys(keyList=["escape"]):
         core.quit()
-        if eyetracker:
-            eyetracker.setConnectionState(False)
     
     # check if all components have finished
     if not continueRoutine:  # a component has requested a forced-end of Routine
@@ -1598,6 +1458,7 @@ for thisTrials2 in trials2:
     
     # --- Prepare to start Routine "runTrial" ---
     continueRoutine = True
+    routineForceEnded = False
     # update component parameters for each repeat
     # Run 'Begin Routine' code from code_3
     myFaceFileName= "fishPix/"+face+".png"
@@ -1624,7 +1485,6 @@ for thisTrials2 in trials2:
     frameN = -1
     
     # --- Run Routine "runTrial" ---
-    routineForceEnded = not continueRoutine
     while continueRoutine:
         # get current time
         t = routineTimer.getTime()
@@ -1634,88 +1494,49 @@ for thisTrials2 in trials2:
         # update/draw components on each frame
         
         # *trial_face* updates
-        
-        # if trial_face is starting this frame...
         if trial_face.status == NOT_STARTED and tThisFlip >= 0.1-frameTolerance:
             # keep track of start time/frame for later
             trial_face.frameNStart = frameN  # exact frame index
             trial_face.tStart = t  # local t and not account for scr refresh
             trial_face.tStartRefresh = tThisFlipGlobal  # on global time
             win.timeOnFlip(trial_face, 'tStartRefresh')  # time at next scr refresh
-            # update status
-            trial_face.status = STARTED
             trial_face.setAutoDraw(True)
         
-        # if trial_face is active this frame...
-        if trial_face.status == STARTED:
-            # update params
-            pass
-        
         # *trial_text* updates
-        
-        # if trial_text is starting this frame...
         if trial_text.status == NOT_STARTED and tThisFlip >= 0.25-frameTolerance:
             # keep track of start time/frame for later
             trial_text.frameNStart = frameN  # exact frame index
             trial_text.tStart = t  # local t and not account for scr refresh
             trial_text.tStartRefresh = tThisFlipGlobal  # on global time
             win.timeOnFlip(trial_text, 'tStartRefresh')  # time at next scr refresh
-            # update status
-            trial_text.status = STARTED
             trial_text.setAutoDraw(True)
         
-        # if trial_text is active this frame...
-        if trial_text.status == STARTED:
-            # update params
-            pass
-        
         # *fishOnLeft* updates
-        
-        # if fishOnLeft is starting this frame...
         if fishOnLeft.status == NOT_STARTED and tThisFlip >= .25-frameTolerance:
             # keep track of start time/frame for later
             fishOnLeft.frameNStart = frameN  # exact frame index
             fishOnLeft.tStart = t  # local t and not account for scr refresh
             fishOnLeft.tStartRefresh = tThisFlipGlobal  # on global time
             win.timeOnFlip(fishOnLeft, 'tStartRefresh')  # time at next scr refresh
-            # update status
-            fishOnLeft.status = STARTED
             fishOnLeft.setAutoDraw(True)
         
-        # if fishOnLeft is active this frame...
-        if fishOnLeft.status == STARTED:
-            # update params
-            pass
-        
         # *fishOnRight* updates
-        
-        # if fishOnRight is starting this frame...
         if fishOnRight.status == NOT_STARTED and tThisFlip >= 0.25-frameTolerance:
             # keep track of start time/frame for later
             fishOnRight.frameNStart = frameN  # exact frame index
             fishOnRight.tStart = t  # local t and not account for scr refresh
             fishOnRight.tStartRefresh = tThisFlipGlobal  # on global time
             win.timeOnFlip(fishOnRight, 'tStartRefresh')  # time at next scr refresh
-            # update status
-            fishOnRight.status = STARTED
             fishOnRight.setAutoDraw(True)
-        
-        # if fishOnRight is active this frame...
-        if fishOnRight.status == STARTED:
-            # update params
-            pass
         
         # *trial_response* updates
         waitOnFlip = False
-        
-        # if trial_response is starting this frame...
         if trial_response.status == NOT_STARTED and tThisFlip >= 0.5-frameTolerance:
             # keep track of start time/frame for later
             trial_response.frameNStart = frameN  # exact frame index
             trial_response.tStart = t  # local t and not account for scr refresh
             trial_response.tStartRefresh = tThisFlipGlobal  # on global time
             win.timeOnFlip(trial_response, 'tStartRefresh')  # time at next scr refresh
-            # update status
             trial_response.status = STARTED
             # keyboard checking is just starting
             waitOnFlip = True
@@ -1733,8 +1554,6 @@ for thisTrials2 in trials2:
         # check for quit (typically the Esc key)
         if endExpNow or defaultKeyboard.getKeys(keyList=["escape"]):
             core.quit()
-            if eyetracker:
-                eyetracker.setConnectionState(False)
         
         # check if all components have finished
         if not continueRoutine:  # a component has requested a forced-end of Routine
@@ -1845,6 +1664,7 @@ for thisTrials2 in trials2:
     
     # --- Prepare to start Routine "doFB2" ---
     continueRoutine = True
+    routineForceEnded = False
     # update component parameters for each repeat
     FB2_face_2.setImage(myFaceFileName)
     FB2_Circle_2.setPos([myCircleHoriz, myCircleVert])
@@ -1866,7 +1686,6 @@ for thisTrials2 in trials2:
     frameN = -1
     
     # --- Run Routine "doFB2" ---
-    routineForceEnded = not continueRoutine
     while continueRoutine:
         # get current time
         t = routineTimer.getTime()
@@ -1876,155 +1695,88 @@ for thisTrials2 in trials2:
         # update/draw components on each frame
         
         # *FB2_face_2* updates
-        
-        # if FB2_face_2 is starting this frame...
         if FB2_face_2.status == NOT_STARTED and tThisFlip >= 0-frameTolerance:
             # keep track of start time/frame for later
             FB2_face_2.frameNStart = frameN  # exact frame index
             FB2_face_2.tStart = t  # local t and not account for scr refresh
             FB2_face_2.tStartRefresh = tThisFlipGlobal  # on global time
             win.timeOnFlip(FB2_face_2, 'tStartRefresh')  # time at next scr refresh
-            # update status
-            FB2_face_2.status = STARTED
             FB2_face_2.setAutoDraw(True)
-        
-        # if FB2_face_2 is active this frame...
-        if FB2_face_2.status == STARTED:
-            # update params
-            pass
-        
-        # if FB2_face_2 is stopping this frame...
         if FB2_face_2.status == STARTED:
             # is it time to stop? (based on global clock, using actual start)
             if tThisFlipGlobal > FB2_face_2.tStartRefresh + myISIduration-frameTolerance:
                 # keep track of stop time/frame for later
                 FB2_face_2.tStop = t  # not accounting for scr refresh
                 FB2_face_2.frameNStop = frameN  # exact frame index
-                # update status
-                FB2_face_2.status = FINISHED
                 FB2_face_2.setAutoDraw(False)
         
         # *FB2_Circle_2* updates
-        
-        # if FB2_Circle_2 is starting this frame...
         if FB2_Circle_2.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
             # keep track of start time/frame for later
             FB2_Circle_2.frameNStart = frameN  # exact frame index
             FB2_Circle_2.tStart = t  # local t and not account for scr refresh
             FB2_Circle_2.tStartRefresh = tThisFlipGlobal  # on global time
             win.timeOnFlip(FB2_Circle_2, 'tStartRefresh')  # time at next scr refresh
-            # update status
-            FB2_Circle_2.status = STARTED
             FB2_Circle_2.setAutoDraw(True)
-        
-        # if FB2_Circle_2 is active this frame...
-        if FB2_Circle_2.status == STARTED:
-            # update params
-            pass
-        
-        # if FB2_Circle_2 is stopping this frame...
         if FB2_Circle_2.status == STARTED:
             # is it time to stop? (based on global clock, using actual start)
             if tThisFlipGlobal > FB2_Circle_2.tStartRefresh + myISIduration-frameTolerance:
                 # keep track of stop time/frame for later
                 FB2_Circle_2.tStop = t  # not accounting for scr refresh
                 FB2_Circle_2.frameNStop = frameN  # exact frame index
-                # update status
-                FB2_Circle_2.status = FINISHED
                 FB2_Circle_2.setAutoDraw(False)
         
         # *FB2_leftFish* updates
-        
-        # if FB2_leftFish is starting this frame...
         if FB2_leftFish.status == NOT_STARTED and tThisFlip >= 0-frameTolerance:
             # keep track of start time/frame for later
             FB2_leftFish.frameNStart = frameN  # exact frame index
             FB2_leftFish.tStart = t  # local t and not account for scr refresh
             FB2_leftFish.tStartRefresh = tThisFlipGlobal  # on global time
             win.timeOnFlip(FB2_leftFish, 'tStartRefresh')  # time at next scr refresh
-            # update status
-            FB2_leftFish.status = STARTED
             FB2_leftFish.setAutoDraw(True)
-        
-        # if FB2_leftFish is active this frame...
-        if FB2_leftFish.status == STARTED:
-            # update params
-            pass
-        
-        # if FB2_leftFish is stopping this frame...
         if FB2_leftFish.status == STARTED:
             # is it time to stop? (based on global clock, using actual start)
             if tThisFlipGlobal > FB2_leftFish.tStartRefresh + myISIduration-frameTolerance:
                 # keep track of stop time/frame for later
                 FB2_leftFish.tStop = t  # not accounting for scr refresh
                 FB2_leftFish.frameNStop = frameN  # exact frame index
-                # update status
-                FB2_leftFish.status = FINISHED
                 FB2_leftFish.setAutoDraw(False)
         
         # *FB2_rightFish* updates
-        
-        # if FB2_rightFish is starting this frame...
         if FB2_rightFish.status == NOT_STARTED and tThisFlip >= 0-frameTolerance:
             # keep track of start time/frame for later
             FB2_rightFish.frameNStart = frameN  # exact frame index
             FB2_rightFish.tStart = t  # local t and not account for scr refresh
             FB2_rightFish.tStartRefresh = tThisFlipGlobal  # on global time
             win.timeOnFlip(FB2_rightFish, 'tStartRefresh')  # time at next scr refresh
-            # update status
-            FB2_rightFish.status = STARTED
             FB2_rightFish.setAutoDraw(True)
-        
-        # if FB2_rightFish is active this frame...
-        if FB2_rightFish.status == STARTED:
-            # update params
-            pass
-        
-        # if FB2_rightFish is stopping this frame...
         if FB2_rightFish.status == STARTED:
             # is it time to stop? (based on global clock, using actual start)
             if tThisFlipGlobal > FB2_rightFish.tStartRefresh + myISIduration-frameTolerance:
                 # keep track of stop time/frame for later
                 FB2_rightFish.tStop = t  # not accounting for scr refresh
                 FB2_rightFish.frameNStop = frameN  # exact frame index
-                # update status
-                FB2_rightFish.status = FINISHED
                 FB2_rightFish.setAutoDraw(False)
         
         # *FB2_text* updates
-        
-        # if FB2_text is starting this frame...
         if FB2_text.status == NOT_STARTED and tThisFlip >= 0-frameTolerance:
             # keep track of start time/frame for later
             FB2_text.frameNStart = frameN  # exact frame index
             FB2_text.tStart = t  # local t and not account for scr refresh
             FB2_text.tStartRefresh = tThisFlipGlobal  # on global time
             win.timeOnFlip(FB2_text, 'tStartRefresh')  # time at next scr refresh
-            # update status
-            FB2_text.status = STARTED
             FB2_text.setAutoDraw(True)
-        
-        # if FB2_text is active this frame...
-        if FB2_text.status == STARTED:
-            # update params
-            pass
-        
-        # if FB2_text is stopping this frame...
         if FB2_text.status == STARTED:
             # is it time to stop? (based on global clock, using actual start)
             if tThisFlipGlobal > FB2_text.tStartRefresh + myISIduration-frameTolerance:
                 # keep track of stop time/frame for later
                 FB2_text.tStop = t  # not accounting for scr refresh
                 FB2_text.frameNStop = frameN  # exact frame index
-                # update status
-                FB2_text.status = FINISHED
                 FB2_text.setAutoDraw(False)
         
         # check for quit (typically the Esc key)
         if endExpNow or defaultKeyboard.getKeys(keyList=["escape"]):
             core.quit()
-            if eyetracker:
-                eyetracker.setConnectionState(False)
         
         # check if all components have finished
         if not continueRoutine:  # a component has requested a forced-end of Routine
@@ -2059,6 +1811,7 @@ for thisTrials2 in trials2:
 
 # --- Prepare to start Routine "next_stage" ---
 continueRoutine = True
+routineForceEnded = False
 # update component parameters for each repeat
 # Run 'Begin Routine' code from code_4
 CriterionReached=False
@@ -2091,7 +1844,6 @@ _timeToFirstFrame = win.getFutureFlipTime(clock="now")
 frameN = -1
 
 # --- Run Routine "next_stage" ---
-routineForceEnded = not continueRoutine
 while continueRoutine:
     # get current time
     t = routineTimer.getTime()
@@ -2103,8 +1855,6 @@ while continueRoutine:
     # check for quit (typically the Esc key)
     if endExpNow or defaultKeyboard.getKeys(keyList=["escape"]):
         core.quit()
-        if eyetracker:
-            eyetracker.setConnectionState(False)
     
     # check if all components have finished
     if not continueRoutine:  # a component has requested a forced-end of Routine
@@ -2148,6 +1898,7 @@ for thisTrials3 in trials3:
     
     # --- Prepare to start Routine "runTrial" ---
     continueRoutine = True
+    routineForceEnded = False
     # update component parameters for each repeat
     # Run 'Begin Routine' code from code_3
     myFaceFileName= "fishPix/"+face+".png"
@@ -2174,7 +1925,6 @@ for thisTrials3 in trials3:
     frameN = -1
     
     # --- Run Routine "runTrial" ---
-    routineForceEnded = not continueRoutine
     while continueRoutine:
         # get current time
         t = routineTimer.getTime()
@@ -2184,88 +1934,49 @@ for thisTrials3 in trials3:
         # update/draw components on each frame
         
         # *trial_face* updates
-        
-        # if trial_face is starting this frame...
         if trial_face.status == NOT_STARTED and tThisFlip >= 0.1-frameTolerance:
             # keep track of start time/frame for later
             trial_face.frameNStart = frameN  # exact frame index
             trial_face.tStart = t  # local t and not account for scr refresh
             trial_face.tStartRefresh = tThisFlipGlobal  # on global time
             win.timeOnFlip(trial_face, 'tStartRefresh')  # time at next scr refresh
-            # update status
-            trial_face.status = STARTED
             trial_face.setAutoDraw(True)
         
-        # if trial_face is active this frame...
-        if trial_face.status == STARTED:
-            # update params
-            pass
-        
         # *trial_text* updates
-        
-        # if trial_text is starting this frame...
         if trial_text.status == NOT_STARTED and tThisFlip >= 0.25-frameTolerance:
             # keep track of start time/frame for later
             trial_text.frameNStart = frameN  # exact frame index
             trial_text.tStart = t  # local t and not account for scr refresh
             trial_text.tStartRefresh = tThisFlipGlobal  # on global time
             win.timeOnFlip(trial_text, 'tStartRefresh')  # time at next scr refresh
-            # update status
-            trial_text.status = STARTED
             trial_text.setAutoDraw(True)
         
-        # if trial_text is active this frame...
-        if trial_text.status == STARTED:
-            # update params
-            pass
-        
         # *fishOnLeft* updates
-        
-        # if fishOnLeft is starting this frame...
         if fishOnLeft.status == NOT_STARTED and tThisFlip >= .25-frameTolerance:
             # keep track of start time/frame for later
             fishOnLeft.frameNStart = frameN  # exact frame index
             fishOnLeft.tStart = t  # local t and not account for scr refresh
             fishOnLeft.tStartRefresh = tThisFlipGlobal  # on global time
             win.timeOnFlip(fishOnLeft, 'tStartRefresh')  # time at next scr refresh
-            # update status
-            fishOnLeft.status = STARTED
             fishOnLeft.setAutoDraw(True)
         
-        # if fishOnLeft is active this frame...
-        if fishOnLeft.status == STARTED:
-            # update params
-            pass
-        
         # *fishOnRight* updates
-        
-        # if fishOnRight is starting this frame...
         if fishOnRight.status == NOT_STARTED and tThisFlip >= 0.25-frameTolerance:
             # keep track of start time/frame for later
             fishOnRight.frameNStart = frameN  # exact frame index
             fishOnRight.tStart = t  # local t and not account for scr refresh
             fishOnRight.tStartRefresh = tThisFlipGlobal  # on global time
             win.timeOnFlip(fishOnRight, 'tStartRefresh')  # time at next scr refresh
-            # update status
-            fishOnRight.status = STARTED
             fishOnRight.setAutoDraw(True)
-        
-        # if fishOnRight is active this frame...
-        if fishOnRight.status == STARTED:
-            # update params
-            pass
         
         # *trial_response* updates
         waitOnFlip = False
-        
-        # if trial_response is starting this frame...
         if trial_response.status == NOT_STARTED and tThisFlip >= 0.5-frameTolerance:
             # keep track of start time/frame for later
             trial_response.frameNStart = frameN  # exact frame index
             trial_response.tStart = t  # local t and not account for scr refresh
             trial_response.tStartRefresh = tThisFlipGlobal  # on global time
             win.timeOnFlip(trial_response, 'tStartRefresh')  # time at next scr refresh
-            # update status
             trial_response.status = STARTED
             # keyboard checking is just starting
             waitOnFlip = True
@@ -2283,8 +1994,6 @@ for thisTrials3 in trials3:
         # check for quit (typically the Esc key)
         if endExpNow or defaultKeyboard.getKeys(keyList=["escape"]):
             core.quit()
-            if eyetracker:
-                eyetracker.setConnectionState(False)
         
         # check if all components have finished
         if not continueRoutine:  # a component has requested a forced-end of Routine
@@ -2395,6 +2104,7 @@ for thisTrials3 in trials3:
     
     # --- Prepare to start Routine "doFB3" ---
     continueRoutine = True
+    routineForceEnded = False
     # update component parameters for each repeat
     FB3_face.setImage(myFaceFileName)
     FB3_Circle.setPos([myCircleHoriz, myCircleVert])
@@ -2416,7 +2126,6 @@ for thisTrials3 in trials3:
     frameN = -1
     
     # --- Run Routine "doFB3" ---
-    routineForceEnded = not continueRoutine
     while continueRoutine:
         # get current time
         t = routineTimer.getTime()
@@ -2426,155 +2135,88 @@ for thisTrials3 in trials3:
         # update/draw components on each frame
         
         # *FB3_face* updates
-        
-        # if FB3_face is starting this frame...
         if FB3_face.status == NOT_STARTED and tThisFlip >= 0-frameTolerance:
             # keep track of start time/frame for later
             FB3_face.frameNStart = frameN  # exact frame index
             FB3_face.tStart = t  # local t and not account for scr refresh
             FB3_face.tStartRefresh = tThisFlipGlobal  # on global time
             win.timeOnFlip(FB3_face, 'tStartRefresh')  # time at next scr refresh
-            # update status
-            FB3_face.status = STARTED
             FB3_face.setAutoDraw(True)
-        
-        # if FB3_face is active this frame...
-        if FB3_face.status == STARTED:
-            # update params
-            pass
-        
-        # if FB3_face is stopping this frame...
         if FB3_face.status == STARTED:
             # is it time to stop? (based on global clock, using actual start)
             if tThisFlipGlobal > FB3_face.tStartRefresh + myISIduration-frameTolerance:
                 # keep track of stop time/frame for later
                 FB3_face.tStop = t  # not accounting for scr refresh
                 FB3_face.frameNStop = frameN  # exact frame index
-                # update status
-                FB3_face.status = FINISHED
                 FB3_face.setAutoDraw(False)
         
         # *FB3_Circle* updates
-        
-        # if FB3_Circle is starting this frame...
         if FB3_Circle.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
             # keep track of start time/frame for later
             FB3_Circle.frameNStart = frameN  # exact frame index
             FB3_Circle.tStart = t  # local t and not account for scr refresh
             FB3_Circle.tStartRefresh = tThisFlipGlobal  # on global time
             win.timeOnFlip(FB3_Circle, 'tStartRefresh')  # time at next scr refresh
-            # update status
-            FB3_Circle.status = STARTED
             FB3_Circle.setAutoDraw(True)
-        
-        # if FB3_Circle is active this frame...
-        if FB3_Circle.status == STARTED:
-            # update params
-            pass
-        
-        # if FB3_Circle is stopping this frame...
         if FB3_Circle.status == STARTED:
             # is it time to stop? (based on global clock, using actual start)
             if tThisFlipGlobal > FB3_Circle.tStartRefresh + myISIduration-frameTolerance:
                 # keep track of stop time/frame for later
                 FB3_Circle.tStop = t  # not accounting for scr refresh
                 FB3_Circle.frameNStop = frameN  # exact frame index
-                # update status
-                FB3_Circle.status = FINISHED
                 FB3_Circle.setAutoDraw(False)
         
         # *FB3_leftFish* updates
-        
-        # if FB3_leftFish is starting this frame...
         if FB3_leftFish.status == NOT_STARTED and tThisFlip >= 0-frameTolerance:
             # keep track of start time/frame for later
             FB3_leftFish.frameNStart = frameN  # exact frame index
             FB3_leftFish.tStart = t  # local t and not account for scr refresh
             FB3_leftFish.tStartRefresh = tThisFlipGlobal  # on global time
             win.timeOnFlip(FB3_leftFish, 'tStartRefresh')  # time at next scr refresh
-            # update status
-            FB3_leftFish.status = STARTED
             FB3_leftFish.setAutoDraw(True)
-        
-        # if FB3_leftFish is active this frame...
-        if FB3_leftFish.status == STARTED:
-            # update params
-            pass
-        
-        # if FB3_leftFish is stopping this frame...
         if FB3_leftFish.status == STARTED:
             # is it time to stop? (based on global clock, using actual start)
             if tThisFlipGlobal > FB3_leftFish.tStartRefresh + myISIduration-frameTolerance:
                 # keep track of stop time/frame for later
                 FB3_leftFish.tStop = t  # not accounting for scr refresh
                 FB3_leftFish.frameNStop = frameN  # exact frame index
-                # update status
-                FB3_leftFish.status = FINISHED
                 FB3_leftFish.setAutoDraw(False)
         
         # *FB3_rightFish* updates
-        
-        # if FB3_rightFish is starting this frame...
         if FB3_rightFish.status == NOT_STARTED and tThisFlip >= 0-frameTolerance:
             # keep track of start time/frame for later
             FB3_rightFish.frameNStart = frameN  # exact frame index
             FB3_rightFish.tStart = t  # local t and not account for scr refresh
             FB3_rightFish.tStartRefresh = tThisFlipGlobal  # on global time
             win.timeOnFlip(FB3_rightFish, 'tStartRefresh')  # time at next scr refresh
-            # update status
-            FB3_rightFish.status = STARTED
             FB3_rightFish.setAutoDraw(True)
-        
-        # if FB3_rightFish is active this frame...
-        if FB3_rightFish.status == STARTED:
-            # update params
-            pass
-        
-        # if FB3_rightFish is stopping this frame...
         if FB3_rightFish.status == STARTED:
             # is it time to stop? (based on global clock, using actual start)
             if tThisFlipGlobal > FB3_rightFish.tStartRefresh + myISIduration-frameTolerance:
                 # keep track of stop time/frame for later
                 FB3_rightFish.tStop = t  # not accounting for scr refresh
                 FB3_rightFish.frameNStop = frameN  # exact frame index
-                # update status
-                FB3_rightFish.status = FINISHED
                 FB3_rightFish.setAutoDraw(False)
         
         # *FB3_text* updates
-        
-        # if FB3_text is starting this frame...
         if FB3_text.status == NOT_STARTED and tThisFlip >= 0-frameTolerance:
             # keep track of start time/frame for later
             FB3_text.frameNStart = frameN  # exact frame index
             FB3_text.tStart = t  # local t and not account for scr refresh
             FB3_text.tStartRefresh = tThisFlipGlobal  # on global time
             win.timeOnFlip(FB3_text, 'tStartRefresh')  # time at next scr refresh
-            # update status
-            FB3_text.status = STARTED
             FB3_text.setAutoDraw(True)
-        
-        # if FB3_text is active this frame...
-        if FB3_text.status == STARTED:
-            # update params
-            pass
-        
-        # if FB3_text is stopping this frame...
         if FB3_text.status == STARTED:
             # is it time to stop? (based on global clock, using actual start)
             if tThisFlipGlobal > FB3_text.tStartRefresh + myISIduration-frameTolerance:
                 # keep track of stop time/frame for later
                 FB3_text.tStop = t  # not accounting for scr refresh
                 FB3_text.frameNStop = frameN  # exact frame index
-                # update status
-                FB3_text.status = FINISHED
                 FB3_text.setAutoDraw(False)
         
         # check for quit (typically the Esc key)
         if endExpNow or defaultKeyboard.getKeys(keyList=["escape"]):
             core.quit()
-            if eyetracker:
-                eyetracker.setConnectionState(False)
         
         # check if all components have finished
         if not continueRoutine:  # a component has requested a forced-end of Routine
@@ -2609,6 +2251,7 @@ for thisTrials3 in trials3:
 
 # --- Prepare to start Routine "test_instr" ---
 continueRoutine = True
+routineForceEnded = False
 # update component parameters for each repeat
 test_instr_key.keys = []
 test_instr_key.rt = []
@@ -2640,7 +2283,6 @@ _timeToFirstFrame = win.getFutureFlipTime(clock="now")
 frameN = -1
 
 # --- Run Routine "test_instr" ---
-routineForceEnded = not continueRoutine
 while continueRoutine:
     # get current time
     t = routineTimer.getTime()
@@ -2650,153 +2292,79 @@ while continueRoutine:
     # update/draw components on each frame
     
     # *test_text1* updates
-    
-    # if test_text1 is starting this frame...
     if test_text1.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
         # keep track of start time/frame for later
         test_text1.frameNStart = frameN  # exact frame index
         test_text1.tStart = t  # local t and not account for scr refresh
         test_text1.tStartRefresh = tThisFlipGlobal  # on global time
         win.timeOnFlip(test_text1, 'tStartRefresh')  # time at next scr refresh
-        # update status
-        test_text1.status = STARTED
         test_text1.setAutoDraw(True)
     
-    # if test_text1 is active this frame...
-    if test_text1.status == STARTED:
-        # update params
-        pass
-    
     # *test_text2* updates
-    
-    # if test_text2 is starting this frame...
     if test_text2.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
         # keep track of start time/frame for later
         test_text2.frameNStart = frameN  # exact frame index
         test_text2.tStart = t  # local t and not account for scr refresh
         test_text2.tStartRefresh = tThisFlipGlobal  # on global time
         win.timeOnFlip(test_text2, 'tStartRefresh')  # time at next scr refresh
-        # update status
-        test_text2.status = STARTED
         test_text2.setAutoDraw(True)
     
-    # if test_text2 is active this frame...
-    if test_text2.status == STARTED:
-        # update params
-        pass
-    
     # *test_text3* updates
-    
-    # if test_text3 is starting this frame...
     if test_text3.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
         # keep track of start time/frame for later
         test_text3.frameNStart = frameN  # exact frame index
         test_text3.tStart = t  # local t and not account for scr refresh
         test_text3.tStartRefresh = tThisFlipGlobal  # on global time
         win.timeOnFlip(test_text3, 'tStartRefresh')  # time at next scr refresh
-        # update status
-        test_text3.status = STARTED
         test_text3.setAutoDraw(True)
     
-    # if test_text3 is active this frame...
-    if test_text3.status == STARTED:
-        # update params
-        pass
-    
     # *test_text4* updates
-    
-    # if test_text4 is starting this frame...
     if test_text4.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
         # keep track of start time/frame for later
         test_text4.frameNStart = frameN  # exact frame index
         test_text4.tStart = t  # local t and not account for scr refresh
         test_text4.tStartRefresh = tThisFlipGlobal  # on global time
         win.timeOnFlip(test_text4, 'tStartRefresh')  # time at next scr refresh
-        # update status
-        test_text4.status = STARTED
         test_text4.setAutoDraw(True)
     
-    # if test_text4 is active this frame...
-    if test_text4.status == STARTED:
-        # update params
-        pass
-    
     # *test_text5* updates
-    
-    # if test_text5 is starting this frame...
     if test_text5.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
         # keep track of start time/frame for later
         test_text5.frameNStart = frameN  # exact frame index
         test_text5.tStart = t  # local t and not account for scr refresh
         test_text5.tStartRefresh = tThisFlipGlobal  # on global time
         win.timeOnFlip(test_text5, 'tStartRefresh')  # time at next scr refresh
-        # update status
-        test_text5.status = STARTED
         test_text5.setAutoDraw(True)
     
-    # if test_text5 is active this frame...
-    if test_text5.status == STARTED:
-        # update params
-        pass
-    
     # *test_text6* updates
-    
-    # if test_text6 is starting this frame...
     if test_text6.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
         # keep track of start time/frame for later
         test_text6.frameNStart = frameN  # exact frame index
         test_text6.tStart = t  # local t and not account for scr refresh
         test_text6.tStartRefresh = tThisFlipGlobal  # on global time
         win.timeOnFlip(test_text6, 'tStartRefresh')  # time at next scr refresh
-        # update status
-        test_text6.status = STARTED
         test_text6.setAutoDraw(True)
     
-    # if test_text6 is active this frame...
-    if test_text6.status == STARTED:
-        # update params
-        pass
-    
     # *test_text7* updates
-    
-    # if test_text7 is starting this frame...
     if test_text7.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
         # keep track of start time/frame for later
         test_text7.frameNStart = frameN  # exact frame index
         test_text7.tStart = t  # local t and not account for scr refresh
         test_text7.tStartRefresh = tThisFlipGlobal  # on global time
         win.timeOnFlip(test_text7, 'tStartRefresh')  # time at next scr refresh
-        # update status
-        test_text7.status = STARTED
         test_text7.setAutoDraw(True)
     
-    # if test_text7 is active this frame...
-    if test_text7.status == STARTED:
-        # update params
-        pass
-    
     # *test_text8* updates
-    
-    # if test_text8 is starting this frame...
     if test_text8.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
         # keep track of start time/frame for later
         test_text8.frameNStart = frameN  # exact frame index
         test_text8.tStart = t  # local t and not account for scr refresh
         test_text8.tStartRefresh = tThisFlipGlobal  # on global time
         win.timeOnFlip(test_text8, 'tStartRefresh')  # time at next scr refresh
-        # update status
-        test_text8.status = STARTED
         test_text8.setAutoDraw(True)
-    
-    # if test_text8 is active this frame...
-    if test_text8.status == STARTED:
-        # update params
-        pass
     
     # *test_instr_key* updates
     waitOnFlip = False
-    
-    # if test_instr_key is starting this frame...
     if test_instr_key.status == NOT_STARTED and tThisFlip >= 0.25-frameTolerance:
         # keep track of start time/frame for later
         test_instr_key.frameNStart = frameN  # exact frame index
@@ -2805,7 +2373,6 @@ while continueRoutine:
         win.timeOnFlip(test_instr_key, 'tStartRefresh')  # time at next scr refresh
         # add timestamp to datafile
         thisExp.timestampOnFlip(win, 'test_instr_key.started')
-        # update status
         test_instr_key.status = STARTED
         # keyboard checking is just starting
         waitOnFlip = True
@@ -2823,8 +2390,6 @@ while continueRoutine:
     # check for quit (typically the Esc key)
     if endExpNow or defaultKeyboard.getKeys(keyList=["escape"]):
         core.quit()
-        if eyetracker:
-            eyetracker.setConnectionState(False)
     
     # check if all components have finished
     if not continueRoutine:  # a component has requested a forced-end of Routine
@@ -2868,6 +2433,7 @@ for thisTest_trial in test_trials:
     
     # --- Prepare to start Routine "runTrial" ---
     continueRoutine = True
+    routineForceEnded = False
     # update component parameters for each repeat
     # Run 'Begin Routine' code from code_3
     myFaceFileName= "fishPix/"+face+".png"
@@ -2894,7 +2460,6 @@ for thisTest_trial in test_trials:
     frameN = -1
     
     # --- Run Routine "runTrial" ---
-    routineForceEnded = not continueRoutine
     while continueRoutine:
         # get current time
         t = routineTimer.getTime()
@@ -2904,88 +2469,49 @@ for thisTest_trial in test_trials:
         # update/draw components on each frame
         
         # *trial_face* updates
-        
-        # if trial_face is starting this frame...
         if trial_face.status == NOT_STARTED and tThisFlip >= 0.1-frameTolerance:
             # keep track of start time/frame for later
             trial_face.frameNStart = frameN  # exact frame index
             trial_face.tStart = t  # local t and not account for scr refresh
             trial_face.tStartRefresh = tThisFlipGlobal  # on global time
             win.timeOnFlip(trial_face, 'tStartRefresh')  # time at next scr refresh
-            # update status
-            trial_face.status = STARTED
             trial_face.setAutoDraw(True)
         
-        # if trial_face is active this frame...
-        if trial_face.status == STARTED:
-            # update params
-            pass
-        
         # *trial_text* updates
-        
-        # if trial_text is starting this frame...
         if trial_text.status == NOT_STARTED and tThisFlip >= 0.25-frameTolerance:
             # keep track of start time/frame for later
             trial_text.frameNStart = frameN  # exact frame index
             trial_text.tStart = t  # local t and not account for scr refresh
             trial_text.tStartRefresh = tThisFlipGlobal  # on global time
             win.timeOnFlip(trial_text, 'tStartRefresh')  # time at next scr refresh
-            # update status
-            trial_text.status = STARTED
             trial_text.setAutoDraw(True)
         
-        # if trial_text is active this frame...
-        if trial_text.status == STARTED:
-            # update params
-            pass
-        
         # *fishOnLeft* updates
-        
-        # if fishOnLeft is starting this frame...
         if fishOnLeft.status == NOT_STARTED and tThisFlip >= .25-frameTolerance:
             # keep track of start time/frame for later
             fishOnLeft.frameNStart = frameN  # exact frame index
             fishOnLeft.tStart = t  # local t and not account for scr refresh
             fishOnLeft.tStartRefresh = tThisFlipGlobal  # on global time
             win.timeOnFlip(fishOnLeft, 'tStartRefresh')  # time at next scr refresh
-            # update status
-            fishOnLeft.status = STARTED
             fishOnLeft.setAutoDraw(True)
         
-        # if fishOnLeft is active this frame...
-        if fishOnLeft.status == STARTED:
-            # update params
-            pass
-        
         # *fishOnRight* updates
-        
-        # if fishOnRight is starting this frame...
         if fishOnRight.status == NOT_STARTED and tThisFlip >= 0.25-frameTolerance:
             # keep track of start time/frame for later
             fishOnRight.frameNStart = frameN  # exact frame index
             fishOnRight.tStart = t  # local t and not account for scr refresh
             fishOnRight.tStartRefresh = tThisFlipGlobal  # on global time
             win.timeOnFlip(fishOnRight, 'tStartRefresh')  # time at next scr refresh
-            # update status
-            fishOnRight.status = STARTED
             fishOnRight.setAutoDraw(True)
-        
-        # if fishOnRight is active this frame...
-        if fishOnRight.status == STARTED:
-            # update params
-            pass
         
         # *trial_response* updates
         waitOnFlip = False
-        
-        # if trial_response is starting this frame...
         if trial_response.status == NOT_STARTED and tThisFlip >= 0.5-frameTolerance:
             # keep track of start time/frame for later
             trial_response.frameNStart = frameN  # exact frame index
             trial_response.tStart = t  # local t and not account for scr refresh
             trial_response.tStartRefresh = tThisFlipGlobal  # on global time
             win.timeOnFlip(trial_response, 'tStartRefresh')  # time at next scr refresh
-            # update status
             trial_response.status = STARTED
             # keyboard checking is just starting
             waitOnFlip = True
@@ -3003,8 +2529,6 @@ for thisTest_trial in test_trials:
         # check for quit (typically the Esc key)
         if endExpNow or defaultKeyboard.getKeys(keyList=["escape"]):
             core.quit()
-            if eyetracker:
-                eyetracker.setConnectionState(False)
         
         # check if all components have finished
         if not continueRoutine:  # a component has requested a forced-end of Routine
@@ -3115,6 +2639,7 @@ for thisTest_trial in test_trials:
     
     # --- Prepare to start Routine "noFB" ---
     continueRoutine = True
+    routineForceEnded = False
     # update component parameters for each repeat
     noFB_face.setImage(myFaceFileName)
     noFB_Circle.setPos([myCircleHoriz, myCircleVert])
@@ -3135,7 +2660,6 @@ for thisTest_trial in test_trials:
     frameN = -1
     
     # --- Run Routine "noFB" ---
-    routineForceEnded = not continueRoutine
     while continueRoutine:
         # get current time
         t = routineTimer.getTime()
@@ -3145,126 +2669,72 @@ for thisTest_trial in test_trials:
         # update/draw components on each frame
         
         # *noFB_face* updates
-        
-        # if noFB_face is starting this frame...
         if noFB_face.status == NOT_STARTED and tThisFlip >= 0-frameTolerance:
             # keep track of start time/frame for later
             noFB_face.frameNStart = frameN  # exact frame index
             noFB_face.tStart = t  # local t and not account for scr refresh
             noFB_face.tStartRefresh = tThisFlipGlobal  # on global time
             win.timeOnFlip(noFB_face, 'tStartRefresh')  # time at next scr refresh
-            # update status
-            noFB_face.status = STARTED
             noFB_face.setAutoDraw(True)
-        
-        # if noFB_face is active this frame...
-        if noFB_face.status == STARTED:
-            # update params
-            pass
-        
-        # if noFB_face is stopping this frame...
         if noFB_face.status == STARTED:
             # is it time to stop? (based on global clock, using actual start)
             if tThisFlipGlobal > noFB_face.tStartRefresh + myISIduration-frameTolerance:
                 # keep track of stop time/frame for later
                 noFB_face.tStop = t  # not accounting for scr refresh
                 noFB_face.frameNStop = frameN  # exact frame index
-                # update status
-                noFB_face.status = FINISHED
                 noFB_face.setAutoDraw(False)
         
         # *noFB_Circle* updates
-        
-        # if noFB_Circle is starting this frame...
         if noFB_Circle.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
             # keep track of start time/frame for later
             noFB_Circle.frameNStart = frameN  # exact frame index
             noFB_Circle.tStart = t  # local t and not account for scr refresh
             noFB_Circle.tStartRefresh = tThisFlipGlobal  # on global time
             win.timeOnFlip(noFB_Circle, 'tStartRefresh')  # time at next scr refresh
-            # update status
-            noFB_Circle.status = STARTED
             noFB_Circle.setAutoDraw(True)
-        
-        # if noFB_Circle is active this frame...
-        if noFB_Circle.status == STARTED:
-            # update params
-            pass
-        
-        # if noFB_Circle is stopping this frame...
         if noFB_Circle.status == STARTED:
             # is it time to stop? (based on global clock, using actual start)
             if tThisFlipGlobal > noFB_Circle.tStartRefresh + myISIduration-frameTolerance:
                 # keep track of stop time/frame for later
                 noFB_Circle.tStop = t  # not accounting for scr refresh
                 noFB_Circle.frameNStop = frameN  # exact frame index
-                # update status
-                noFB_Circle.status = FINISHED
                 noFB_Circle.setAutoDraw(False)
         
         # *noFB_leftFish* updates
-        
-        # if noFB_leftFish is starting this frame...
         if noFB_leftFish.status == NOT_STARTED and tThisFlip >= 0-frameTolerance:
             # keep track of start time/frame for later
             noFB_leftFish.frameNStart = frameN  # exact frame index
             noFB_leftFish.tStart = t  # local t and not account for scr refresh
             noFB_leftFish.tStartRefresh = tThisFlipGlobal  # on global time
             win.timeOnFlip(noFB_leftFish, 'tStartRefresh')  # time at next scr refresh
-            # update status
-            noFB_leftFish.status = STARTED
             noFB_leftFish.setAutoDraw(True)
-        
-        # if noFB_leftFish is active this frame...
-        if noFB_leftFish.status == STARTED:
-            # update params
-            pass
-        
-        # if noFB_leftFish is stopping this frame...
         if noFB_leftFish.status == STARTED:
             # is it time to stop? (based on global clock, using actual start)
             if tThisFlipGlobal > noFB_leftFish.tStartRefresh + myISIduration-frameTolerance:
                 # keep track of stop time/frame for later
                 noFB_leftFish.tStop = t  # not accounting for scr refresh
                 noFB_leftFish.frameNStop = frameN  # exact frame index
-                # update status
-                noFB_leftFish.status = FINISHED
                 noFB_leftFish.setAutoDraw(False)
         
         # *noFB_rightFish* updates
-        
-        # if noFB_rightFish is starting this frame...
         if noFB_rightFish.status == NOT_STARTED and tThisFlip >= 0-frameTolerance:
             # keep track of start time/frame for later
             noFB_rightFish.frameNStart = frameN  # exact frame index
             noFB_rightFish.tStart = t  # local t and not account for scr refresh
             noFB_rightFish.tStartRefresh = tThisFlipGlobal  # on global time
             win.timeOnFlip(noFB_rightFish, 'tStartRefresh')  # time at next scr refresh
-            # update status
-            noFB_rightFish.status = STARTED
             noFB_rightFish.setAutoDraw(True)
-        
-        # if noFB_rightFish is active this frame...
-        if noFB_rightFish.status == STARTED:
-            # update params
-            pass
-        
-        # if noFB_rightFish is stopping this frame...
         if noFB_rightFish.status == STARTED:
             # is it time to stop? (based on global clock, using actual start)
             if tThisFlipGlobal > noFB_rightFish.tStartRefresh + myISIduration-frameTolerance:
                 # keep track of stop time/frame for later
                 noFB_rightFish.tStop = t  # not accounting for scr refresh
                 noFB_rightFish.frameNStop = frameN  # exact frame index
-                # update status
-                noFB_rightFish.status = FINISHED
                 noFB_rightFish.setAutoDraw(False)
         
         # check for quit (typically the Esc key)
         if endExpNow or defaultKeyboard.getKeys(keyList=["escape"]):
             core.quit()
-            if eyetracker:
-                eyetracker.setConnectionState(False)
         
         # check if all components have finished
         if not continueRoutine:  # a component has requested a forced-end of Routine
@@ -3303,6 +2773,7 @@ for thisTest_trial in test_trials:
 
 # --- Prepare to start Routine "goodbye" ---
 continueRoutine = True
+routineForceEnded = False
 # update component parameters for each repeat
 goodbye_key.keys = []
 goodbye_key.rt = []
@@ -3337,7 +2808,6 @@ _timeToFirstFrame = win.getFutureFlipTime(clock="now")
 frameN = -1
 
 # --- Run Routine "goodbye" ---
-routineForceEnded = not continueRoutine
 while continueRoutine:
     # get current time
     t = routineTimer.getTime()
@@ -3347,106 +2817,60 @@ while continueRoutine:
     # update/draw components on each frame
     
     # *goodbye_text1* updates
-    
-    # if goodbye_text1 is starting this frame...
     if goodbye_text1.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
         # keep track of start time/frame for later
         goodbye_text1.frameNStart = frameN  # exact frame index
         goodbye_text1.tStart = t  # local t and not account for scr refresh
         goodbye_text1.tStartRefresh = tThisFlipGlobal  # on global time
         win.timeOnFlip(goodbye_text1, 'tStartRefresh')  # time at next scr refresh
-        # update status
-        goodbye_text1.status = STARTED
         goodbye_text1.setAutoDraw(True)
     
-    # if goodbye_text1 is active this frame...
-    if goodbye_text1.status == STARTED:
-        # update params
-        pass
-    
     # *goodbye_text2* updates
-    
-    # if goodbye_text2 is starting this frame...
     if goodbye_text2.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
         # keep track of start time/frame for later
         goodbye_text2.frameNStart = frameN  # exact frame index
         goodbye_text2.tStart = t  # local t and not account for scr refresh
         goodbye_text2.tStartRefresh = tThisFlipGlobal  # on global time
         win.timeOnFlip(goodbye_text2, 'tStartRefresh')  # time at next scr refresh
-        # update status
-        goodbye_text2.status = STARTED
         goodbye_text2.setAutoDraw(True)
     
-    # if goodbye_text2 is active this frame...
-    if goodbye_text2.status == STARTED:
-        # update params
-        pass
-    
     # *goodbye_tally* updates
-    
-    # if goodbye_tally is starting this frame...
     if goodbye_tally.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
         # keep track of start time/frame for later
         goodbye_tally.frameNStart = frameN  # exact frame index
         goodbye_tally.tStart = t  # local t and not account for scr refresh
         goodbye_tally.tStartRefresh = tThisFlipGlobal  # on global time
         win.timeOnFlip(goodbye_tally, 'tStartRefresh')  # time at next scr refresh
-        # update status
-        goodbye_tally.status = STARTED
         goodbye_tally.setAutoDraw(True)
-    
-    # if goodbye_tally is active this frame...
-    if goodbye_tally.status == STARTED:
-        # update params
+    if goodbye_tally.status == STARTED:  # only update if drawing
         goodbye_tally.setText(myTally, log=False)
     
     # *goodbye_text3* updates
-    
-    # if goodbye_text3 is starting this frame...
     if goodbye_text3.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
         # keep track of start time/frame for later
         goodbye_text3.frameNStart = frameN  # exact frame index
         goodbye_text3.tStart = t  # local t and not account for scr refresh
         goodbye_text3.tStartRefresh = tThisFlipGlobal  # on global time
         win.timeOnFlip(goodbye_text3, 'tStartRefresh')  # time at next scr refresh
-        # update status
-        goodbye_text3.status = STARTED
         goodbye_text3.setAutoDraw(True)
     
-    # if goodbye_text3 is active this frame...
-    if goodbye_text3.status == STARTED:
-        # update params
-        pass
-    
     # *goodbye_text4* updates
-    
-    # if goodbye_text4 is starting this frame...
     if goodbye_text4.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
         # keep track of start time/frame for later
         goodbye_text4.frameNStart = frameN  # exact frame index
         goodbye_text4.tStart = t  # local t and not account for scr refresh
         goodbye_text4.tStartRefresh = tThisFlipGlobal  # on global time
         win.timeOnFlip(goodbye_text4, 'tStartRefresh')  # time at next scr refresh
-        # update status
-        goodbye_text4.status = STARTED
         goodbye_text4.setAutoDraw(True)
-    
-    # if goodbye_text4 is active this frame...
-    if goodbye_text4.status == STARTED:
-        # update params
-        pass
     
     # *goodbye_key* updates
     waitOnFlip = False
-    
-    # if goodbye_key is starting this frame...
     if goodbye_key.status == NOT_STARTED and tThisFlip >= 0.25-frameTolerance:
         # keep track of start time/frame for later
         goodbye_key.frameNStart = frameN  # exact frame index
         goodbye_key.tStart = t  # local t and not account for scr refresh
         goodbye_key.tStartRefresh = tThisFlipGlobal  # on global time
         win.timeOnFlip(goodbye_key, 'tStartRefresh')  # time at next scr refresh
-        # update status
         goodbye_key.status = STARTED
         # keyboard checking is just starting
         waitOnFlip = True
@@ -3464,8 +2888,6 @@ while continueRoutine:
     # check for quit (typically the Esc key)
     if endExpNow or defaultKeyboard.getKeys(keyList=["escape"]):
         core.quit()
-        if eyetracker:
-            eyetracker.setConnectionState(False)
     
     # check if all components have finished
     if not continueRoutine:  # a component has requested a forced-end of Routine

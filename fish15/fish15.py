@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2023.1.2),
-    on June 06, 2023, at 17:17
+    on June 07, 2023, at 13:37
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -16,6 +16,7 @@ from psychopy import locale_setup
 from psychopy import prefs
 from psychopy import plugins
 plugins.activatePlugins()
+prefs.hardware['audioLib'] = 'ptb'
 from psychopy import sound, gui, visual, core, data, event, logging, clock, colors, layout
 from psychopy.constants import (NOT_STARTED, STARTED, PLAYING, PAUSED,
                                 STOPPED, FINISHED, PRESSED, RELEASED, FOREVER)
@@ -30,7 +31,7 @@ import sys  # to get file system encoding
 import psychopy.iohub as io
 from psychopy.hardware import keyboard
 
-# Run 'Before Experiment' code from LICENSE
+# Run 'Before Experiment' code from license_and_terms
 '''
 Fish v. 15 software, running on PsychoPy (v.2023.1.2)
 
@@ -59,7 +60,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 Author's contact information: 
-    email: jlmojicaperez@acm.org
+    email: jmojicaperez@acm.org
 '''
 # Run 'Before Experiment' code from face_fish_pairing
 import random
