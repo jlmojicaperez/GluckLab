@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2023.1.2),
-    on June 02, 2023, at 13:44
+    on June 06, 2023, at 17:15
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -30,11 +30,42 @@ import sys  # to get file system encoding
 import psychopy.iohub as io
 from psychopy.hardware import keyboard
 
+# Run 'Before Experiment' code from LICENSE
+'''
+Fish v. 15 software, running on PsychoPy (v.2023.1.2)
+
+This software is adapted from software which was written by Catherine E. Myers 
+under funding from the Department of Veterans Affairs, 
+Office of Research and Development. 
+
+Design is adapted from the task originally described in 
+Myers et al. (2003) Journal of Cognitive Neuroscience, 15(2), 
+185-193.
+
+Fish v.15 is a neuroscience experiment to asses the generalization performance of individuals
+Copyright (C) 2023  Jose Mojica Perez
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+Author's contact information: 
+    email: jlmojicaperez@acm.org
+'''
 # Run 'Before Experiment' code from face_fish_pairing
 import random
 import os
 # File names of faces and fishes without extension
-fishes = ["green", "blue", "purple", "yellow"]
+fishes = ["green", "blue", "purple", "red"]
 faces = ["boy", "girl", "man", "woman"]
 
 # Generating the random pairings
@@ -76,9 +107,9 @@ def generate_phase_file(pairings, phase_faces, phase_fishes, filename):
         stimuli for the desired phase
     '''
     file = open(filename, "w")
-    file.write("face,leftFish,rightFish,correctResponse,phase_used\n")
+    file.write("face,leftFish,rightFish,correctResponse\n")
     # filename format should be phaseX.csv where X is the phase number
-    phase_no = filename.split(".")[0][-1]
+    # phase_no = filename.split(".")[0][-1]
     
     for face in phase_faces:
         # Create a list of the fishes that the face above owns and does not own
@@ -96,13 +127,13 @@ def generate_phase_file(pairings, phase_faces, phase_fishes, filename):
             for i in range(len(owned_fishes)):
                 correct = owned_fishes[i]
                 incorrect = not_owned_fishes[i]
-                file.write(f"{face},{correct},{incorrect},left,{phase_no}\n")
-                file.write(f"{face},{incorrect},{correct},right,{phase_no}\n")
+                file.write(f"{face},{correct},{incorrect},left\n")
+                file.write(f"{face},{incorrect},{correct},right\n")
         else: # Phase 0
             correct = owned_fishes[0]
             incorrect = not_owned_fishes[0]
-            file.write(f"{face},{correct},{incorrect},left,{phase_no}\n")
-            file.write(f"{face},{incorrect},{correct},right,{phase_no}\n")
+            file.write(f"{face},{correct},{incorrect},left\n")
+            file.write(f"{face},{incorrect},{correct},right\n")
                 
     file.close()
 
@@ -135,13 +166,12 @@ def remove_crit_pairs(faces, fishes, filename, pairings):
         fish1 = row["leftFish"]
         fish2 = row["rightFish"]
         correct = row["correctResponse"]
-        phase_no = row["phase_used"]
         # If the face is not one of the critical pairs of phase 3 then 
         # it should be included in phase 2
         should_include = not ((face in do_not_include) and (fish1 == do_not_include[face] or fish2 == do_not_include[face]))
         
         if (should_include): # not a critical pair
-            adjusted_file_text += ",".join([face, fish1, fish2, correct, phase_no]) + "\n"
+            adjusted_file_text += ",".join([face, fish1, fish2, correct]) + "\n"
         else: # critical pair
             stim =  ",".join([face, fish1, fish2, correct])
             crit_pairs_stims.add(stim)
@@ -291,93 +321,23 @@ eyetracker = None
 defaultKeyboard = keyboard.Keyboard(backend='iohub')
 
 # --- Initialize components for Routine "startup" ---
-terms_of_use = visual.ImageStim(
-    win=win,
-    name='terms_of_use', 
-    image='fishPix/terms_of_use.png', mask=None, anchor='center',
-    ori=0, pos=(0, 0), size=(1,1),
-    color=[1,1,1], colorSpace='rgb', opacity=1,
-    flipHoriz=False, flipVert=False,
-    texRes=128, interpolate=True, depth=0.0)
+License_And_Terms = visual.TextStim(win=win, name='License_And_Terms',
+    text='Fish v. 15 software, running on PsychoPy (v.2023.1.2)\n\nThis software is adapted from software which was written by Catherine E. Myers  under funding from the Department of Veterans Affairs, Office of Research and Development. \n\nDesign is adapted from the task originally described in Myers et al. (2003) Journal of Cognitive Neuroscience, 15(2), 185-193.\n\nFish 15 is a neuroscience experiment to test the generalization performance of individuals\n   Copyright (C) 2023 Jose Mojica Perez\n\n    This program is free software: you can redistribute it and/or modify\n    it under the terms of the GNU Affero General Public License as\n    published by the Free Software Foundation, either version 3 of the\n    License, or (at your option) any later version.\n\n    This program is distributed in the hope that it will be useful,\n    but WITHOUT ANY WARRANTY; without even the implied warranty of\n    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n    GNU Affero General Public License for more details.\n\n    You should have received a copy of the GNU Affero General Public License\n    along with this program.  If not, see <https://www.gnu.org/licenses/>.',
+    font='Open Sans',
+    pos=(0, 0), height=0.05, wrapWidth=1.5, ori=0.0, 
+    color='black', colorSpace='rgb', opacity=None, 
+    languageStyle='LTR',
+    depth=0.0);
 conditions_key = keyboard.Keyboard()
-# Run 'Begin Experiment' code from code_2
-# Fish v. 12 software, running under PsychoPy2 (v. 1.85)
-
-#This software is adapted from software which was 
-# written by Catherine E. Myers under funding from the Department 
-# of Veterans Affairs, Office of Research and Development.
-
-# Design is adapted from the task originally described in 
-# Myers et al. (2003) Journal of Cognitive Neuroscience, 15(2), 
-# 185-193. 
-
-# No guarantees are given or implied. 
-# Use of this software implies acceptance of these terms.
 
 # --- Initialize components for Routine "train_instr" ---
-train_text1 = visual.TextStim(win=win, name='train_text1',
-    text='Welcome to the experiment.',
+train_instructions_text = visual.TextStim(win=win, name='train_instructions_text',
+    text='Welcome to the experiment.\n\nYou will see drawings of people who each have some pet fish.\n\nDifferent people have different kinds of fish.\n\nYour job is to learn which kind of fish each person has.\n\nEach time you see a face, press the LEFT or RIGHT key, depending on which fish you think the person has. In the beginning, you will have to guess. The choice you make will be circled and you will be told whether it is correct or incorrect. Try to learn the correct answers, because you will be tested later.\n\nPress the LEFT or RIGHT key to begin.\n\n',
     font='Arial',
-    pos=(0, 0.6), height=0.065, wrapWidth=None, ori=0, 
+    pos=(0, 0), height=0.065, wrapWidth=1.5, ori=0, 
     color='black', colorSpace='rgb', opacity=1, 
     languageStyle='LTR',
     depth=0.0);
-train_text2 = visual.TextStim(win=win, name='train_text2',
-    text='You will see drawings of people who each have some pet fish.',
-    font='Arial',
-    pos=(0, 0.4), height=0.065, wrapWidth=None, ori=0, 
-    color='black', colorSpace='rgb', opacity=1, 
-    languageStyle='LTR',
-    depth=-1.0);
-train_text3 = visual.TextStim(win=win, name='train_text3',
-    text='Different people have different kinds of fish.',
-    font='Arial',
-    pos=(0, 0.3), height=0.065, wrapWidth=None, ori=0, 
-    color='black', colorSpace='rgb', opacity=1, 
-    languageStyle='LTR',
-    depth=-2.0);
-train_text4 = visual.TextStim(win=win, name='train_text4',
-    text='Your job is to learn which kind of fish each person has.',
-    font='Arial',
-    pos=(0, 0.2), height=0.065, wrapWidth=None, ori=0, 
-    color='black', colorSpace='rgb', opacity=1, 
-    languageStyle='LTR',
-    depth=-3.0);
-train_text5 = visual.TextStim(win=win, name='train_text5',
-    text='Each time you see a face, press the LEFT or RIGHT key,',
-    font='Arial',
-    pos=(0, 0), height=0.065, wrapWidth=None, ori=0, 
-    color='black', colorSpace='rgb', opacity=1, 
-    languageStyle='LTR',
-    depth=-4.0);
-train_text6 = visual.TextStim(win=win, name='train_text6',
-    text='depending on which fish you think the person has.',
-    font='Arial',
-    pos=(0, -0.1), height=0.065, wrapWidth=None, ori=0, 
-    color='black', colorSpace='rgb', opacity=1, 
-    languageStyle='LTR',
-    depth=-5.0);
-train_text7 = visual.TextStim(win=win, name='train_text7',
-    text='In the beginning, you will have to guess.',
-    font='Arial',
-    pos=(0, -0.2), height=0.065, wrapWidth=None, ori=0, 
-    color='black', colorSpace='rgb', opacity=1, 
-    languageStyle='LTR',
-    depth=-6.0);
-train_text8 = visual.TextStim(win=win, name='train_text8',
-    text='Try to learn the correct answers, because you will be tested later.',
-    font='Arial',
-    pos=(0, -0.4), height=0.065, wrapWidth=50, ori=0, 
-    color='black', colorSpace='rgb', opacity=1, 
-    languageStyle='LTR',
-    depth=-7.0);
-train_text9 = visual.TextStim(win=win, name='train_text9',
-    text='Press the LEFT or RIGHT key to begin.',
-    font='Arial',
-    pos=(0, -0.6), height=0.065, wrapWidth=None, ori=0, 
-    color='black', colorSpace='rgb', opacity=1, 
-    languageStyle='LTR',
-    depth=-8.0);
 train_instr_key = keyboard.Keyboard()
 # Run 'Begin Experiment' code from code_train_instr
 myISIduration=1.0
@@ -848,7 +808,7 @@ data_file.write(f"\"Note: Critical Pairs = {crit_pairs}\"\n")
 
 
 # keep track of which components have finished
-startupComponents = [terms_of_use, conditions_key]
+startupComponents = [License_And_Terms, conditions_key]
 for thisComponent in startupComponents:
     thisComponent.tStart = None
     thisComponent.tStop = None
@@ -871,21 +831,23 @@ while continueRoutine:
     frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
     # update/draw components on each frame
     
-    # *terms_of_use* updates
+    # *License_And_Terms* updates
     
-    # if terms_of_use is starting this frame...
-    if terms_of_use.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+    # if License_And_Terms is starting this frame...
+    if License_And_Terms.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
         # keep track of start time/frame for later
-        terms_of_use.frameNStart = frameN  # exact frame index
-        terms_of_use.tStart = t  # local t and not account for scr refresh
-        terms_of_use.tStartRefresh = tThisFlipGlobal  # on global time
-        win.timeOnFlip(terms_of_use, 'tStartRefresh')  # time at next scr refresh
+        License_And_Terms.frameNStart = frameN  # exact frame index
+        License_And_Terms.tStart = t  # local t and not account for scr refresh
+        License_And_Terms.tStartRefresh = tThisFlipGlobal  # on global time
+        win.timeOnFlip(License_And_Terms, 'tStartRefresh')  # time at next scr refresh
+        # add timestamp to datafile
+        thisExp.timestampOnFlip(win, 'License_And_Terms.started')
         # update status
-        terms_of_use.status = STARTED
-        terms_of_use.setAutoDraw(True)
+        License_And_Terms.status = STARTED
+        License_And_Terms.setAutoDraw(True)
     
-    # if terms_of_use is active this frame...
-    if terms_of_use.status == STARTED:
+    # if License_And_Terms is active this frame...
+    if License_And_Terms.status == STARTED:
         # update params
         pass
     
@@ -972,7 +934,7 @@ header = "Trial,Face,Left Fish,Right Fish,Correct Response,Subject Response,Resp
 data_file.write(header)
 
 # keep track of which components have finished
-train_instrComponents = [train_text1, train_text2, train_text3, train_text4, train_text5, train_text6, train_text7, train_text8, train_text9, train_instr_key]
+train_instrComponents = [train_instructions_text, train_instr_key]
 for thisComponent in train_instrComponents:
     thisComponent.tStart = None
     thisComponent.tStop = None
@@ -995,165 +957,21 @@ while continueRoutine:
     frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
     # update/draw components on each frame
     
-    # *train_text1* updates
+    # *train_instructions_text* updates
     
-    # if train_text1 is starting this frame...
-    if train_text1.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+    # if train_instructions_text is starting this frame...
+    if train_instructions_text.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
         # keep track of start time/frame for later
-        train_text1.frameNStart = frameN  # exact frame index
-        train_text1.tStart = t  # local t and not account for scr refresh
-        train_text1.tStartRefresh = tThisFlipGlobal  # on global time
-        win.timeOnFlip(train_text1, 'tStartRefresh')  # time at next scr refresh
+        train_instructions_text.frameNStart = frameN  # exact frame index
+        train_instructions_text.tStart = t  # local t and not account for scr refresh
+        train_instructions_text.tStartRefresh = tThisFlipGlobal  # on global time
+        win.timeOnFlip(train_instructions_text, 'tStartRefresh')  # time at next scr refresh
         # update status
-        train_text1.status = STARTED
-        train_text1.setAutoDraw(True)
+        train_instructions_text.status = STARTED
+        train_instructions_text.setAutoDraw(True)
     
-    # if train_text1 is active this frame...
-    if train_text1.status == STARTED:
-        # update params
-        pass
-    
-    # *train_text2* updates
-    
-    # if train_text2 is starting this frame...
-    if train_text2.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-        # keep track of start time/frame for later
-        train_text2.frameNStart = frameN  # exact frame index
-        train_text2.tStart = t  # local t and not account for scr refresh
-        train_text2.tStartRefresh = tThisFlipGlobal  # on global time
-        win.timeOnFlip(train_text2, 'tStartRefresh')  # time at next scr refresh
-        # update status
-        train_text2.status = STARTED
-        train_text2.setAutoDraw(True)
-    
-    # if train_text2 is active this frame...
-    if train_text2.status == STARTED:
-        # update params
-        pass
-    
-    # *train_text3* updates
-    
-    # if train_text3 is starting this frame...
-    if train_text3.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-        # keep track of start time/frame for later
-        train_text3.frameNStart = frameN  # exact frame index
-        train_text3.tStart = t  # local t and not account for scr refresh
-        train_text3.tStartRefresh = tThisFlipGlobal  # on global time
-        win.timeOnFlip(train_text3, 'tStartRefresh')  # time at next scr refresh
-        # update status
-        train_text3.status = STARTED
-        train_text3.setAutoDraw(True)
-    
-    # if train_text3 is active this frame...
-    if train_text3.status == STARTED:
-        # update params
-        pass
-    
-    # *train_text4* updates
-    
-    # if train_text4 is starting this frame...
-    if train_text4.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-        # keep track of start time/frame for later
-        train_text4.frameNStart = frameN  # exact frame index
-        train_text4.tStart = t  # local t and not account for scr refresh
-        train_text4.tStartRefresh = tThisFlipGlobal  # on global time
-        win.timeOnFlip(train_text4, 'tStartRefresh')  # time at next scr refresh
-        # update status
-        train_text4.status = STARTED
-        train_text4.setAutoDraw(True)
-    
-    # if train_text4 is active this frame...
-    if train_text4.status == STARTED:
-        # update params
-        pass
-    
-    # *train_text5* updates
-    
-    # if train_text5 is starting this frame...
-    if train_text5.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-        # keep track of start time/frame for later
-        train_text5.frameNStart = frameN  # exact frame index
-        train_text5.tStart = t  # local t and not account for scr refresh
-        train_text5.tStartRefresh = tThisFlipGlobal  # on global time
-        win.timeOnFlip(train_text5, 'tStartRefresh')  # time at next scr refresh
-        # update status
-        train_text5.status = STARTED
-        train_text5.setAutoDraw(True)
-    
-    # if train_text5 is active this frame...
-    if train_text5.status == STARTED:
-        # update params
-        pass
-    
-    # *train_text6* updates
-    
-    # if train_text6 is starting this frame...
-    if train_text6.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-        # keep track of start time/frame for later
-        train_text6.frameNStart = frameN  # exact frame index
-        train_text6.tStart = t  # local t and not account for scr refresh
-        train_text6.tStartRefresh = tThisFlipGlobal  # on global time
-        win.timeOnFlip(train_text6, 'tStartRefresh')  # time at next scr refresh
-        # update status
-        train_text6.status = STARTED
-        train_text6.setAutoDraw(True)
-    
-    # if train_text6 is active this frame...
-    if train_text6.status == STARTED:
-        # update params
-        pass
-    
-    # *train_text7* updates
-    
-    # if train_text7 is starting this frame...
-    if train_text7.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-        # keep track of start time/frame for later
-        train_text7.frameNStart = frameN  # exact frame index
-        train_text7.tStart = t  # local t and not account for scr refresh
-        train_text7.tStartRefresh = tThisFlipGlobal  # on global time
-        win.timeOnFlip(train_text7, 'tStartRefresh')  # time at next scr refresh
-        # update status
-        train_text7.status = STARTED
-        train_text7.setAutoDraw(True)
-    
-    # if train_text7 is active this frame...
-    if train_text7.status == STARTED:
-        # update params
-        pass
-    
-    # *train_text8* updates
-    
-    # if train_text8 is starting this frame...
-    if train_text8.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-        # keep track of start time/frame for later
-        train_text8.frameNStart = frameN  # exact frame index
-        train_text8.tStart = t  # local t and not account for scr refresh
-        train_text8.tStartRefresh = tThisFlipGlobal  # on global time
-        win.timeOnFlip(train_text8, 'tStartRefresh')  # time at next scr refresh
-        # update status
-        train_text8.status = STARTED
-        train_text8.setAutoDraw(True)
-    
-    # if train_text8 is active this frame...
-    if train_text8.status == STARTED:
-        # update params
-        pass
-    
-    # *train_text9* updates
-    
-    # if train_text9 is starting this frame...
-    if train_text9.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-        # keep track of start time/frame for later
-        train_text9.frameNStart = frameN  # exact frame index
-        train_text9.tStart = t  # local t and not account for scr refresh
-        train_text9.tStartRefresh = tThisFlipGlobal  # on global time
-        win.timeOnFlip(train_text9, 'tStartRefresh')  # time at next scr refresh
-        # update status
-        train_text9.status = STARTED
-        train_text9.setAutoDraw(True)
-    
-    # if train_text9 is active this frame...
-    if train_text9.status == STARTED:
+    # if train_instructions_text is active this frame...
+    if train_instructions_text.status == STARTED:
         # update params
         pass
     
@@ -3467,12 +3285,12 @@ for thisTest_trial in test_trials:
         if hasattr(thisComponent, "setAutoDraw"):
             thisComponent.setAutoDraw(False)
     # Run 'End Routine' code from code_5
-    if (phase_used==3) :
+    if ("*" in correct) :
         myNewTrials+=1
     else :
         myOldTrials+=1
     if (myTrialCorrect==False) :
-        if (phase_used==3) :
+        if ("*" in correct) :
             myNewErr+=1
         else :
             myOldErr+=1
