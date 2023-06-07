@@ -2,11 +2,11 @@
 
 Repository for the development of the Fish v.15 and Choose v.34 experiments for the Center for Molecular and Behavioural Neuroscience -- Gluck Lab
 
-# Fish 15
+## Fish 15
 
-## How to run the experiment
+### How to run the experiment
 
-- Download and install the PyschoPy standalone app according to [these instructions][PsychoPyDownloadInstructions]. **This was developed on PsychoPy version 2023.1.2**, older versions may not be compatible. MacOS and other versions of the Standalone app can be found [here][PsychoPyReleases].
+- Download and install the PyschoPy standalone app according to [these instructions][PsychoPyDownloadInstructions]. **This was developed on PsychoPy version 2023.1.2** older versions may not be compatible. MacOS and other versions of the Standalone app can be found [here][PsychoPyReleases].
 - Clone this repository using the following command:
 
 ```text
