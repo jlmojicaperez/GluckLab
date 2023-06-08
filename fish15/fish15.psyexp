@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" ?>
-<PsychoPy2experiment encoding="utf-8" version="2022.2.5">
+<PsychoPy2experiment encoding="utf-8" version="2023.1.2">
   <Settings>
     <Param val="use prefs" valType="str" updates="None" name="Audio latency priority"/>
     <Param val="ptb" valType="str" updates="None" name="Audio lib"/>
@@ -70,7 +70,7 @@
   </Settings>
   <Routines>
     <Routine name="runTrial">
-      <CodeComponent name="code_3">
+      <CodeComponent name="code_3" plugin="None">
         <Param val="myFaceFileName=&quot;temp&quot;&amp;#10;myLeftFishFileName=&quot;temp&quot;&amp;#10;myRightFishFileName=&quot;temp&quot;&amp;#10;showLeftFish=&quot;temp&quot;&amp;#10;showRightFish=&quot;temp&quot;&amp;#10;myFeedbackImpage=&quot;temp&quot;" valType="extendedCode" updates="constant" name="Before Experiment"/>
         <Param val="myFaceFileName = &quot;temp&quot;;&amp;#10;myLeftFishFileName = &quot;temp&quot;;&amp;#10;myRightFishFileName = &quot;temp&quot;;&amp;#10;showLeftFish = &quot;temp&quot;;&amp;#10;showRightFish = &quot;temp&quot;;&amp;#10;myFeedbackImpage = &quot;temp&quot;;&amp;#10;" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin Experiment"/>
@@ -87,7 +87,7 @@
         <Param val="False" valType="bool" updates="None" name="disabled"/>
         <Param val="code_3" valType="code" updates="None" name="name"/>
       </CodeComponent>
-      <ImageComponent name="trial_face">
+      <ImageComponent name="trial_face" plugin="None">
         <Param val="center" valType="str" updates="constant" name="anchor"/>
         <Param val="$[1,1,1]" valType="str" updates="constant" name="color"/>
         <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
@@ -114,7 +114,7 @@
         <Param val="128" valType="code" updates="constant" name="texture resolution"/>
         <Param val="from exp settings" valType="str" updates="None" name="units"/>
       </ImageComponent>
-      <TextComponent name="trial_text">
+      <TextComponent name="trial_text" plugin="None">
         <Param val="black" valType="str" updates="constant" name="color"/>
         <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
         <Param val="1" valType="num" updates="constant" name="contrast"/>
@@ -139,7 +139,7 @@
         <Param val="from exp settings" valType="str" updates="None" name="units"/>
         <Param val="" valType="code" updates="constant" name="wrapWidth"/>
       </TextComponent>
-      <ImageComponent name="fishOnLeft">
+      <ImageComponent name="fishOnLeft" plugin="None">
         <Param val="center" valType="str" updates="constant" name="anchor"/>
         <Param val="$[1,1,1]" valType="str" updates="constant" name="color"/>
         <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
@@ -166,7 +166,7 @@
         <Param val="128" valType="code" updates="constant" name="texture resolution"/>
         <Param val="from exp settings" valType="str" updates="None" name="units"/>
       </ImageComponent>
-      <ImageComponent name="fishOnRight">
+      <ImageComponent name="fishOnRight" plugin="None">
         <Param val="center" valType="str" updates="constant" name="anchor"/>
         <Param val="$[1,1,1]" valType="str" updates="constant" name="color"/>
         <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
@@ -193,8 +193,8 @@
         <Param val="128" valType="code" updates="constant" name="texture resolution"/>
         <Param val="from exp settings" valType="str" updates="None" name="units"/>
       </ImageComponent>
-      <KeyboardComponent name="trial_response">
-        <Param val="'lctrl','rctrl'" valType="list" updates="constant" name="allowedKeys"/>
+      <KeyboardComponent name="trial_response" plugin="None">
+        <Param val="'z','m'" valType="list" updates="constant" name="allowedKeys"/>
         <Param val="$correct" valType="str" updates="constant" name="correctAns"/>
         <Param val="False" valType="bool" updates="None" name="disabled"/>
         <Param val="True" valType="bool" updates="constant" name="discard previous"/>
@@ -212,7 +212,7 @@
         <Param val="False" valType="bool" updates="constant" name="storeCorrect"/>
         <Param val="True" valType="bool" updates="constant" name="syncScreenRefresh"/>
       </KeyboardComponent>
-      <CodeComponent name="code">
+      <CodeComponent name="code" plugin="None">
         <Param val="" valType="extendedCode" updates="constant" name="Before Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin Experiment"/>
@@ -224,12 +224,12 @@
         <Param val="" valType="extendedCode" updates="constant" name="Each JS Frame"/>
         <Param val="" valType="extendedCode" updates="constant" name="End Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="End JS Experiment"/>
-        <Param val="nFBleft = 0;&amp;#10;nFBright = 0;&amp;#10;if ((trial_response.keys === &quot;lctrl&quot;)) {&amp;#10;    trial_response.keys = &quot;left&quot;;&amp;#10;} else {&amp;#10;    trial_response.keys = &quot;right&quot;;&amp;#10;}&amp;#10;if ((trial_response.keys === &quot;left&quot;)) {&amp;#10;    myChosen = &quot;left&quot;;&amp;#10;    myCircleHoriz = (- 0.13);&amp;#10;} else {&amp;#10;    myChosen = &quot;right&quot;;&amp;#10;    myCircleHoriz = 0.22;&amp;#10;}&amp;#10;if ((trial_response.keys === correctResponse)) {&amp;#10;    myTrialCorrect = true;&amp;#10;    psychoJS.experiment.addData(&quot;Correct&quot;, 1);&amp;#10;    myTally = (myTally + 1);&amp;#10;    myFeedbackImage = &quot;fishPix/win.png&quot;;&amp;#10;    myConsecutiveCorrect = (myConsecutiveCorrect + 1);&amp;#10;    if ((myConsecutiveCorrect &gt;= myCriterion)) {&amp;#10;        CriterionReached = true;&amp;#10;    }&amp;#10;} else {&amp;#10;    myTrialCorrect = false;&amp;#10;    psychoJS.experiment.addData(&quot;Correct&quot;, 0);&amp;#10;    myFeedbackImage = &quot;fishPix/lose.png&quot;;&amp;#10;    myConsecutiveCorrect = 0;&amp;#10;}&amp;#10;if ((correctResponse === &quot;left&quot;)) {&amp;#10;    showLeftFish = myLeftFishFileName;&amp;#10;    showRightFish = &quot;fishPix/blank.png&quot;;&amp;#10;} else {&amp;#10;    showLeftFish = &quot;fishPix/blank.png&quot;;&amp;#10;    showRightFish = myRightFishFileName;&amp;#10;}&amp;#10;" valType="extendedCode" updates="constant" name="End JS Routine"/>
-        <Param val="nFBleft=0&amp;#10;nFBright=0&amp;#10;&amp;#10;if(trial_response.keys == &quot;lctrl&quot;):&amp;#10;    trial_response.keys = &quot;left&quot;&amp;#10;else:&amp;#10;    trial_response.keys = &quot;right&quot;&amp;#10;    &amp;#10;&amp;#10;if (trial_response.keys=='left') :&amp;#10;    myChosen=&quot;left&quot;&amp;#10;    myCircleHoriz = -0.13&amp;#10;else :&amp;#10;    myChosen=&quot;right&quot;&amp;#10;    myCircleHoriz = 0.22&amp;#10;if (trial_response.keys==correctResponse) :&amp;#10;    myTrialCorrect=True&amp;#10;    thisExp.addData('Correct',1)&amp;#10;    myTally = myTally + 1&amp;#10;    myFeedbackImage=&quot;fishPix/win.png&quot;&amp;#10;    myConsecutiveCorrect = myConsecutiveCorrect+1&amp;#10;    if (myConsecutiveCorrect &gt;= myCriterion) :&amp;#10;        CriterionReached=True&amp;#10;else :&amp;#10;    myTrialCorrect=False&amp;#10;    thisExp.addData('Correct',0)&amp;#10;    myFeedbackImage=&quot;fishPix/lose.png&quot;&amp;#10;    myConsecutiveCorrect = 0&amp;#10;if (correctResponse==&quot;left&quot;) :&amp;#10;    showLeftFish=myLeftFishFileName&amp;#10;    showRightFish=&quot;fishPix/blank.png&quot;&amp;#10;else :&amp;#10;    showLeftFish=&quot;fishPix/blank.png&quot;&amp;#10;    showRightFish=myRightFishFileName&amp;#10;" valType="extendedCode" updates="constant" name="End Routine"/>
+        <Param val="nFBleft = 0;&amp;#10;nFBright = 0;&amp;#10;if ((trial_response.keys === &quot;z&quot;)) {&amp;#10;    trial_response.keys = &quot;left&quot;;&amp;#10;} else {&amp;#10;    trial_response.keys = &quot;right&quot;;&amp;#10;}&amp;#10;if ((trial_response.keys === &quot;left&quot;)) {&amp;#10;    myChosen = &quot;left&quot;;&amp;#10;    myCircleHoriz = (- 0.13);&amp;#10;} else {&amp;#10;    myChosen = &quot;right&quot;;&amp;#10;    myCircleHoriz = 0.22;&amp;#10;}&amp;#10;if ((trial_response.keys === correctResponse)) {&amp;#10;    myTrialCorrect = true;&amp;#10;    psychoJS.experiment.addData(&quot;Correct&quot;, 1);&amp;#10;    myTally = (myTally + 1);&amp;#10;    myFeedbackImage = &quot;fishPix/win.png&quot;;&amp;#10;    myConsecutiveCorrect = (myConsecutiveCorrect + 1);&amp;#10;    if ((myConsecutiveCorrect &gt;= myCriterion)) {&amp;#10;        CriterionReached = true;&amp;#10;    }&amp;#10;} else {&amp;#10;    myTrialCorrect = false;&amp;#10;    psychoJS.experiment.addData(&quot;Correct&quot;, 0);&amp;#10;    myFeedbackImage = &quot;fishPix/lose.png&quot;;&amp;#10;    myConsecutiveCorrect = 0;&amp;#10;}&amp;#10;if ((correctResponse === &quot;left&quot;)) {&amp;#10;    showLeftFish = myLeftFishFileName;&amp;#10;    showRightFish = &quot;fishPix/blank.png&quot;;&amp;#10;} else {&amp;#10;    showLeftFish = &quot;fishPix/blank.png&quot;;&amp;#10;    showRightFish = myRightFishFileName;&amp;#10;}&amp;#10;" valType="extendedCode" updates="constant" name="End JS Routine"/>
+        <Param val="nFBleft=0&amp;#10;nFBright=0&amp;#10;&amp;#10;if(trial_response.keys == &quot;z&quot;):&amp;#10;    trial_response.keys = &quot;left&quot;&amp;#10;else:&amp;#10;    trial_response.keys = &quot;right&quot;&amp;#10;    &amp;#10;&amp;#10;if (trial_response.keys=='left') :&amp;#10;    myChosen=&quot;left&quot;&amp;#10;    myCircleHoriz = -0.13&amp;#10;else :&amp;#10;    myChosen=&quot;right&quot;&amp;#10;    myCircleHoriz = 0.22&amp;#10;if (trial_response.keys==correctResponse) :&amp;#10;    myTrialCorrect=True&amp;#10;    thisExp.addData('Correct',1)&amp;#10;    myTally = myTally + 1&amp;#10;    myFeedbackImage=&quot;fishPix/win.png&quot;&amp;#10;    myConsecutiveCorrect = myConsecutiveCorrect+1&amp;#10;    if (myConsecutiveCorrect &gt;= myCriterion) :&amp;#10;        CriterionReached=True&amp;#10;else :&amp;#10;    myTrialCorrect=False&amp;#10;    thisExp.addData('Correct',0)&amp;#10;    myFeedbackImage=&quot;fishPix/lose.png&quot;&amp;#10;    myConsecutiveCorrect = 0&amp;#10;if (correctResponse==&quot;left&quot;) :&amp;#10;    showLeftFish=myLeftFishFileName&amp;#10;    showRightFish=&quot;fishPix/blank.png&quot;&amp;#10;else :&amp;#10;    showLeftFish=&quot;fishPix/blank.png&quot;&amp;#10;    showRightFish=myRightFishFileName&amp;#10;" valType="extendedCode" updates="constant" name="End Routine"/>
         <Param val="False" valType="bool" updates="None" name="disabled"/>
         <Param val="code" valType="code" updates="None" name="name"/>
       </CodeComponent>
-      <CodeComponent name="log_trial">
+      <CodeComponent name="log_trial" plugin="None">
         <Param val="" valType="extendedCode" updates="constant" name="Before Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin Experiment"/>
@@ -248,7 +248,7 @@
       </CodeComponent>
     </Routine>
     <Routine name="startup">
-      <TextComponent name="License_And_Terms">
+      <TextComponent name="License_And_Terms" plugin="None">
         <Param val="black" valType="color" updates="constant" name="color"/>
         <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
         <Param val="1" valType="num" updates="constant" name="contrast"/>
@@ -273,7 +273,7 @@
         <Param val="from exp settings" valType="str" updates="None" name="units"/>
         <Param val="1.5" valType="num" updates="constant" name="wrapWidth"/>
       </TextComponent>
-      <KeyboardComponent name="conditions_key">
+      <KeyboardComponent name="conditions_key" plugin="None">
         <Param val="'space'" valType="list" updates="constant" name="allowedKeys"/>
         <Param val="" valType="str" updates="constant" name="correctAns"/>
         <Param val="False" valType="bool" updates="None" name="disabled"/>
@@ -292,7 +292,7 @@
         <Param val="False" valType="bool" updates="constant" name="storeCorrect"/>
         <Param val="True" valType="bool" updates="constant" name="syncScreenRefresh"/>
       </KeyboardComponent>
-      <CodeComponent name="license_and_terms">
+      <CodeComponent name="license_and_terms" plugin="None">
         <Param val="'''&amp;#10;Fish v. 15 software, running on PsychoPy (v.2023.1.2)&amp;#10;&amp;#10;This software is adapted from software which was written by Catherine E. Myers &amp;#10;under funding from the Department of Veterans Affairs, &amp;#10;Office of Research and Development. &amp;#10;&amp;#10;Design is adapted from the task originally described in &amp;#10;Myers et al. (2003) Journal of Cognitive Neuroscience, 15(2), &amp;#10;185-193.&amp;#10;&amp;#10;Fish v.15 is a neuroscience experiment to asses the generalization performance of individuals&amp;#10;Copyright (C) 2023  Jose Mojica Perez&amp;#10;&amp;#10;This program is free software: you can redistribute it and/or modify&amp;#10;it under the terms of the GNU Affero General Public License as&amp;#10;published by the Free Software Foundation, either version 3 of the&amp;#10;License, or (at your option) any later version.&amp;#10;&amp;#10;This program is distributed in the hope that it will be useful,&amp;#10;but WITHOUT ANY WARRANTY; without even the implied warranty of&amp;#10;MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the&amp;#10;GNU Affero General Public License for more details.&amp;#10;&amp;#10;You should have received a copy of the GNU Affero General Public License&amp;#10;along with this program.  If not, see &lt;https://www.gnu.org/licenses/&gt;.&amp;#10;&amp;#10;Author's contact information: &amp;#10;    email: jmojicaperez@acm.org&amp;#10;'''" valType="extendedCode" updates="constant" name="Before Experiment"/>
         <Param val="/*&amp;#10;Fish v. 15 software, running on PsychoPy (v.2023.1.2)&amp;#10;&amp;#10;This software is adapted from software which was written by Catherine E. Myers&amp;#10;under funding from the Department of Veterans Affairs,&amp;#10;Office of Research and Development.&amp;#10;&amp;#10;Design is adapted from the task originally described in&amp;#10;Myers et al. (2003) Journal of Cognitive Neuroscience, 15(2),&amp;#10;185-193.&amp;#10;&amp;#10;Fish v.15 is a neuroscience experiment to asses the generalization performance of individuals&amp;#10;Copyright (C) 2023  Jose Mojica Perez&amp;#10;&amp;#10;This program is free software: you can redistribute it and/or modify&amp;#10;it under the terms of the GNU Affero General Public License as&amp;#10;published by the Free Software Foundation, either version 3 of the&amp;#10;License, or (at your option) any later version.&amp;#10;&amp;#10;This program is distributed in the hope that it will be useful,&amp;#10;but WITHOUT ANY WARRANTY; without even the implied warranty of&amp;#10;MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the&amp;#10;GNU Affero General Public License for more details.&amp;#10;&amp;#10;You should have received a copy of the GNU Affero General Public License&amp;#10;along with this program.  If not, see &lt;https://www.gnu.org/licenses/&gt;.&amp;#10;&amp;#10;Author's contact information:&amp;#10;email: jmojicaperez@acm.org*/&amp;#10;" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin Experiment"/>
@@ -309,7 +309,7 @@
         <Param val="False" valType="bool" updates="None" name="disabled"/>
         <Param val="license_and_terms" valType="code" updates="None" name="name"/>
       </CodeComponent>
-      <CodeComponent name="face_fish_pairing">
+      <CodeComponent name="face_fish_pairing" plugin="None">
         <Param val="import random&amp;#10;import os&amp;#10;# File names of faces and fishes without extension&amp;#10;fishes = [&quot;green&quot;, &quot;blue&quot;, &quot;purple&quot;, &quot;red&quot;]&amp;#10;faces = [&quot;boy&quot;, &quot;girl&quot;, &quot;man&quot;, &quot;woman&quot;]&amp;#10;&amp;#10;# Generating the random pairings&amp;#10;random_numbers = []&amp;#10;for _ in range(4):&amp;#10;    r = random.randint(0,3)&amp;#10;    while r in random_numbers:&amp;#10;        r = random.randint(0,3)&amp;#10;    random_numbers.append(r)&amp;#10;&amp;#10;r1, r2, r3, r4 = random_numbers&amp;#10;exp_files_path = os.getcwd() + &quot;/experimentFiles/&quot;&amp;#10;pairs_filename = &quot;face_fish_pairings.csv&quot;&amp;#10;pairings_filepath = exp_files_path + pairs_filename&amp;#10;file = open(pairings_filepath, &quot;w&quot;)&amp;#10;file.write(&quot;face,fish1,fish2\n&quot;)&amp;#10;file.write(f&quot;{faces[r1]},{fishes[r1]},{fishes[r2]}\n&quot;)&amp;#10;file.write(f&quot;{faces[r2]},{fishes[r1]},{fishes[r2]}\n&quot;)&amp;#10;file.write(f&quot;{faces[r3]},{fishes[r3]},{fishes[r4]}\n&quot;)&amp;#10;file.write(f&quot;{faces[r4]},{fishes[r3]},{fishes[r4]}\n&quot;)&amp;#10;file.close()" valType="extendedCode" updates="constant" name="Before Experiment"/>
         <Param val="import * as random from 'random';&amp;#10;import * as os from 'os';&amp;#10;function _pj_snippets(container) {&amp;#10;    function in_es6(left, right) {&amp;#10;        if (((right instanceof Array) || ((typeof right) === &quot;string&quot;))) {&amp;#10;            return (right.indexOf(left) &gt; (- 1));&amp;#10;        } else {&amp;#10;            if (((right instanceof Map) || (right instanceof Set) || (right instanceof WeakMap) || (right instanceof WeakSet))) {&amp;#10;                return right.has(left);&amp;#10;            } else {&amp;#10;                return (left in right);&amp;#10;            }&amp;#10;        }&amp;#10;    }&amp;#10;    container[&quot;in_es6&quot;] = in_es6;&amp;#10;    return container;&amp;#10;}&amp;#10;_pj = {};&amp;#10;_pj_snippets(_pj);&amp;#10;fishes = [&quot;green&quot;, &quot;blue&quot;, &quot;purple&quot;, &quot;red&quot;];&amp;#10;faces = [&quot;boy&quot;, &quot;girl&quot;, &quot;man&quot;, &quot;woman&quot;];&amp;#10;random_numbers = [];&amp;#10;for (var _, _pj_c = 0, _pj_a = util.range(4), _pj_b = _pj_a.length; (_pj_c &lt; _pj_b); _pj_c += 1) {&amp;#10;    _ = _pj_a[_pj_c];&amp;#10;    r = Math.random.randint(0, 3);&amp;#10;    while (_pj.in_es6(r, random_numbers)) {&amp;#10;        r = Math.random.randint(0, 3);&amp;#10;    }&amp;#10;    random_numbers.push(r);&amp;#10;}&amp;#10;[r1, r2, r3, r4] = random_numbers;&amp;#10;exp_files_path = (os.getcwd() + &quot;/experimentFiles/&quot;);&amp;#10;pairs_filename = &quot;face_fish_pairings.csv&quot;;&amp;#10;pairings_filepath = (exp_files_path + pairs_filename);&amp;#10;file = open(pairings_filepath, &quot;w&quot;);&amp;#10;file.write(&quot;face,fish1,fish2\n&quot;);&amp;#10;file.write(`${faces[r1]},${fishes[r1]},${fishes[r2]}&amp;#10;`);&amp;#10;file.write(`${faces[r2]},${fishes[r1]},${fishes[r2]}&amp;#10;`);&amp;#10;file.write(`${faces[r3]},${fishes[r3]},${fishes[r4]}&amp;#10;`);&amp;#10;file.write(`${faces[r4]},${fishes[r3]},${fishes[r4]}&amp;#10;`);&amp;#10;file.close();&amp;#10;" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin Experiment"/>
@@ -326,7 +326,7 @@
         <Param val="False" valType="bool" updates="None" name="disabled"/>
         <Param val="face_fish_pairing" valType="code" updates="None" name="name"/>
       </CodeComponent>
-      <CodeComponent name="phase_gen">
+      <CodeComponent name="phase_gen" plugin="None">
         <Param val="import csv&amp;#10;import os&amp;#10;&amp;#10;def generate_phase_file(pairings, phase_faces, phase_fishes, filename):&amp;#10;    '''&amp;#10;    Generates a csv file with every valid combination of face &amp;#10;    left_fish and right_fish. &amp;#10;    Args:&amp;#10;        pairings: a dictionary containing all the face-fish pairings in the &amp;#10;                  format pairings[face] = {fish1, fish2}&amp;#10;        phase_faces: a list of strings with the base file name of the faces that &amp;#10;                     correspond to the desired phase&amp;#10;        phase_fishes: a list of strings with the base file name of the fishes &amp;#10;                      that correspond to the desired phase&amp;#10;    Returns:&amp;#10;        None. It instead generates [filename].csv for the that lists the&amp;#10;        stimuli for the desired phase&amp;#10;    '''&amp;#10;    file = open(filename, &quot;w&quot;)&amp;#10;    file.write(&quot;face,leftFish,rightFish,correctResponse\n&quot;)&amp;#10;    # filename format should be phaseX.csv where X is the phase number&amp;#10;    # phase_no = filename.split(&quot;.&quot;)[0][-1]&amp;#10;    &amp;#10;    for face in phase_faces:&amp;#10;        # Create a list of the fishes that the face above owns and does not own&amp;#10;        not_owned_fishes = []&amp;#10;        owned_fishes = []&amp;#10;        for fish in phase_fishes:&amp;#10;            if(fish in pairings[face]):&amp;#10;                owned_fishes.append(fish)&amp;#10;            else:&amp;#10;                not_owned_fishes.append(fish)&amp;#10;                &amp;#10;        if(len(owned_fishes) &gt; 1):&amp;#10;            # All the other phases. Do it this way because range would be empty&amp;#10;            # if there's only 1 owned fish&amp;#10;            for i in range(len(owned_fishes)):&amp;#10;                correct = owned_fishes[i]&amp;#10;                incorrect = not_owned_fishes[i]&amp;#10;                file.write(f&quot;{face},{correct},{incorrect},left\n&quot;)&amp;#10;                file.write(f&quot;{face},{incorrect},{correct},right\n&quot;)&amp;#10;        else: # Phase 0&amp;#10;            correct = owned_fishes[0]&amp;#10;            incorrect = not_owned_fishes[0]&amp;#10;            file.write(f&quot;{face},{correct},{incorrect},left\n&quot;)&amp;#10;            file.write(f&quot;{face},{incorrect},{correct},right\n&quot;)&amp;#10;                &amp;#10;    file.close()&amp;#10;&amp;#10;def remove_crit_pairs(faces, fishes, filename, pairings):&amp;#10;    '''&amp;#10;    Removes and returns the critical pairs from the phase file with &amp;#10;    name `filename`. This should only be used for a phase which is not the test&amp;#10;    phase and was generated with all the faces and fishes, i.e. phase 2.&amp;#10;    Args:&amp;#10;        faces: a list of all the faces&amp;#10;        fishes: a list of all the fishes&amp;#10;        filaneme: the file name of the phase file to modify&amp;#10;        pairings: a dictionary containing all the face-fish pairings in the &amp;#10;                  format pairings[face] = {fish1, fish2}&amp;#10;    Returns:&amp;#10;        a set of all stimuli containing critical pairs &amp;#10;        in comma separated string format&amp;#10;    '''&amp;#10;&amp;#10;    # Phase 3 critical pairs:&amp;#10;    # Face B: Fish c/d, Face D: fish c/d&amp;#10;    do_not_include = {faces[1]: pairings[faces[1]][1], faces[3]: pairings[faces[3]][1]}&amp;#10;    &amp;#10;    file = open(filename, &quot;r&quot;)&amp;#10;    reader = csv.DictReader(file)&amp;#10;    adjusted_file_text = &quot;face,leftFish,rightFish,correctResponse,phase_used\n&quot;&amp;#10;    crit_pairs_stims = set()&amp;#10;    for row in reader:&amp;#10;        face = row[&quot;face&quot;]&amp;#10;        fish1 = row[&quot;leftFish&quot;]&amp;#10;        fish2 = row[&quot;rightFish&quot;]&amp;#10;        correct = row[&quot;correctResponse&quot;]&amp;#10;        # If the face is not one of the critical pairs of phase 3 then &amp;#10;        # it should be included in phase 2&amp;#10;        should_include = not ((face in do_not_include) and (fish1 == do_not_include[face] or fish2 == do_not_include[face]))&amp;#10;        &amp;#10;        if (should_include): # not a critical pair&amp;#10;            adjusted_file_text += &quot;,&quot;.join([face, fish1, fish2, correct]) + &quot;\n&quot;&amp;#10;        else: # critical pair&amp;#10;            stim =  &quot;,&quot;.join([face, fish1, fish2, correct])&amp;#10;            crit_pairs_stims.add(stim)&amp;#10;            continue&amp;#10;    file.close()&amp;#10;    file = open(filename, &quot;w&quot;)&amp;#10;    file.write(adjusted_file_text)&amp;#10;    file.close()&amp;#10;    return crit_pairs_stims&amp;#10;            &amp;#10;# Getting the pairings from previously generated pairings file&amp;#10;exp_files_path = os.getcwd() + &quot;/experimentFiles/&quot;&amp;#10;pairings = {}&amp;#10;#pairings_file = open(exp_files_path + &quot;face_fish_pairings.csv&quot;, &quot;r&quot;)&amp;#10;pairings_file = open(pairings_filepath, &quot;r&quot;)&amp;#10;reader = csv.DictReader(pairings_file)&amp;#10;for row in reader:&amp;#10;    pairings[row[&quot;face&quot;]] = [row[&quot;fish1&quot;], row[&quot;fish2&quot;]]&amp;#10;pairings_file.close()&amp;#10;&amp;#10;# All faces&amp;#10;faces = list(pairings)&amp;#10;# All fishes&amp;#10;fishes = []&amp;#10;for face in faces:&amp;#10;    if len(fishes) == 4: #There are only 4 fishes&amp;#10;        break&amp;#10;    for fish in pairings[face]:&amp;#10;        if(fish not in fishes):&amp;#10;            fishes.append(fish)&amp;#10;&amp;#10;&amp;#10;# Face A and Face C&amp;#10;phase0_faces = [faces[0], faces[2]]&amp;#10;phase0_fishes = [pairings[faces[0]][0], pairings[faces[2]][0]]&amp;#10;phase0_file = exp_files_path + &quot;phase0.csv&quot;&amp;#10;generate_phase_file(pairings, phase0_faces, phase0_fishes, phase0_file)&amp;#10;&amp;#10;phase1_faces = faces&amp;#10;phase1_fishes = phase0_fishes&amp;#10;phase1_file = exp_files_path + &quot;phase1.csv&quot;&amp;#10;generate_phase_file(pairings, phase1_faces, phase1_fishes, phase1_file)&amp;#10;&amp;#10;phase2_faces = faces&amp;#10;phase2_fishes = fishes&amp;#10;phase2_file = exp_files_path + &quot;phase2.csv&quot;&amp;#10;generate_phase_file(pairings, phase2_faces, phase2_fishes, phase2_file)&amp;#10;# critical pairs are not supposed to be in phase 2&amp;#10;crit_pairs_stims = remove_crit_pairs(phase2_faces, phase2_fishes, phase2_file, pairings)&amp;#10;&amp;#10;phase3_faces = faces&amp;#10;phase3_fishes = fishes&amp;#10;phase3_file = exp_files_path + &quot;phase3.csv&quot;&amp;#10;generate_phase_file(pairings, phase3_faces, phase3_fishes, phase3_file)" valType="extendedCode" updates="constant" name="Before Experiment"/>
         <Param val="&amp;#10;        // add-on: list(s: string): string[]&amp;#10;        function list(s) {&amp;#10;            // if s is a string, we return a list of its characters&amp;#10;            if (typeof s === 'string')&amp;#10;                return s.split('');&amp;#10;            else&amp;#10;                // otherwise we return s:&amp;#10;                return s;&amp;#10;        }&amp;#10;&amp;#10;        import * as csv from 'csv';&amp;#10;import * as os from 'os';&amp;#10;function _pj_snippets(container) {&amp;#10;    function in_es6(left, right) {&amp;#10;        if (((right instanceof Array) || ((typeof right) === &quot;string&quot;))) {&amp;#10;            return (right.indexOf(left) &gt; (- 1));&amp;#10;        } else {&amp;#10;            if (((right instanceof Map) || (right instanceof Set) || (right instanceof WeakMap) || (right instanceof WeakSet))) {&amp;#10;                return right.has(left);&amp;#10;            } else {&amp;#10;                return (left in right);&amp;#10;            }&amp;#10;        }&amp;#10;    }&amp;#10;    container[&quot;in_es6&quot;] = in_es6;&amp;#10;    return container;&amp;#10;}&amp;#10;_pj = {};&amp;#10;_pj_snippets(_pj);&amp;#10;function generate_phase_file(pairings, phase_faces, phase_fishes, filename) {&amp;#10;    /*&amp;#10;    Generates a csv file with every valid combination of face&amp;#10;    left_fish and right_fish.&amp;#10;    Args:&amp;#10;    pairings: a dictionary containing all the face-fish pairings in the&amp;#10;    format pairings[face] = {fish1, fish2}&amp;#10;    phase_faces: a list of strings with the base file name of the faces that&amp;#10;    correspond to the desired phase&amp;#10;    phase_fishes: a list of strings with the base file name of the fishes&amp;#10;    that correspond to the desired phase&amp;#10;    Returns:&amp;#10;    None. It instead generates [filename].csv for the that lists the&amp;#10;    stimuli for the desired phase&amp;#10;    */&amp;#10;    var correct, file, incorrect, not_owned_fishes, owned_fishes;&amp;#10;    file = open(filename, &quot;w&quot;);&amp;#10;    file.write(&quot;face,leftFish,rightFish,correctResponse\n&quot;);&amp;#10;    for (var face, _pj_c = 0, _pj_a = phase_faces, _pj_b = _pj_a.length; (_pj_c &lt; _pj_b); _pj_c += 1) {&amp;#10;        face = _pj_a[_pj_c];&amp;#10;        not_owned_fishes = [];&amp;#10;        owned_fishes = [];&amp;#10;        for (var fish, _pj_f = 0, _pj_d = phase_fishes, _pj_e = _pj_d.length; (_pj_f &lt; _pj_e); _pj_f += 1) {&amp;#10;            fish = _pj_d[_pj_f];&amp;#10;            if (_pj.in_es6(fish, pairings[face])) {&amp;#10;                owned_fishes.push(fish);&amp;#10;            } else {&amp;#10;                not_owned_fishes.push(fish);&amp;#10;            }&amp;#10;        }&amp;#10;        if ((owned_fishes.length &gt; 1)) {&amp;#10;            for (var i, _pj_f = 0, _pj_d = util.range(owned_fishes.length), _pj_e = _pj_d.length; (_pj_f &lt; _pj_e); _pj_f += 1) {&amp;#10;                i = _pj_d[_pj_f];&amp;#10;                correct = owned_fishes[i];&amp;#10;                incorrect = not_owned_fishes[i];&amp;#10;                file.write(`${face},${correct},${incorrect},left&amp;#10;`);&amp;#10;                file.write(`${face},${incorrect},${correct},right&amp;#10;`);&amp;#10;            }&amp;#10;        } else {&amp;#10;            correct = owned_fishes[0];&amp;#10;            incorrect = not_owned_fishes[0];&amp;#10;            file.write(`${face},${correct},${incorrect},left&amp;#10;`);&amp;#10;            file.write(`${face},${incorrect},${correct},right&amp;#10;`);&amp;#10;        }&amp;#10;    }&amp;#10;    file.close();&amp;#10;}&amp;#10;function remove_crit_pairs(faces, fishes, filename, pairings) {&amp;#10;    /*&amp;#10;    Removes and returns the critical pairs from the phase file with&amp;#10;    name `filename`. This should only be used for a phase which is not the test&amp;#10;    phase and was generated with all the faces and fishes, i.e. phase 2.&amp;#10;    Args:&amp;#10;    faces: a list of all the faces&amp;#10;    fishes: a list of all the fishes&amp;#10;    filaneme: the file name of the phase file to modify&amp;#10;    pairings: a dictionary containing all the face-fish pairings in the&amp;#10;    format pairings[face] = {fish1, fish2}&amp;#10;    Returns:&amp;#10;    a set of all stimuli containing critical pairs&amp;#10;    in comma separated string format&amp;#10;    */&amp;#10;    var adjusted_file_text, correct, do_not_include, face, file, fish1, fish2, should_include, stim;&amp;#10;    do_not_include = {[faces[1]]: pairings[faces[1]][1], [faces[3]]: pairings[faces[3]][1]};&amp;#10;    file = open(filename, &quot;r&quot;);&amp;#10;    reader = new csv.DictReader(file);&amp;#10;    adjusted_file_text = &quot;face,leftFish,rightFish,correctResponse,phase_used\n&quot;;&amp;#10;    crit_pairs_stims = set();&amp;#10;    for (var row, _pj_c = 0, _pj_a = reader, _pj_b = _pj_a.length; (_pj_c &lt; _pj_b); _pj_c += 1) {&amp;#10;        row = _pj_a[_pj_c];&amp;#10;        face = row[&quot;face&quot;];&amp;#10;        fish1 = row[&quot;leftFish&quot;];&amp;#10;        fish2 = row[&quot;rightFish&quot;];&amp;#10;        correct = row[&quot;correctResponse&quot;];&amp;#10;        should_include = (! (_pj.in_es6(face, do_not_include) &amp;&amp; ((fish1 === do_not_include[face]) || (fish2 === do_not_include[face]))));&amp;#10;        if (should_include) {&amp;#10;            adjusted_file_text += (&quot;,&quot;.join([face, fish1, fish2, correct]) + &quot;\n&quot;);&amp;#10;        } else {&amp;#10;            stim = &quot;,&quot;.join([face, fish1, fish2, correct]);&amp;#10;            crit_pairs_stims.add(stim);&amp;#10;            continue;&amp;#10;        }&amp;#10;    }&amp;#10;    file.close();&amp;#10;    file = open(filename, &quot;w&quot;);&amp;#10;    file.write(adjusted_file_text);&amp;#10;    file.close();&amp;#10;    return crit_pairs_stims;&amp;#10;}&amp;#10;exp_files_path = (os.getcwd() + &quot;/experimentFiles/&quot;);&amp;#10;pairings = {};&amp;#10;pairings_file = open(pairings_filepath, &quot;r&quot;);&amp;#10;reader = new csv.DictReader(pairings_file);&amp;#10;for (var row, _pj_c = 0, _pj_a = reader, _pj_b = _pj_a.length; (_pj_c &lt; _pj_b); _pj_c += 1) {&amp;#10;    row = _pj_a[_pj_c];&amp;#10;    pairings[row[&quot;face&quot;]] = [row[&quot;fish1&quot;], row[&quot;fish2&quot;]];&amp;#10;}&amp;#10;pairings_file.close();&amp;#10;faces = list(pairings);&amp;#10;fishes = [];&amp;#10;for (var face, _pj_c = 0, _pj_a = faces, _pj_b = _pj_a.length; (_pj_c &lt; _pj_b); _pj_c += 1) {&amp;#10;    face = _pj_a[_pj_c];&amp;#10;    if ((fishes.length === 4)) {&amp;#10;        break;&amp;#10;    }&amp;#10;    for (var fish, _pj_f = 0, _pj_d = pairings[face], _pj_e = _pj_d.length; (_pj_f &lt; _pj_e); _pj_f += 1) {&amp;#10;        fish = _pj_d[_pj_f];&amp;#10;        if ((! _pj.in_es6(fish, fishes))) {&amp;#10;            fishes.push(fish);&amp;#10;        }&amp;#10;    }&amp;#10;}&amp;#10;phase0_faces = [faces[0], faces[2]];&amp;#10;phase0_fishes = [pairings[faces[0]][0], pairings[faces[2]][0]];&amp;#10;phase0_file = (exp_files_path + &quot;phase0.csv&quot;);&amp;#10;generate_phase_file(pairings, phase0_faces, phase0_fishes, phase0_file);&amp;#10;phase1_faces = faces;&amp;#10;phase1_fishes = phase0_fishes;&amp;#10;phase1_file = (exp_files_path + &quot;phase1.csv&quot;);&amp;#10;generate_phase_file(pairings, phase1_faces, phase1_fishes, phase1_file);&amp;#10;phase2_faces = faces;&amp;#10;phase2_fishes = fishes;&amp;#10;phase2_file = (exp_files_path + &quot;phase2.csv&quot;);&amp;#10;generate_phase_file(pairings, phase2_faces, phase2_fishes, phase2_file);&amp;#10;crit_pairs_stims = remove_crit_pairs(phase2_faces, phase2_fishes, phase2_file, pairings);&amp;#10;phase3_faces = faces;&amp;#10;phase3_fishes = fishes;&amp;#10;phase3_file = (exp_files_path + &quot;phase3.csv&quot;);&amp;#10;generate_phase_file(pairings, phase3_faces, phase3_fishes, phase3_file);&amp;#10;" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin Experiment"/>
@@ -343,7 +343,7 @@
         <Param val="False" valType="bool" updates="None" name="disabled"/>
         <Param val="phase_gen" valType="code" updates="None" name="name"/>
       </CodeComponent>
-      <CodeComponent name="start_data_log">
+      <CodeComponent name="start_data_log" plugin="None">
         <Param val="" valType="extendedCode" updates="constant" name="Before Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin Experiment"/>
@@ -362,7 +362,7 @@
       </CodeComponent>
     </Routine>
     <Routine name="test_instr">
-      <TextComponent name="test_text1">
+      <TextComponent name="test_text1" plugin="None">
         <Param val="black" valType="str" updates="constant" name="color"/>
         <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
         <Param val="1" valType="num" updates="constant" name="contrast"/>
@@ -387,7 +387,7 @@
         <Param val="from exp settings" valType="str" updates="None" name="units"/>
         <Param val="" valType="code" updates="constant" name="wrapWidth"/>
       </TextComponent>
-      <TextComponent name="test_text2">
+      <TextComponent name="test_text2" plugin="None">
         <Param val="black" valType="str" updates="constant" name="color"/>
         <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
         <Param val="1" valType="num" updates="constant" name="contrast"/>
@@ -412,7 +412,7 @@
         <Param val="from exp settings" valType="str" updates="None" name="units"/>
         <Param val="" valType="code" updates="constant" name="wrapWidth"/>
       </TextComponent>
-      <TextComponent name="test_text3">
+      <TextComponent name="test_text3" plugin="None">
         <Param val="black" valType="str" updates="constant" name="color"/>
         <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
         <Param val="1" valType="num" updates="constant" name="contrast"/>
@@ -437,7 +437,7 @@
         <Param val="from exp settings" valType="str" updates="None" name="units"/>
         <Param val="" valType="code" updates="constant" name="wrapWidth"/>
       </TextComponent>
-      <TextComponent name="test_text4">
+      <TextComponent name="test_text4" plugin="None">
         <Param val="black" valType="str" updates="constant" name="color"/>
         <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
         <Param val="1" valType="num" updates="constant" name="contrast"/>
@@ -462,7 +462,7 @@
         <Param val="from exp settings" valType="str" updates="None" name="units"/>
         <Param val="" valType="code" updates="constant" name="wrapWidth"/>
       </TextComponent>
-      <TextComponent name="test_text5">
+      <TextComponent name="test_text5" plugin="None">
         <Param val="black" valType="str" updates="constant" name="color"/>
         <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
         <Param val="1" valType="num" updates="constant" name="contrast"/>
@@ -487,7 +487,7 @@
         <Param val="from exp settings" valType="str" updates="None" name="units"/>
         <Param val="" valType="code" updates="constant" name="wrapWidth"/>
       </TextComponent>
-      <TextComponent name="test_text6">
+      <TextComponent name="test_text6" plugin="None">
         <Param val="black" valType="str" updates="constant" name="color"/>
         <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
         <Param val="1" valType="num" updates="constant" name="contrast"/>
@@ -512,7 +512,7 @@
         <Param val="from exp settings" valType="str" updates="None" name="units"/>
         <Param val="" valType="code" updates="constant" name="wrapWidth"/>
       </TextComponent>
-      <TextComponent name="test_text7">
+      <TextComponent name="test_text7" plugin="None">
         <Param val="black" valType="str" updates="constant" name="color"/>
         <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
         <Param val="1" valType="num" updates="constant" name="contrast"/>
@@ -537,7 +537,7 @@
         <Param val="from exp settings" valType="str" updates="None" name="units"/>
         <Param val="" valType="code" updates="constant" name="wrapWidth"/>
       </TextComponent>
-      <TextComponent name="test_text8">
+      <TextComponent name="test_text8" plugin="None">
         <Param val="black" valType="str" updates="constant" name="color"/>
         <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
         <Param val="1" valType="num" updates="constant" name="contrast"/>
@@ -562,7 +562,7 @@
         <Param val="from exp settings" valType="str" updates="None" name="units"/>
         <Param val="" valType="code" updates="constant" name="wrapWidth"/>
       </TextComponent>
-      <KeyboardComponent name="test_instr_key">
+      <KeyboardComponent name="test_instr_key" plugin="None">
         <Param val="'lctrl','rctrl'" valType="list" updates="constant" name="allowedKeys"/>
         <Param val="" valType="str" updates="constant" name="correctAns"/>
         <Param val="False" valType="bool" updates="None" name="disabled"/>
@@ -581,7 +581,7 @@
         <Param val="False" valType="bool" updates="constant" name="storeCorrect"/>
         <Param val="True" valType="bool" updates="constant" name="syncScreenRefresh"/>
       </KeyboardComponent>
-      <CodeComponent name="start_phase_log_test">
+      <CodeComponent name="start_phase_log_test" plugin="None">
         <Param val="" valType="extendedCode" updates="constant" name="Before Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin Experiment"/>
@@ -600,7 +600,7 @@
       </CodeComponent>
     </Routine>
     <Routine name="train_instr">
-      <TextComponent name="train_instructions_text">
+      <TextComponent name="train_instructions_text" plugin="None">
         <Param val="black" valType="str" updates="constant" name="color"/>
         <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
         <Param val="1" valType="num" updates="constant" name="contrast"/>
@@ -625,8 +625,8 @@
         <Param val="from exp settings" valType="str" updates="None" name="units"/>
         <Param val="1.5" valType="code" updates="constant" name="wrapWidth"/>
       </TextComponent>
-      <KeyboardComponent name="train_instr_key">
-        <Param val="'lctrl','rctrl'" valType="list" updates="constant" name="allowedKeys"/>
+      <KeyboardComponent name="train_instr_key" plugin="None">
+        <Param val="'z','m'" valType="list" updates="constant" name="allowedKeys"/>
         <Param val="" valType="str" updates="constant" name="correctAns"/>
         <Param val="False" valType="bool" updates="None" name="disabled"/>
         <Param val="True" valType="bool" updates="constant" name="discard previous"/>
@@ -644,7 +644,7 @@
         <Param val="False" valType="bool" updates="constant" name="storeCorrect"/>
         <Param val="True" valType="bool" updates="constant" name="syncScreenRefresh"/>
       </KeyboardComponent>
-      <CodeComponent name="code_train_instr">
+      <CodeComponent name="code_train_instr" plugin="None">
         <Param val="" valType="extendedCode" updates="constant" name="Before Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
         <Param val="myISIduration=1.0&amp;#10;myTally=0&amp;#10;&amp;#10;CriterionReached=False&amp;#10;myConsecutiveCorrect=0&amp;#10;myCriterion=4&amp;#10;&amp;#10;myCircleHoriz = -0.15&amp;#10;myCircleVert = 0.01&amp;#10;&amp;#10;myTrialCorrect = False&amp;#10;myErr1 = 0&amp;#10;myCrit1 = 0&amp;#10;myErr2 = 0&amp;#10;myCrit2 = 0&amp;#10;myErr3 = 0&amp;#10;myCrit3 = 0&amp;#10;myOldErr = 0&amp;#10;myNewErr = 0&amp;#10;myOldTrials = 0&amp;#10;myNewTrials = 0&amp;#10;" valType="extendedCode" updates="constant" name="Begin Experiment"/>
@@ -661,7 +661,7 @@
         <Param val="False" valType="bool" updates="None" name="disabled"/>
         <Param val="code_train_instr" valType="code" updates="None" name="name"/>
       </CodeComponent>
-      <CodeComponent name="start_phase_log_train">
+      <CodeComponent name="start_phase_log_train" plugin="None">
         <Param val="" valType="extendedCode" updates="constant" name="Before Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin Experiment"/>
@@ -680,7 +680,7 @@
       </CodeComponent>
     </Routine>
     <Routine name="goodbye">
-      <TextComponent name="goodbye_text1">
+      <TextComponent name="goodbye_text1" plugin="None">
         <Param val="black" valType="str" updates="constant" name="color"/>
         <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
         <Param val="1" valType="num" updates="constant" name="contrast"/>
@@ -705,7 +705,7 @@
         <Param val="from exp settings" valType="str" updates="None" name="units"/>
         <Param val="" valType="code" updates="constant" name="wrapWidth"/>
       </TextComponent>
-      <TextComponent name="goodbye_text2">
+      <TextComponent name="goodbye_text2" plugin="None">
         <Param val="black" valType="str" updates="constant" name="color"/>
         <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
         <Param val="1" valType="num" updates="constant" name="contrast"/>
@@ -730,7 +730,7 @@
         <Param val="from exp settings" valType="str" updates="None" name="units"/>
         <Param val="" valType="code" updates="constant" name="wrapWidth"/>
       </TextComponent>
-      <TextComponent name="goodbye_tally">
+      <TextComponent name="goodbye_tally" plugin="None">
         <Param val="black" valType="str" updates="constant" name="color"/>
         <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
         <Param val="1" valType="num" updates="constant" name="contrast"/>
@@ -755,7 +755,7 @@
         <Param val="from exp settings" valType="str" updates="None" name="units"/>
         <Param val="" valType="code" updates="constant" name="wrapWidth"/>
       </TextComponent>
-      <TextComponent name="goodbye_text3">
+      <TextComponent name="goodbye_text3" plugin="None">
         <Param val="black" valType="str" updates="constant" name="color"/>
         <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
         <Param val="1" valType="num" updates="constant" name="contrast"/>
@@ -780,7 +780,7 @@
         <Param val="from exp settings" valType="str" updates="None" name="units"/>
         <Param val="" valType="code" updates="constant" name="wrapWidth"/>
       </TextComponent>
-      <TextComponent name="goodbye_text4">
+      <TextComponent name="goodbye_text4" plugin="None">
         <Param val="black" valType="str" updates="constant" name="color"/>
         <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
         <Param val="1" valType="num" updates="constant" name="contrast"/>
@@ -805,7 +805,7 @@
         <Param val="from exp settings" valType="str" updates="None" name="units"/>
         <Param val="" valType="code" updates="constant" name="wrapWidth"/>
       </TextComponent>
-      <KeyboardComponent name="goodbye_key">
+      <KeyboardComponent name="goodbye_key" plugin="None">
         <Param val="'space'" valType="list" updates="constant" name="allowedKeys"/>
         <Param val="" valType="str" updates="constant" name="correctAns"/>
         <Param val="False" valType="bool" updates="None" name="disabled"/>
@@ -824,7 +824,7 @@
         <Param val="False" valType="bool" updates="constant" name="storeCorrect"/>
         <Param val="True" valType="bool" updates="constant" name="syncScreenRefresh"/>
       </KeyboardComponent>
-      <CodeComponent name="end_data_log">
+      <CodeComponent name="end_data_log" plugin="None">
         <Param val="" valType="extendedCode" updates="constant" name="Before Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin Experiment"/>
@@ -841,7 +841,7 @@
         <Param val="False" valType="bool" updates="None" name="disabled"/>
         <Param val="end_data_log" valType="code" updates="None" name="name"/>
       </CodeComponent>
-      <CodeComponent name="code_6">
+      <CodeComponent name="code_6" plugin="None">
         <Param val="" valType="extendedCode" updates="constant" name="Before Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin Experiment"/>
@@ -860,7 +860,7 @@
       </CodeComponent>
     </Routine>
     <Routine name="doFB1">
-      <ImageComponent name="FB2_face">
+      <ImageComponent name="FB2_face" plugin="None">
         <Param val="center" valType="str" updates="constant" name="anchor"/>
         <Param val="$[1,1,1]" valType="str" updates="constant" name="color"/>
         <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
@@ -887,7 +887,7 @@
         <Param val="128" valType="code" updates="constant" name="texture resolution"/>
         <Param val="from exp settings" valType="str" updates="None" name="units"/>
       </ImageComponent>
-      <ImageComponent name="FB2_Circle">
+      <ImageComponent name="FB2_Circle" plugin="None">
         <Param val="center" valType="str" updates="constant" name="anchor"/>
         <Param val="$[1,1,1]" valType="str" updates="constant" name="color"/>
         <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
@@ -914,7 +914,7 @@
         <Param val="128" valType="code" updates="constant" name="texture resolution"/>
         <Param val="from exp settings" valType="str" updates="None" name="units"/>
       </ImageComponent>
-      <ImageComponent name="FB1_leftFish">
+      <ImageComponent name="FB1_leftFish" plugin="None">
         <Param val="center" valType="str" updates="constant" name="anchor"/>
         <Param val="$[1,1,1]" valType="str" updates="constant" name="color"/>
         <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
@@ -941,7 +941,7 @@
         <Param val="128" valType="code" updates="constant" name="texture resolution"/>
         <Param val="from exp settings" valType="str" updates="None" name="units"/>
       </ImageComponent>
-      <ImageComponent name="FB1_rightFish">
+      <ImageComponent name="FB1_rightFish" plugin="None">
         <Param val="center" valType="str" updates="constant" name="anchor"/>
         <Param val="$[1,1,1]" valType="str" updates="constant" name="color"/>
         <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
@@ -968,7 +968,7 @@
         <Param val="128" valType="code" updates="constant" name="texture resolution"/>
         <Param val="from exp settings" valType="str" updates="None" name="units"/>
       </ImageComponent>
-      <ImageComponent name="FB1_text">
+      <ImageComponent name="FB1_text" plugin="None">
         <Param val="center" valType="str" updates="constant" name="anchor"/>
         <Param val="$[1,1,1]" valType="str" updates="constant" name="color"/>
         <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
@@ -995,7 +995,7 @@
         <Param val="128" valType="code" updates="constant" name="texture resolution"/>
         <Param val="from exp settings" valType="str" updates="None" name="units"/>
       </ImageComponent>
-      <CodeComponent name="FB1_code">
+      <CodeComponent name="FB1_code" plugin="None">
         <Param val="" valType="extendedCode" updates="constant" name="Before Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin Experiment"/>
@@ -1014,7 +1014,7 @@
       </CodeComponent>
     </Routine>
     <Routine name="doFB2">
-      <ImageComponent name="FB2_face_2">
+      <ImageComponent name="FB2_face_2" plugin="None">
         <Param val="center" valType="str" updates="constant" name="anchor"/>
         <Param val="$[1,1,1]" valType="str" updates="constant" name="color"/>
         <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
@@ -1041,7 +1041,7 @@
         <Param val="128" valType="code" updates="constant" name="texture resolution"/>
         <Param val="from exp settings" valType="str" updates="None" name="units"/>
       </ImageComponent>
-      <ImageComponent name="FB2_Circle_2">
+      <ImageComponent name="FB2_Circle_2" plugin="None">
         <Param val="center" valType="str" updates="constant" name="anchor"/>
         <Param val="$[1,1,1]" valType="str" updates="constant" name="color"/>
         <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
@@ -1068,7 +1068,7 @@
         <Param val="128" valType="code" updates="constant" name="texture resolution"/>
         <Param val="from exp settings" valType="str" updates="None" name="units"/>
       </ImageComponent>
-      <ImageComponent name="FB2_leftFish">
+      <ImageComponent name="FB2_leftFish" plugin="None">
         <Param val="center" valType="str" updates="constant" name="anchor"/>
         <Param val="$[1,1,1]" valType="str" updates="constant" name="color"/>
         <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
@@ -1095,7 +1095,7 @@
         <Param val="128" valType="code" updates="constant" name="texture resolution"/>
         <Param val="from exp settings" valType="str" updates="None" name="units"/>
       </ImageComponent>
-      <ImageComponent name="FB2_rightFish">
+      <ImageComponent name="FB2_rightFish" plugin="None">
         <Param val="center" valType="str" updates="constant" name="anchor"/>
         <Param val="$[1,1,1]" valType="str" updates="constant" name="color"/>
         <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
@@ -1122,7 +1122,7 @@
         <Param val="128" valType="code" updates="constant" name="texture resolution"/>
         <Param val="from exp settings" valType="str" updates="None" name="units"/>
       </ImageComponent>
-      <ImageComponent name="FB2_text">
+      <ImageComponent name="FB2_text" plugin="None">
         <Param val="center" valType="str" updates="constant" name="anchor"/>
         <Param val="$[1,1,1]" valType="str" updates="constant" name="color"/>
         <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
@@ -1149,7 +1149,7 @@
         <Param val="128" valType="code" updates="constant" name="texture resolution"/>
         <Param val="from exp settings" valType="str" updates="None" name="units"/>
       </ImageComponent>
-      <CodeComponent name="FB2_code">
+      <CodeComponent name="FB2_code" plugin="None">
         <Param val="" valType="extendedCode" updates="constant" name="Before Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin Experiment"/>
@@ -1168,7 +1168,7 @@
       </CodeComponent>
     </Routine>
     <Routine name="doFB3">
-      <ImageComponent name="FB3_face">
+      <ImageComponent name="FB3_face" plugin="None">
         <Param val="center" valType="str" updates="constant" name="anchor"/>
         <Param val="$[1,1,1]" valType="str" updates="constant" name="color"/>
         <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
@@ -1195,7 +1195,7 @@
         <Param val="128" valType="code" updates="constant" name="texture resolution"/>
         <Param val="from exp settings" valType="str" updates="None" name="units"/>
       </ImageComponent>
-      <ImageComponent name="FB3_Circle">
+      <ImageComponent name="FB3_Circle" plugin="None">
         <Param val="center" valType="str" updates="constant" name="anchor"/>
         <Param val="$[1,1,1]" valType="str" updates="constant" name="color"/>
         <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
@@ -1222,7 +1222,7 @@
         <Param val="128" valType="code" updates="constant" name="texture resolution"/>
         <Param val="from exp settings" valType="str" updates="None" name="units"/>
       </ImageComponent>
-      <ImageComponent name="FB3_leftFish">
+      <ImageComponent name="FB3_leftFish" plugin="None">
         <Param val="center" valType="str" updates="constant" name="anchor"/>
         <Param val="$[1,1,1]" valType="str" updates="constant" name="color"/>
         <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
@@ -1249,7 +1249,7 @@
         <Param val="128" valType="code" updates="constant" name="texture resolution"/>
         <Param val="from exp settings" valType="str" updates="None" name="units"/>
       </ImageComponent>
-      <ImageComponent name="FB3_rightFish">
+      <ImageComponent name="FB3_rightFish" plugin="None">
         <Param val="center" valType="str" updates="constant" name="anchor"/>
         <Param val="$[1,1,1]" valType="str" updates="constant" name="color"/>
         <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
@@ -1276,7 +1276,7 @@
         <Param val="128" valType="code" updates="constant" name="texture resolution"/>
         <Param val="from exp settings" valType="str" updates="None" name="units"/>
       </ImageComponent>
-      <ImageComponent name="FB3_text">
+      <ImageComponent name="FB3_text" plugin="None">
         <Param val="center" valType="str" updates="constant" name="anchor"/>
         <Param val="$[1,1,1]" valType="str" updates="constant" name="color"/>
         <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
@@ -1303,7 +1303,7 @@
         <Param val="128" valType="code" updates="constant" name="texture resolution"/>
         <Param val="from exp settings" valType="str" updates="None" name="units"/>
       </ImageComponent>
-      <CodeComponent name="FB3_code">
+      <CodeComponent name="FB3_code" plugin="None">
         <Param val="" valType="extendedCode" updates="constant" name="Before Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin Experiment"/>
@@ -1322,7 +1322,7 @@
       </CodeComponent>
     </Routine>
     <Routine name="noFB">
-      <ImageComponent name="noFB_face">
+      <ImageComponent name="noFB_face" plugin="None">
         <Param val="center" valType="str" updates="constant" name="anchor"/>
         <Param val="$[1,1,1]" valType="str" updates="constant" name="color"/>
         <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
@@ -1349,7 +1349,7 @@
         <Param val="128" valType="code" updates="constant" name="texture resolution"/>
         <Param val="from exp settings" valType="str" updates="None" name="units"/>
       </ImageComponent>
-      <ImageComponent name="noFB_Circle">
+      <ImageComponent name="noFB_Circle" plugin="None">
         <Param val="center" valType="str" updates="constant" name="anchor"/>
         <Param val="$[1,1,1]" valType="str" updates="constant" name="color"/>
         <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
@@ -1376,7 +1376,7 @@
         <Param val="128" valType="code" updates="constant" name="texture resolution"/>
         <Param val="from exp settings" valType="str" updates="None" name="units"/>
       </ImageComponent>
-      <ImageComponent name="noFB_leftFish">
+      <ImageComponent name="noFB_leftFish" plugin="None">
         <Param val="center" valType="str" updates="constant" name="anchor"/>
         <Param val="$[1,1,1]" valType="str" updates="constant" name="color"/>
         <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
@@ -1403,7 +1403,7 @@
         <Param val="128" valType="code" updates="constant" name="texture resolution"/>
         <Param val="from exp settings" valType="str" updates="None" name="units"/>
       </ImageComponent>
-      <ImageComponent name="noFB_rightFish">
+      <ImageComponent name="noFB_rightFish" plugin="None">
         <Param val="center" valType="str" updates="constant" name="anchor"/>
         <Param val="$[1,1,1]" valType="str" updates="constant" name="color"/>
         <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
@@ -1430,7 +1430,7 @@
         <Param val="128" valType="code" updates="constant" name="texture resolution"/>
         <Param val="from exp settings" valType="str" updates="None" name="units"/>
       </ImageComponent>
-      <CodeComponent name="code_5">
+      <CodeComponent name="code_5" plugin="None">
         <Param val="" valType="extendedCode" updates="constant" name="Before Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin Experiment"/>
@@ -1449,7 +1449,7 @@
       </CodeComponent>
     </Routine>
     <Routine name="next_stage">
-      <CodeComponent name="code_4">
+      <CodeComponent name="code_4" plugin="None">
         <Param val="" valType="extendedCode" updates="constant" name="Before Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin Experiment"/>
@@ -1466,7 +1466,7 @@
         <Param val="False" valType="bool" updates="None" name="disabled"/>
         <Param val="code_4" valType="code" updates="None" name="name"/>
       </CodeComponent>
-      <CodeComponent name="start_phase_log">
+      <CodeComponent name="start_phase_log" plugin="None">
         <Param val="" valType="extendedCode" updates="constant" name="Before Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin Experiment"/>
