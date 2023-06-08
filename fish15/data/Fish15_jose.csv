@@ -1,0 +1,27 @@
+Fish15
+Subject ID: jose
+Experimenter: jose
+"Thursday, June 08, 2023"
+Time: 10:34:31 AM
+"Note: Critical Pairs = [('boy', 'red', 'green'), ('woman', 'red', 'green')]"
+----- PHASE 0 -----
+Trial,Face,Left Fish,Right Fish,Correct Response,Subject Response,Response Time,Correct/Incorrect
+1,girl,purple,blue,right,left,1.4040534000000662,0
+2,girl,blue,purple,left,left,0.22932810000020254,1
+3,man,purple,blue,left,left,0.8016808999996101,1
+4,man,blue,purple,right,right,2.8746470000000954,1
+5,man,blue,purple,right,right,1.1125041999998757,1
+----- PHASE 1 -----
+Trial,Face,Left Fish,Right Fish,Correct Response,Subject Response,Response Time,Correct/Incorrect
+1,girl,blue,purple,left,right,2.7049004999998942,0
+2,man,blue,purple,right,right,0.537330899999688,1
+3,girl,purple,blue,right,right,0.5276973999998518,1
+4,woman,purple,blue,left,left,2.019761600000038,1
+5,woman,blue,purple,right,right,0.3429928000000473,1
+6,boy,purple,blue,right,right,1.0187323999998625,1
+7,boy,blue,purple,left,left,0.5575712999998359,1
+8,man,purple,blue,left,left,1.8681394000000182,1
+9,boy,purple,blue,right,right,2.0856708000001163,1
+----- PHASE 2 -----
+Trial,Face,Left Fish,Right Fish,Correct Response,Subject Response,Response Time,Correct/Incorrect
+1,girl,blue,purple,left,right,1.3284939999998642,0

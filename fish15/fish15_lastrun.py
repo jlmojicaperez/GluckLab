@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2023.1.2),
-    on June 08, 2023, at 10:12
+    on June 08, 2023, at 10:34
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -993,7 +993,7 @@ while continueRoutine:
         win.callOnFlip(train_instr_key.clock.reset)  # t=0 on next screen flip
         win.callOnFlip(train_instr_key.clearEvents, eventType='keyboard')  # clear events on next screen flip
     if train_instr_key.status == STARTED and not waitOnFlip:
-        theseKeys = train_instr_key.getKeys(keyList=['z','m'], waitRelease=False)
+        theseKeys = train_instr_key.getKeys(keyList=['z','m','left','right'], waitRelease=False)
         _train_instr_key_allKeys.extend(theseKeys)
         if len(_train_instr_key_allKeys):
             train_instr_key.keys = _train_instr_key_allKeys[-1].name  # just the last key pressed
@@ -1173,7 +1173,7 @@ for thisTrials1 in trials1:
             win.callOnFlip(trial_response.clock.reset)  # t=0 on next screen flip
             win.callOnFlip(trial_response.clearEvents, eventType='keyboard')  # clear events on next screen flip
         if trial_response.status == STARTED and not waitOnFlip:
-            theseKeys = trial_response.getKeys(keyList=['z','m'], waitRelease=False)
+            theseKeys = trial_response.getKeys(keyList=['z','m','left','right'], waitRelease=False)
             _trial_response_allKeys.extend(theseKeys)
             if len(_trial_response_allKeys):
                 trial_response.keys = _trial_response_allKeys[-1].name  # just the last key pressed
@@ -1217,7 +1217,7 @@ for thisTrials1 in trials1:
     
     if(trial_response.keys == "z"):
         trial_response.keys = "left"
-    else:
+    if(trial_response.keys == "m"):
         trial_response.keys = "right"
         
     
@@ -1723,7 +1723,7 @@ for thisTrials2 in trials2:
             win.callOnFlip(trial_response.clock.reset)  # t=0 on next screen flip
             win.callOnFlip(trial_response.clearEvents, eventType='keyboard')  # clear events on next screen flip
         if trial_response.status == STARTED and not waitOnFlip:
-            theseKeys = trial_response.getKeys(keyList=['z','m'], waitRelease=False)
+            theseKeys = trial_response.getKeys(keyList=['z','m','left','right'], waitRelease=False)
             _trial_response_allKeys.extend(theseKeys)
             if len(_trial_response_allKeys):
                 trial_response.keys = _trial_response_allKeys[-1].name  # just the last key pressed
@@ -1767,7 +1767,7 @@ for thisTrials2 in trials2:
     
     if(trial_response.keys == "z"):
         trial_response.keys = "left"
-    else:
+    if(trial_response.keys == "m"):
         trial_response.keys = "right"
         
     
@@ -2273,7 +2273,7 @@ for thisTrials3 in trials3:
             win.callOnFlip(trial_response.clock.reset)  # t=0 on next screen flip
             win.callOnFlip(trial_response.clearEvents, eventType='keyboard')  # clear events on next screen flip
         if trial_response.status == STARTED and not waitOnFlip:
-            theseKeys = trial_response.getKeys(keyList=['z','m'], waitRelease=False)
+            theseKeys = trial_response.getKeys(keyList=['z','m','left','right'], waitRelease=False)
             _trial_response_allKeys.extend(theseKeys)
             if len(_trial_response_allKeys):
                 trial_response.keys = _trial_response_allKeys[-1].name  # just the last key pressed
@@ -2317,7 +2317,7 @@ for thisTrials3 in trials3:
     
     if(trial_response.keys == "z"):
         trial_response.keys = "left"
-    else:
+    if(trial_response.keys == "m"):
         trial_response.keys = "right"
         
     
@@ -2813,7 +2813,7 @@ while continueRoutine:
         win.callOnFlip(test_instr_key.clock.reset)  # t=0 on next screen flip
         win.callOnFlip(test_instr_key.clearEvents, eventType='keyboard')  # clear events on next screen flip
     if test_instr_key.status == STARTED and not waitOnFlip:
-        theseKeys = test_instr_key.getKeys(keyList=['lctrl','rctrl'], waitRelease=False)
+        theseKeys = test_instr_key.getKeys(keyList=['z','m','left','right'], waitRelease=False)
         _test_instr_key_allKeys.extend(theseKeys)
         if len(_test_instr_key_allKeys):
             test_instr_key.keys = _test_instr_key_allKeys[-1].name  # just the last key pressed
@@ -2993,7 +2993,7 @@ for thisTest_trial in test_trials:
             win.callOnFlip(trial_response.clock.reset)  # t=0 on next screen flip
             win.callOnFlip(trial_response.clearEvents, eventType='keyboard')  # clear events on next screen flip
         if trial_response.status == STARTED and not waitOnFlip:
-            theseKeys = trial_response.getKeys(keyList=['z','m'], waitRelease=False)
+            theseKeys = trial_response.getKeys(keyList=['z','m','left','right'], waitRelease=False)
             _trial_response_allKeys.extend(theseKeys)
             if len(_trial_response_allKeys):
                 trial_response.keys = _trial_response_allKeys[-1].name  # just the last key pressed
@@ -3037,7 +3037,7 @@ for thisTest_trial in test_trials:
     
     if(trial_response.keys == "z"):
         trial_response.keys = "left"
-    else:
+    if(trial_response.keys == "m"):
         trial_response.keys = "right"
         
     
