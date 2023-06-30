@@ -1,0 +1,5 @@
+﻿Left_Stim,Right_Stim,practice_loop.thisRepN,practice_loop.thisTrialN,practice_loop.thisN,practice_loop.thisIndex,key_resp.started,key_resp.keys,key_resp.rt,practiceSmiley.started,participant,experimenter,task,condition,date,expName,psychopyVersion,frameRate,
+s1c3.png,s2c3.png,0,0,0,0,13.839612399999169,space,13.587580300001719,27.442974099998537,jose,jose,P,C,2023-06-29_20h16.48.032,Choose 34,2023.1.2,144.15661174903312,
+s2c3.png,s1c3.png,0,1,1,1,28.44998510000005,space,0.5098424000025261,28.97781099999702,jose,jose,P,C,2023-06-29_20h16.48.032,Choose 34,2023.1.2,144.15661174903312,
+s1c3.png,s2c3.png,1,0,2,0,29.984779999998864,space,0.3925558000046294,30.39436549999664,jose,jose,P,C,2023-06-29_20h16.48.032,Choose 34,2023.1.2,144.15661174903312,
+s2c3.png,s1c3.png,1,1,3,1,31.401193899997452,space,0.3468918000035046,31.762323599999945,jose,jose,P,C,2023-06-29_20h16.48.032,Choose 34,2023.1.2,144.15661174903312,
