@@ -28,6 +28,16 @@ git clone https://github.com/J-Mojica/GluckLab.git
 - Select File -> Open and then select the file named `choose34.psyexp` found in `GluckLab/choose34/`.
 - Select the "Run Experiment" button and follow the instructions on screen.
 - To quit the experiment early press the ESC key.
+#### Settings
+- **Condition**: Concurrent training or Shaping. Currently this setting does not do anything. Acceptable values: `C` or `S`.
+- **Number of pairs**: How many pairs of objects to use during the experiment. Acceptable values: Any value on the range `[1,8]`.
+- **Evaluate to criterion or fixed number of trials?**: Acceptable values: `criterion`, `Criterion`, `fixed`, `Fixed`
+- **Training phase max blocks**: Each trial block consists of each pair of training objects. Among each pair each object
+appears in both the left and right position. e.g. 1 block of 8 pairs -> 16 trials, 1 block of 6 pairs -> 12 trials.
+Acceptable values: Any positive integer.
+- **Testing phase max blocks**: Each trial block consists of each pair of testing objects. Among each pair each object
+appears in both the left and right position. e.g. 1 block of 8 pairs -> 16 trials, 1 block of 6 pairs -> 12 trials.
+Acceptable values: Any positive integer.
 
 [PsychoPyDownloadInstructions]: https://www.psychopy.org/download.html
 [PsychoPyReleases]: https://github.com/psychopy/psychopy/releases
