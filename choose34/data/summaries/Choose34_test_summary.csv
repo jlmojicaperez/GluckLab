@@ -1,2 +1,2 @@
-Training Accuracy Average,Training RT Average,Training Number of Errors,Probe Accuracy Average,Probe RT Average,Probe Number of Errors
-0.8214285714285714,1.3820549749956885,5,1.0,1.4226523562451803,0
+Experiment,Subject ID,Experimenter,Date,Time,Training Accuracy Average,Training RT Average,Training Errors,Probe Accuracy Average,Probe RT Average,Probe Errors
+Choose34,test,test,"Tuesday, July 11, 2023","02:28:51 PM",0.7317073170731707,3.6307449365851383,11,1.0,2.6609418937497367,0

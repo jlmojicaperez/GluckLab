@@ -10,7 +10,7 @@
     <Param val="" valType="str" updates="None" name="End Message"/>
     <Param val="{'Participant': '', 'Experimenter': '', 'Condition': 'C', 'Number of pairs': '8', 'Evaluate to criterion or fixed number of trials?': 'criterion', 'Training phase max blocks': '6', 'Testing phase max blocks': '6'}" valType="code" updates="None" name="Experiment info"/>
     <Param val="True" valType="bool" updates="None" name="Force stereo"/>
-    <Param val="False" valType="bool" updates="None" name="Full-screen window"/>
+    <Param val="True" valType="bool" updates="None" name="Full-screen window"/>
     <Param val="" valType="str" updates="None" name="HTML path"/>
     <Param val="" valType="str" updates="None" name="Incomplete URL"/>
     <Param val="testMonitor" valType="str" updates="None" name="Monitor"/>
@@ -69,7 +69,7 @@
   <Routines>
     <Routine name="setup">
       <CodeComponent name="imports" plugin="None">
-        <Param val="import random&amp;#10;import csv&amp;#10;" valType="extendedCode" updates="constant" name="Before Experiment"/>
+        <Param val="import random&amp;#10;import csv&amp;#10;import datetime" valType="extendedCode" updates="constant" name="Before Experiment"/>
         <Param val="import * as random from 'random';&amp;#10;import * as csv from 'csv';&amp;#10;import {defaultdict} from 'collections';&amp;#10;" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
@@ -103,7 +103,7 @@
         <Param val="validateExpInfo" valType="code" updates="None" name="name"/>
       </CodeComponent>
       <CodeComponent name="constants" plugin="None">
-        <Param val="assetsPath = &quot;./assets/&quot;&amp;#10;trainingPath =  &quot;./assets/training/&quot;&amp;#10;testingPath = &quot;./assets/testing/&quot;&amp;#10;expFilesPath = &quot;./experimentFiles/&quot;&amp;#10;dataPath = &quot;./data/&quot;&amp;#10;summariesPath = dataPath + &quot;summaries/&quot;&amp;#10;&amp;#10;stimsFieldNames = [&quot;Left_Stim&quot;, &quot;Right_Stim&quot;]&amp;#10;leftKey = 'z'&amp;#10;rightKey = 'm'&amp;#10;&amp;#10;practicePair = [&quot;circle&quot;, &quot;triangle&quot;]&amp;#10;&amp;#10;# Stores the testing phase equivalent of every pair ofobjects &amp;#10;# from the training phase. Each entry is one pair:&amp;#10;# pairs[&lt;(trainObj1, trainObj2)&gt;] == (testObj1, testObj2)&amp;#10;pairs = {&amp;#10;    (&quot;s3c1&quot;, &quot;s3c2&quot;): (&quot;s3c1&quot;, &quot;s3c2&quot;),&amp;#10;    (&quot;s1c3&quot;, &quot;s2c3&quot;): (&quot;s1c96&quot;, &quot;s2c96&quot;),&amp;#10;    (&quot;s10c8&quot;, &quot;s10c98&quot;): (&quot;s13c8&quot;, &quot;s13c98&quot;),&amp;#10;    (&quot;s8c11&quot;, &quot;s9c11&quot;): (&quot;s8c26&quot;, &quot;s9c26&quot;),&amp;#10;    (&quot;s18c15&quot;, &quot;s18c16&quot;): (&quot;s21c15&quot;, &quot;s21c16&quot;),&amp;#10;    (&quot;s15c17&quot;, &quot;s16c17&quot;): (&quot;s15c5&quot;, &quot;s16c5&quot;),&amp;#10;    (&quot;s24c22&quot;, &quot;s24c23&quot;): (&quot;s25c22&quot;, &quot;s25c23&quot;),&amp;#10;    (&quot;s22c24&quot;, &quot;s23c24&quot;): (&quot;s22c25&quot;, &quot;s23c25&quot;)&amp;#10;    }&amp;#10;" valType="extendedCode" updates="constant" name="Before Experiment"/>
+        <Param val="assetsPath = &quot;./assets/&quot;&amp;#10;trainingPath =  &quot;./assets/training/&quot;&amp;#10;testingPath = &quot;./assets/testing/&quot;&amp;#10;expFilesPath = &quot;./experimentFiles/&quot;&amp;#10;dataPath = &quot;./data/&quot;&amp;#10;summariesPath = dataPath + &quot;summaries/&quot;&amp;#10;&amp;#10;expDateTime = datetime.datetime.now()&amp;#10;# Weekday(full name), Month(full name) Day(dd), Year(yyyy)&amp;#10;date = &quot;\&quot;&quot; + expDateTime.strftime(&quot;%A, %B %d, %Y&quot;) + &quot;\&quot;&quot;&amp;#10;# Hour(00-12):Minute(00-59):Second(00-59) AM/PM&amp;#10;time = &quot;\&quot;&quot; + expDateTime.strftime(&quot;%I:%M:%S %p&quot;) + &quot;\&quot;&quot;&amp;#10;&amp;#10;stimsFieldNames = [&quot;Left_Stim&quot;, &quot;Right_Stim&quot;]&amp;#10;leftKey = 'z'&amp;#10;rightKey = 'm'&amp;#10;&amp;#10;practicePair = [&quot;circle&quot;, &quot;triangle&quot;]&amp;#10;&amp;#10;# Stores the testing phase equivalent of every pair ofobjects &amp;#10;# from the training phase. Each entry is one pair:&amp;#10;# pairs[&lt;(trainObj1, trainObj2)&gt;] == (testObj1, testObj2)&amp;#10;pairs = {&amp;#10;    (&quot;s3c1&quot;, &quot;s3c2&quot;): (&quot;s3c1&quot;, &quot;s3c2&quot;),&amp;#10;    (&quot;s1c3&quot;, &quot;s2c3&quot;): (&quot;s1c96&quot;, &quot;s2c96&quot;),&amp;#10;    (&quot;s10c8&quot;, &quot;s10c98&quot;): (&quot;s13c8&quot;, &quot;s13c98&quot;),&amp;#10;    (&quot;s8c11&quot;, &quot;s9c11&quot;): (&quot;s8c26&quot;, &quot;s9c26&quot;),&amp;#10;    (&quot;s18c15&quot;, &quot;s18c16&quot;): (&quot;s21c15&quot;, &quot;s21c16&quot;),&amp;#10;    (&quot;s15c17&quot;, &quot;s16c17&quot;): (&quot;s15c5&quot;, &quot;s16c5&quot;),&amp;#10;    (&quot;s24c22&quot;, &quot;s24c23&quot;): (&quot;s25c22&quot;, &quot;s25c23&quot;),&amp;#10;    (&quot;s22c24&quot;, &quot;s23c24&quot;): (&quot;s22c25&quot;, &quot;s23c25&quot;)&amp;#10;    }&amp;#10;" valType="extendedCode" updates="constant" name="Before Experiment"/>
         <Param val="/* Syntax Error: Fix Python code */" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
         <Param val="&amp;#10;delPairs = 8 - int(expInfo[&quot;Number of pairs&quot;])&amp;#10;if(delPairs &gt; 0):&amp;#10;    pairsToDelete = random.sample(pairs.keys(), delPairs)&amp;#10;    for pair in pairsToDelete:&amp;#10;        pairs.pop(pair)&amp;#10;        &amp;#10;" valType="extendedCode" updates="constant" name="Begin Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
@@ -120,7 +120,7 @@
         <Param val="constants" valType="code" updates="None" name="name"/>
       </CodeComponent>
       <CodeComponent name="initializeVars" plugin="None">
-        <Param val="&amp;#10;# This dictionary tells which object has a smiley &amp;#10;# it has the format {&lt;object_name&gt; : True/False}.&amp;#10;hasSmiley = {}&amp;#10;&amp;#10;# First practice answer is always wrong. So we assigned the smiley AFTER&amp;#10;# subject's response. We use this variable to determine if we have assigned &amp;#10;# the smiley yet&amp;#10;firstChoice = True&amp;#10;&amp;#10;# We use this variable to determine what phase we are in and &amp;#10;# update it accordingly&amp;#10;currentPhase = &quot;practice&quot;&amp;#10;&amp;#10;# Changes on trialLoop&amp;#10;consecutiveCorrectResponses = 0&amp;#10;&amp;#10;# Initialized to avoid errors&amp;#10;Right_Stim = &quot;&quot;&amp;#10;Left_Stim = &quot;&quot;&amp;#10;&amp;#10;evalToCriterion = True" valType="extendedCode" updates="constant" name="Before Experiment"/>
+        <Param val="&amp;#10;# This dictionary tells which object has a smiley &amp;#10;# it has the format {&lt;object_name&gt; : True/False}.&amp;#10;hasSmiley = {}&amp;#10;&amp;#10;# First practice answer is always wrong. So we assigned the smiley AFTER&amp;#10;# subject's response. We use this variable to determine if we have assigned &amp;#10;# the smiley yet&amp;#10;firstChoice = True&amp;#10;&amp;#10;# We use this variable to determine what phase we are in and &amp;#10;# update it accordingly&amp;#10;currentPhase = &quot;practice&quot;&amp;#10;&amp;#10;# Changes on trialLoop&amp;#10;consecutiveCorrectResponses = 0&amp;#10;&amp;#10;# Initialized to avoid errors&amp;#10;Right_Stim = &quot;&quot;&amp;#10;Left_Stim = &quot;&quot;&amp;#10;&amp;#10;evalToCriterion = True&amp;#10;&amp;#10;showPostPractice = True" valType="extendedCode" updates="constant" name="Before Experiment"/>
         <Param val="function constantFactory(value) {&amp;#10;    return () =&gt; {&amp;#10;    return value;&amp;#10;};&amp;#10;}&amp;#10;hasSmiley = defaultdict(constantFactory(false));&amp;#10;" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
         <Param val="# Number of consecutive correct responses needed to move to next phase&amp;#10;# this changes in the trialBlocks loop&amp;#10;criterion = int(expInfo[&quot;Number of pairs&quot;]) * 2&amp;#10;&amp;#10;trialNumReps = {&quot;practice&quot;: 6,&amp;#10;                &quot;training&quot; : int(expInfo[&quot;Training phase max blocks&quot;]),&amp;#10;                &quot;testing&quot; : int(expInfo[&quot;Testing phase max blocks&quot;])&amp;#10;                }" valType="extendedCode" updates="constant" name="Begin Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
@@ -251,6 +251,33 @@
         <Param val="(0.25, 0)" valType="list" updates="constant" name="pos"/>
         <Param val="False" valType="bool" updates="None" name="saveStartStop"/>
         <Param val="(0.125, 0.125)" valType="list" updates="constant" name="size"/>
+        <Param val="" valType="code" updates="None" name="startEstim"/>
+        <Param val="time (s)" valType="str" updates="None" name="startType"/>
+        <Param val="0.0" valType="code" updates="None" name="startVal"/>
+        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
+        <Param val="" valType="code" updates="constant" name="stopVal"/>
+        <Param val="True" valType="bool" updates="None" name="syncScreenRefresh"/>
+        <Param val="128" valType="num" updates="constant" name="texture resolution"/>
+        <Param val="from exp settings" valType="str" updates="None" name="units"/>
+      </ImageComponent>
+      <ImageComponent name="floorLine" plugin="None">
+        <Param val="center" valType="str" updates="constant" name="anchor"/>
+        <Param val="white" valType="color" updates="constant" name="color"/>
+        <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
+        <Param val="1" valType="num" updates="constant" name="contrast"/>
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="" valType="code" updates="None" name="durationEstim"/>
+        <Param val="False" valType="bool" updates="constant" name="flipHoriz"/>
+        <Param val="False" valType="bool" updates="constant" name="flipVert"/>
+        <Param val="assets/line.png" valType="file" updates="constant" name="image"/>
+        <Param val="linear" valType="str" updates="constant" name="interpolate"/>
+        <Param val="" valType="str" updates="constant" name="mask"/>
+        <Param val="floorLine" valType="code" updates="None" name="name"/>
+        <Param val="" valType="num" updates="constant" name="opacity"/>
+        <Param val="0" valType="num" updates="constant" name="ori"/>
+        <Param val="(0, -0.08)" valType="list" updates="constant" name="pos"/>
+        <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
+        <Param val="(0.75, 0.0125)" valType="list" updates="constant" name="size"/>
         <Param val="" valType="code" updates="None" name="startEstim"/>
         <Param val="time (s)" valType="str" updates="None" name="startType"/>
         <Param val="0.0" valType="code" updates="None" name="startVal"/>
@@ -438,6 +465,33 @@
         <Param val="128" valType="num" updates="constant" name="texture resolution"/>
         <Param val="from exp settings" valType="str" updates="None" name="units"/>
       </ImageComponent>
+      <ImageComponent name="floorLineReveal" plugin="None">
+        <Param val="center" valType="str" updates="constant" name="anchor"/>
+        <Param val="white" valType="color" updates="constant" name="color"/>
+        <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
+        <Param val="1" valType="num" updates="constant" name="contrast"/>
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="" valType="code" updates="None" name="durationEstim"/>
+        <Param val="False" valType="bool" updates="constant" name="flipHoriz"/>
+        <Param val="False" valType="bool" updates="constant" name="flipVert"/>
+        <Param val="assets/line.png" valType="file" updates="constant" name="image"/>
+        <Param val="linear" valType="str" updates="constant" name="interpolate"/>
+        <Param val="" valType="str" updates="constant" name="mask"/>
+        <Param val="floorLineReveal" valType="code" updates="None" name="name"/>
+        <Param val="" valType="num" updates="constant" name="opacity"/>
+        <Param val="0" valType="num" updates="constant" name="ori"/>
+        <Param val="(0, -0.08)" valType="list" updates="constant" name="pos"/>
+        <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
+        <Param val="(0.75, 0.0125)" valType="list" updates="constant" name="size"/>
+        <Param val="" valType="code" updates="None" name="startEstim"/>
+        <Param val="time (s)" valType="str" updates="None" name="startType"/>
+        <Param val="0.0" valType="code" updates="None" name="startVal"/>
+        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
+        <Param val="1.0" valType="code" updates="constant" name="stopVal"/>
+        <Param val="True" valType="bool" updates="None" name="syncScreenRefresh"/>
+        <Param val="128" valType="num" updates="constant" name="texture resolution"/>
+        <Param val="from exp settings" valType="str" updates="None" name="units"/>
+      </ImageComponent>
       <TextComponent name="textPrompt2" plugin="None">
         <Param val="black" valType="color" updates="constant" name="color"/>
         <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
@@ -586,7 +640,7 @@
         <Param val="" valType="extendedCode" updates="constant" name="Begin Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
-        <Param val="trialConditionsFile = &quot;./experimentFiles/&quot; + currentPhase + &quot;.csv&quot;&amp;#10;&amp;#10;consecutiveCorrectResponses = 0&amp;#10;transitionedEarly = False&amp;#10;&amp;#10;if(currentPhase == &quot;practice&quot;):&amp;#10;    criterion = 3&amp;#10;elif(evalToCriterion):&amp;#10;    criterion = int(expInfo[&quot;Number of pairs&quot;]) * 2&amp;#10;else:&amp;#10;    criterion = float(&quot;inf&quot;)&amp;#10;&amp;#10;print(f&quot;{currentPhase} reps = {trialNumReps[currentPhase]}&quot;)" valType="extendedCode" updates="constant" name="Begin Routine"/>
+        <Param val="trialConditionsFile = &quot;./experimentFiles/&quot; + currentPhase + &quot;.csv&quot;&amp;#10;&amp;#10;consecutiveCorrectResponses = 0&amp;#10;transitionedEarly = False&amp;#10;&amp;#10;if(currentPhase == &quot;practice&quot;):&amp;#10;    criterion = 3&amp;#10;elif(evalToCriterion):&amp;#10;    criterion = int(expInfo[&quot;Number of pairs&quot;]) * 2&amp;#10;else:&amp;#10;    criterion = float(&quot;inf&quot;)" valType="extendedCode" updates="constant" name="Begin Routine"/>
         <Param val="Py" valType="str" updates="None" name="Code Type"/>
         <Param val="" valType="extendedCode" updates="constant" name="Each Frame"/>
         <Param val="" valType="extendedCode" updates="constant" name="Each JS Frame"/>
@@ -601,21 +655,65 @@
     <Routine name="endExperiment">
       <CodeComponent name="writeSummary" plugin="None">
         <Param val="" valType="extendedCode" updates="constant" name="Before Experiment"/>
-        <Param val="/* Syntax Error: Fix Python code */" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
-        <Param val="" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
-        <Param val="" valType="extendedCode" updates="constant" name="Begin Routine"/>
+        <Param val="/* Syntax Error: Fix Python code */" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
+        <Param val="trainAccuracy /= trainTrials&amp;#10;trainAvgRT /= trainTrials&amp;#10;&amp;#10;probeAccuracy /= probeTrials&amp;#10;probeAvgRT /= probeTrials&amp;#10;&amp;#10;headerFields = [&quot;Experiment&quot;, &amp;#10;            &quot;Subject ID&quot;,&amp;#10;            &quot;Experimenter&quot;,&amp;#10;            &quot;Date&quot;,&amp;#10;            &quot;Time&quot;,&amp;#10;            &quot;Training Accuracy Average&quot;, &amp;#10;            &quot;Training RT Average&quot;,&amp;#10;            &quot;Training Errors&quot;,&amp;#10;            &quot;Probe Accuracy Average&quot;,&amp;#10;            &quot;Probe RT Average&quot;,&amp;#10;            &quot;Probe Errors&quot;]&amp;#10;&amp;#10;summaryVars = [expName,&amp;#10;        expInfo[&quot;Participant&quot;],&amp;#10;        expInfo[&quot;Experimenter&quot;],&amp;#10;        date,&amp;#10;        time,&amp;#10;        trainAccuracy,&amp;#10;        trainAvgRT,&amp;#10;        trainError,&amp;#10;        probeAccuracy,&amp;#10;        probeAvgRT,&amp;#10;        probeError]&amp;#10;        &amp;#10;summaryVars = map(str, summaryVars)&amp;#10;&amp;#10;header = &quot;,&quot;.join(headerFields) + &quot;\n&quot;&amp;#10;values = &quot;,&quot;.join(summaryVars) + &quot;\n&quot;&amp;#10;&amp;#10;with open(f&quot;{summariesPath}{expName}_{expInfo['Participant']}_summary.csv&quot;, &quot;w&quot;) as f:&amp;#10;    f.write(header)&amp;#10;    f.write(values)" valType="extendedCode" updates="constant" name="Begin Routine"/>
         <Param val="Py" valType="str" updates="None" name="Code Type"/>
         <Param val="" valType="extendedCode" updates="constant" name="Each Frame"/>
         <Param val="" valType="extendedCode" updates="constant" name="Each JS Frame"/>
-        <Param val="trainAccuracy /= trainTrials&amp;#10;trainAvgRT /= trainTrials&amp;#10;&amp;#10;probeAccuracy /= probeTrials&amp;#10;probeAvgRT /= probeTrials&amp;#10;&amp;#10;headerFields = [&quot;Training Accuracy Average&quot;, &amp;#10;            &quot;Training RT Average&quot;,&amp;#10;            &quot;Training Number of Errors&quot;,&amp;#10;            &quot;Probe Accuracy Average&quot;,&amp;#10;            &quot;Probe RT Average&quot;,&amp;#10;            &quot;Probe Number of Errors&quot;]&amp;#10;&amp;#10;summaryVars = [trainAccuracy,&amp;#10;        trainAvgRT,&amp;#10;        trainError,&amp;#10;        probeAccuracy,&amp;#10;        probeAvgRT,&amp;#10;        probeError]&amp;#10;        &amp;#10;summaryVars = map(str, summaryVars)&amp;#10;&amp;#10;header = &quot;,&quot;.join(headerFields) + &quot;\n&quot;&amp;#10;values = &quot;,&quot;.join(summaryVars) + &quot;\n&quot;&amp;#10;&amp;#10;with open(f&quot;{summariesPath}{expName}_{expInfo['Participant']}_summary.csv&quot;, &quot;w&quot;) as f:&amp;#10;    f.write(header)&amp;#10;    f.write(values)" valType="extendedCode" updates="constant" name="End Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="End JS Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="End JS Routine"/>
         <Param val="" valType="extendedCode" updates="constant" name="End Routine"/>
         <Param val="False" valType="bool" updates="None" name="disabled"/>
         <Param val="writeSummary" valType="code" updates="None" name="name"/>
       </CodeComponent>
+      <TextComponent name="endText" plugin="None">
+        <Param val="black" valType="color" updates="constant" name="color"/>
+        <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
+        <Param val="1" valType="num" updates="constant" name="contrast"/>
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="" valType="code" updates="None" name="durationEstim"/>
+        <Param val="None" valType="str" updates="constant" name="flip"/>
+        <Param val="Open Sans" valType="str" updates="constant" name="font"/>
+        <Param val="LTR" valType="str" updates="None" name="languageStyle"/>
+        <Param val="0.035" valType="num" updates="constant" name="letterHeight"/>
+        <Param val="endText" valType="code" updates="None" name="name"/>
+        <Param val="" valType="num" updates="constant" name="opacity"/>
+        <Param val="0" valType="num" updates="constant" name="ori"/>
+        <Param val="(0, 0)" valType="list" updates="constant" name="pos"/>
+        <Param val="False" valType="bool" updates="None" name="saveStartStop"/>
+        <Param val="" valType="code" updates="None" name="startEstim"/>
+        <Param val="time (s)" valType="str" updates="None" name="startType"/>
+        <Param val="0.0" valType="code" updates="None" name="startVal"/>
+        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
+        <Param val="" valType="code" updates="constant" name="stopVal"/>
+        <Param val="True" valType="bool" updates="None" name="syncScreenRefresh"/>
+        <Param val="The End.&amp;#10;&amp;#10;Thanks for playing.&amp;#10;&amp;#10;Please inform the experimenter that you are done." valType="str" updates="constant" name="text"/>
+        <Param val="from exp settings" valType="str" updates="None" name="units"/>
+        <Param val="" valType="num" updates="constant" name="wrapWidth"/>
+      </TextComponent>
+      <KeyboardComponent name="endResp" plugin="None">
+        <Param val="leftKey, rightKey" valType="list" updates="constant" name="allowedKeys"/>
+        <Param val="" valType="str" updates="constant" name="correctAns"/>
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="True" valType="bool" updates="constant" name="discard previous"/>
+        <Param val="" valType="code" updates="None" name="durationEstim"/>
+        <Param val="True" valType="bool" updates="constant" name="forceEndRoutine"/>
+        <Param val="endResp" valType="code" updates="None" name="name"/>
+        <Param val="press" valType="str" updates="constant" name="registerOn"/>
+        <Param val="False" valType="bool" updates="None" name="saveStartStop"/>
+        <Param val="" valType="code" updates="None" name="startEstim"/>
+        <Param val="time (s)" valType="str" updates="None" name="startType"/>
+        <Param val="0.0" valType="code" updates="None" name="startVal"/>
+        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
+        <Param val="" valType="code" updates="constant" name="stopVal"/>
+        <Param val="nothing" valType="str" updates="constant" name="store"/>
+        <Param val="False" valType="bool" updates="constant" name="storeCorrect"/>
+        <Param val="True" valType="bool" updates="constant" name="syncScreenRefresh"/>
+      </KeyboardComponent>
     </Routine>
     <Routine name="phaseTransition_2"/>
     <Routine name="transition">
@@ -637,9 +735,166 @@
         <Param val="updatePhase" valType="code" updates="None" name="name"/>
       </CodeComponent>
     </Routine>
+    <Routine name="copyrightInfo">
+      <TextComponent name="copyright" plugin="None">
+        <Param val="black" valType="color" updates="constant" name="color"/>
+        <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
+        <Param val="1" valType="num" updates="constant" name="contrast"/>
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="" valType="code" updates="None" name="durationEstim"/>
+        <Param val="None" valType="str" updates="constant" name="flip"/>
+        <Param val="Open Sans" valType="str" updates="constant" name="font"/>
+        <Param val="LTR" valType="str" updates="None" name="languageStyle"/>
+        <Param val="0.035" valType="num" updates="constant" name="letterHeight"/>
+        <Param val="copyright" valType="code" updates="None" name="name"/>
+        <Param val="" valType="num" updates="constant" name="opacity"/>
+        <Param val="0" valType="num" updates="constant" name="ori"/>
+        <Param val="(0, 0)" valType="list" updates="constant" name="pos"/>
+        <Param val="False" valType="bool" updates="None" name="saveStartStop"/>
+        <Param val="" valType="code" updates="None" name="startEstim"/>
+        <Param val="time (s)" valType="str" updates="None" name="startType"/>
+        <Param val="0.0" valType="code" updates="None" name="startVal"/>
+        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
+        <Param val="" valType="code" updates="constant" name="stopVal"/>
+        <Param val="True" valType="bool" updates="None" name="syncScreenRefresh"/>
+        <Param val="Choose 34, running on PsychoPy (v.2023.1.2)&amp;#10;&amp;#10;Choose 34 is a neuroscience experiment to test the generalization performance of individuals.&amp;#10;   Copyright (C) 2023 Jose Mojica Perez&amp;#10;&amp;#10;    This program is free software: you can redistribute it and/or modify&amp;#10;    it under the terms of the GNU Affero General Public License as&amp;#10;    published by the Free Software Foundation, either version 3 of the&amp;#10;    License, or (at your option) any later version.&amp;#10;&amp;#10;    This program is distributed in the hope that it will be useful,&amp;#10;    but WITHOUT ANY WARRANTY; without even the implied warranty of&amp;#10;    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the&amp;#10;    GNU Affero General Public License for more details.&amp;#10;&amp;#10;    You should have received a copy of the GNU Affero General Public License&amp;#10;    along with this program.  If not, see &lt;https://www.gnu.org/licenses/&gt;.&amp;#10;&amp;#10;Press either the &quot;LEFT&quot; or &quot;RIGHT&quot; key to continue." valType="str" updates="constant" name="text"/>
+        <Param val="from exp settings" valType="str" updates="None" name="units"/>
+        <Param val="1.5" valType="num" updates="constant" name="wrapWidth"/>
+      </TextComponent>
+      <KeyboardComponent name="copyrightResponse" plugin="None">
+        <Param val="leftKey, rightKey" valType="list" updates="constant" name="allowedKeys"/>
+        <Param val="" valType="str" updates="constant" name="correctAns"/>
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="True" valType="bool" updates="constant" name="discard previous"/>
+        <Param val="" valType="code" updates="None" name="durationEstim"/>
+        <Param val="True" valType="bool" updates="constant" name="forceEndRoutine"/>
+        <Param val="copyrightResponse" valType="code" updates="None" name="name"/>
+        <Param val="press" valType="str" updates="constant" name="registerOn"/>
+        <Param val="False" valType="bool" updates="None" name="saveStartStop"/>
+        <Param val="" valType="code" updates="None" name="startEstim"/>
+        <Param val="time (s)" valType="str" updates="None" name="startType"/>
+        <Param val="0.0" valType="code" updates="None" name="startVal"/>
+        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
+        <Param val="" valType="code" updates="constant" name="stopVal"/>
+        <Param val="nothing" valType="str" updates="constant" name="store"/>
+        <Param val="False" valType="bool" updates="constant" name="storeCorrect"/>
+        <Param val="True" valType="bool" updates="constant" name="syncScreenRefresh"/>
+      </KeyboardComponent>
+    </Routine>
+    <Routine name="reference">
+      <TextComponent name="referenceText" plugin="None">
+        <Param val="black" valType="color" updates="constant" name="color"/>
+        <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
+        <Param val="1" valType="num" updates="constant" name="contrast"/>
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="" valType="code" updates="None" name="durationEstim"/>
+        <Param val="None" valType="str" updates="constant" name="flip"/>
+        <Param val="Open Sans" valType="str" updates="constant" name="font"/>
+        <Param val="LTR" valType="str" updates="None" name="languageStyle"/>
+        <Param val="0.035" valType="num" updates="constant" name="letterHeight"/>
+        <Param val="referenceText" valType="code" updates="None" name="name"/>
+        <Param val="" valType="num" updates="constant" name="opacity"/>
+        <Param val="0" valType="num" updates="constant" name="ori"/>
+        <Param val="(0, 0)" valType="list" updates="constant" name="pos"/>
+        <Param val="False" valType="bool" updates="None" name="saveStartStop"/>
+        <Param val="" valType="code" updates="None" name="startEstim"/>
+        <Param val="time (s)" valType="str" updates="None" name="startType"/>
+        <Param val="0.0" valType="code" updates="None" name="startVal"/>
+        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
+        <Param val="" valType="code" updates="constant" name="stopVal"/>
+        <Param val="True" valType="bool" updates="None" name="syncScreenRefresh"/>
+        <Param val="Design is adapted from the task originally described in: &amp;#10;Myers, C. E., Kluger, A., Golomb, J., Ferris, S., de Leon, M., Schnirman, G. &amp; Gluck, M. &amp;#10;(2002). Hippocampal atrophy disrupts transfer generalization in non-demented elderly. &amp;#10;Journal of Geriatric Psychiatry and Neurology, 15(2), 82-90. PMID: 12083598; &amp;#10;doi:10.1177/089198870201500206&amp;#10;&amp;#10;Design is based on the description of Choose 33 written by Catherine E. Myers.&amp;#10;&amp;#10;Press either the &quot;LEFT&quot; or &quot;RIGHT&quot; key to continue." valType="str" updates="constant" name="text"/>
+        <Param val="from exp settings" valType="str" updates="None" name="units"/>
+        <Param val="1.5" valType="num" updates="constant" name="wrapWidth"/>
+      </TextComponent>
+      <KeyboardComponent name="referenceResponse" plugin="None">
+        <Param val="leftKey, rightKey" valType="list" updates="constant" name="allowedKeys"/>
+        <Param val="" valType="str" updates="constant" name="correctAns"/>
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="True" valType="bool" updates="constant" name="discard previous"/>
+        <Param val="" valType="code" updates="None" name="durationEstim"/>
+        <Param val="True" valType="bool" updates="constant" name="forceEndRoutine"/>
+        <Param val="referenceResponse" valType="code" updates="None" name="name"/>
+        <Param val="press" valType="str" updates="constant" name="registerOn"/>
+        <Param val="False" valType="bool" updates="None" name="saveStartStop"/>
+        <Param val="" valType="code" updates="None" name="startEstim"/>
+        <Param val="time (s)" valType="str" updates="None" name="startType"/>
+        <Param val="0.0" valType="code" updates="None" name="startVal"/>
+        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
+        <Param val="" valType="code" updates="constant" name="stopVal"/>
+        <Param val="nothing" valType="str" updates="constant" name="store"/>
+        <Param val="False" valType="bool" updates="constant" name="storeCorrect"/>
+        <Param val="True" valType="bool" updates="constant" name="syncScreenRefresh"/>
+      </KeyboardComponent>
+    </Routine>
+    <Routine name="postPracticeScreen">
+      <TextComponent name="postPracticeText" plugin="None">
+        <Param val="black" valType="color" updates="constant" name="color"/>
+        <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
+        <Param val="1" valType="num" updates="constant" name="contrast"/>
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="" valType="code" updates="None" name="durationEstim"/>
+        <Param val="None" valType="str" updates="constant" name="flip"/>
+        <Param val="Open Sans" valType="str" updates="constant" name="font"/>
+        <Param val="LTR" valType="str" updates="None" name="languageStyle"/>
+        <Param val="0.035" valType="num" updates="constant" name="letterHeight"/>
+        <Param val="postPracticeText" valType="code" updates="None" name="name"/>
+        <Param val="" valType="num" updates="constant" name="opacity"/>
+        <Param val="0" valType="num" updates="constant" name="ori"/>
+        <Param val="(0, 0)" valType="list" updates="constant" name="pos"/>
+        <Param val="False" valType="bool" updates="None" name="saveStartStop"/>
+        <Param val="" valType="code" updates="None" name="startEstim"/>
+        <Param val="time (s)" valType="str" updates="None" name="startType"/>
+        <Param val="0.0" valType="code" updates="None" name="startVal"/>
+        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
+        <Param val="" valType="code" updates="constant" name="stopVal"/>
+        <Param val="True" valType="bool" updates="None" name="syncScreenRefresh"/>
+        <Param val="Good!&amp;#10;&amp;#10;Now you will see different pairs.&amp;#10;&amp;#10;Keep trying to find the smiley face each time.&amp;#10;&amp;#10;Press either the &quot;LEFT&quot; or &quot;RIGHT&quot; key to continue." valType="str" updates="constant" name="text"/>
+        <Param val="from exp settings" valType="str" updates="None" name="units"/>
+        <Param val="" valType="num" updates="constant" name="wrapWidth"/>
+      </TextComponent>
+      <KeyboardComponent name="postPracticeResp" plugin="None">
+        <Param val="leftKey, rightKey" valType="list" updates="constant" name="allowedKeys"/>
+        <Param val="" valType="str" updates="constant" name="correctAns"/>
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="True" valType="bool" updates="constant" name="discard previous"/>
+        <Param val="" valType="code" updates="None" name="durationEstim"/>
+        <Param val="True" valType="bool" updates="constant" name="forceEndRoutine"/>
+        <Param val="postPracticeResp" valType="code" updates="None" name="name"/>
+        <Param val="press" valType="str" updates="constant" name="registerOn"/>
+        <Param val="False" valType="bool" updates="None" name="saveStartStop"/>
+        <Param val="" valType="code" updates="None" name="startEstim"/>
+        <Param val="time (s)" valType="str" updates="None" name="startType"/>
+        <Param val="0.0" valType="code" updates="None" name="startVal"/>
+        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
+        <Param val="" valType="code" updates="constant" name="stopVal"/>
+        <Param val="nothing" valType="str" updates="constant" name="store"/>
+        <Param val="False" valType="bool" updates="constant" name="storeCorrect"/>
+        <Param val="True" valType="bool" updates="constant" name="syncScreenRefresh"/>
+      </KeyboardComponent>
+      <CodeComponent name="updateShowPostPractice" plugin="None">
+        <Param val="" valType="extendedCode" updates="constant" name="Before Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Begin Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
+        <Param val="show;&amp;#10;" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
+        <Param val="showPostPractice = False" valType="extendedCode" updates="constant" name="Begin Routine"/>
+        <Param val="Py" valType="str" updates="None" name="Code Type"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Each Frame"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Each JS Frame"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End JS Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End JS Routine"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End Routine"/>
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="updateShowPostPractice" valType="code" updates="None" name="name"/>
+      </CodeComponent>
+    </Routine>
   </Routines>
   <Flow>
     <Routine name="setup"/>
+    <Routine name="copyrightInfo"/>
+    <Routine name="reference"/>
     <Routine name="experimentInstructions"/>
     <LoopInitiator loopType="TrialHandler" name="phasesLoop">
       <Param name="Selected rows" updates="None" val="" valType="str"/>
@@ -667,6 +922,19 @@
     <Routine name="choose"/>
     <Routine name="reveal"/>
     <LoopTerminator name="trialLoop"/>
+    <LoopInitiator loopType="TrialHandler" name="postPracticeScreenLoop">
+      <Param name="Selected rows" updates="None" val="" valType="str"/>
+      <Param name="conditions" updates="None" val="None" valType="str"/>
+      <Param name="conditionsFile" updates="None" val="" valType="file"/>
+      <Param name="endPoints" updates="None" val="[0, 1]" valType="num"/>
+      <Param name="isTrials" updates="None" val="False" valType="bool"/>
+      <Param name="loopType" updates="None" val="random" valType="str"/>
+      <Param name="nReps" updates="None" val="1 if showPostPractice else 0" valType="num"/>
+      <Param name="name" updates="None" val="postPracticeScreenLoop" valType="code"/>
+      <Param name="random seed" updates="None" val="" valType="code"/>
+    </LoopInitiator>
+    <Routine name="postPracticeScreen"/>
+    <LoopTerminator name="postPracticeScreenLoop"/>
     <Routine name="transition"/>
     <LoopTerminator name="phasesLoop"/>
     <Routine name="endExperiment"/>
