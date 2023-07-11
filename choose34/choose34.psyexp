@@ -5,10 +5,10 @@
     <Param val="ptb" valType="str" updates="None" name="Audio lib"/>
     <Param val="" valType="str" updates="None" name="Completed URL"/>
     <Param val="comma" valType="str" updates="None" name="Data file delimiter"/>
-    <Param val="u'data/%s_%s' % (expName, expInfo['participant'])" valType="code" updates="None" name="Data filename"/>
+    <Param val="u'data/%s_%s' % (expName, expInfo['Participant'])" valType="code" updates="None" name="Data filename"/>
     <Param val="True" valType="bool" updates="None" name="Enable Escape"/>
     <Param val="" valType="str" updates="None" name="End Message"/>
-    <Param val="{'participant': '', 'experimenter': '', 'condition': 'C', 'number of pairs': '8'}" valType="code" updates="None" name="Experiment info"/>
+    <Param val="{'Participant': '', 'Experimenter': '', 'Condition': 'C', 'Number of pairs': '8', 'Evaluate to criterion or fixed number of trials?': 'criterion', 'Training phase max blocks': '6', 'Testing phase max blocks': '6'}" valType="code" updates="None" name="Experiment info"/>
     <Param val="True" valType="bool" updates="None" name="Force stereo"/>
     <Param val="False" valType="bool" updates="None" name="Full-screen window"/>
     <Param val="" valType="str" updates="None" name="HTML path"/>
@@ -69,7 +69,7 @@
   <Routines>
     <Routine name="setup">
       <CodeComponent name="imports" plugin="None">
-        <Param val="import random&amp;#10;import csv&amp;#10;&amp;#10;from collections import defaultdict" valType="extendedCode" updates="constant" name="Before Experiment"/>
+        <Param val="import random&amp;#10;import csv&amp;#10;" valType="extendedCode" updates="constant" name="Before Experiment"/>
         <Param val="import * as random from 'random';&amp;#10;import * as csv from 'csv';&amp;#10;import {defaultdict} from 'collections';&amp;#10;" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
@@ -85,10 +85,27 @@
         <Param val="False" valType="bool" updates="None" name="disabled"/>
         <Param val="imports" valType="code" updates="None" name="name"/>
       </CodeComponent>
-      <CodeComponent name="constants" plugin="None">
-        <Param val="pairsPath = &quot;./assets/pairs/&quot;&amp;#10;expFilesPath = &quot;./experimentFiles/&quot;&amp;#10;stimsFieldNames = [&quot;Left_Stim&quot;, &quot;Right_Stim&quot;]&amp;#10;leftKey = 'z'&amp;#10;rightKey = 'm'&amp;#10;phases = [&quot;practice&quot;, &quot;training&quot;, &quot;testing&quot;]" valType="extendedCode" updates="constant" name="Before Experiment"/>
+      <CodeComponent name="validateExpInfo" plugin="None">
+        <Param val="" valType="extendedCode" updates="constant" name="Before Experiment"/>
         <Param val="/* Syntax Error: Fix Python code */" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
-        <Param val="" valType="extendedCode" updates="constant" name="Begin Experiment"/>
+        <Param val="if(expInfo[&quot;Condition&quot;] != &quot;C&quot; and expInfo[&quot;Condition&quot;] != &quot;S&quot;):&amp;#10;    print(&quot;Condition must be \&quot;C\&quot; or \&quot;S\&quot;&quot;, file=sys.stderr)&amp;#10;    exit()&amp;#10;if(not expInfo[&quot;Number of pairs&quot;].isdigit()):&amp;#10;   print(&quot;Number of pairs must be a positive number in the range [1,8]&quot;, file=sys.stderr) &amp;#10;   exit()&amp;#10;if(int(expInfo[&quot;Number of pairs&quot;]) &gt; 8 or int(expInfo[&quot;Number of pairs&quot;]) &lt; 1):&amp;#10;    print(&quot;Number of pairs must be in the range [1,8]&quot;, file=sys.stderr)&amp;#10;    exit()&amp;#10;    &amp;#10;critOrFixed = expInfo[&quot;Evaluate to criterion or fixed number of trials?&quot;]&amp;#10;if(critOrFixed in set([&quot;criterion&quot;, &quot;Criterion&quot;])):&amp;#10;    evalToCriterion = True&amp;#10;elif(critOrFixed in set([&quot;fixed&quot;, &quot;Fixed&quot;])):&amp;#10;    evalToCriterion = False&amp;#10;else:&amp;#10;    print(&quot;Evaluate to criterion or fixed number of trials must set to either 'criterion' or 'fixed'&quot;, file=sys.stderr)&amp;#10;    exit()&amp;#10;    &amp;#10;if(not expInfo[&quot;Training phase max blocks&quot;].isdigit() or not expInfo[&quot;Testing phase max blocks&quot;].isdigit()):&amp;#10;    print(&quot;Max blocks must be a number&quot;, file=sys.stderr) &amp;#10;    exit()" valType="extendedCode" updates="constant" name="Begin Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Begin Routine"/>
+        <Param val="Py" valType="str" updates="None" name="Code Type"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Each Frame"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Each JS Frame"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End JS Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End JS Routine"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End Routine"/>
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="validateExpInfo" valType="code" updates="None" name="name"/>
+      </CodeComponent>
+      <CodeComponent name="constants" plugin="None">
+        <Param val="assetsPath = &quot;./assets/&quot;&amp;#10;trainingPath =  &quot;./assets/training/&quot;&amp;#10;testingPath = &quot;./assets/testing/&quot;&amp;#10;expFilesPath = &quot;./experimentFiles/&quot;&amp;#10;dataPath = &quot;./data/&quot;&amp;#10;summariesPath = dataPath + &quot;summaries/&quot;&amp;#10;&amp;#10;stimsFieldNames = [&quot;Left_Stim&quot;, &quot;Right_Stim&quot;]&amp;#10;leftKey = 'z'&amp;#10;rightKey = 'm'&amp;#10;&amp;#10;practicePair = [&quot;circle&quot;, &quot;triangle&quot;]&amp;#10;&amp;#10;# Stores the testing phase equivalent of every pair ofobjects &amp;#10;# from the training phase. Each entry is one pair:&amp;#10;# pairs[&lt;(trainObj1, trainObj2)&gt;] == (testObj1, testObj2)&amp;#10;pairs = {&amp;#10;    (&quot;s3c1&quot;, &quot;s3c2&quot;): (&quot;s3c1&quot;, &quot;s3c2&quot;),&amp;#10;    (&quot;s1c3&quot;, &quot;s2c3&quot;): (&quot;s1c96&quot;, &quot;s2c96&quot;),&amp;#10;    (&quot;s10c8&quot;, &quot;s10c98&quot;): (&quot;s13c8&quot;, &quot;s13c98&quot;),&amp;#10;    (&quot;s8c11&quot;, &quot;s9c11&quot;): (&quot;s8c26&quot;, &quot;s9c26&quot;),&amp;#10;    (&quot;s18c15&quot;, &quot;s18c16&quot;): (&quot;s21c15&quot;, &quot;s21c16&quot;),&amp;#10;    (&quot;s15c17&quot;, &quot;s16c17&quot;): (&quot;s15c5&quot;, &quot;s16c5&quot;),&amp;#10;    (&quot;s24c22&quot;, &quot;s24c23&quot;): (&quot;s25c22&quot;, &quot;s25c23&quot;),&amp;#10;    (&quot;s22c24&quot;, &quot;s23c24&quot;): (&quot;s22c25&quot;, &quot;s23c25&quot;)&amp;#10;    }&amp;#10;" valType="extendedCode" updates="constant" name="Before Experiment"/>
+        <Param val="/* Syntax Error: Fix Python code */" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
+        <Param val="&amp;#10;delPairs = 8 - int(expInfo[&quot;Number of pairs&quot;])&amp;#10;if(delPairs &gt; 0):&amp;#10;    pairsToDelete = random.sample(pairs.keys(), delPairs)&amp;#10;    for pair in pairsToDelete:&amp;#10;        pairs.pop(pair)&amp;#10;        &amp;#10;" valType="extendedCode" updates="constant" name="Begin Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin Routine"/>
@@ -103,9 +120,9 @@
         <Param val="constants" valType="code" updates="None" name="name"/>
       </CodeComponent>
       <CodeComponent name="initializeVars" plugin="None">
-        <Param val="def constantFactory(value):&amp;#10;    return lambda: value&amp;#10;&amp;#10;# This dictionary tells which object has a smiley &amp;#10;# it has the format {&lt;object_name&gt; : True/False}. If &lt;object_name&gt; is not in&amp;#10;# in the dictionary it will return False by default.&amp;#10;hasSmiley = defaultdict(constantFactory(False))&amp;#10;&amp;#10;# First practice answer is always wrong. So we assigned the smiley AFTER&amp;#10;# subject's response. We use this variable to determine if we have assigned &amp;#10;# the smiley yet&amp;#10;assignedSmiley = False&amp;#10;&amp;#10;# We use this variable to determine what phase we are in and &amp;#10;#update it accordingly&amp;#10;currentPhase = &quot;practice&quot;&amp;#10;&amp;#10;# Number of consecutive correct responses needed to move to next phase&amp;#10;# this changes in the trialBlocks loop&amp;#10;criterion = 16 &amp;#10;&amp;#10;# Changes on trialLoop&amp;#10;consecutiveCorrectResponses = 0&amp;#10;&amp;#10;# Initialized to avoid errors&amp;#10;Right_Stim = &quot;&quot;&amp;#10;Left_Stim = &quot;&quot;" valType="extendedCode" updates="constant" name="Before Experiment"/>
+        <Param val="&amp;#10;# This dictionary tells which object has a smiley &amp;#10;# it has the format {&lt;object_name&gt; : True/False}.&amp;#10;hasSmiley = {}&amp;#10;&amp;#10;# First practice answer is always wrong. So we assigned the smiley AFTER&amp;#10;# subject's response. We use this variable to determine if we have assigned &amp;#10;# the smiley yet&amp;#10;firstChoice = True&amp;#10;&amp;#10;# We use this variable to determine what phase we are in and &amp;#10;# update it accordingly&amp;#10;currentPhase = &quot;practice&quot;&amp;#10;&amp;#10;# Changes on trialLoop&amp;#10;consecutiveCorrectResponses = 0&amp;#10;&amp;#10;# Initialized to avoid errors&amp;#10;Right_Stim = &quot;&quot;&amp;#10;Left_Stim = &quot;&quot;&amp;#10;&amp;#10;evalToCriterion = True" valType="extendedCode" updates="constant" name="Before Experiment"/>
         <Param val="function constantFactory(value) {&amp;#10;    return () =&gt; {&amp;#10;    return value;&amp;#10;};&amp;#10;}&amp;#10;hasSmiley = defaultdict(constantFactory(false));&amp;#10;" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
-        <Param val="" valType="extendedCode" updates="constant" name="Begin Experiment"/>
+        <Param val="# Number of consecutive correct responses needed to move to next phase&amp;#10;# this changes in the trialBlocks loop&amp;#10;criterion = int(expInfo[&quot;Number of pairs&quot;]) * 2&amp;#10;&amp;#10;trialNumReps = {&quot;practice&quot;: 6,&amp;#10;                &quot;training&quot; : int(expInfo[&quot;Training phase max blocks&quot;]),&amp;#10;                &quot;testing&quot; : int(expInfo[&quot;Testing phase max blocks&quot;])&amp;#10;                }" valType="extendedCode" updates="constant" name="Begin Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin Routine"/>
@@ -119,9 +136,43 @@
         <Param val="False" valType="bool" updates="None" name="disabled"/>
         <Param val="initializeVars" valType="code" updates="None" name="name"/>
       </CodeComponent>
-      <CodeComponent name="generatePhaseFiles" plugin="None">
-        <Param val="for phase in phases[1:]:&amp;#10;    with open(f&quot;./experimentFiles/{phase}.csv&quot;, &quot;w&quot;) as f:&amp;#10;        f.write(&quot;pair,Left_Stim,Right_Stim,Correct_Response\n&quot;)&amp;#10;        for i in range(1, 9):&amp;#10;            imgs = os.listdir(f&quot;./assets/pairs/pair{i}/{phase}&quot;)&amp;#10;            correct = random.randint(0, 1)&amp;#10;            if correct == 0:&amp;#10;                img0 = imgs[0].split(&quot;.&quot;)[0]&amp;#10;                img1 = imgs[1].split(&quot;.&quot;)[0]&amp;#10;                f.write(f&quot;pair{i},{img0},{img1},left\n&quot;)&amp;#10;                f.write(f&quot;pair{i},{img1},{img0},right\n&quot;)&amp;#10;                hasSmiley[img0] = True&amp;#10;            else:&amp;#10;                img0 = imgs[0].split(&quot;.&quot;)[0]&amp;#10;                img1 = imgs[1].split(&quot;.&quot;)[0]&amp;#10;                f.write(f&quot;pair{i},{img0},{img1},right\n&quot;)&amp;#10;                f.write(f&quot;pair{i},{img1},{img0},left\n&quot;)&amp;#10;                hasSmiley[img1] = True" valType="extendedCode" updates="constant" name="Before Experiment"/>
+      <CodeComponent name="assignSmiley" plugin="None">
+        <Param val="" valType="extendedCode" updates="constant" name="Before Experiment"/>
         <Param val="/* Syntax Error: Fix Python code */" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
+        <Param val="practice0, practice1 = practicePair&amp;#10;&amp;#10;# Initially both practice objects have no smiley. This changes based on the&amp;#10;# subject's first choice. &amp;#10;hasSmiley[practice0] = False&amp;#10;hasSmiley[practice1] = False&amp;#10;&amp;#10;for pair in pairs:&amp;#10;    train0, train1 = pair&amp;#10;    test0, test1 = pairs[pair]&amp;#10;    &amp;#10;    r = random.randint(0,1)&amp;#10;    &amp;#10;    if(r == 0):&amp;#10;        hasSmiley[train0] = True&amp;#10;        hasSmiley[train1] = False&amp;#10;        hasSmiley[test0] = True&amp;#10;        hasSmiley[test1] = False&amp;#10;    else:&amp;#10;        hasSmiley[train0] = False&amp;#10;        hasSmiley[train1] = True&amp;#10;        hasSmiley[test0] = False&amp;#10;        hasSmiley[test1] = True&amp;#10;        &amp;#10;" valType="extendedCode" updates="constant" name="Begin Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Begin Routine"/>
+        <Param val="Py" valType="str" updates="None" name="Code Type"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Each Frame"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Each JS Frame"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End JS Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End JS Routine"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End Routine"/>
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="assignSmiley" valType="code" updates="None" name="name"/>
+      </CodeComponent>
+      <CodeComponent name="generateStimFiles" plugin="None">
+        <Param val="" valType="extendedCode" updates="constant" name="Before Experiment"/>
+        <Param val="for (var pair, _pj_c = 0, _pj_a = pairs, _pj_b = _pj_a.length; (_pj_c &lt; _pj_b); _pj_c += 1) {&amp;#10;    pair = _pj_a[_pj_c];&amp;#10;    [train0, train];&amp;#10;}&amp;#10;" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
+        <Param val="with open(expFilesPath + &quot;training.csv&quot;, &quot;w&quot;) as f1:&amp;#10;    with open(expFilesPath + &quot;testing.csv&quot;, &quot;w&quot;) as f2:&amp;#10;        f1.write(&quot;Left_Stim,Right_Stim,Correct_Response\n&quot;)&amp;#10;        f2.write(&quot;Left_Stim,Right_Stim,Correct_Response\n&quot;)&amp;#10;        for pair in pairs:&amp;#10;            train0, train1 = pair&amp;#10;            test0, test1 = pairs[pair]&amp;#10;            if(hasSmiley[train0] and hasSmiley[test0]):&amp;#10;                f1.write(f&quot;{train0},{train1},left\n&quot;)&amp;#10;                f1.write(f&quot;{train1},{train0},right\n&quot;)&amp;#10;                f2.write(f&quot;{test0},{test1},left\n&quot;)&amp;#10;                f2.write(f&quot;{test1},{test0},right\n&quot;)&amp;#10;            else:&amp;#10;                f1.write(f&quot;{train0},{train1},right\n&quot;)&amp;#10;                f1.write(f&quot;{train1},{train0},left\n&quot;)&amp;#10;                f2.write(f&quot;{test0},{test1},right\n&quot;)&amp;#10;                f2.write(f&quot;{test1},{test0},left\n&quot;)&amp;#10;                &amp;#10;with open(expFilesPath + &quot;practice.csv&quot;, &quot;w&quot;) as f:&amp;#10;    f.write(&quot;Left_Stim,Right_Stim\n&quot;)&amp;#10;    practice0, practice1 = practicePair&amp;#10;    f.write(f&quot;{practice0},{practice1}\n&quot;)&amp;#10;    f.write(f&quot;{practice1},{practice0}\n&quot;)" valType="extendedCode" updates="constant" name="Begin Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Begin Routine"/>
+        <Param val="Py" valType="str" updates="None" name="Code Type"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Each Frame"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Each JS Frame"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End JS Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End JS Routine"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End Routine"/>
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="generateStimFiles" valType="code" updates="None" name="name"/>
+      </CodeComponent>
+      <CodeComponent name="dataSummaryVars" plugin="None">
+        <Param val="trainAccuracy = 0&amp;#10;trainAvgRT = 0.0&amp;#10;trainError = 0&amp;#10;trainTrials = 0&amp;#10;&amp;#10;probeAccuracy = 0&amp;#10;probeAvgRT = 0.0&amp;#10;probeError = 0&amp;#10;probeTrials = 0" valType="extendedCode" updates="constant" name="Before Experiment"/>
+        <Param val="trainAccuracy = 0;&amp;#10;trainAvgRT = 0.0;&amp;#10;trainError = 0;&amp;#10;probeAccuracy = 0;&amp;#10;probeAvgRT = 0.0;&amp;#10;probeError = 0;&amp;#10;" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
@@ -134,7 +185,7 @@
         <Param val="" valType="extendedCode" updates="constant" name="End JS Routine"/>
         <Param val="" valType="extendedCode" updates="constant" name="End Routine"/>
         <Param val="False" valType="bool" updates="None" name="disabled"/>
-        <Param val="generatePhaseFiles" valType="code" updates="None" name="name"/>
+        <Param val="dataSummaryVars" valType="code" updates="None" name="name"/>
       </CodeComponent>
     </Routine>
     <Routine name="choose">
@@ -144,7 +195,7 @@
         <Param val="" valType="extendedCode" updates="constant" name="Begin Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
         <Param val="/* Syntax Error: Fix Python code */" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
-        <Param val="leftImgPath = pairsPath + pair + &quot;/&quot; + currentPhase + &quot;/&quot; + Left_Stim + &quot;.png&quot;&amp;#10;rightImgPath = pairsPath + pair + &quot;/&quot; + currentPhase + &quot;/&quot; + Right_Stim + &quot;.png&quot;&amp;#10;&amp;#10;print(f&quot;COOOOOOOOONNOOOOOOO {trialConditionsFile}&quot;)&amp;#10;&amp;#10;if(currentPhase == &quot;practice&quot;):&amp;#10;    leftImgPath = pairsPath + currentPhase + &quot;/&quot; + Left_Stim + &quot;.png&quot;&amp;#10;    rightImgPath = pairsPath + currentPhase + &quot;/&quot; + Right_Stim + &quot;.png&quot;" valType="extendedCode" updates="constant" name="Begin Routine"/>
+        <Param val="leftImgPath = assetsPath + currentPhase + &quot;/&quot; + Left_Stim + &quot;.png&quot;&amp;#10;rightImgPath = assetsPath + currentPhase + &quot;/&quot; + Right_Stim + &quot;.png&quot;&amp;#10;&amp;#10;" valType="extendedCode" updates="constant" name="Begin Routine"/>
         <Param val="Py" valType="str" updates="None" name="Code Type"/>
         <Param val="" valType="extendedCode" updates="constant" name="Each Frame"/>
         <Param val="" valType="extendedCode" updates="constant" name="Each JS Frame"/>
@@ -210,7 +261,7 @@
         <Param val="from exp settings" valType="str" updates="None" name="units"/>
       </ImageComponent>
       <TextComponent name="textPrompt" plugin="None">
-        <Param val="white" valType="color" updates="constant" name="color"/>
+        <Param val="black" valType="color" updates="constant" name="color"/>
         <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
         <Param val="1" valType="num" updates="constant" name="contrast"/>
         <Param val="False" valType="bool" updates="None" name="disabled"/>
@@ -220,9 +271,9 @@
         <Param val="LTR" valType="str" updates="None" name="languageStyle"/>
         <Param val="0.035" valType="num" updates="constant" name="letterHeight"/>
         <Param val="textPrompt" valType="code" updates="None" name="name"/>
-        <Param val="" valType="num" updates="constant" name="opacity"/>
+        <Param val="1" valType="num" updates="constant" name="opacity"/>
         <Param val="0" valType="num" updates="constant" name="ori"/>
-        <Param val="(0, -0.5)" valType="list" updates="constant" name="pos"/>
+        <Param val="(0, -0.25)" valType="list" updates="constant" name="pos"/>
         <Param val="False" valType="bool" updates="None" name="saveStartStop"/>
         <Param val="" valType="code" updates="None" name="startEstim"/>
         <Param val="time (s)" valType="str" updates="None" name="startType"/>
@@ -235,8 +286,8 @@
         <Param val="" valType="num" updates="constant" name="wrapWidth"/>
       </TextComponent>
       <KeyboardComponent name="Subject_Response" plugin="None">
-        <Param val="'z', 'm', 'space'," valType="list" updates="constant" name="allowedKeys"/>
-        <Param val="$('z' if hasSmiley[Left_Stim] else 'm' if hasSmiley[Right_Stim] else '')" valType="str" updates="constant" name="correctAns"/>
+        <Param val="leftKey, rightKey" valType="list" updates="constant" name="allowedKeys"/>
+        <Param val="$(leftKey if hasSmiley[Left_Stim] else rightKey if hasSmiley[Right_Stim] else '')" valType="str" updates="constant" name="correctAns"/>
         <Param val="False" valType="bool" updates="None" name="disabled"/>
         <Param val="True" valType="bool" updates="constant" name="discard previous"/>
         <Param val="" valType="code" updates="None" name="durationEstim"/>
@@ -253,23 +304,6 @@
         <Param val="True" valType="bool" updates="constant" name="storeCorrect"/>
         <Param val="True" valType="bool" updates="constant" name="syncScreenRefresh"/>
       </KeyboardComponent>
-      <CodeComponent name="assignSmiley" plugin="None">
-        <Param val="" valType="extendedCode" updates="constant" name="Before Experiment"/>
-        <Param val="/* Syntax Error: Fix Python code */" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
-        <Param val="" valType="extendedCode" updates="constant" name="Begin Experiment"/>
-        <Param val="" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
-        <Param val="" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
-        <Param val="" valType="extendedCode" updates="constant" name="Begin Routine"/>
-        <Param val="Py" valType="str" updates="None" name="Code Type"/>
-        <Param val="" valType="extendedCode" updates="constant" name="Each Frame"/>
-        <Param val="" valType="extendedCode" updates="constant" name="Each JS Frame"/>
-        <Param val="" valType="extendedCode" updates="constant" name="End Experiment"/>
-        <Param val="" valType="extendedCode" updates="constant" name="End JS Experiment"/>
-        <Param val="" valType="extendedCode" updates="constant" name="End JS Routine"/>
-        <Param val="if(not assignedSmiley and Subject_Response.keys == leftKey):&amp;#10;    # assign smiley to right stim&amp;#10;    hasSmiley[Left_Stim] = False&amp;#10;    hasSmiley[Right_Stim] = True&amp;#10;    assignedSmiley = True&amp;#10;elif(not assignedSmiley):&amp;#10;    #assign smiley to left stim&amp;#10;    hasSmiley[Left_Stim] = True&amp;#10;    hasSmiley[Right_Stim] = False&amp;#10;    assignedSmiley = True" valType="extendedCode" updates="constant" name="End Routine"/>
-        <Param val="False" valType="bool" updates="None" name="disabled"/>
-        <Param val="assignSmiley" valType="code" updates="None" name="name"/>
-      </CodeComponent>
       <CodeComponent name="correctResponse" plugin="None">
         <Param val="" valType="extendedCode" updates="constant" name="Before Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
@@ -287,9 +321,43 @@
         <Param val="False" valType="bool" updates="None" name="disabled"/>
         <Param val="correctResponse" valType="code" updates="None" name="name"/>
       </CodeComponent>
+      <CodeComponent name="practiceAssignSmiley" plugin="None">
+        <Param val="" valType="extendedCode" updates="constant" name="Before Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Begin Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Begin Routine"/>
+        <Param val="Py" valType="str" updates="None" name="Code Type"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Each Frame"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Each JS Frame"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End JS Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End JS Routine"/>
+        <Param val="if(firstChoice and Subject_Response.keys == leftKey):&amp;#10;    hasSmiley[Right_Stim] = True&amp;#10;    hasSmiley[Left_Stim] = False&amp;#10;    firstChoice = False&amp;#10;elif(firstChoice and Subject_Response.keys == rightKey):&amp;#10;    hasSmiley[Right_Stim] = False&amp;#10;    hasSmiley[Left_Stim] = True&amp;#10;    firstChoice = False" valType="extendedCode" updates="constant" name="End Routine"/>
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="practiceAssignSmiley" valType="code" updates="None" name="name"/>
+      </CodeComponent>
+      <CodeComponent name="updateSummaryVars" plugin="None">
+        <Param val="" valType="extendedCode" updates="constant" name="Before Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Begin Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Begin Routine"/>
+        <Param val="Py" valType="str" updates="None" name="Code Type"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Each Frame"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Each JS Frame"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End JS Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End JS Routine"/>
+        <Param val="if(currentPhase == &quot;training&quot;):&amp;#10;    trainTrials += 1&amp;#10;    trainAvgRT += Subject_Response.rt&amp;#10;    if(correctResponse):&amp;#10;        trainAccuracy += 1&amp;#10;    else:&amp;#10;        trainError += 1&amp;#10;elif(currentPhase == &quot;testing&quot;):&amp;#10;    probeTrials += 1&amp;#10;    probeAvgRT += Subject_Response.rt&amp;#10;    if(correctResponse):&amp;#10;        probeAccuracy += 1&amp;#10;    else:&amp;#10;        probeError += 1" valType="extendedCode" updates="constant" name="End Routine"/>
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="updateSummaryVars" valType="code" updates="None" name="name"/>
+      </CodeComponent>
     </Routine>
     <Routine name="reveal">
-      <ImageComponent name="practiceLeftStimReveal" plugin="None">
+      <ImageComponent name="leftStimReveal" plugin="None">
         <Param val="center" valType="str" updates="constant" name="anchor"/>
         <Param val="$[1,1,1]" valType="color" updates="constant" name="color"/>
         <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
@@ -301,7 +369,7 @@
         <Param val="$leftImgPath" valType="file" updates="set every repeat" name="image"/>
         <Param val="linear" valType="str" updates="constant" name="interpolate"/>
         <Param val="" valType="str" updates="constant" name="mask"/>
-        <Param val="practiceLeftStimReveal" valType="code" updates="None" name="name"/>
+        <Param val="leftStimReveal" valType="code" updates="None" name="name"/>
         <Param val="" valType="num" updates="constant" name="opacity"/>
         <Param val="0" valType="num" updates="constant" name="ori"/>
         <Param val="[-0.25, min(0.1, frameN/100)] if (Subject_Response.keys == leftKey) else [-0.25, 0]" valType="list" updates="set every frame" name="pos"/>
@@ -316,7 +384,7 @@
         <Param val="128" valType="num" updates="constant" name="texture resolution"/>
         <Param val="from exp settings" valType="str" updates="None" name="units"/>
       </ImageComponent>
-      <ImageComponent name="practiceRightStimReveal" plugin="None">
+      <ImageComponent name="rightStimReveal" plugin="None">
         <Param val="center" valType="str" updates="constant" name="anchor"/>
         <Param val="$[1,1,1]" valType="color" updates="constant" name="color"/>
         <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
@@ -328,7 +396,7 @@
         <Param val="$rightImgPath" valType="file" updates="set every repeat" name="image"/>
         <Param val="linear" valType="str" updates="constant" name="interpolate"/>
         <Param val="" valType="str" updates="constant" name="mask"/>
-        <Param val="practiceRightStimReveal" valType="code" updates="None" name="name"/>
+        <Param val="rightStimReveal" valType="code" updates="None" name="name"/>
         <Param val="" valType="num" updates="constant" name="opacity"/>
         <Param val="0" valType="num" updates="constant" name="ori"/>
         <Param val="[0.25, min(0.1, frameN/100)] if (Subject_Response.keys == rightKey) else [0.25, 0]" valType="list" updates="set every frame" name="pos"/>
@@ -343,7 +411,7 @@
         <Param val="128" valType="num" updates="constant" name="texture resolution"/>
         <Param val="from exp settings" valType="str" updates="None" name="units"/>
       </ImageComponent>
-      <ImageComponent name="practiceSmiley" plugin="None">
+      <ImageComponent name="smileyReveal" plugin="None">
         <Param val="center" valType="str" updates="constant" name="anchor"/>
         <Param val="$[1,1,1]" valType="color" updates="constant" name="color"/>
         <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
@@ -355,7 +423,7 @@
         <Param val="assets/smiley.png" valType="file" updates="constant" name="image"/>
         <Param val="linear" valType="str" updates="constant" name="interpolate"/>
         <Param val="" valType="str" updates="constant" name="mask"/>
-        <Param val="practiceSmiley" valType="code" updates="None" name="name"/>
+        <Param val="smileyReveal" valType="code" updates="None" name="name"/>
         <Param val="1 if correctResponse else 0 " valType="num" updates="set every repeat" name="opacity"/>
         <Param val="0" valType="num" updates="constant" name="ori"/>
         <Param val="(-0.25, 0) if hasSmiley[Left_Stim] else (0.25,0)" valType="list" updates="set every repeat" name="pos"/>
@@ -371,7 +439,7 @@
         <Param val="from exp settings" valType="str" updates="None" name="units"/>
       </ImageComponent>
       <TextComponent name="textPrompt2" plugin="None">
-        <Param val="white" valType="color" updates="constant" name="color"/>
+        <Param val="black" valType="color" updates="constant" name="color"/>
         <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
         <Param val="1" valType="num" updates="constant" name="contrast"/>
         <Param val="False" valType="bool" updates="None" name="disabled"/>
@@ -381,9 +449,9 @@
         <Param val="LTR" valType="str" updates="None" name="languageStyle"/>
         <Param val="0.035" valType="num" updates="constant" name="letterHeight"/>
         <Param val="textPrompt2" valType="code" updates="None" name="name"/>
-        <Param val="" valType="num" updates="constant" name="opacity"/>
+        <Param val="1" valType="num" updates="constant" name="opacity"/>
         <Param val="0" valType="num" updates="constant" name="ori"/>
-        <Param val="(0, -0.5)" valType="list" updates="constant" name="pos"/>
+        <Param val="(0, -0.25)" valType="list" updates="constant" name="pos"/>
         <Param val="False" valType="bool" updates="None" name="saveStartStop"/>
         <Param val="" valType="code" updates="None" name="startEstim"/>
         <Param val="time (s)" valType="str" updates="None" name="startType"/>
@@ -395,7 +463,7 @@
         <Param val="from exp settings" valType="str" updates="None" name="units"/>
         <Param val="" valType="num" updates="constant" name="wrapWidth"/>
       </TextComponent>
-      <CodeComponent name="phaseTransition" plugin="None">
+      <CodeComponent name="earlyTransition" plugin="None">
         <Param val="" valType="extendedCode" updates="constant" name="Before Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin Experiment"/>
@@ -408,9 +476,9 @@
         <Param val="" valType="extendedCode" updates="constant" name="End Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="End JS Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="End JS Routine"/>
-        <Param val="if(consecutiveCorrectResponses &gt;= criterion):&amp;#10;    if(currentPhase == &quot;practice&quot;):&amp;#10;        currentPhase = &quot;training&quot;&amp;#10;    elif(currentPhase == &quot;training&quot;):&amp;#10;        currentPhase = &quot;testing&quot;&amp;#10;    else:&amp;#10;        trialBlocks.finished = True&amp;#10;    trialLoop.finished = True" valType="extendedCode" updates="constant" name="End Routine"/>
+        <Param val="if(consecutiveCorrectResponses &gt;= criterion):&amp;#10;    if(currentPhase == &quot;practice&quot;):&amp;#10;        currentPhase = &quot;training&quot;&amp;#10;    elif(currentPhase == &quot;training&quot;):&amp;#10;        currentPhase = &quot;testing&quot;&amp;#10;    else:&amp;#10;        phasesLoop.finished = True&amp;#10;    trialLoop.finished = True&amp;#10;    transitionedEarly = True" valType="extendedCode" updates="constant" name="End Routine"/>
         <Param val="False" valType="bool" updates="None" name="disabled"/>
-        <Param val="phaseTransition" valType="code" updates="None" name="name"/>
+        <Param val="earlyTransition" valType="code" updates="None" name="name"/>
       </CodeComponent>
     </Routine>
     <Routine name="experimentInstructions">
@@ -518,7 +586,7 @@
         <Param val="" valType="extendedCode" updates="constant" name="Begin Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
-        <Param val="trialConditionsFile = &quot;./experimentFiles/&quot; + currentPhase + &quot;.csv&quot;&amp;#10;&amp;#10;consecutiveCorrectResponses = 0&amp;#10;&amp;#10;if(currentPhase == &quot;practice&quot;):&amp;#10;    criterion = 3&amp;#10;else:&amp;#10;    criterion = int(expInfo[&quot;number of pairs&quot;]) * 2" valType="extendedCode" updates="constant" name="Begin Routine"/>
+        <Param val="trialConditionsFile = &quot;./experimentFiles/&quot; + currentPhase + &quot;.csv&quot;&amp;#10;&amp;#10;consecutiveCorrectResponses = 0&amp;#10;transitionedEarly = False&amp;#10;&amp;#10;if(currentPhase == &quot;practice&quot;):&amp;#10;    criterion = 3&amp;#10;elif(evalToCriterion):&amp;#10;    criterion = int(expInfo[&quot;Number of pairs&quot;]) * 2&amp;#10;else:&amp;#10;    criterion = float(&quot;inf&quot;)&amp;#10;&amp;#10;print(f&quot;{currentPhase} reps = {trialNumReps[currentPhase]}&quot;)" valType="extendedCode" updates="constant" name="Begin Routine"/>
         <Param val="Py" valType="str" updates="None" name="Code Type"/>
         <Param val="" valType="extendedCode" updates="constant" name="Each Frame"/>
         <Param val="" valType="extendedCode" updates="constant" name="Each JS Frame"/>
@@ -530,11 +598,50 @@
         <Param val="trialSetupCode" valType="code" updates="None" name="name"/>
       </CodeComponent>
     </Routine>
+    <Routine name="endExperiment">
+      <CodeComponent name="writeSummary" plugin="None">
+        <Param val="" valType="extendedCode" updates="constant" name="Before Experiment"/>
+        <Param val="/* Syntax Error: Fix Python code */" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Begin Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Begin Routine"/>
+        <Param val="Py" valType="str" updates="None" name="Code Type"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Each Frame"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Each JS Frame"/>
+        <Param val="trainAccuracy /= trainTrials&amp;#10;trainAvgRT /= trainTrials&amp;#10;&amp;#10;probeAccuracy /= probeTrials&amp;#10;probeAvgRT /= probeTrials&amp;#10;&amp;#10;headerFields = [&quot;Training Accuracy Average&quot;, &amp;#10;            &quot;Training RT Average&quot;,&amp;#10;            &quot;Training Number of Errors&quot;,&amp;#10;            &quot;Probe Accuracy Average&quot;,&amp;#10;            &quot;Probe RT Average&quot;,&amp;#10;            &quot;Probe Number of Errors&quot;]&amp;#10;&amp;#10;summaryVars = [trainAccuracy,&amp;#10;        trainAvgRT,&amp;#10;        trainError,&amp;#10;        probeAccuracy,&amp;#10;        probeAvgRT,&amp;#10;        probeError]&amp;#10;        &amp;#10;summaryVars = map(str, summaryVars)&amp;#10;&amp;#10;header = &quot;,&quot;.join(headerFields) + &quot;\n&quot;&amp;#10;values = &quot;,&quot;.join(summaryVars) + &quot;\n&quot;&amp;#10;&amp;#10;with open(f&quot;{summariesPath}{expName}_{expInfo['Participant']}_summary.csv&quot;, &quot;w&quot;) as f:&amp;#10;    f.write(header)&amp;#10;    f.write(values)" valType="extendedCode" updates="constant" name="End Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End JS Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End JS Routine"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End Routine"/>
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="writeSummary" valType="code" updates="None" name="name"/>
+      </CodeComponent>
+    </Routine>
+    <Routine name="phaseTransition_2"/>
+    <Routine name="transition">
+      <CodeComponent name="updatePhase" plugin="None">
+        <Param val="" valType="extendedCode" updates="constant" name="Before Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Begin Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
+        <Param val="if(not transitionedEarly and currentPhase == &quot;practice&quot;):&amp;#10;    currentPhase = &quot;training&quot;&amp;#10;elif(not transitionedEarly and currentPhase == &quot;training&quot;):&amp;#10;    currentPhase = &quot;testing&quot;&amp;#10;elif(not transitionedEarly):&amp;#10;    phasesLoop.finished = True" valType="extendedCode" updates="constant" name="Begin Routine"/>
+        <Param val="Py" valType="str" updates="None" name="Code Type"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Each Frame"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Each JS Frame"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End JS Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End JS Routine"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End Routine"/>
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="updatePhase" valType="code" updates="None" name="name"/>
+      </CodeComponent>
+    </Routine>
   </Routines>
   <Flow>
     <Routine name="setup"/>
     <Routine name="experimentInstructions"/>
-    <LoopInitiator loopType="TrialHandler" name="trialBlocks">
+    <LoopInitiator loopType="TrialHandler" name="phasesLoop">
       <Param name="Selected rows" updates="None" val="" valType="str"/>
       <Param name="conditions" updates="None" val="None" valType="str"/>
       <Param name="conditionsFile" updates="None" val="" valType="file"/>
@@ -542,7 +649,7 @@
       <Param name="isTrials" updates="None" val="False" valType="bool"/>
       <Param name="loopType" updates="None" val="random" valType="str"/>
       <Param name="nReps" updates="None" val="3" valType="num"/>
-      <Param name="name" updates="None" val="trialBlocks" valType="code"/>
+      <Param name="name" updates="None" val="phasesLoop" valType="code"/>
       <Param name="random seed" updates="None" val="" valType="code"/>
     </LoopInitiator>
     <Routine name="trialSetup"/>
@@ -553,13 +660,15 @@
       <Param name="endPoints" updates="None" val="[0, 1]" valType="num"/>
       <Param name="isTrials" updates="None" val="True" valType="bool"/>
       <Param name="loopType" updates="None" val="random" valType="str"/>
-      <Param name="nReps" updates="None" val="6" valType="num"/>
+      <Param name="nReps" updates="None" val="trialNumReps[currentPhase]" valType="num"/>
       <Param name="name" updates="None" val="trialLoop" valType="code"/>
       <Param name="random seed" updates="None" val="" valType="code"/>
     </LoopInitiator>
     <Routine name="choose"/>
     <Routine name="reveal"/>
     <LoopTerminator name="trialLoop"/>
-    <LoopTerminator name="trialBlocks"/>
+    <Routine name="transition"/>
+    <LoopTerminator name="phasesLoop"/>
+    <Routine name="endExperiment"/>
   </Flow>
 </PsychoPy2experiment>

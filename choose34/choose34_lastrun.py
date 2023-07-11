@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2023.1.2),
-    on July 05, 2023, at 16:46
+    on July 11, 2023, at 00:27
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -36,35 +36,48 @@ from psychopy.hardware import keyboard
 import random
 import csv
 
-from collections import defaultdict
 # Run 'Before Experiment' code from constants
-pairsPath = "./assets/pairs/"
+assetsPath = "./assets/"
+trainingPath =  "./assets/training/"
+testingPath = "./assets/testing/"
 expFilesPath = "./experimentFiles/"
+dataPath = "./data/"
+summariesPath = dataPath + "summaries/"
+
 stimsFieldNames = ["Left_Stim", "Right_Stim"]
 leftKey = 'z'
 rightKey = 'm'
-phases = ["practice", "training", "testing"]
+
+practicePair = ["circle", "triangle"]
+
+# Stores the testing phase equivalent of every pair ofobjects 
+# from the training phase. Each entry is one pair:
+# pairs[<(trainObj1, trainObj2)>] == (testObj1, testObj2)
+pairs = {
+    ("s3c1", "s3c2"): ("s3c1", "s3c2"),
+    ("s1c3", "s2c3"): ("s1c96", "s2c96"),
+    ("s10c8", "s10c98"): ("s13c8", "s13c98"),
+    ("s8c11", "s9c11"): ("s8c26", "s9c26"),
+    ("s18c15", "s18c16"): ("s21c15", "s21c16"),
+    ("s15c17", "s16c17"): ("s15c5", "s16c5"),
+    ("s24c22", "s24c23"): ("s25c22", "s25c23"),
+    ("s22c24", "s23c24"): ("s22c25", "s23c25")
+    }
+
 # Run 'Before Experiment' code from initializeVars
-def constantFactory(value):
-    return lambda: value
 
 # This dictionary tells which object has a smiley 
-# it has the format {<object_name> : True/False}. If <object_name> is not in
-# in the dictionary it will return False by default.
-hasSmiley = defaultdict(constantFactory(False))
+# it has the format {<object_name> : True/False}.
+hasSmiley = {}
 
 # First practice answer is always wrong. So we assigned the smiley AFTER
 # subject's response. We use this variable to determine if we have assigned 
 # the smiley yet
-assignedSmiley = False
+firstChoice = True
 
 # We use this variable to determine what phase we are in and 
-#update it accordingly
+# update it accordingly
 currentPhase = "practice"
-
-# Number of consecutive correct responses needed to move to next phase
-# this changes in the trialBlocks loop
-criterion = 16 
 
 # Changes on trialLoop
 consecutiveCorrectResponses = 0
@@ -72,25 +85,18 @@ consecutiveCorrectResponses = 0
 # Initialized to avoid errors
 Right_Stim = ""
 Left_Stim = ""
-# Run 'Before Experiment' code from generatePhaseFiles
-for phase in phases[1:]:
-    with open(f"./experimentFiles/{phase}.csv", "w") as f:
-        f.write("pair,Left_Stim,Right_Stim,Correct_Response\n")
-        for i in range(1, 9):
-            imgs = os.listdir(f"./assets/pairs/pair{i}/{phase}")
-            correct = random.randint(0, 1)
-            if correct == 0:
-                img0 = imgs[0].split(".")[0]
-                img1 = imgs[1].split(".")[0]
-                f.write(f"pair{i},{img0},{img1},left\n")
-                f.write(f"pair{i},{img1},{img0},right\n")
-                hasSmiley[img0] = True
-            else:
-                img0 = imgs[0].split(".")[0]
-                img1 = imgs[1].split(".")[0]
-                f.write(f"pair{i},{img0},{img1},right\n")
-                f.write(f"pair{i},{img1},{img0},left\n")
-                hasSmiley[img1] = True
+
+evalToCriterion = True
+# Run 'Before Experiment' code from dataSummaryVars
+trainAccuracy = 0
+trainAvgRT = 0.0
+trainError = 0
+trainTrials = 0
+
+probeAccuracy = 0
+probeAvgRT = 0.0
+probeError = 0
+probeTrials = 0
 
 
 # Ensure that relative paths start from the same directory as this script
@@ -100,10 +106,13 @@ os.chdir(_thisDir)
 psychopyVersion = '2023.1.2'
 expName = 'Choose34'  # from the Builder filename that created this script
 expInfo = {
-    'participant': '',
-    'experimenter': '',
-    'condition': 'C',
-    'number of pairs': '8',
+    'Participant': '',
+    'Experimenter': '',
+    'Condition': 'C',
+    'Number of pairs': '8',
+    'Evaluate to criterion or fixed number of trials?': 'criterion',
+    'Training phase max blocks': '6',
+    'Testing phase max blocks': '6',
 }
 # --- Show participant info dialog --
 dlg = gui.DlgFromDict(dictionary=expInfo, sortKeys=False, title=expName)
@@ -114,7 +123,7 @@ expInfo['expName'] = expName
 expInfo['psychopyVersion'] = psychopyVersion
 
 # Data file name stem = absolute path + name; later add .psyexp, .csv, .log, etc
-filename = _thisDir + os.sep + u'data/%s_%s' % (expName, expInfo['participant'])
+filename = _thisDir + os.sep + u'data/%s_%s' % (expName, expInfo['Participant'])
 
 # An ExperimentHandler isn't essential but helps with data saving
 thisExp = data.ExperimentHandler(name=expName, version='',
@@ -162,6 +171,97 @@ eyetracker = None
 defaultKeyboard = keyboard.Keyboard(backend='iohub')
 
 # --- Initialize components for Routine "setup" ---
+# Run 'Begin Experiment' code from validateExpInfo
+if(expInfo["Condition"] != "C" and expInfo["Condition"] != "S"):
+    print("Condition must be \"C\" or \"S\"", file=sys.stderr)
+    exit()
+if(not expInfo["Number of pairs"].isdigit()):
+   print("Number of pairs must be a positive number in the range [1,8]", file=sys.stderr) 
+   exit()
+if(int(expInfo["Number of pairs"]) > 8 or int(expInfo["Number of pairs"]) < 1):
+    print("Number of pairs must be in the range [1,8]", file=sys.stderr)
+    exit()
+    
+critOrFixed = expInfo["Evaluate to criterion or fixed number of trials?"]
+if(critOrFixed in set(["criterion", "Criterion"])):
+    evalToCriterion = True
+elif(critOrFixed in set(["fixed", "Fixed"])):
+    evalToCriterion = False
+else:
+    print("Evaluate to criterion or fixed number of trials must set to either 'criterion' or 'fixed'", file=sys.stderr)
+    exit()
+    
+if(not expInfo["Training phase max blocks"].isdigit() or not expInfo["Testing phase max blocks"].isdigit()):
+    print("Max blocks must be a number", file=sys.stderr) 
+    exit()
+# Run 'Begin Experiment' code from constants
+
+delPairs = 8 - int(expInfo["Number of pairs"])
+if(delPairs > 0):
+    pairsToDelete = random.sample(pairs.keys(), delPairs)
+    for pair in pairsToDelete:
+        pairs.pop(pair)
+        
+
+# Run 'Begin Experiment' code from initializeVars
+# Number of consecutive correct responses needed to move to next phase
+# this changes in the trialBlocks loop
+criterion = int(expInfo["Number of pairs"]) * 2
+
+trialNumReps = {"practice": 6,
+                "training" : int(expInfo["Training phase max blocks"]),
+                "testing" : int(expInfo["Testing phase max blocks"])
+                }
+# Run 'Begin Experiment' code from assignSmiley
+practice0, practice1 = practicePair
+
+# Initially both practice objects have no smiley. This changes based on the
+# subject's first choice. 
+hasSmiley[practice0] = False
+hasSmiley[practice1] = False
+
+for pair in pairs:
+    train0, train1 = pair
+    test0, test1 = pairs[pair]
+    
+    r = random.randint(0,1)
+    
+    if(r == 0):
+        hasSmiley[train0] = True
+        hasSmiley[train1] = False
+        hasSmiley[test0] = True
+        hasSmiley[test1] = False
+    else:
+        hasSmiley[train0] = False
+        hasSmiley[train1] = True
+        hasSmiley[test0] = False
+        hasSmiley[test1] = True
+        
+
+# Run 'Begin Experiment' code from generateStimFiles
+with open(expFilesPath + "training.csv", "w") as f1:
+    with open(expFilesPath + "testing.csv", "w") as f2:
+        f1.write("Left_Stim,Right_Stim,Correct_Response\n")
+        f2.write("Left_Stim,Right_Stim,Correct_Response\n")
+        for pair in pairs:
+            train0, train1 = pair
+            test0, test1 = pairs[pair]
+            if(hasSmiley[train0] and hasSmiley[test0]):
+                f1.write(f"{train0},{train1},left\n")
+                f1.write(f"{train1},{train0},right\n")
+                f2.write(f"{test0},{test1},left\n")
+                f2.write(f"{test1},{test0},right\n")
+            else:
+                f1.write(f"{train0},{train1},right\n")
+                f1.write(f"{train1},{train0},left\n")
+                f2.write(f"{test0},{test1},right\n")
+                f2.write(f"{test1},{test0},left\n")
+                
+with open(expFilesPath + "practice.csv", "w") as f:
+    f.write("Left_Stim,Right_Stim\n")
+    practice0, practice1 = practicePair
+    f.write(f"{practice0},{practice1}\n")
+    f.write(f"{practice1},{practice0}\n")
 
 # --- Initialize components for Routine "experimentInstructions" ---
 instructions1 = visual.TextStim(win=win, name='instructions1',
@@ -210,32 +310,32 @@ rightStim = visual.ImageStim(
 textPrompt = visual.TextStim(win=win, name='textPrompt',
     text='Which object is the smiley face under?',
     font='Open Sans',
-    pos=(0, -0.5), height=0.035, wrapWidth=None, ori=0.0, 
-    color='white', colorSpace='rgb', opacity=None, 
+    pos=(0, -0.25), height=0.035, wrapWidth=None, ori=0.0, 
+    color='black', colorSpace='rgb', opacity=1.0, 
     languageStyle='LTR',
     depth=-3.0);
 Subject_Response = keyboard.Keyboard()
 
 # --- Initialize components for Routine "reveal" ---
-practiceLeftStimReveal = visual.ImageStim(
+leftStimReveal = visual.ImageStim(
     win=win,
-    name='practiceLeftStimReveal', 
+    name='leftStimReveal', 
     image='default.png', mask=None, anchor='center',
     ori=0.0, pos=[0,0], size=(0.125, 0.125),
     color=[1,1,1], colorSpace='rgb', opacity=None,
     flipHoriz=False, flipVert=False,
     texRes=128.0, interpolate=True, depth=0.0)
-practiceRightStimReveal = visual.ImageStim(
+rightStimReveal = visual.ImageStim(
     win=win,
-    name='practiceRightStimReveal', 
+    name='rightStimReveal', 
     image='default.png', mask=None, anchor='center',
     ori=0.0, pos=[0,0], size=(0.125, 0.125),
     color=[1,1,1], colorSpace='rgb', opacity=None,
     flipHoriz=False, flipVert=False,
     texRes=128.0, interpolate=True, depth=-1.0)
-practiceSmiley = visual.ImageStim(
+smileyReveal = visual.ImageStim(
     win=win,
-    name='practiceSmiley', 
+    name='smileyReveal', 
     image='assets/smiley.png', mask=None, anchor='center',
     ori=0.0, pos=[0,0], size=(0.0625, 0.0625),
     color=[1,1,1], colorSpace='rgb', opacity=1.0,
@@ -244,10 +344,14 @@ practiceSmiley = visual.ImageStim(
 textPrompt2 = visual.TextStim(win=win, name='textPrompt2',
     text='Which object is the smiley face under?',
     font='Open Sans',
-    pos=(0, -0.5), height=0.035, wrapWidth=None, ori=0.0, 
-    color='white', colorSpace='rgb', opacity=None, 
+    pos=(0, -0.25), height=0.035, wrapWidth=None, ori=0.0, 
+    color='black', colorSpace='rgb', opacity=1.0, 
     languageStyle='LTR',
     depth=-3.0);
+
+# --- Initialize components for Routine "transition" ---
+
+# --- Initialize components for Routine "endExperiment" ---
 
 # Create some handy timers
 globalClock = core.Clock()  # to track the time since experiment started
@@ -444,23 +548,23 @@ for thisComponent in experimentInstructionsComponents:
 routineTimer.reset()
 
 # set up handler to look after randomisation of conditions etc
-trialBlocks = data.TrialHandler(nReps=3.0, method='random', 
+phasesLoop = data.TrialHandler(nReps=3.0, method='random', 
     extraInfo=expInfo, originPath=-1,
     trialList=[None],
-    seed=None, name='trialBlocks')
-thisExp.addLoop(trialBlocks)  # add the loop to the experiment
-thisTrialBlock = trialBlocks.trialList[0]  # so we can initialise stimuli with some values
-# abbreviate parameter names if possible (e.g. rgb = thisTrialBlock.rgb)
-if thisTrialBlock != None:
-    for paramName in thisTrialBlock:
-        exec('{} = thisTrialBlock[paramName]'.format(paramName))
+    seed=None, name='phasesLoop')
+thisExp.addLoop(phasesLoop)  # add the loop to the experiment
+thisPhasesLoop = phasesLoop.trialList[0]  # so we can initialise stimuli with some values
+# abbreviate parameter names if possible (e.g. rgb = thisPhasesLoop.rgb)
+if thisPhasesLoop != None:
+    for paramName in thisPhasesLoop:
+        exec('{} = thisPhasesLoop[paramName]'.format(paramName))
 
-for thisTrialBlock in trialBlocks:
-    currentLoop = trialBlocks
-    # abbreviate parameter names if possible (e.g. rgb = thisTrialBlock.rgb)
-    if thisTrialBlock != None:
-        for paramName in thisTrialBlock:
-            exec('{} = thisTrialBlock[paramName]'.format(paramName))
+for thisPhasesLoop in phasesLoop:
+    currentLoop = phasesLoop
+    # abbreviate parameter names if possible (e.g. rgb = thisPhasesLoop.rgb)
+    if thisPhasesLoop != None:
+        for paramName in thisPhasesLoop:
+            exec('{} = thisPhasesLoop[paramName]'.format(paramName))
     
     # --- Prepare to start Routine "trialSetup" ---
     continueRoutine = True
@@ -469,11 +573,16 @@ for thisTrialBlock in trialBlocks:
     trialConditionsFile = "./experimentFiles/" + currentPhase + ".csv"
     
     consecutiveCorrectResponses = 0
+    transitionedEarly = False
     
     if(currentPhase == "practice"):
         criterion = 3
+    elif(evalToCriterion):
+        criterion = int(expInfo["Number of pairs"]) * 2
     else:
-        criterion = int(expInfo["number of pairs"]) * 2
+        criterion = float("inf")
+    
+    print(f"{currentPhase} reps = {trialNumReps[currentPhase]}")
     # keep track of which components have finished
     trialSetupComponents = []
     for thisComponent in trialSetupComponents:
@@ -526,7 +635,7 @@ for thisTrialBlock in trialBlocks:
     routineTimer.reset()
     
     # set up handler to look after randomisation of conditions etc
-    trialLoop = data.TrialHandler(nReps=6.0, method='random', 
+    trialLoop = data.TrialHandler(nReps=trialNumReps[currentPhase], method='random', 
         extraInfo=expInfo, originPath=-1,
         trialList=data.importConditions((trialConditionsFile)),
         seed=None, name='trialLoop')
@@ -548,14 +657,10 @@ for thisTrialBlock in trialBlocks:
         continueRoutine = True
         # update component parameters for each repeat
         # Run 'Begin Routine' code from setImgsPaths
-        leftImgPath = pairsPath + pair + "/" + currentPhase + "/" + Left_Stim + ".png"
-        rightImgPath = pairsPath + pair + "/" + currentPhase + "/" + Right_Stim + ".png"
+        leftImgPath = assetsPath + currentPhase + "/" + Left_Stim + ".png"
+        rightImgPath = assetsPath + currentPhase + "/" + Right_Stim + ".png"
         
-        print(f"COOOOOOOOONNOOOOOOO {trialConditionsFile}")
         
-        if(currentPhase == "practice"):
-            leftImgPath = pairsPath + currentPhase + "/" + Left_Stim + ".png"
-            rightImgPath = pairsPath + currentPhase + "/" + Right_Stim + ".png"
         leftStim.setImage(leftImgPath)
         rightStim.setImage(rightImgPath)
         Subject_Response.keys = []
@@ -658,13 +763,13 @@ for thisTrialBlock in trialBlocks:
                 win.callOnFlip(Subject_Response.clock.reset)  # t=0 on next screen flip
                 win.callOnFlip(Subject_Response.clearEvents, eventType='keyboard')  # clear events on next screen flip
             if Subject_Response.status == STARTED and not waitOnFlip:
-                theseKeys = Subject_Response.getKeys(keyList=['z', 'm', 'space',], waitRelease=False)
+                theseKeys = Subject_Response.getKeys(keyList=[leftKey, rightKey], waitRelease=False)
                 _Subject_Response_allKeys.extend(theseKeys)
                 if len(_Subject_Response_allKeys):
                     Subject_Response.keys = _Subject_Response_allKeys[-1].name  # just the last key pressed
                     Subject_Response.rt = _Subject_Response_allKeys[-1].rt
                     # was this correct?
-                    if (Subject_Response.keys == str(('z' if hasSmiley[Left_Stim] else 'm' if hasSmiley[Right_Stim] else ''))) or (Subject_Response.keys == ('z' if hasSmiley[Left_Stim] else 'm' if hasSmiley[Right_Stim] else '')):
+                    if (Subject_Response.keys == str((leftKey if hasSmiley[Left_Stim] else rightKey if hasSmiley[Right_Stim] else ''))) or (Subject_Response.keys == (leftKey if hasSmiley[Left_Stim] else rightKey if hasSmiley[Right_Stim] else '')):
                         Subject_Response.corr = 1
                     else:
                         Subject_Response.corr = 0
@@ -699,7 +804,7 @@ for thisTrialBlock in trialBlocks:
         if Subject_Response.keys in ['', [], None]:  # No response was made
             Subject_Response.keys = None
             # was no response the correct answer?!
-            if str(('z' if hasSmiley[Left_Stim] else 'm' if hasSmiley[Right_Stim] else '')).lower() == 'none':
+            if str((leftKey if hasSmiley[Left_Stim] else rightKey if hasSmiley[Right_Stim] else '')).lower() == 'none':
                Subject_Response.corr = 1;  # correct non-response
             else:
                Subject_Response.corr = 0;  # failed to respond (incorrectly)
@@ -708,17 +813,6 @@ for thisTrialBlock in trialBlocks:
         trialLoop.addData('Subject_Response.corr', Subject_Response.corr)
         if Subject_Response.keys != None:  # we had a response
             trialLoop.addData('Subject_Response.rt', Subject_Response.rt)
-        # Run 'End Routine' code from assignSmiley
-        if(not assignedSmiley and Subject_Response.keys == leftKey):
-            # assign smiley to right stim
-            hasSmiley[Left_Stim] = False
-            hasSmiley[Right_Stim] = True
-            assignedSmiley = True
-        elif(not assignedSmiley):
-            #assign smiley to left stim
-            hasSmiley[Left_Stim] = True
-            hasSmiley[Right_Stim] = False
-            assignedSmiley = True
         # Run 'End Routine' code from correctResponse
         correctResponse = False
             
@@ -730,18 +824,42 @@ for thisTrialBlock in trialBlocks:
             correctResponse = True
         else:
             consecutiveCorrectResponses = 0
+        # Run 'End Routine' code from practiceAssignSmiley
+        if(firstChoice and Subject_Response.keys == leftKey):
+            hasSmiley[Right_Stim] = True
+            hasSmiley[Left_Stim] = False
+            firstChoice = False
+        elif(firstChoice and Subject_Response.keys == rightKey):
+            hasSmiley[Right_Stim] = False
+            hasSmiley[Left_Stim] = True
+            firstChoice = False
+        # Run 'End Routine' code from updateSummaryVars
+        if(currentPhase == "training"):
+            trainTrials += 1
+            trainAvgRT += Subject_Response.rt
+            if(correctResponse):
+                trainAccuracy += 1
+            else:
+                trainError += 1
+        elif(currentPhase == "testing"):
+            probeTrials += 1
+            probeAvgRT += Subject_Response.rt
+            if(correctResponse):
+                probeAccuracy += 1
+            else:
+                probeError += 1
         # the Routine "choose" was not non-slip safe, so reset the non-slip timer
         routineTimer.reset()
         
         # --- Prepare to start Routine "reveal" ---
         continueRoutine = True
         # update component parameters for each repeat
-        practiceLeftStimReveal.setImage(leftImgPath)
-        practiceRightStimReveal.setImage(rightImgPath)
-        practiceSmiley.setOpacity(1 if correctResponse else 0 )
-        practiceSmiley.setPos((-0.25, 0) if hasSmiley[Left_Stim] else (0.25,0))
+        leftStimReveal.setImage(leftImgPath)
+        rightStimReveal.setImage(rightImgPath)
+        smileyReveal.setOpacity(1 if correctResponse else 0 )
+        smileyReveal.setPos((-0.25, 0) if hasSmiley[Left_Stim] else (0.25,0))
         # keep track of which components have finished
-        revealComponents = [practiceLeftStimReveal, practiceRightStimReveal, practiceSmiley, textPrompt2]
+        revealComponents = [leftStimReveal, rightStimReveal, smileyReveal, textPrompt2]
         for thisComponent in revealComponents:
             thisComponent.tStart = None
             thisComponent.tStop = None
@@ -764,92 +882,92 @@ for thisTrialBlock in trialBlocks:
             frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
             # update/draw components on each frame
             
-            # *practiceLeftStimReveal* updates
+            # *leftStimReveal* updates
             
-            # if practiceLeftStimReveal is starting this frame...
-            if practiceLeftStimReveal.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+            # if leftStimReveal is starting this frame...
+            if leftStimReveal.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
                 # keep track of start time/frame for later
-                practiceLeftStimReveal.frameNStart = frameN  # exact frame index
-                practiceLeftStimReveal.tStart = t  # local t and not account for scr refresh
-                practiceLeftStimReveal.tStartRefresh = tThisFlipGlobal  # on global time
-                win.timeOnFlip(practiceLeftStimReveal, 'tStartRefresh')  # time at next scr refresh
+                leftStimReveal.frameNStart = frameN  # exact frame index
+                leftStimReveal.tStart = t  # local t and not account for scr refresh
+                leftStimReveal.tStartRefresh = tThisFlipGlobal  # on global time
+                win.timeOnFlip(leftStimReveal, 'tStartRefresh')  # time at next scr refresh
                 # update status
-                practiceLeftStimReveal.status = STARTED
-                practiceLeftStimReveal.setAutoDraw(True)
+                leftStimReveal.status = STARTED
+                leftStimReveal.setAutoDraw(True)
             
-            # if practiceLeftStimReveal is active this frame...
-            if practiceLeftStimReveal.status == STARTED:
+            # if leftStimReveal is active this frame...
+            if leftStimReveal.status == STARTED:
                 # update params
-                practiceLeftStimReveal.setPos([-0.25, min(0.1, frameN/100)] if (Subject_Response.keys == leftKey) else [-0.25, 0], log=False)
+                leftStimReveal.setPos([-0.25, min(0.1, frameN/100)] if (Subject_Response.keys == leftKey) else [-0.25, 0], log=False)
             
-            # if practiceLeftStimReveal is stopping this frame...
-            if practiceLeftStimReveal.status == STARTED:
+            # if leftStimReveal is stopping this frame...
+            if leftStimReveal.status == STARTED:
                 # is it time to stop? (based on global clock, using actual start)
-                if tThisFlipGlobal > practiceLeftStimReveal.tStartRefresh + 1-frameTolerance:
+                if tThisFlipGlobal > leftStimReveal.tStartRefresh + 1-frameTolerance:
                     # keep track of stop time/frame for later
-                    practiceLeftStimReveal.tStop = t  # not accounting for scr refresh
-                    practiceLeftStimReveal.frameNStop = frameN  # exact frame index
+                    leftStimReveal.tStop = t  # not accounting for scr refresh
+                    leftStimReveal.frameNStop = frameN  # exact frame index
                     # update status
-                    practiceLeftStimReveal.status = FINISHED
-                    practiceLeftStimReveal.setAutoDraw(False)
+                    leftStimReveal.status = FINISHED
+                    leftStimReveal.setAutoDraw(False)
             
-            # *practiceRightStimReveal* updates
+            # *rightStimReveal* updates
             
-            # if practiceRightStimReveal is starting this frame...
-            if practiceRightStimReveal.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+            # if rightStimReveal is starting this frame...
+            if rightStimReveal.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
                 # keep track of start time/frame for later
-                practiceRightStimReveal.frameNStart = frameN  # exact frame index
-                practiceRightStimReveal.tStart = t  # local t and not account for scr refresh
-                practiceRightStimReveal.tStartRefresh = tThisFlipGlobal  # on global time
-                win.timeOnFlip(practiceRightStimReveal, 'tStartRefresh')  # time at next scr refresh
+                rightStimReveal.frameNStart = frameN  # exact frame index
+                rightStimReveal.tStart = t  # local t and not account for scr refresh
+                rightStimReveal.tStartRefresh = tThisFlipGlobal  # on global time
+                win.timeOnFlip(rightStimReveal, 'tStartRefresh')  # time at next scr refresh
                 # update status
-                practiceRightStimReveal.status = STARTED
-                practiceRightStimReveal.setAutoDraw(True)
+                rightStimReveal.status = STARTED
+                rightStimReveal.setAutoDraw(True)
             
-            # if practiceRightStimReveal is active this frame...
-            if practiceRightStimReveal.status == STARTED:
+            # if rightStimReveal is active this frame...
+            if rightStimReveal.status == STARTED:
                 # update params
-                practiceRightStimReveal.setPos([0.25, min(0.1, frameN/100)] if (Subject_Response.keys == rightKey) else [0.25, 0], log=False)
+                rightStimReveal.setPos([0.25, min(0.1, frameN/100)] if (Subject_Response.keys == rightKey) else [0.25, 0], log=False)
             
-            # if practiceRightStimReveal is stopping this frame...
-            if practiceRightStimReveal.status == STARTED:
+            # if rightStimReveal is stopping this frame...
+            if rightStimReveal.status == STARTED:
                 # is it time to stop? (based on global clock, using actual start)
-                if tThisFlipGlobal > practiceRightStimReveal.tStartRefresh + 1-frameTolerance:
+                if tThisFlipGlobal > rightStimReveal.tStartRefresh + 1-frameTolerance:
                     # keep track of stop time/frame for later
-                    practiceRightStimReveal.tStop = t  # not accounting for scr refresh
-                    practiceRightStimReveal.frameNStop = frameN  # exact frame index
+                    rightStimReveal.tStop = t  # not accounting for scr refresh
+                    rightStimReveal.frameNStop = frameN  # exact frame index
                     # update status
-                    practiceRightStimReveal.status = FINISHED
-                    practiceRightStimReveal.setAutoDraw(False)
+                    rightStimReveal.status = FINISHED
+                    rightStimReveal.setAutoDraw(False)
             
-            # *practiceSmiley* updates
+            # *smileyReveal* updates
             
-            # if practiceSmiley is starting this frame...
-            if practiceSmiley.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+            # if smileyReveal is starting this frame...
+            if smileyReveal.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
                 # keep track of start time/frame for later
-                practiceSmiley.frameNStart = frameN  # exact frame index
-                practiceSmiley.tStart = t  # local t and not account for scr refresh
-                practiceSmiley.tStartRefresh = tThisFlipGlobal  # on global time
-                win.timeOnFlip(practiceSmiley, 'tStartRefresh')  # time at next scr refresh
+                smileyReveal.frameNStart = frameN  # exact frame index
+                smileyReveal.tStart = t  # local t and not account for scr refresh
+                smileyReveal.tStartRefresh = tThisFlipGlobal  # on global time
+                win.timeOnFlip(smileyReveal, 'tStartRefresh')  # time at next scr refresh
                 # update status
-                practiceSmiley.status = STARTED
-                practiceSmiley.setAutoDraw(True)
+                smileyReveal.status = STARTED
+                smileyReveal.setAutoDraw(True)
             
-            # if practiceSmiley is active this frame...
-            if practiceSmiley.status == STARTED:
+            # if smileyReveal is active this frame...
+            if smileyReveal.status == STARTED:
                 # update params
                 pass
             
-            # if practiceSmiley is stopping this frame...
-            if practiceSmiley.status == STARTED:
+            # if smileyReveal is stopping this frame...
+            if smileyReveal.status == STARTED:
                 # is it time to stop? (based on global clock, using actual start)
-                if tThisFlipGlobal > practiceSmiley.tStartRefresh + 1.0-frameTolerance:
+                if tThisFlipGlobal > smileyReveal.tStartRefresh + 1.0-frameTolerance:
                     # keep track of stop time/frame for later
-                    practiceSmiley.tStop = t  # not accounting for scr refresh
-                    practiceSmiley.frameNStop = frameN  # exact frame index
+                    smileyReveal.tStop = t  # not accounting for scr refresh
+                    smileyReveal.frameNStop = frameN  # exact frame index
                     # update status
-                    practiceSmiley.status = FINISHED
-                    practiceSmiley.setAutoDraw(False)
+                    smileyReveal.status = FINISHED
+                    smileyReveal.setAutoDraw(False)
             
             # *textPrompt2* updates
             
@@ -904,15 +1022,16 @@ for thisTrialBlock in trialBlocks:
         for thisComponent in revealComponents:
             if hasattr(thisComponent, "setAutoDraw"):
                 thisComponent.setAutoDraw(False)
-        # Run 'End Routine' code from phaseTransition
+        # Run 'End Routine' code from earlyTransition
         if(consecutiveCorrectResponses >= criterion):
             if(currentPhase == "practice"):
                 currentPhase = "training"
             elif(currentPhase == "training"):
                 currentPhase = "testing"
             else:
-                trialBlocks.finished = True
+                phasesLoop.finished = True
             trialLoop.finished = True
+            transitionedEarly = True
         # using non-slip timing so subtract the expected duration of this Routine (unless ended on request)
         if routineForceEnded:
             routineTimer.reset()
@@ -920,10 +1039,154 @@ for thisTrialBlock in trialBlocks:
             routineTimer.addTime(-1.000000)
         thisExp.nextEntry()
         
-    # completed 6.0 repeats of 'trialLoop'
+    # completed trialNumReps[currentPhase] repeats of 'trialLoop'
     
-# completed 3.0 repeats of 'trialBlocks'
+    
+    # --- Prepare to start Routine "transition" ---
+    continueRoutine = True
+    # update component parameters for each repeat
+    # Run 'Begin Routine' code from updatePhase
+    if(not transitionedEarly and currentPhase == "practice"):
+        currentPhase = "training"
+    elif(not transitionedEarly and currentPhase == "training"):
+        currentPhase = "testing"
+    elif(not transitionedEarly):
+        phasesLoop.finished = True
+    # keep track of which components have finished
+    transitionComponents = []
+    for thisComponent in transitionComponents:
+        thisComponent.tStart = None
+        thisComponent.tStop = None
+        thisComponent.tStartRefresh = None
+        thisComponent.tStopRefresh = None
+        if hasattr(thisComponent, 'status'):
+            thisComponent.status = NOT_STARTED
+    # reset timers
+    t = 0
+    _timeToFirstFrame = win.getFutureFlipTime(clock="now")
+    frameN = -1
+    
+    # --- Run Routine "transition" ---
+    routineForceEnded = not continueRoutine
+    while continueRoutine:
+        # get current time
+        t = routineTimer.getTime()
+        tThisFlip = win.getFutureFlipTime(clock=routineTimer)
+        tThisFlipGlobal = win.getFutureFlipTime(clock=None)
+        frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
+        # update/draw components on each frame
+        
+        # check for quit (typically the Esc key)
+        if endExpNow or defaultKeyboard.getKeys(keyList=["escape"]):
+            core.quit()
+            if eyetracker:
+                eyetracker.setConnectionState(False)
+        
+        # check if all components have finished
+        if not continueRoutine:  # a component has requested a forced-end of Routine
+            routineForceEnded = True
+            break
+        continueRoutine = False  # will revert to True if at least one component still running
+        for thisComponent in transitionComponents:
+            if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
+                continueRoutine = True
+                break  # at least one component has not yet finished
+        
+        # refresh the screen
+        if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
+            win.flip()
+    
+    # --- Ending Routine "transition" ---
+    for thisComponent in transitionComponents:
+        if hasattr(thisComponent, "setAutoDraw"):
+            thisComponent.setAutoDraw(False)
+    # the Routine "transition" was not non-slip safe, so reset the non-slip timer
+    routineTimer.reset()
+# completed 3.0 repeats of 'phasesLoop'
 
+
+# --- Prepare to start Routine "endExperiment" ---
+continueRoutine = True
+# update component parameters for each repeat
+# keep track of which components have finished
+endExperimentComponents = []
+for thisComponent in endExperimentComponents:
+    thisComponent.tStart = None
+    thisComponent.tStop = None
+    thisComponent.tStartRefresh = None
+    thisComponent.tStopRefresh = None
+    if hasattr(thisComponent, 'status'):
+        thisComponent.status = NOT_STARTED
+# reset timers
+t = 0
+_timeToFirstFrame = win.getFutureFlipTime(clock="now")
+frameN = -1
+
+# --- Run Routine "endExperiment" ---
+routineForceEnded = not continueRoutine
+while continueRoutine:
+    # get current time
+    t = routineTimer.getTime()
+    tThisFlip = win.getFutureFlipTime(clock=routineTimer)
+    tThisFlipGlobal = win.getFutureFlipTime(clock=None)
+    frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
+    # update/draw components on each frame
+    
+    # check for quit (typically the Esc key)
+    if endExpNow or defaultKeyboard.getKeys(keyList=["escape"]):
+        core.quit()
+        if eyetracker:
+            eyetracker.setConnectionState(False)
+    
+    # check if all components have finished
+    if not continueRoutine:  # a component has requested a forced-end of Routine
+        routineForceEnded = True
+        break
+    continueRoutine = False  # will revert to True if at least one component still running
+    for thisComponent in endExperimentComponents:
+        if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
+            continueRoutine = True
+            break  # at least one component has not yet finished
+    
+    # refresh the screen
+    if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
+        win.flip()
+
+# --- Ending Routine "endExperiment" ---
+for thisComponent in endExperimentComponents:
+    if hasattr(thisComponent, "setAutoDraw"):
+        thisComponent.setAutoDraw(False)
+# the Routine "endExperiment" was not non-slip safe, so reset the non-slip timer
+routineTimer.reset()
+# Run 'End Experiment' code from writeSummary
+trainAccuracy /= trainTrials
+trainAvgRT /= trainTrials
+
+probeAccuracy /= probeTrials
+probeAvgRT /= probeTrials
+
+headerFields = ["Training Accuracy Average", 
+            "Training RT Average",
+            "Training Number of Errors",
+            "Probe Accuracy Average",
+            "Probe RT Average",
+            "Probe Number of Errors"]
+
+summaryVars = [trainAccuracy,
+        trainAvgRT,
+        trainError,
+        probeAccuracy,
+        probeAvgRT,
+        probeError]
+        
+summaryVars = map(str, summaryVars)
+
+header = ",".join(headerFields) + "\n"
+values = ",".join(summaryVars) + "\n"
+
+with open(f"{summariesPath}{expName}_{expInfo['Participant']}_summary.csv", "w") as f:
+    f.write(header)
+    f.write(values)
 
 # --- End experiment ---
 # Flip one final time so any remaining win.callOnFlip() 
