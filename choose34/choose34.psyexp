@@ -715,7 +715,6 @@
         <Param val="True" valType="bool" updates="constant" name="syncScreenRefresh"/>
       </KeyboardComponent>
     </Routine>
-    <Routine name="phaseTransition_2"/>
     <Routine name="transition">
       <CodeComponent name="updatePhase" plugin="None">
         <Param val="" valType="extendedCode" updates="constant" name="Before Experiment"/>

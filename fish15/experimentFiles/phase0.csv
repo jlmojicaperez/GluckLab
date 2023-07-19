@@ -1,5 +1,5 @@
 face,leftFish,rightFish,correctResponse
-boy,green,blue,left
-boy,blue,green,right
-girl,blue,green,left
-girl,green,blue,right
+girl,blue,red,left
+girl,red,blue,right
+woman,red,blue,left
+woman,blue,red,right
