@@ -20,6 +20,7 @@ git clone https://github.com/J-Mojica/GluckLab.git
 - Open the PsychoPy app.
 - Select File -> Open and then select the file named `fish15.psyexp` found in `GluckLab/fish15/`.
 - Select the "Run Experiment" button and follow the instructions on screen.
+- The "LEFT" and "RIGHT" keys are "z" and "m" or the left and right arrow keys.
 - To quit the experiment early press the ESC key.
 
 ### Choose 34
@@ -27,6 +28,7 @@ git clone https://github.com/J-Mojica/GluckLab.git
 - Open the PsychoPy app.
 - Select File -> Open and then select the file named `choose34.psyexp` found in `GluckLab/choose34/`.
 - Select the "Run Experiment" button and follow the instructions on screen.
+- The "LEFT" and "RIGHT" keys are "z" and "m".
 - To quit the experiment early press the ESC key.
 #### Settings
 - **Condition**: Concurrent training or Shaping. Currently this setting does not do anything. Acceptable values: `C` or `S`.
