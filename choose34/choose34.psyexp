@@ -10,7 +10,7 @@
     <Param val="" valType="str" updates="None" name="End Message"/>
     <Param val="{'Participant': '', 'Experimenter': '', 'Condition': 'C', 'Number of pairs': '8', 'Evaluate to criterion or fixed number of trials?': 'criterion', 'Training phase max blocks': '6', 'Testing phase max blocks': '6'}" valType="code" updates="None" name="Experiment info"/>
     <Param val="True" valType="bool" updates="None" name="Force stereo"/>
-    <Param val="True" valType="bool" updates="None" name="Full-screen window"/>
+    <Param val="False" valType="bool" updates="None" name="Full-screen window"/>
     <Param val="" valType="str" updates="None" name="HTML path"/>
     <Param val="" valType="str" updates="None" name="Incomplete URL"/>
     <Param val="testMonitor" valType="str" updates="None" name="Monitor"/>
@@ -826,7 +826,7 @@
         <Param val="True" valType="bool" updates="constant" name="syncScreenRefresh"/>
       </KeyboardComponent>
     </Routine>
-    <Routine name="postPracticeScreen">
+    <Routine name="postPracticeInstructions">
       <TextComponent name="postPracticeText" plugin="None">
         <Param val="black" valType="color" updates="constant" name="color"/>
         <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
@@ -932,7 +932,7 @@
       <Param name="name" updates="None" val="postPracticeScreenLoop" valType="code"/>
       <Param name="random seed" updates="None" val="" valType="code"/>
     </LoopInitiator>
-    <Routine name="postPracticeScreen"/>
+    <Routine name="postPracticeInstructions"/>
     <LoopTerminator name="postPracticeScreenLoop"/>
     <Routine name="transition"/>
     <LoopTerminator name="phasesLoop"/>

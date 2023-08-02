@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2023.1.2),
-    on July 24, 2023, at 19:45
+    on August 02, 2023, at 15:06
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -150,13 +150,13 @@ frameTolerance = 0.001  # how close to onset before 'same' frame
 
 # --- Setup the Window ---
 win = visual.Window(
-    size=[1536, 960], fullscr=True, screen=0, 
+    size=[1536, 960], fullscr=False, screen=0, 
     winType='pyglet', allowStencil=False,
     monitor='testMonitor', color=[1.0000, 1.0000, 1.0000], colorSpace='rgb',
     backgroundImage='', backgroundFit='none',
     blendMode='avg', useFBO=True, 
     units='height')
-win.mouseVisible = False
+win.mouseVisible = True
 # store frame rate of monitor if we can measure it
 expInfo['frameRate'] = win.getActualFrameRate()
 if expInfo['frameRate'] != None:
@@ -393,7 +393,7 @@ textPrompt2 = visual.TextStim(win=win, name='textPrompt2',
     languageStyle='LTR',
     depth=-4.0);
 
-# --- Initialize components for Routine "postPracticeScreen" ---
+# --- Initialize components for Routine "postPracticeInstructions" ---
 postPracticeText = visual.TextStim(win=win, name='postPracticeText',
     text='Good!\n\nNow you will see different pairs.\n\nKeep trying to find the smiley face each time.\n\nPress either the "LEFT" or "RIGHT" key to continue.',
     font='Open Sans',
@@ -1374,7 +1374,7 @@ for thisPhasesLoop in phasesLoop:
             for paramName in thisPostPracticeScreenLoop:
                 exec('{} = thisPostPracticeScreenLoop[paramName]'.format(paramName))
         
-        # --- Prepare to start Routine "postPracticeScreen" ---
+        # --- Prepare to start Routine "postPracticeInstructions" ---
         continueRoutine = True
         # update component parameters for each repeat
         postPracticeResp.keys = []
@@ -1383,8 +1383,8 @@ for thisPhasesLoop in phasesLoop:
         # Run 'Begin Routine' code from updateShowPostPractice
         showPostPractice = False
         # keep track of which components have finished
-        postPracticeScreenComponents = [postPracticeText, postPracticeResp]
-        for thisComponent in postPracticeScreenComponents:
+        postPracticeInstructionsComponents = [postPracticeText, postPracticeResp]
+        for thisComponent in postPracticeInstructionsComponents:
             thisComponent.tStart = None
             thisComponent.tStop = None
             thisComponent.tStartRefresh = None
@@ -1396,7 +1396,7 @@ for thisPhasesLoop in phasesLoop:
         _timeToFirstFrame = win.getFutureFlipTime(clock="now")
         frameN = -1
         
-        # --- Run Routine "postPracticeScreen" ---
+        # --- Run Routine "postPracticeInstructions" ---
         routineForceEnded = not continueRoutine
         while continueRoutine:
             # get current time
@@ -1460,7 +1460,7 @@ for thisPhasesLoop in phasesLoop:
                 routineForceEnded = True
                 break
             continueRoutine = False  # will revert to True if at least one component still running
-            for thisComponent in postPracticeScreenComponents:
+            for thisComponent in postPracticeInstructionsComponents:
                 if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
                     continueRoutine = True
                     break  # at least one component has not yet finished
@@ -1469,11 +1469,11 @@ for thisPhasesLoop in phasesLoop:
             if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
                 win.flip()
         
-        # --- Ending Routine "postPracticeScreen" ---
-        for thisComponent in postPracticeScreenComponents:
+        # --- Ending Routine "postPracticeInstructions" ---
+        for thisComponent in postPracticeInstructionsComponents:
             if hasattr(thisComponent, "setAutoDraw"):
                 thisComponent.setAutoDraw(False)
-        # the Routine "postPracticeScreen" was not non-slip safe, so reset the non-slip timer
+        # the Routine "postPracticeInstructions" was not non-slip safe, so reset the non-slip timer
         routineTimer.reset()
     # completed 1 if showPostPractice else 0 repeats of 'postPracticeScreenLoop'
     
