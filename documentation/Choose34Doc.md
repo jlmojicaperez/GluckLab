@@ -427,10 +427,10 @@ directory). This file is a CSV file with the following fields:
 | Experimenter | Value for the `Experimenter` field entered in the experiment settings. |
 | Date | Date experiment started in the format `Weekday(full name), Month(full name) Day(dd), Year(yyyy)`|
 | Time | Time the experiment started in the format `Hour(00-12):Minute(00-59):Second(00-59) AM/PM`|
-| Training Accuracy Average | Subject's accuracy $\left(\frac{\text{\# Correct Responses}}{\text{\# Responses}}\right)$ during the training phase.
+| Training Accuracy Average | Subject's accuracy $\left(\frac{\text{Correct Responses}}{\text{Total Responses}}\right)$ during the training phase.
 | Training RT Average | Average response time in seconds during the training phase. |
 | Training Errors | Number of errors the subject had during the training phase. |
-| Probe Accuracy Average | Subject's accuracy $\left(\frac{\text{\# Correct Responses}}{\text{\# Responses}}\right)$ during the probe/testing phase.
+| Probe Accuracy Average | Subject's accuracy $\left(\frac{\text{Correct Responses}}{\text{Total Responses}}\right)$ during the probe/testing phase.
 | Probe RT Average | Average response time in seconds during the probe/testing phase. |
 |Probe Errors | Number of errors the subject had during the probe/testing phase. |
 
