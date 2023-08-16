@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2023.1.2),
-    on August 02, 2023, at 15:06
+    on August 16, 2023, at 13:48
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -150,13 +150,13 @@ frameTolerance = 0.001  # how close to onset before 'same' frame
 
 # --- Setup the Window ---
 win = visual.Window(
-    size=[1536, 960], fullscr=False, screen=0, 
+    size=[1536, 960], fullscr=True, screen=0, 
     winType='pyglet', allowStencil=False,
     monitor='testMonitor', color=[1.0000, 1.0000, 1.0000], colorSpace='rgb',
     backgroundImage='', backgroundFit='none',
     blendMode='avg', useFBO=True, 
     units='height')
-win.mouseVisible = True
+win.mouseVisible = False
 # store frame rate of monitor if we can measure it
 expInfo['frameRate'] = win.getActualFrameRate()
 if expInfo['frameRate'] != None:
@@ -995,8 +995,6 @@ for thisPhasesLoop in phasesLoop:
                 floorLine.tStart = t  # local t and not account for scr refresh
                 floorLine.tStartRefresh = tThisFlipGlobal  # on global time
                 win.timeOnFlip(floorLine, 'tStartRefresh')  # time at next scr refresh
-                # add timestamp to datafile
-                thisExp.timestampOnFlip(win, 'floorLine.started')
                 # update status
                 floorLine.status = STARTED
                 floorLine.setAutoDraw(True)
@@ -1258,8 +1256,6 @@ for thisPhasesLoop in phasesLoop:
                 floorLineReveal.tStart = t  # local t and not account for scr refresh
                 floorLineReveal.tStartRefresh = tThisFlipGlobal  # on global time
                 win.timeOnFlip(floorLineReveal, 'tStartRefresh')  # time at next scr refresh
-                # add timestamp to datafile
-                thisExp.timestampOnFlip(win, 'floorLineReveal.started')
                 # update status
                 floorLineReveal.status = STARTED
                 floorLineReveal.setAutoDraw(True)
@@ -1276,8 +1272,6 @@ for thisPhasesLoop in phasesLoop:
                     # keep track of stop time/frame for later
                     floorLineReveal.tStop = t  # not accounting for scr refresh
                     floorLineReveal.frameNStop = frameN  # exact frame index
-                    # add timestamp to datafile
-                    thisExp.timestampOnFlip(win, 'floorLineReveal.stopped')
                     # update status
                     floorLineReveal.status = FINISHED
                     floorLineReveal.setAutoDraw(False)

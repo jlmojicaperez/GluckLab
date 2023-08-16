@@ -1,12 +1,12 @@
 Left_Stim,Right_Stim,Correct_Response
-s3c1,s3c2,right
-s3c2,s3c1,left
+s3c1,s3c2,left
+s3c2,s3c1,right
 s1c3,s2c3,right
 s2c3,s1c3,left
 s10c8,s10c98,right
 s10c98,s10c8,left
-s8c11,s9c11,right
-s9c11,s8c11,left
+s8c11,s9c11,left
+s9c11,s8c11,right
 s18c15,s18c16,right
 s18c16,s18c15,left
 s15c17,s16c17,left
