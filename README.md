@@ -5,14 +5,14 @@ Repository for the development of the Fish v.15 and Choose v.34 experiments for 
 ## How to run the experiments
 
 - Download and install the PyschoPy standalone app according to [these instructions][PsychoPyDownloadInstructions].
-**These experiments were developed on PsychoPy version 2023.1.2** other versions may not be compatible.
+**These experiments were developed on PsychoPy version 2023.1.2 other versions may not be compatible**.
   Other versions of the Standalone app can be found [here][PsychoPyReleases].
 - MacOS users may have to give permission to PsychoPy to control their computer. To do this:
   - Go to System Settings -> Privacy & Security -> Accessibility
   - Unlock these settings using your password if necessary.
   - Click the add button.
   - Select the PsychoPy app in the list, then click Open.
-- Clone this repository using the following command:
+- Clone this repository using git and following command **(Recommeneded)**:
 
 ```text
 git clone https://github.com/J-Mojica/GluckLab.git
