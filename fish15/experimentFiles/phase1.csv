@@ -1,9 +1,9 @@
 face,leftFish,rightFish,correctResponse
-man,purple,green,left
-man,green,purple,right
-girl,purple,green,left
-girl,green,purple,right
 boy,green,purple,left
 boy,purple,green,right
-woman,green,purple,left
-woman,purple,green,right
+girl,green,purple,left
+girl,purple,green,right
+man,purple,green,left
+man,green,purple,right
+woman,purple,green,left
+woman,green,purple,right

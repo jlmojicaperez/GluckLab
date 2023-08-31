@@ -29,7 +29,8 @@ PTSD symptoms.
 
 ## PsychoPy Implementation
 
-The implementation of the main parts of this task are broken down into the following routines:
+The PsychoPy implementation of the main parts of Choose 34 is
+broken down into the following routines:
 
 ![Choose 34 Routine Diagram](../imgs/Choose34Diagram.png)
 

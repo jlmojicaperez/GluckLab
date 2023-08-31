@@ -8,7 +8,7 @@
     <Param val="u'psychopyOutput/%s_%s' % (expInfo['participant'], expName)" valType="code" updates="None" name="Data filename"/>
     <Param val="True" valType="bool" updates="None" name="Enable Escape"/>
     <Param val="" valType="str" updates="None" name="End Message"/>
-    <Param val="{'session': '001', 'participant': '', 'experimenter': ''}" valType="code" updates="None" name="Experiment info"/>
+    <Param val="{'participant': '', 'experimenter': ''}" valType="code" updates="None" name="Experiment info"/>
     <Param val="True" valType="bool" updates="None" name="Force stereo"/>
     <Param val="True" valType="bool" updates="None" name="Full-screen window"/>
     <Param val="html" valType="str" updates="None" name="HTML path"/>
@@ -75,8 +75,8 @@
         <Param val="myFaceFileName = &quot;temp&quot;;&amp;#10;myLeftFishFileName = &quot;temp&quot;;&amp;#10;myRightFishFileName = &quot;temp&quot;;&amp;#10;showLeftFish = &quot;temp&quot;;&amp;#10;showRightFish = &quot;temp&quot;;&amp;#10;myFeedbackImpage = &quot;temp&quot;;&amp;#10;" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
-        <Param val="myFaceFileName = ((&quot;fishPix/&quot; + face) + &quot;.png&quot;);&amp;#10;myLeftFishFileName = ((&quot;fishPix/&quot; + leftFish) + &quot;.png&quot;);&amp;#10;myRightFishFileName = ((&quot;fishPix/&quot; + rightFish) + &quot;.png&quot;);&amp;#10;" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
-        <Param val="myFaceFileName= &quot;fishPix/&quot;+face+&quot;.png&quot;&amp;#10;myLeftFishFileName=&quot;fishPix/&quot;+leftFish+&quot;.png&quot;&amp;#10;myRightFishFileName=&quot;fishPix/&quot;+rightFish+&quot;.png&quot;" valType="extendedCode" updates="constant" name="Begin Routine"/>
+        <Param val="myFaceFileName = ((&quot;assets/&quot; + face) + &quot;.png&quot;);&amp;#10;myLeftFishFileName = ((&quot;assets/&quot; + leftFish) + &quot;.png&quot;);&amp;#10;myRightFishFileName = ((&quot;assets/&quot; + rightFish) + &quot;.png&quot;);&amp;#10;" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
+        <Param val="myFaceFileName= &quot;assets/&quot;+face+&quot;.png&quot;&amp;#10;myLeftFishFileName=&quot;assets/&quot;+leftFish+&quot;.png&quot;&amp;#10;myRightFishFileName=&quot;assets/&quot;+rightFish+&quot;.png&quot;" valType="extendedCode" updates="constant" name="Begin Routine"/>
         <Param val="Auto-&gt;JS" valType="str" updates="None" name="Code Type"/>
         <Param val="" valType="extendedCode" updates="constant" name="Each Frame"/>
         <Param val="" valType="extendedCode" updates="constant" name="Each JS Frame"/>
@@ -224,8 +224,8 @@
         <Param val="" valType="extendedCode" updates="constant" name="Each JS Frame"/>
         <Param val="" valType="extendedCode" updates="constant" name="End Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="End JS Experiment"/>
-        <Param val="nFBleft = 0;&amp;#10;nFBright = 0;&amp;#10;if ((trial_response.keys === &quot;z&quot;)) {&amp;#10;    trial_response.keys = &quot;left&quot;;&amp;#10;}&amp;#10;if ((trial_response.keys === &quot;m&quot;)) {&amp;#10;    trial_response.keys = &quot;right&quot;;&amp;#10;}&amp;#10;if ((trial_response.keys === &quot;left&quot;)) {&amp;#10;    myChosen = &quot;left&quot;;&amp;#10;    myCircleHoriz = (- 0.13);&amp;#10;} else {&amp;#10;    myChosen = &quot;right&quot;;&amp;#10;    myCircleHoriz = 0.22;&amp;#10;}&amp;#10;if ((trial_response.keys === correctResponse)) {&amp;#10;    myTrialCorrect = true;&amp;#10;    psychoJS.experiment.addData(&quot;Correct&quot;, 1);&amp;#10;    myTally = (myTally + 1);&amp;#10;    myFeedbackImage = &quot;fishPix/win.png&quot;;&amp;#10;    myConsecutiveCorrect = (myConsecutiveCorrect + 1);&amp;#10;    if ((myConsecutiveCorrect &gt;= myCriterion)) {&amp;#10;        CriterionReached = true;&amp;#10;    }&amp;#10;} else {&amp;#10;    myTrialCorrect = false;&amp;#10;    psychoJS.experiment.addData(&quot;Correct&quot;, 0);&amp;#10;    myFeedbackImage = &quot;fishPix/lose.png&quot;;&amp;#10;    myConsecutiveCorrect = 0;&amp;#10;}&amp;#10;if ((correctResponse === &quot;left&quot;)) {&amp;#10;    showLeftFish = myLeftFishFileName;&amp;#10;    showRightFish = &quot;fishPix/blank.png&quot;;&amp;#10;} else {&amp;#10;    showLeftFish = &quot;fishPix/blank.png&quot;;&amp;#10;    showRightFish = myRightFishFileName;&amp;#10;}&amp;#10;" valType="extendedCode" updates="constant" name="End JS Routine"/>
-        <Param val="nFBleft=0&amp;#10;nFBright=0&amp;#10;&amp;#10;if(trial_response.keys == &quot;z&quot;):&amp;#10;    trial_response.keys = &quot;left&quot;&amp;#10;if(trial_response.keys == &quot;m&quot;):&amp;#10;    trial_response.keys = &quot;right&quot;&amp;#10;    &amp;#10;&amp;#10;if (trial_response.keys=='left') :&amp;#10;    myChosen=&quot;left&quot;&amp;#10;    myCircleHoriz = -0.13&amp;#10;else :&amp;#10;    myChosen=&quot;right&quot;&amp;#10;    myCircleHoriz = 0.22&amp;#10;if (trial_response.keys==correctResponse) :&amp;#10;    myTrialCorrect=True&amp;#10;    thisExp.addData('Correct',1)&amp;#10;    myTally = myTally + 1&amp;#10;    myFeedbackImage=&quot;fishPix/win.png&quot;&amp;#10;    myConsecutiveCorrect = myConsecutiveCorrect+1&amp;#10;    if (myConsecutiveCorrect &gt;= myCriterion) :&amp;#10;        CriterionReached=True&amp;#10;else :&amp;#10;    myTrialCorrect=False&amp;#10;    thisExp.addData('Correct',0)&amp;#10;    myFeedbackImage=&quot;fishPix/lose.png&quot;&amp;#10;    myConsecutiveCorrect = 0&amp;#10;if (correctResponse==&quot;left&quot;) :&amp;#10;    showLeftFish=myLeftFishFileName&amp;#10;    showRightFish=&quot;fishPix/blank.png&quot;&amp;#10;else :&amp;#10;    showLeftFish=&quot;fishPix/blank.png&quot;&amp;#10;    showRightFish=myRightFishFileName&amp;#10;" valType="extendedCode" updates="constant" name="End Routine"/>
+        <Param val="nFBleft = 0;&amp;#10;nFBright = 0;&amp;#10;if ((trial_response.keys === &quot;z&quot;)) {&amp;#10;    trial_response.keys = &quot;left&quot;;&amp;#10;}&amp;#10;if ((trial_response.keys === &quot;m&quot;)) {&amp;#10;    trial_response.keys = &quot;right&quot;;&amp;#10;}&amp;#10;if ((trial_response.keys === &quot;left&quot;)) {&amp;#10;    myChosen = &quot;left&quot;;&amp;#10;    myCircleHoriz = (- 0.13);&amp;#10;} else {&amp;#10;    myChosen = &quot;right&quot;;&amp;#10;    myCircleHoriz = 0.22;&amp;#10;}&amp;#10;if ((trial_response.keys === correctResponse)) {&amp;#10;    myTrialCorrect = true;&amp;#10;    psychoJS.experiment.addData(&quot;Correct&quot;, 1);&amp;#10;    myTally = (myTally + 1);&amp;#10;    myFeedbackImage = &quot;assets/win.png&quot;;&amp;#10;    myConsecutiveCorrect = (myConsecutiveCorrect + 1);&amp;#10;    if ((myConsecutiveCorrect &gt;= myCriterion)) {&amp;#10;        CriterionReached = true;&amp;#10;    }&amp;#10;} else {&amp;#10;    myTrialCorrect = false;&amp;#10;    psychoJS.experiment.addData(&quot;Correct&quot;, 0);&amp;#10;    myFeedbackImage = &quot;assets/lose.png&quot;;&amp;#10;    myConsecutiveCorrect = 0;&amp;#10;}&amp;#10;if ((correctResponse === &quot;left&quot;)) {&amp;#10;    showLeftFish = myLeftFishFileName;&amp;#10;    showRightFish = &quot;assets/blank.png&quot;;&amp;#10;} else {&amp;#10;    showLeftFish = &quot;assets/blank.png&quot;;&amp;#10;    showRightFish = myRightFishFileName;&amp;#10;}&amp;#10;" valType="extendedCode" updates="constant" name="End JS Routine"/>
+        <Param val="nFBleft=0&amp;#10;nFBright=0&amp;#10;&amp;#10;if(trial_response.keys == &quot;z&quot;):&amp;#10;    trial_response.keys = &quot;left&quot;&amp;#10;if(trial_response.keys == &quot;m&quot;):&amp;#10;    trial_response.keys = &quot;right&quot;&amp;#10;    &amp;#10;&amp;#10;if (trial_response.keys=='left') :&amp;#10;    myChosen=&quot;left&quot;&amp;#10;    myCircleHoriz = -0.13&amp;#10;else :&amp;#10;    myChosen=&quot;right&quot;&amp;#10;    myCircleHoriz = 0.22&amp;#10;if (trial_response.keys==correctResponse) :&amp;#10;    myTrialCorrect=True&amp;#10;    thisExp.addData('Correct',1)&amp;#10;    myTally = myTally + 1&amp;#10;    myFeedbackImage=&quot;assets/win.png&quot;&amp;#10;    myConsecutiveCorrect = myConsecutiveCorrect+1&amp;#10;    if (myConsecutiveCorrect &gt;= myCriterion) :&amp;#10;        CriterionReached=True&amp;#10;else :&amp;#10;    myTrialCorrect=False&amp;#10;    thisExp.addData('Correct',0)&amp;#10;    myFeedbackImage=&quot;assets/lose.png&quot;&amp;#10;    myConsecutiveCorrect = 0&amp;#10;if (correctResponse==&quot;left&quot;) :&amp;#10;    showLeftFish=myLeftFishFileName&amp;#10;    showRightFish=&quot;assets/blank.png&quot;&amp;#10;else :&amp;#10;    showLeftFish=&quot;assets/blank.png&quot;&amp;#10;    showRightFish=myRightFishFileName&amp;#10;" valType="extendedCode" updates="constant" name="End Routine"/>
         <Param val="False" valType="bool" updates="None" name="disabled"/>
         <Param val="code" valType="code" updates="None" name="name"/>
       </CodeComponent>
@@ -829,9 +829,9 @@
         <Param val="" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
-        <Param val="generalization = (generalization_score / generalization_trials).toString();&amp;#10;retention = (retention_score / retention_trials).toString();&amp;#10;acquisition = (acquisition_score / acquisition_trials).toString();&amp;#10;summary = &quot;,&quot;.join([generalization, retention, acquisition, acquisition_trials.toString()]);&amp;#10;data_file.write(&quot;----- SUMMARY STATISTICS -----\n&quot;);&amp;#10;data_file.write(&quot;Generalization,Retention,Acquisition,Acquisition Trials\n&quot;);&amp;#10;data_file.write(summary);&amp;#10;data_file.close();&amp;#10;" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
-        <Param val="# Calculate ratios and convert to string&amp;#10;generalization = str(generalization_score/generalization_trials)&amp;#10;retention = str(retention_score/retention_trials)&amp;#10;acquisition = str(acquisition_score/acquisition_trials)&amp;#10;# Join scores with commas&amp;#10;summary = &quot;,&quot;.join([generalization, retention, acquisition, str(acquisition_trials)])&amp;#10;&amp;#10;# Write summary to file&amp;#10;data_file.write(&quot;----- SUMMARY STATISTICS -----\n&quot;)&amp;#10;data_file.write(&quot;Generalization,Retention,Acquisition,Acquisition Trials\n&quot;)&amp;#10;data_file.write(summary)&amp;#10;&amp;#10;# Close file&amp;#10;data_file.close()" valType="extendedCode" updates="constant" name="Begin Routine"/>
-        <Param val="Auto-&gt;JS" valType="str" updates="None" name="Code Type"/>
+        <Param val="/* Syntax Error: Fix Python code */" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
+        <Param val="# Close data file&amp;#10;data_file.close()&amp;#10;&amp;#10;# Calculate ratios and convert to string&amp;#10;generalization = generalization_score/generalization_trials&amp;#10;retention = retention_score/retention_trials&amp;#10;acquisition = acquisition_score/acquisition_trials&amp;#10;&amp;#10;# Write summary to file&amp;#10;header = [&quot;subject&quot;,&quot;experiment&quot;,&quot;experimenter&quot;,&amp;#10;        &quot;date&quot;,&quot;time&quot;,&quot;acquisition&quot;,&amp;#10;        &quot;acquisition_trials&quot;,&quot;retention&quot;,&amp;#10;        &quot;retention_trials&quot;,&quot;generalization&quot;,&amp;#10;        &quot;generalization_trials&quot;]&amp;#10;info = [participant, expName, experimenter,&amp;#10;        date, time, acquisition, acquisition_trials,&amp;#10;        retention, retention_trials, generalization,&amp;#10;        generalization_trials]&amp;#10;&amp;#10;summaries_path = os.path.join(data_path, &quot;summaries&quot;)&amp;#10;summary_filename = data_filename.split(&quot;.&quot;)[0] + &quot;_summary.csv&quot;&amp;#10;&amp;#10;with open(os.path.join(summaries_path, summary_filename), &quot;w&quot;) as csvfile:&amp;#10;    writer = csv.writer(csvfile, delimiter=',', quotechar='&quot;', quoting=csv.QUOTE_NONNUMERIC)&amp;#10;    writer.writerow(header)&amp;#10;    writer.writerow(info)&amp;#10;" valType="extendedCode" updates="constant" name="Begin Routine"/>
+        <Param val="Py" valType="str" updates="None" name="Code Type"/>
         <Param val="" valType="extendedCode" updates="constant" name="Each Frame"/>
         <Param val="" valType="extendedCode" updates="constant" name="Each JS Frame"/>
         <Param val="" valType="extendedCode" updates="constant" name="End Experiment"/>
@@ -896,7 +896,7 @@
         <Param val="1" valType="code" updates="None" name="durationEstim"/>
         <Param val="False" valType="bool" updates="constant" name="flipHoriz"/>
         <Param val="False" valType="bool" updates="constant" name="flipVert"/>
-        <Param val="fishPix/TheCircle.png" valType="str" updates="constant" name="image"/>
+        <Param val="assets/TheCircle.png" valType="str" updates="constant" name="image"/>
         <Param val="linear" valType="str" updates="constant" name="interpolate"/>
         <Param val="None" valType="str" updates="constant" name="mask"/>
         <Param val="FB2_Circle" valType="code" updates="None" name="name"/>
@@ -1050,7 +1050,7 @@
         <Param val="1" valType="code" updates="None" name="durationEstim"/>
         <Param val="False" valType="bool" updates="constant" name="flipHoriz"/>
         <Param val="False" valType="bool" updates="constant" name="flipVert"/>
-        <Param val="fishPix/TheCircle.png" valType="str" updates="constant" name="image"/>
+        <Param val="assets/TheCircle.png" valType="str" updates="constant" name="image"/>
         <Param val="linear" valType="str" updates="constant" name="interpolate"/>
         <Param val="None" valType="str" updates="constant" name="mask"/>
         <Param val="FB2_Circle_2" valType="code" updates="None" name="name"/>
@@ -1204,7 +1204,7 @@
         <Param val="1" valType="code" updates="None" name="durationEstim"/>
         <Param val="False" valType="bool" updates="constant" name="flipHoriz"/>
         <Param val="False" valType="bool" updates="constant" name="flipVert"/>
-        <Param val="fishPix/TheCircle.png" valType="str" updates="constant" name="image"/>
+        <Param val="assets/TheCircle.png" valType="str" updates="constant" name="image"/>
         <Param val="linear" valType="str" updates="constant" name="interpolate"/>
         <Param val="None" valType="str" updates="constant" name="mask"/>
         <Param val="FB3_Circle" valType="code" updates="None" name="name"/>
@@ -1358,7 +1358,7 @@
         <Param val="1" valType="code" updates="None" name="durationEstim"/>
         <Param val="False" valType="bool" updates="constant" name="flipHoriz"/>
         <Param val="False" valType="bool" updates="constant" name="flipVert"/>
-        <Param val="fishPix/TheCircle.png" valType="str" updates="constant" name="image"/>
+        <Param val="assets/TheCircle.png" valType="str" updates="constant" name="image"/>
         <Param val="linear" valType="str" updates="constant" name="interpolate"/>
         <Param val="None" valType="str" updates="constant" name="mask"/>
         <Param val="noFB_Circle" valType="code" updates="None" name="name"/>

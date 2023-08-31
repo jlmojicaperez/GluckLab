@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2023.1.2),
-    on July 19, 2023, at 11:38
+    on August 31, 2023, at 13:10
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -264,7 +264,6 @@ os.chdir(_thisDir)
 psychopyVersion = '2023.1.2'
 expName = 'Fish15'  # from the Builder filename that created this script
 expInfo = {
-    'session': '001',
     'participant': '',
     'experimenter': '',
 }
@@ -410,7 +409,7 @@ FB2_face = visual.ImageStim(
 FB2_Circle = visual.ImageStim(
     win=win,
     name='FB2_Circle', 
-    image='fishPix/TheCircle.png', mask=None, anchor='center',
+    image='assets/TheCircle.png', mask=None, anchor='center',
     ori=0, pos=[0,0], size=None,
     color=[1,1,1], colorSpace='rgb', opacity=1,
     flipHoriz=False, flipVert=False,
@@ -488,7 +487,7 @@ FB2_face_2 = visual.ImageStim(
 FB2_Circle_2 = visual.ImageStim(
     win=win,
     name='FB2_Circle_2', 
-    image='fishPix/TheCircle.png', mask=None, anchor='center',
+    image='assets/TheCircle.png', mask=None, anchor='center',
     ori=0, pos=[0,0], size=None,
     color=[1,1,1], colorSpace='rgb', opacity=1,
     flipHoriz=False, flipVert=False,
@@ -566,7 +565,7 @@ FB3_face = visual.ImageStim(
 FB3_Circle = visual.ImageStim(
     win=win,
     name='FB3_Circle', 
-    image='fishPix/TheCircle.png', mask=None, anchor='center',
+    image='assets/TheCircle.png', mask=None, anchor='center',
     ori=0, pos=[0,0], size=None,
     color=[1,1,1], colorSpace='rgb', opacity=1,
     flipHoriz=False, flipVert=False,
@@ -701,7 +700,7 @@ noFB_face = visual.ImageStim(
 noFB_Circle = visual.ImageStim(
     win=win,
     name='noFB_Circle', 
-    image='fishPix/TheCircle.png', mask=None, anchor='center',
+    image='assets/TheCircle.png', mask=None, anchor='center',
     ori=0, pos=[0,0], size=None,
     color=[1,1,1], colorSpace='rgb', opacity=1,
     flipHoriz=False, flipVert=False,
@@ -1051,9 +1050,9 @@ for thisTrials1 in trials1:
     continueRoutine = True
     # update component parameters for each repeat
     # Run 'Begin Routine' code from code_3
-    myFaceFileName= "fishPix/"+face+".png"
-    myLeftFishFileName="fishPix/"+leftFish+".png"
-    myRightFishFileName="fishPix/"+rightFish+".png"
+    myFaceFileName= "assets/"+face+".png"
+    myLeftFishFileName="assets/"+leftFish+".png"
+    myRightFishFileName="assets/"+rightFish+".png"
     trial_face.setImage(myFaceFileName)
     fishOnLeft.setImage(myLeftFishFileName)
     fishOnRight.setImage(myRightFishFileName)
@@ -1231,20 +1230,20 @@ for thisTrials1 in trials1:
         myTrialCorrect=True
         thisExp.addData('Correct',1)
         myTally = myTally + 1
-        myFeedbackImage="fishPix/win.png"
+        myFeedbackImage="assets/win.png"
         myConsecutiveCorrect = myConsecutiveCorrect+1
         if (myConsecutiveCorrect >= myCriterion) :
             CriterionReached=True
     else :
         myTrialCorrect=False
         thisExp.addData('Correct',0)
-        myFeedbackImage="fishPix/lose.png"
+        myFeedbackImage="assets/lose.png"
         myConsecutiveCorrect = 0
     if (correctResponse=="left") :
         showLeftFish=myLeftFishFileName
-        showRightFish="fishPix/blank.png"
+        showRightFish="assets/blank.png"
     else :
-        showLeftFish="fishPix/blank.png"
+        showLeftFish="assets/blank.png"
         showRightFish=myRightFishFileName
     
     # Run 'End Routine' code from log_trial
@@ -1601,9 +1600,9 @@ for thisTrials2 in trials2:
     continueRoutine = True
     # update component parameters for each repeat
     # Run 'Begin Routine' code from code_3
-    myFaceFileName= "fishPix/"+face+".png"
-    myLeftFishFileName="fishPix/"+leftFish+".png"
-    myRightFishFileName="fishPix/"+rightFish+".png"
+    myFaceFileName= "assets/"+face+".png"
+    myLeftFishFileName="assets/"+leftFish+".png"
+    myRightFishFileName="assets/"+rightFish+".png"
     trial_face.setImage(myFaceFileName)
     fishOnLeft.setImage(myLeftFishFileName)
     fishOnRight.setImage(myRightFishFileName)
@@ -1781,20 +1780,20 @@ for thisTrials2 in trials2:
         myTrialCorrect=True
         thisExp.addData('Correct',1)
         myTally = myTally + 1
-        myFeedbackImage="fishPix/win.png"
+        myFeedbackImage="assets/win.png"
         myConsecutiveCorrect = myConsecutiveCorrect+1
         if (myConsecutiveCorrect >= myCriterion) :
             CriterionReached=True
     else :
         myTrialCorrect=False
         thisExp.addData('Correct',0)
-        myFeedbackImage="fishPix/lose.png"
+        myFeedbackImage="assets/lose.png"
         myConsecutiveCorrect = 0
     if (correctResponse=="left") :
         showLeftFish=myLeftFishFileName
-        showRightFish="fishPix/blank.png"
+        showRightFish="assets/blank.png"
     else :
-        showLeftFish="fishPix/blank.png"
+        showLeftFish="assets/blank.png"
         showRightFish=myRightFishFileName
     
     # Run 'End Routine' code from log_trial
@@ -2151,9 +2150,9 @@ for thisTrials3 in trials3:
     continueRoutine = True
     # update component parameters for each repeat
     # Run 'Begin Routine' code from code_3
-    myFaceFileName= "fishPix/"+face+".png"
-    myLeftFishFileName="fishPix/"+leftFish+".png"
-    myRightFishFileName="fishPix/"+rightFish+".png"
+    myFaceFileName= "assets/"+face+".png"
+    myLeftFishFileName="assets/"+leftFish+".png"
+    myRightFishFileName="assets/"+rightFish+".png"
     trial_face.setImage(myFaceFileName)
     fishOnLeft.setImage(myLeftFishFileName)
     fishOnRight.setImage(myRightFishFileName)
@@ -2331,20 +2330,20 @@ for thisTrials3 in trials3:
         myTrialCorrect=True
         thisExp.addData('Correct',1)
         myTally = myTally + 1
-        myFeedbackImage="fishPix/win.png"
+        myFeedbackImage="assets/win.png"
         myConsecutiveCorrect = myConsecutiveCorrect+1
         if (myConsecutiveCorrect >= myCriterion) :
             CriterionReached=True
     else :
         myTrialCorrect=False
         thisExp.addData('Correct',0)
-        myFeedbackImage="fishPix/lose.png"
+        myFeedbackImage="assets/lose.png"
         myConsecutiveCorrect = 0
     if (correctResponse=="left") :
         showLeftFish=myLeftFishFileName
-        showRightFish="fishPix/blank.png"
+        showRightFish="assets/blank.png"
     else :
-        showLeftFish="fishPix/blank.png"
+        showLeftFish="assets/blank.png"
         showRightFish=myRightFishFileName
     
     # Run 'End Routine' code from log_trial
@@ -2871,9 +2870,9 @@ for thisTest_trial in test_trials:
     continueRoutine = True
     # update component parameters for each repeat
     # Run 'Begin Routine' code from code_3
-    myFaceFileName= "fishPix/"+face+".png"
-    myLeftFishFileName="fishPix/"+leftFish+".png"
-    myRightFishFileName="fishPix/"+rightFish+".png"
+    myFaceFileName= "assets/"+face+".png"
+    myLeftFishFileName="assets/"+leftFish+".png"
+    myRightFishFileName="assets/"+rightFish+".png"
     trial_face.setImage(myFaceFileName)
     fishOnLeft.setImage(myLeftFishFileName)
     fishOnRight.setImage(myRightFishFileName)
@@ -3051,20 +3050,20 @@ for thisTest_trial in test_trials:
         myTrialCorrect=True
         thisExp.addData('Correct',1)
         myTally = myTally + 1
-        myFeedbackImage="fishPix/win.png"
+        myFeedbackImage="assets/win.png"
         myConsecutiveCorrect = myConsecutiveCorrect+1
         if (myConsecutiveCorrect >= myCriterion) :
             CriterionReached=True
     else :
         myTrialCorrect=False
         thisExp.addData('Correct',0)
-        myFeedbackImage="fishPix/lose.png"
+        myFeedbackImage="assets/lose.png"
         myConsecutiveCorrect = 0
     if (correctResponse=="left") :
         showLeftFish=myLeftFishFileName
-        showRightFish="fishPix/blank.png"
+        showRightFish="assets/blank.png"
     else :
-        showLeftFish="fishPix/blank.png"
+        showLeftFish="assets/blank.png"
         showRightFish=myRightFishFileName
     
     # Run 'End Routine' code from log_trial
@@ -3309,20 +3308,33 @@ goodbye_key.keys = []
 goodbye_key.rt = []
 _goodbye_key_allKeys = []
 # Run 'Begin Routine' code from end_data_log
+# Close data file
+data_file.close()
+
 # Calculate ratios and convert to string
-generalization = str(generalization_score/generalization_trials)
-retention = str(retention_score/retention_trials)
-acquisition = str(acquisition_score/acquisition_trials)
-# Join scores with commas
-summary = ",".join([generalization, retention, acquisition, str(acquisition_trials)])
+generalization = generalization_score/generalization_trials
+retention = retention_score/retention_trials
+acquisition = acquisition_score/acquisition_trials
 
 # Write summary to file
-data_file.write("----- SUMMARY STATISTICS -----\n")
-data_file.write("Generalization,Retention,Acquisition,Acquisition Trials\n")
-data_file.write(summary)
+header = ["subject","experiment","experimenter",
+        "date","time","acquisition",
+        "acquisition_trials","retention",
+        "retention_trials","generalization",
+        "generalization_trials"]
+info = [participant, expName, experimenter,
+        date, time, acquisition, acquisition_trials,
+        retention, retention_trials, generalization,
+        generalization_trials]
 
-# Close file
-data_file.close()
+summaries_path = os.path.join(data_path, "summaries")
+summary_filename = data_filename.split(".")[0] + "_summary.csv"
+
+with open(os.path.join(summaries_path, summary_filename), "w") as csvfile:
+    writer = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_NONNUMERIC)
+    writer.writerow(header)
+    writer.writerow(info)
+
 # keep track of which components have finished
 goodbyeComponents = [goodbye_text1, goodbye_text2, goodbye_tally, goodbye_text3, goodbye_text4, goodbye_key]
 for thisComponent in goodbyeComponents:
