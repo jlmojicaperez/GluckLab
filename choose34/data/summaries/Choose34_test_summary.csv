@@ -1,0 +1,2 @@
+"subject","experiment","experimenter","date","time","condition","task","train_accuracy","train_errors","train_avg_rt","train_trials","probe_accuracy","probe_errors","probe_rt_avg","probe_trials"
+"test","Choose34","test","""Wednesday, September 06, 2023""","""12:16:34 PM""","C","P",0.8181818181818182,6,1.5366582363637986,33,1.0,0,1.7539489062502867,16

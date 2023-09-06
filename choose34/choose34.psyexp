@@ -517,22 +517,22 @@
         <Param val="from exp settings" valType="str" updates="None" name="units"/>
         <Param val="" valType="num" updates="constant" name="wrapWidth"/>
       </TextComponent>
-      <CodeComponent name="earlyTransition" plugin="None">
+      <CodeComponent name="earlyTransition2" plugin="None">
         <Param val="" valType="extendedCode" updates="constant" name="Before Experiment"/>
-        <Param val="" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
+        <Param val="if ((consecutiveCorrectResponses &gt;= criterion)) {&amp;#10;    trialLoop.finished = true;&amp;#10;}&amp;#10;" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
-        <Param val="/* Syntax Error: Fix Python code */" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
-        <Param val="" valType="extendedCode" updates="constant" name="Begin Routine"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
+        <Param val="if(consecutiveCorrectResponses &gt;= criterion):&amp;#10;        trialLoop.finished = True" valType="extendedCode" updates="constant" name="Begin Routine"/>
         <Param val="Py" valType="str" updates="None" name="Code Type"/>
         <Param val="" valType="extendedCode" updates="constant" name="Each Frame"/>
         <Param val="" valType="extendedCode" updates="constant" name="Each JS Frame"/>
         <Param val="" valType="extendedCode" updates="constant" name="End Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="End JS Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="End JS Routine"/>
-        <Param val="if(consecutiveCorrectResponses &gt;= criterion):&amp;#10;    if(currentPhase == &quot;practice&quot;):&amp;#10;        currentPhase = &quot;training&quot;&amp;#10;    elif(currentPhase == &quot;training&quot;):&amp;#10;        currentPhase = &quot;testing&quot;&amp;#10;    else:&amp;#10;        phasesLoop.finished = True&amp;#10;    trialLoop.finished = True&amp;#10;    transitionedEarly = True" valType="extendedCode" updates="constant" name="End Routine"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End Routine"/>
         <Param val="False" valType="bool" updates="None" name="disabled"/>
-        <Param val="earlyTransition" valType="code" updates="None" name="name"/>
+        <Param val="earlyTransition2" valType="code" updates="None" name="name"/>
       </CodeComponent>
     </Routine>
     <Routine name="experimentInstructions">
@@ -659,7 +659,7 @@
         <Param val="" valType="extendedCode" updates="constant" name="Begin Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
         <Param val="/* Syntax Error: Fix Python code */" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
-        <Param val="trainAccuracy /= trainTrials&amp;#10;trainAvgRT /= trainTrials&amp;#10;&amp;#10;probeAccuracy /= probeTrials&amp;#10;probeAvgRT /= probeTrials&amp;#10;&amp;#10;headerFields = [&quot;Experiment&quot;, &amp;#10;            &quot;Subject ID&quot;,&amp;#10;            &quot;Experimenter&quot;,&amp;#10;            &quot;Date&quot;,&amp;#10;            &quot;Time&quot;,&amp;#10;            &quot;Training Accuracy Average&quot;, &amp;#10;            &quot;Training RT Average&quot;,&amp;#10;            &quot;Training Errors&quot;,&amp;#10;            &quot;Probe Accuracy Average&quot;,&amp;#10;            &quot;Probe RT Average&quot;,&amp;#10;            &quot;Probe Errors&quot;]&amp;#10;&amp;#10;summaryVars = [expName,&amp;#10;        expInfo[&quot;Participant&quot;],&amp;#10;        expInfo[&quot;Experimenter&quot;],&amp;#10;        date,&amp;#10;        time,&amp;#10;        trainAccuracy,&amp;#10;        trainAvgRT,&amp;#10;        trainError,&amp;#10;        probeAccuracy,&amp;#10;        probeAvgRT,&amp;#10;        probeError]&amp;#10;        &amp;#10;summaryVars = map(str, summaryVars)&amp;#10;&amp;#10;header = &quot;,&quot;.join(headerFields) + &quot;\n&quot;&amp;#10;values = &quot;,&quot;.join(summaryVars) + &quot;\n&quot;&amp;#10;&amp;#10;with open(f&quot;{summariesPath}{expName}_{expInfo['Participant']}_summary.csv&quot;, &quot;w&quot;) as f:&amp;#10;    f.write(header)&amp;#10;    f.write(values)" valType="extendedCode" updates="constant" name="Begin Routine"/>
+        <Param val="trainAccuracy /= trainTrials&amp;#10;trainAvgRT /= trainTrials&amp;#10;&amp;#10;probeAccuracy /= probeTrials&amp;#10;probeAvgRT /= probeTrials&amp;#10;info = {&amp;#10;        &quot;subject&quot;: expInfo[&quot;Participant&quot;],&amp;#10;        &quot;experiment&quot;: expName,&amp;#10;        &quot;experimenter&quot;: expInfo[&quot;Experimenter&quot;],&amp;#10;        &quot;date&quot;: date,&amp;#10;        &quot;time&quot;: time,&amp;#10;        &quot;condition&quot;: expInfo[&quot;Condition&quot;],&amp;#10;        &quot;task&quot;: &quot;P&quot;,&amp;#10;        &quot;train_accuracy&quot;: trainAccuracy,&amp;#10;        &quot;train_errors&quot;: trainError,&amp;#10;        &quot;train_avg_rt&quot;: trainAvgRT,&amp;#10;        &quot;train_trials&quot;: trainTrials,&amp;#10;        &quot;probe_accuracy&quot;: probeAccuracy,&amp;#10;        &quot;probe_errors&quot;: probeError,&amp;#10;        &quot;probe_rt_avg&quot;: probeAvgRT,&amp;#10;        &quot;probe_trials&quot;: probeTrials&amp;#10;    }&amp;#10;&amp;#10;summary_filename = f&quot;{summariesPath}{expName}_{expInfo['Participant']}_summary.csv&quot;&amp;#10;with open(summary_filename, &quot;w&quot;, newline=&quot;&quot;) as csvfile:&amp;#10;    writer = csv.writer(csvfile, delimiter=',', quotechar='&quot;', quoting=csv.QUOTE_NONNUMERIC)&amp;#10;    writer.writerow([key for key in info])&amp;#10;    writer.writerow([val for val in info.values()]) " valType="extendedCode" updates="constant" name="Begin Routine"/>
         <Param val="Py" valType="str" updates="None" name="Code Type"/>
         <Param val="" valType="extendedCode" updates="constant" name="Each Frame"/>
         <Param val="" valType="extendedCode" updates="constant" name="Each JS Frame"/>
@@ -730,7 +730,7 @@
         <Param val="" valType="extendedCode" updates="constant" name="End JS Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="End JS Routine"/>
         <Param val="" valType="extendedCode" updates="constant" name="End Routine"/>
-        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="True" valType="bool" updates="None" name="disabled"/>
         <Param val="updatePhase" valType="code" updates="None" name="name"/>
       </CodeComponent>
     </Routine>
@@ -897,12 +897,12 @@
     <Routine name="experimentInstructions"/>
     <LoopInitiator loopType="TrialHandler" name="phasesLoop">
       <Param name="Selected rows" updates="None" val="" valType="str"/>
-      <Param name="conditions" updates="None" val="None" valType="str"/>
-      <Param name="conditionsFile" updates="None" val="" valType="file"/>
+      <Param name="conditions" updates="None" val="[OrderedDict([('currentPhase', 'practice')]), OrderedDict([('currentPhase', 'training')]), OrderedDict([('currentPhase', 'testing')])]" valType="str"/>
+      <Param name="conditionsFile" updates="None" val="experimentFiles/phases.csv" valType="file"/>
       <Param name="endPoints" updates="None" val="[0, 1]" valType="num"/>
       <Param name="isTrials" updates="None" val="False" valType="bool"/>
-      <Param name="loopType" updates="None" val="random" valType="str"/>
-      <Param name="nReps" updates="None" val="3" valType="num"/>
+      <Param name="loopType" updates="None" val="sequential" valType="str"/>
+      <Param name="nReps" updates="None" val="1" valType="num"/>
       <Param name="name" updates="None" val="phasesLoop" valType="code"/>
       <Param name="random seed" updates="None" val="" valType="code"/>
     </LoopInitiator>
@@ -934,7 +934,6 @@
     </LoopInitiator>
     <Routine name="postPracticeInstructions"/>
     <LoopTerminator name="postPracticeScreenLoop"/>
-    <Routine name="transition"/>
     <LoopTerminator name="phasesLoop"/>
     <Routine name="endExperiment"/>
   </Flow>
