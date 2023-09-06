@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2023.1.2),
-    on August 31, 2023, at 13:10
+    on August 31, 2023, at 14:22
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -771,7 +771,6 @@ conditions_key.keys = []
 conditions_key.rt = []
 _conditions_key_allKeys = []
 # Run 'Begin Routine' code from start_data_log
-import os
 import datetime
 
 participant = expInfo["participant"]
@@ -3330,7 +3329,7 @@ info = [participant, expName, experimenter,
 summaries_path = os.path.join(data_path, "summaries")
 summary_filename = data_filename.split(".")[0] + "_summary.csv"
 
-with open(os.path.join(summaries_path, summary_filename), "w") as csvfile:
+with open(os.path.join(summaries_path, summary_filename), "w", newline="") as csvfile:
     writer = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_NONNUMERIC)
     writer.writerow(header)
     writer.writerow(info)

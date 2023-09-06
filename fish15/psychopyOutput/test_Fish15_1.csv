@@ -1,0 +1,6 @@
+﻿face,leftFish,rightFish,correctResponse,trials1.thisRepN,trials1.thisTrialN,trials1.thisN,trials1.thisIndex,trials2.thisRepN,trials2.thisTrialN,trials2.thisN,trials2.thisIndex,License_And_Terms.started,trial_response.keys,trial_response.rt,Correct,participant,experimenter,date,expName,psychopyVersion,frameRate,
+woman,red,blue,left,0,0,0,2,,,,,14.23618820000047,z,0.2863983000006556,1,test,test,2023-08-31_14h23.06.786,Fish15,2023.1.2,144.71214583647694,
+girl,blue,red,left,0,1,1,0,,,,,,z,1.6868071000008058,1,test,test,2023-08-31_14h23.06.786,Fish15,2023.1.2,144.71214583647694,
+girl,red,blue,right,0,2,2,1,,,,,,m,0.5551457000001392,1,test,test,2023-08-31_14h23.06.786,Fish15,2023.1.2,144.71214583647694,
+woman,blue,red,right,0,3,3,3,,,,,,m,0.5987575999988621,1,test,test,2023-08-31_14h23.06.786,Fish15,2023.1.2,144.71214583647694,
+girl,blue,red,left,,,,,0,0,0,0,,z,0.6302784999988944,1,test,test,2023-08-31_14h23.06.786,Fish15,2023.1.2,144.71214583647694,

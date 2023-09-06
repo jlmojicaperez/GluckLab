@@ -2,86 +2,14 @@ Fish15
 Subject ID: test
 Experimenter: test
 "Thursday, August 31, 2023"
-Time: 01:10:28 PM
-"Note: Critical Pairs = [('woman', 'blue', 'red'), ('girl', 'red', 'blue')]"
+Time: 02:23:11 PM
+"Note: Critical Pairs = [('man', 'purple', 'green'), ('boy', 'purple', 'green')]"
 ----- PHASE 0 -----
 Trial,Face,Left Fish,Right Fish,Correct Response,Subject Response,Response Time,Correct/Incorrect
-1,boy,green,purple,left,right,0.9996753000000353,0
-2,man,purple,green,left,left,0.5561798999997336,1
-3,boy,purple,green,right,right,1.55454090000012,1
-4,man,green,purple,right,right,2.0183296000000155,1
-5,man,green,purple,right,right,0.6708060999994814,1
+1,woman,red,blue,left,left,0.2863983000006556,1
+2,girl,blue,red,left,left,1.6868071000008058,1
+3,girl,red,blue,right,right,0.5551457000001392,1
+4,woman,blue,red,right,right,0.5987575999988621,1
 ----- PHASE 1 -----
 Trial,Face,Left Fish,Right Fish,Correct Response,Subject Response,Response Time,Correct/Incorrect
-1,girl,purple,green,right,right,0.9949317999999039,1
-2,woman,green,purple,right,right,0.7099598999998307,1
-3,girl,green,purple,left,left,1.2777995999995255,1
-4,woman,purple,green,left,left,0.28143239999963043,1
-5,boy,purple,green,right,right,0.8998249000001124,1
-6,boy,green,purple,left,left,0.40369789999977,1
-7,man,green,purple,right,right,0.3668276999997033,1
-8,man,purple,green,left,left,0.12823709999975108,1
------ PHASE 2 -----
-Trial,Face,Left Fish,Right Fish,Correct Response,Subject Response,Response Time,Correct/Incorrect
-1,boy,green,purple,left,left,0.7148968000001332,1
-2,boy,purple,green,right,right,2.7286506000000372,1
-3,boy,blue,red,left,left,2.4333394000000226,1
-4,boy,red,blue,right,right,0.3012362999998004,1
-5,girl,green,purple,left,left,0.4633256999995865,1
-6,girl,purple,green,right,right,0.5730169999997088,1
-7,man,purple,green,left,left,0.6976923000001989,1
-8,man,green,purple,right,right,0.2864012999998522,1
-9,man,red,blue,left,left,0.4329851999996208,1
-10,man,blue,red,right,right,0.4233626000000186,1
-11,woman,purple,green,left,left,0.34837149999975736,1
-12,woman,green,purple,right,right,0.20966859999998633,1
------ PHASE 3 -----
-Trial,Face,Left Fish,Right Fish,Correct Response,Subject Response,Response Time,Correct/Incorrect
-1,woman,red,blue,left,left,0.9563091999998505,1*
-2,woman,green,purple,right,right,0.382744399999865,1
-3,man,purple,green,left,left,0.4479397999998582,1
-4,man,red,blue,left,left,0.5182419999996455,1
-5,man,blue,red,right,right,0.2607418999996298,1
-6,boy,red,blue,right,right,1.0031199999993987,1
-7,man,green,purple,right,right,0.9626451999997698,1
-8,woman,blue,red,right,right,1.354365400000006,1*
-9,boy,green,purple,left,left,1.4431355999995503,1
-10,boy,purple,green,right,right,0.24624109999967914,1
-11,boy,blue,red,left,left,2.36788579999984,1
-12,girl,purple,green,right,right,7.698646700000154,1
-13,girl,blue,red,left,left,3.525007199999891,1*
-14,woman,purple,green,left,left,4.802636800000073,1
-15,girl,green,purple,left,left,1.13317939999979,1
-16,girl,red,blue,right,right,1.3575223999996524,1*
-17,boy,blue,red,left,left,2.2871299999997063,1
-18,man,green,purple,right,right,1.0909374999991996,1
-19,man,purple,green,left,left,0.14041239999914978,1
-20,woman,green,purple,right,right,0.5151631999997335,1
-21,boy,green,purple,left,left,0.5703104000003805,1
-22,girl,purple,green,right,right,13.80240860000049,1
-23,boy,purple,green,right,right,1.8561083000004146,1
-24,woman,blue,red,right,right,1.4548345000002882,1*
-25,woman,purple,green,left,left,0.45957069999985833,1
-26,man,red,blue,left,left,0.6607447999995202,1
-27,girl,green,purple,left,left,0.8353438000003734,1
-28,girl,red,blue,right,right,1.2955855000000156,1*
-29,man,blue,red,right,right,0.41618169999946986,1
-30,woman,red,blue,left,left,0.45365440000023227,1*
-31,girl,blue,red,left,left,1.1384652999995524,1*
-32,boy,red,blue,right,right,1.1873793999993723,1
-33,woman,purple,green,left,left,0.354081600000427,1
-34,woman,green,purple,right,right,1.9094139999997424,1
-35,boy,red,blue,right,right,1.1706823999993503,1
-36,boy,green,purple,left,left,0.6578209999997853,1
-37,girl,purple,green,right,right,1.083904000000075,1
-38,man,green,purple,right,right,6.457663700000012,1
-39,woman,blue,red,right,right,2.3371198999993794,1*
-40,boy,blue,red,left,left,9.959749499999816,1
-41,man,blue,red,right,right,5.84231009999985,1
-42,man,purple,green,left,left,7.942730099999608,1
-43,woman,red,blue,left,left,0.8538764000004448,1*
-44,boy,purple,green,right,right,0.47059019999960583,1
-45,man,red,blue,left,left,1.1129083999994691,1
-46,girl,green,purple,left,left,13.845887799999218,1
-47,girl,blue,red,left,left,0.5837896000002729,1*
-48,girl,red,blue,right,right,0.6601033999995707,1*
+1,girl,blue,red,left,left,0.6302784999988944,1
