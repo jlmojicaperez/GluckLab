@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2023.1.2),
-    on August 16, 2023, at 13:48
+    on September 06, 2023, at 12:16
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -402,8 +402,6 @@ postPracticeText = visual.TextStim(win=win, name='postPracticeText',
     languageStyle='LTR',
     depth=0.0);
 postPracticeResp = keyboard.Keyboard()
-
-# --- Initialize components for Routine "transition" ---
 
 # --- Initialize components for Routine "endExperiment" ---
 endText = visual.TextStim(win=win, name='endText',
@@ -810,9 +808,9 @@ for thisComponent in experimentInstructionsComponents:
 routineTimer.reset()
 
 # set up handler to look after randomisation of conditions etc
-phasesLoop = data.TrialHandler(nReps=3.0, method='random', 
+phasesLoop = data.TrialHandler(nReps=1.0, method='sequential', 
     extraInfo=expInfo, originPath=-1,
-    trialList=[None],
+    trialList=data.importConditions('experimentFiles/phases.csv'),
     seed=None, name='phasesLoop')
 thisExp.addLoop(phasesLoop)  # add the loop to the experiment
 thisPhasesLoop = phasesLoop.trialList[0]  # so we can initialise stimuli with some values
@@ -1136,6 +1134,9 @@ for thisPhasesLoop in phasesLoop:
         rightStimReveal.setImage(rightImgPath)
         smileyReveal.setOpacity(1 if correctResponse else 0 )
         smileyReveal.setPos((-0.25, 0) if hasSmiley[Left_Stim] else (0.25,0))
+        # Run 'Begin Routine' code from earlyTransition2
+        if(consecutiveCorrectResponses >= criterion):
+                trialLoop.finished = True
         # keep track of which components have finished
         revealComponents = [leftStimReveal, rightStimReveal, smileyReveal, floorLineReveal, textPrompt2]
         for thisComponent in revealComponents:
@@ -1329,16 +1330,6 @@ for thisPhasesLoop in phasesLoop:
         for thisComponent in revealComponents:
             if hasattr(thisComponent, "setAutoDraw"):
                 thisComponent.setAutoDraw(False)
-        # Run 'End Routine' code from earlyTransition
-        if(consecutiveCorrectResponses >= criterion):
-            if(currentPhase == "practice"):
-                currentPhase = "training"
-            elif(currentPhase == "training"):
-                currentPhase = "testing"
-            else:
-                phasesLoop.finished = True
-            trialLoop.finished = True
-            transitionedEarly = True
         # using non-slip timing so subtract the expected duration of this Routine (unless ended on request)
         if routineForceEnded:
             routineTimer.reset()
@@ -1471,68 +1462,7 @@ for thisPhasesLoop in phasesLoop:
         routineTimer.reset()
     # completed 1 if showPostPractice else 0 repeats of 'postPracticeScreenLoop'
     
-    
-    # --- Prepare to start Routine "transition" ---
-    continueRoutine = True
-    # update component parameters for each repeat
-    # Run 'Begin Routine' code from updatePhase
-    if(not transitionedEarly and currentPhase == "practice"):
-        currentPhase = "training"
-    elif(not transitionedEarly and currentPhase == "training"):
-        currentPhase = "testing"
-    elif(not transitionedEarly):
-        phasesLoop.finished = True
-    # keep track of which components have finished
-    transitionComponents = []
-    for thisComponent in transitionComponents:
-        thisComponent.tStart = None
-        thisComponent.tStop = None
-        thisComponent.tStartRefresh = None
-        thisComponent.tStopRefresh = None
-        if hasattr(thisComponent, 'status'):
-            thisComponent.status = NOT_STARTED
-    # reset timers
-    t = 0
-    _timeToFirstFrame = win.getFutureFlipTime(clock="now")
-    frameN = -1
-    
-    # --- Run Routine "transition" ---
-    routineForceEnded = not continueRoutine
-    while continueRoutine:
-        # get current time
-        t = routineTimer.getTime()
-        tThisFlip = win.getFutureFlipTime(clock=routineTimer)
-        tThisFlipGlobal = win.getFutureFlipTime(clock=None)
-        frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
-        # update/draw components on each frame
-        
-        # check for quit (typically the Esc key)
-        if endExpNow or defaultKeyboard.getKeys(keyList=["escape"]):
-            core.quit()
-            if eyetracker:
-                eyetracker.setConnectionState(False)
-        
-        # check if all components have finished
-        if not continueRoutine:  # a component has requested a forced-end of Routine
-            routineForceEnded = True
-            break
-        continueRoutine = False  # will revert to True if at least one component still running
-        for thisComponent in transitionComponents:
-            if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
-                continueRoutine = True
-                break  # at least one component has not yet finished
-        
-        # refresh the screen
-        if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
-            win.flip()
-    
-    # --- Ending Routine "transition" ---
-    for thisComponent in transitionComponents:
-        if hasattr(thisComponent, "setAutoDraw"):
-            thisComponent.setAutoDraw(False)
-    # the Routine "transition" was not non-slip safe, so reset the non-slip timer
-    routineTimer.reset()
-# completed 3.0 repeats of 'phasesLoop'
+# completed 1.0 repeats of 'phasesLoop'
 
 
 # --- Prepare to start Routine "endExperiment" ---
@@ -1544,39 +1474,29 @@ trainAvgRT /= trainTrials
 
 probeAccuracy /= probeTrials
 probeAvgRT /= probeTrials
+info = {
+        "subject": expInfo["Participant"],
+        "experiment": expName,
+        "experimenter": expInfo["Experimenter"],
+        "date": date,
+        "time": time,
+        "condition": expInfo["Condition"],
+        "task": "P",
+        "train_accuracy": trainAccuracy,
+        "train_errors": trainError,
+        "train_avg_rt": trainAvgRT,
+        "train_trials": trainTrials,
+        "probe_accuracy": probeAccuracy,
+        "probe_errors": probeError,
+        "probe_rt_avg": probeAvgRT,
+        "probe_trials": probeTrials
+    }
 
-headerFields = ["Experiment", 
-            "Subject ID",
-            "Experimenter",
-            "Date",
-            "Time",
-            "Training Accuracy Average", 
-            "Training RT Average",
-            "Training Errors",
-            "Probe Accuracy Average",
-            "Probe RT Average",
-            "Probe Errors"]
-
-summaryVars = [expName,
-        expInfo["Participant"],
-        expInfo["Experimenter"],
-        date,
-        time,
-        trainAccuracy,
-        trainAvgRT,
-        trainError,
-        probeAccuracy,
-        probeAvgRT,
-        probeError]
-        
-summaryVars = map(str, summaryVars)
-
-header = ",".join(headerFields) + "\n"
-values = ",".join(summaryVars) + "\n"
-
-with open(f"{summariesPath}{expName}_{expInfo['Participant']}_summary.csv", "w") as f:
-    f.write(header)
-    f.write(values)
+summary_filename = f"{summariesPath}{expName}_{expInfo['Participant']}_summary.csv"
+with open(summary_filename, "w", newline="") as csvfile:
+    writer = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_NONNUMERIC)
+    writer.writerow([key for key in info])
+    writer.writerow([val for val in info.values()]) 
 endResp.keys = []
 endResp.rt = []
 _endResp_allKeys = []
