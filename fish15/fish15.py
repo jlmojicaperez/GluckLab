@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2023.1.2),
-    on June 07, 2023, at 13:37
+    on September 13, 2023, at 13:30
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -31,6 +31,9 @@ import sys  # to get file system encoding
 import psychopy.iohub as io
 from psychopy.hardware import keyboard
 
+# Run 'Before Experiment' code from imports
+import random
+import csv
 # Run 'Before Experiment' code from license_and_terms
 '''
 Fish v. 15 software, running on PsychoPy (v.2023.1.2)
@@ -63,8 +66,7 @@ Author's contact information:
     email: jmojicaperez@acm.org
 '''
 # Run 'Before Experiment' code from face_fish_pairing
-import random
-import os
+
 # File names of faces and fishes without extension
 fishes = ["green", "blue", "purple", "red"]
 faces = ["boy", "girl", "man", "woman"]
@@ -78,9 +80,9 @@ for _ in range(4):
     random_numbers.append(r)
 
 r1, r2, r3, r4 = random_numbers
-exp_files_path = os.getcwd() + "/experimentFiles/"
+exp_files_path = os.path.join(os.getcwd(), "experimentFiles")
 pairs_filename = "face_fish_pairings.csv"
-pairings_filepath = exp_files_path + pairs_filename
+pairings_filepath = os.path.join(exp_files_path, pairs_filename)
 file = open(pairings_filepath, "w")
 file.write("face,fish1,fish2\n")
 file.write(f"{faces[r1]},{fishes[r1]},{fishes[r2]}\n")
@@ -89,8 +91,6 @@ file.write(f"{faces[r3]},{fishes[r3]},{fishes[r4]}\n")
 file.write(f"{faces[r4]},{fishes[r3]},{fishes[r4]}\n")
 file.close()
 # Run 'Before Experiment' code from phase_gen
-import csv
-import os
 
 def generate_phase_file(pairings, phase_faces, phase_fishes, filename):
     '''
@@ -107,8 +107,11 @@ def generate_phase_file(pairings, phase_faces, phase_fishes, filename):
         None. It instead generates [filename].csv for the that lists the
         stimuli for the desired phase
     '''
-    file = open(filename, "w")
-    file.write("face,leftFish,rightFish,correctResponse\n")
+    file = open(filename, "w", newline="")
+    header = ["face","leftFish","rightFish","correctResponse"]
+    writer = csv.writer(file, delimiter=",", quotechar="\"", 
+                            quoting=csv.QUOTE_NONNUMERIC)
+    writer.writerow(header)
     # filename format should be phaseX.csv where X is the phase number
     # phase_no = filename.split(".")[0][-1]
     
@@ -128,13 +131,17 @@ def generate_phase_file(pairings, phase_faces, phase_fishes, filename):
             for i in range(len(owned_fishes)):
                 correct = owned_fishes[i]
                 incorrect = not_owned_fishes[i]
-                file.write(f"{face},{correct},{incorrect},left\n")
-                file.write(f"{face},{incorrect},{correct},right\n")
+                row1 = [face, correct, incorrect, "left"]
+                row2 = [face, incorrect, correct, "right"]
+                writer.writerow(row1)
+                writer.writerow(row2)
         else: # Phase 0
             correct = owned_fishes[0]
             incorrect = not_owned_fishes[0]
-            file.write(f"{face},{correct},{incorrect},left\n")
-            file.write(f"{face},{incorrect},{correct},right\n")
+            row1 = [face, correct, incorrect, "left"]
+            row2 = [face, incorrect, correct, "right"]
+            writer.writerow(row1)
+            writer.writerow(row2)
                 
     file.close()
 
@@ -160,7 +167,7 @@ def remove_crit_pairs(faces, fishes, filename, pairings):
     
     file = open(filename, "r")
     reader = csv.DictReader(file)
-    adjusted_file_text = "face,leftFish,rightFish,correctResponse,phase_used\n"
+    rows = []
     crit_pairs_stims = set()
     for row in reader:
         face = row["face"]
@@ -169,22 +176,29 @@ def remove_crit_pairs(faces, fishes, filename, pairings):
         correct = row["correctResponse"]
         # If the face is not one of the critical pairs of phase 3 then 
         # it should be included in phase 2
-        should_include = not ((face in do_not_include) and (fish1 == do_not_include[face] or fish2 == do_not_include[face]))
+        should_include = not ((face in do_not_include) and 
+            (fish1 == do_not_include[face] or fish2 == do_not_include[face]))
         
         if (should_include): # not a critical pair
-            adjusted_file_text += ",".join([face, fish1, fish2, correct]) + "\n"
+            rows.append([face, fish1, fish2, correct])
         else: # critical pair
             stim =  ",".join([face, fish1, fish2, correct])
             crit_pairs_stims.add(stim)
             continue
     file.close()
-    file = open(filename, "w")
-    file.write(adjusted_file_text)
+    file = open(filename, "w", newline="")
+    header = ["face","leftFish","rightFish","correctResponse"]
+    writer = csv.writer(file, delimiter=",", quotechar="\"", 
+                            quoting=csv.QUOTE_NONNUMERIC)
+    writer.writerow(header)
+    for row in rows:
+        writer.writerow(row)
     file.close()
+    
     return crit_pairs_stims
             
 # Getting the pairings from previously generated pairings file
-exp_files_path = os.getcwd() + "/experimentFiles/"
+exp_files_path = os.path.join(os.getcwd(), "experimentFiles")
 pairings = {}
 #pairings_file = open(exp_files_path + "face_fish_pairings.csv", "r")
 pairings_file = open(pairings_filepath, "r")
@@ -208,24 +222,24 @@ for face in faces:
 # Face A and Face C
 phase0_faces = [faces[0], faces[2]]
 phase0_fishes = [pairings[faces[0]][0], pairings[faces[2]][0]]
-phase0_file = exp_files_path + "phase0.csv"
+phase0_file = os.path.join(exp_files_path, "phase0.csv")
 generate_phase_file(pairings, phase0_faces, phase0_fishes, phase0_file)
 
 phase1_faces = faces
 phase1_fishes = phase0_fishes
-phase1_file = exp_files_path + "phase1.csv"
+phase1_file = os.path.join(exp_files_path, "phase1.csv")
 generate_phase_file(pairings, phase1_faces, phase1_fishes, phase1_file)
 
 phase2_faces = faces
 phase2_fishes = fishes
-phase2_file = exp_files_path + "phase2.csv"
+phase2_file = os.path.join(exp_files_path, "phase2.csv")
 generate_phase_file(pairings, phase2_faces, phase2_fishes, phase2_file)
 # critical pairs are not supposed to be in phase 2
 crit_pairs_stims = remove_crit_pairs(phase2_faces, phase2_fishes, phase2_file, pairings)
 
 phase3_faces = faces
 phase3_fishes = fishes
-phase3_file = exp_files_path + "phase3.csv"
+phase3_file = os.path.join(exp_files_path, "phase3.csv")
 generate_phase_file(pairings, phase3_faces, phase3_fishes, phase3_file)
 # Run 'Before Experiment' code from code_3
 myFaceFileName="temp"
@@ -264,7 +278,6 @@ os.chdir(_thisDir)
 psychopyVersion = '2023.1.2'
 expName = 'Fish15'  # from the Builder filename that created this script
 expInfo = {
-    'session': '001',
     'participant': '',
     'experimenter': '',
 }
@@ -285,6 +298,8 @@ thisExp = data.ExperimentHandler(name=expName, version='',
     originPath='C:\\Users\\josel\\gluck_lab\\GluckLab\\fish15\\fish15.py',
     savePickle=True, saveWideText=True,
     dataFileName=filename)
+# save a log file for detail verbose info
+logFile = logging.LogFile(filename+'.log', level=logging.EXP)
 logging.console.setLevel(logging.WARNING)  # this outputs to the screen, not a file
 
 endExpNow = False  # flag for 'escape' or other condition => quit the exp
@@ -323,12 +338,12 @@ defaultKeyboard = keyboard.Keyboard(backend='iohub')
 
 # --- Initialize components for Routine "startup" ---
 License_And_Terms = visual.TextStim(win=win, name='License_And_Terms',
-    text='Fish v. 15 software, running on PsychoPy (v.2023.1.2)\n\nThis software is adapted from software which was written by Catherine E. Myers  under funding from the Department of Veterans Affairs, Office of Research and Development. \n\nDesign is adapted from the task originally described in Myers et al. (2003) Journal of Cognitive Neuroscience, 15(2), 185-193.\n\nFish 15 is a neuroscience experiment to test the generalization performance of individuals\n   Copyright (C) 2023 Jose Mojica Perez\n\n    This program is free software: you can redistribute it and/or modify\n    it under the terms of the GNU Affero General Public License as\n    published by the Free Software Foundation, either version 3 of the\n    License, or (at your option) any later version.\n\n    This program is distributed in the hope that it will be useful,\n    but WITHOUT ANY WARRANTY; without even the implied warranty of\n    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n    GNU Affero General Public License for more details.\n\n    You should have received a copy of the GNU Affero General Public License\n    along with this program.  If not, see <https://www.gnu.org/licenses/>.',
+    text='Fish v. 15 software, running on PsychoPy (v.2023.1.2)\n\nThis software is adapted from software which was written by Catherine E. Myers  under funding from the Department of Veterans Affairs, Office of Research and Development. \n\nDesign is adapted from the task originally described in Myers et al. (2003) Journal of Cognitive Neuroscience, 15(2), 185-193.\n\nFish 15 is a neuroscience experiment to test the generalization performance of individuals\n   Copyright (C) 2023 Jose Mojica Perez\n\n    This program is free software: you can redistribute it and/or modify\n    it under the terms of the GNU Affero General Public License as\n    published by the Free Software Foundation, either version 3 of the\n    License, or (at your option) any later version.\n\n    This program is distributed in the hope that it will be useful,\n    but WITHOUT ANY WARRANTY; without even the implied warranty of\n    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n    GNU Affero General Public License for more details.\n\n    You should have received a copy of the GNU Affero General Public License\n    along with this program.  If not, see <https://www.gnu.org/licenses/>.\n\nPress the space bar to continue.',
     font='Open Sans',
     pos=(0, 0), height=0.05, wrapWidth=1.5, ori=0.0, 
     color='black', colorSpace='rgb', opacity=None, 
     languageStyle='LTR',
-    depth=0.0);
+    depth=-1.0);
 conditions_key = keyboard.Keyboard()
 
 # --- Initialize components for Routine "train_instr" ---
@@ -410,7 +425,7 @@ FB2_face = visual.ImageStim(
 FB2_Circle = visual.ImageStim(
     win=win,
     name='FB2_Circle', 
-    image='fishPix/TheCircle.png', mask=None, anchor='center',
+    image='assets/TheCircle.png', mask=None, anchor='center',
     ori=0, pos=[0,0], size=None,
     color=[1,1,1], colorSpace='rgb', opacity=1,
     flipHoriz=False, flipVert=False,
@@ -488,7 +503,7 @@ FB2_face_2 = visual.ImageStim(
 FB2_Circle_2 = visual.ImageStim(
     win=win,
     name='FB2_Circle_2', 
-    image='fishPix/TheCircle.png', mask=None, anchor='center',
+    image='assets/TheCircle.png', mask=None, anchor='center',
     ori=0, pos=[0,0], size=None,
     color=[1,1,1], colorSpace='rgb', opacity=1,
     flipHoriz=False, flipVert=False,
@@ -566,7 +581,7 @@ FB3_face = visual.ImageStim(
 FB3_Circle = visual.ImageStim(
     win=win,
     name='FB3_Circle', 
-    image='fishPix/TheCircle.png', mask=None, anchor='center',
+    image='assets/TheCircle.png', mask=None, anchor='center',
     ori=0, pos=[0,0], size=None,
     color=[1,1,1], colorSpace='rgb', opacity=1,
     flipHoriz=False, flipVert=False,
@@ -701,7 +716,7 @@ noFB_face = visual.ImageStim(
 noFB_Circle = visual.ImageStim(
     win=win,
     name='noFB_Circle', 
-    image='fishPix/TheCircle.png', mask=None, anchor='center',
+    image='assets/TheCircle.png', mask=None, anchor='center',
     ori=0, pos=[0,0], size=None,
     color=[1,1,1], colorSpace='rgb', opacity=1,
     flipHoriz=False, flipVert=False,
@@ -772,15 +787,14 @@ conditions_key.keys = []
 conditions_key.rt = []
 _conditions_key_allKeys = []
 # Run 'Begin Routine' code from start_data_log
-import os
 import datetime
 
 participant = expInfo["participant"]
 experimenter = expInfo["experimenter"]
 
-data_path = os.getcwd() + "/data/"
+data_path = os.path.join(os.getcwd(), "data")
 data_filename = expName + "_" + participant + ".csv"
-data_file = open(data_path + data_filename, "w")
+data_file = open(os.path.join(data_path, data_filename), "w")
 
 expDateTime = datetime.datetime.now()
 # Weekday(full name), Month(full name) Day(dd), Year(yyyy)
@@ -993,7 +1007,7 @@ while continueRoutine:
         win.callOnFlip(train_instr_key.clock.reset)  # t=0 on next screen flip
         win.callOnFlip(train_instr_key.clearEvents, eventType='keyboard')  # clear events on next screen flip
     if train_instr_key.status == STARTED and not waitOnFlip:
-        theseKeys = train_instr_key.getKeys(keyList=['lctrl','rctrl'], waitRelease=False)
+        theseKeys = train_instr_key.getKeys(keyList=['z','m','left','right'], waitRelease=False)
         _train_instr_key_allKeys.extend(theseKeys)
         if len(_train_instr_key_allKeys):
             train_instr_key.keys = _train_instr_key_allKeys[-1].name  # just the last key pressed
@@ -1051,9 +1065,9 @@ for thisTrials1 in trials1:
     continueRoutine = True
     # update component parameters for each repeat
     # Run 'Begin Routine' code from code_3
-    myFaceFileName= "fishPix/"+face+".png"
-    myLeftFishFileName="fishPix/"+leftFish+".png"
-    myRightFishFileName="fishPix/"+rightFish+".png"
+    myFaceFileName= "assets/"+face+".png"
+    myLeftFishFileName="assets/"+leftFish+".png"
+    myRightFishFileName="assets/"+rightFish+".png"
     trial_face.setImage(myFaceFileName)
     fishOnLeft.setImage(myLeftFishFileName)
     fishOnRight.setImage(myRightFishFileName)
@@ -1173,7 +1187,7 @@ for thisTrials1 in trials1:
             win.callOnFlip(trial_response.clock.reset)  # t=0 on next screen flip
             win.callOnFlip(trial_response.clearEvents, eventType='keyboard')  # clear events on next screen flip
         if trial_response.status == STARTED and not waitOnFlip:
-            theseKeys = trial_response.getKeys(keyList=['lctrl','rctrl'], waitRelease=False)
+            theseKeys = trial_response.getKeys(keyList=['z','m','left','right'], waitRelease=False)
             _trial_response_allKeys.extend(theseKeys)
             if len(_trial_response_allKeys):
                 trial_response.keys = _trial_response_allKeys[-1].name  # just the last key pressed
@@ -1215,9 +1229,9 @@ for thisTrials1 in trials1:
     nFBleft=0
     nFBright=0
     
-    if(trial_response.keys == "lctrl"):
+    if(trial_response.keys == "z"):
         trial_response.keys = "left"
-    else:
+    if(trial_response.keys == "m"):
         trial_response.keys = "right"
         
     
@@ -1231,20 +1245,20 @@ for thisTrials1 in trials1:
         myTrialCorrect=True
         thisExp.addData('Correct',1)
         myTally = myTally + 1
-        myFeedbackImage="fishPix/win.png"
+        myFeedbackImage="assets/win.png"
         myConsecutiveCorrect = myConsecutiveCorrect+1
         if (myConsecutiveCorrect >= myCriterion) :
             CriterionReached=True
     else :
         myTrialCorrect=False
         thisExp.addData('Correct',0)
-        myFeedbackImage="fishPix/lose.png"
+        myFeedbackImage="assets/lose.png"
         myConsecutiveCorrect = 0
     if (correctResponse=="left") :
         showLeftFish=myLeftFishFileName
-        showRightFish="fishPix/blank.png"
+        showRightFish="assets/blank.png"
     else :
-        showLeftFish="fishPix/blank.png"
+        showLeftFish="assets/blank.png"
         showRightFish=myRightFishFileName
     
     # Run 'End Routine' code from log_trial
@@ -1601,9 +1615,9 @@ for thisTrials2 in trials2:
     continueRoutine = True
     # update component parameters for each repeat
     # Run 'Begin Routine' code from code_3
-    myFaceFileName= "fishPix/"+face+".png"
-    myLeftFishFileName="fishPix/"+leftFish+".png"
-    myRightFishFileName="fishPix/"+rightFish+".png"
+    myFaceFileName= "assets/"+face+".png"
+    myLeftFishFileName="assets/"+leftFish+".png"
+    myRightFishFileName="assets/"+rightFish+".png"
     trial_face.setImage(myFaceFileName)
     fishOnLeft.setImage(myLeftFishFileName)
     fishOnRight.setImage(myRightFishFileName)
@@ -1723,7 +1737,7 @@ for thisTrials2 in trials2:
             win.callOnFlip(trial_response.clock.reset)  # t=0 on next screen flip
             win.callOnFlip(trial_response.clearEvents, eventType='keyboard')  # clear events on next screen flip
         if trial_response.status == STARTED and not waitOnFlip:
-            theseKeys = trial_response.getKeys(keyList=['lctrl','rctrl'], waitRelease=False)
+            theseKeys = trial_response.getKeys(keyList=['z','m','left','right'], waitRelease=False)
             _trial_response_allKeys.extend(theseKeys)
             if len(_trial_response_allKeys):
                 trial_response.keys = _trial_response_allKeys[-1].name  # just the last key pressed
@@ -1765,9 +1779,9 @@ for thisTrials2 in trials2:
     nFBleft=0
     nFBright=0
     
-    if(trial_response.keys == "lctrl"):
+    if(trial_response.keys == "z"):
         trial_response.keys = "left"
-    else:
+    if(trial_response.keys == "m"):
         trial_response.keys = "right"
         
     
@@ -1781,20 +1795,20 @@ for thisTrials2 in trials2:
         myTrialCorrect=True
         thisExp.addData('Correct',1)
         myTally = myTally + 1
-        myFeedbackImage="fishPix/win.png"
+        myFeedbackImage="assets/win.png"
         myConsecutiveCorrect = myConsecutiveCorrect+1
         if (myConsecutiveCorrect >= myCriterion) :
             CriterionReached=True
     else :
         myTrialCorrect=False
         thisExp.addData('Correct',0)
-        myFeedbackImage="fishPix/lose.png"
+        myFeedbackImage="assets/lose.png"
         myConsecutiveCorrect = 0
     if (correctResponse=="left") :
         showLeftFish=myLeftFishFileName
-        showRightFish="fishPix/blank.png"
+        showRightFish="assets/blank.png"
     else :
-        showLeftFish="fishPix/blank.png"
+        showLeftFish="assets/blank.png"
         showRightFish=myRightFishFileName
     
     # Run 'End Routine' code from log_trial
@@ -2151,9 +2165,9 @@ for thisTrials3 in trials3:
     continueRoutine = True
     # update component parameters for each repeat
     # Run 'Begin Routine' code from code_3
-    myFaceFileName= "fishPix/"+face+".png"
-    myLeftFishFileName="fishPix/"+leftFish+".png"
-    myRightFishFileName="fishPix/"+rightFish+".png"
+    myFaceFileName= "assets/"+face+".png"
+    myLeftFishFileName="assets/"+leftFish+".png"
+    myRightFishFileName="assets/"+rightFish+".png"
     trial_face.setImage(myFaceFileName)
     fishOnLeft.setImage(myLeftFishFileName)
     fishOnRight.setImage(myRightFishFileName)
@@ -2273,7 +2287,7 @@ for thisTrials3 in trials3:
             win.callOnFlip(trial_response.clock.reset)  # t=0 on next screen flip
             win.callOnFlip(trial_response.clearEvents, eventType='keyboard')  # clear events on next screen flip
         if trial_response.status == STARTED and not waitOnFlip:
-            theseKeys = trial_response.getKeys(keyList=['lctrl','rctrl'], waitRelease=False)
+            theseKeys = trial_response.getKeys(keyList=['z','m','left','right'], waitRelease=False)
             _trial_response_allKeys.extend(theseKeys)
             if len(_trial_response_allKeys):
                 trial_response.keys = _trial_response_allKeys[-1].name  # just the last key pressed
@@ -2315,9 +2329,9 @@ for thisTrials3 in trials3:
     nFBleft=0
     nFBright=0
     
-    if(trial_response.keys == "lctrl"):
+    if(trial_response.keys == "z"):
         trial_response.keys = "left"
-    else:
+    if(trial_response.keys == "m"):
         trial_response.keys = "right"
         
     
@@ -2331,20 +2345,20 @@ for thisTrials3 in trials3:
         myTrialCorrect=True
         thisExp.addData('Correct',1)
         myTally = myTally + 1
-        myFeedbackImage="fishPix/win.png"
+        myFeedbackImage="assets/win.png"
         myConsecutiveCorrect = myConsecutiveCorrect+1
         if (myConsecutiveCorrect >= myCriterion) :
             CriterionReached=True
     else :
         myTrialCorrect=False
         thisExp.addData('Correct',0)
-        myFeedbackImage="fishPix/lose.png"
+        myFeedbackImage="assets/lose.png"
         myConsecutiveCorrect = 0
     if (correctResponse=="left") :
         showLeftFish=myLeftFishFileName
-        showRightFish="fishPix/blank.png"
+        showRightFish="assets/blank.png"
     else :
-        showLeftFish="fishPix/blank.png"
+        showLeftFish="assets/blank.png"
         showRightFish=myRightFishFileName
     
     # Run 'End Routine' code from log_trial
@@ -2813,7 +2827,7 @@ while continueRoutine:
         win.callOnFlip(test_instr_key.clock.reset)  # t=0 on next screen flip
         win.callOnFlip(test_instr_key.clearEvents, eventType='keyboard')  # clear events on next screen flip
     if test_instr_key.status == STARTED and not waitOnFlip:
-        theseKeys = test_instr_key.getKeys(keyList=['lctrl','rctrl'], waitRelease=False)
+        theseKeys = test_instr_key.getKeys(keyList=['z','m','left','right'], waitRelease=False)
         _test_instr_key_allKeys.extend(theseKeys)
         if len(_test_instr_key_allKeys):
             test_instr_key.keys = _test_instr_key_allKeys[-1].name  # just the last key pressed
@@ -2871,9 +2885,9 @@ for thisTest_trial in test_trials:
     continueRoutine = True
     # update component parameters for each repeat
     # Run 'Begin Routine' code from code_3
-    myFaceFileName= "fishPix/"+face+".png"
-    myLeftFishFileName="fishPix/"+leftFish+".png"
-    myRightFishFileName="fishPix/"+rightFish+".png"
+    myFaceFileName= "assets/"+face+".png"
+    myLeftFishFileName="assets/"+leftFish+".png"
+    myRightFishFileName="assets/"+rightFish+".png"
     trial_face.setImage(myFaceFileName)
     fishOnLeft.setImage(myLeftFishFileName)
     fishOnRight.setImage(myRightFishFileName)
@@ -2993,7 +3007,7 @@ for thisTest_trial in test_trials:
             win.callOnFlip(trial_response.clock.reset)  # t=0 on next screen flip
             win.callOnFlip(trial_response.clearEvents, eventType='keyboard')  # clear events on next screen flip
         if trial_response.status == STARTED and not waitOnFlip:
-            theseKeys = trial_response.getKeys(keyList=['lctrl','rctrl'], waitRelease=False)
+            theseKeys = trial_response.getKeys(keyList=['z','m','left','right'], waitRelease=False)
             _trial_response_allKeys.extend(theseKeys)
             if len(_trial_response_allKeys):
                 trial_response.keys = _trial_response_allKeys[-1].name  # just the last key pressed
@@ -3035,9 +3049,9 @@ for thisTest_trial in test_trials:
     nFBleft=0
     nFBright=0
     
-    if(trial_response.keys == "lctrl"):
+    if(trial_response.keys == "z"):
         trial_response.keys = "left"
-    else:
+    if(trial_response.keys == "m"):
         trial_response.keys = "right"
         
     
@@ -3051,20 +3065,20 @@ for thisTest_trial in test_trials:
         myTrialCorrect=True
         thisExp.addData('Correct',1)
         myTally = myTally + 1
-        myFeedbackImage="fishPix/win.png"
+        myFeedbackImage="assets/win.png"
         myConsecutiveCorrect = myConsecutiveCorrect+1
         if (myConsecutiveCorrect >= myCriterion) :
             CriterionReached=True
     else :
         myTrialCorrect=False
         thisExp.addData('Correct',0)
-        myFeedbackImage="fishPix/lose.png"
+        myFeedbackImage="assets/lose.png"
         myConsecutiveCorrect = 0
     if (correctResponse=="left") :
         showLeftFish=myLeftFishFileName
-        showRightFish="fishPix/blank.png"
+        showRightFish="assets/blank.png"
     else :
-        showLeftFish="fishPix/blank.png"
+        showLeftFish="assets/blank.png"
         showRightFish=myRightFishFileName
     
     # Run 'End Routine' code from log_trial
@@ -3309,20 +3323,33 @@ goodbye_key.keys = []
 goodbye_key.rt = []
 _goodbye_key_allKeys = []
 # Run 'Begin Routine' code from end_data_log
+# Close data file
+data_file.close()
+
 # Calculate ratios and convert to string
-generalization = str(generalization_score/generalization_trials)
-retention = str(retention_score/retention_trials)
-acquisition = str(acquisition_score/acquisition_trials)
-# Join scores with commas
-summary = ",".join([generalization, retention, acquisition, str(acquisition_trials)])
+generalization = generalization_score/generalization_trials
+retention = retention_score/retention_trials
+acquisition = acquisition_score/acquisition_trials
 
 # Write summary to file
-data_file.write("----- SUMMARY STATISTICS -----\n")
-data_file.write("Generalization,Retention,Acquisition,Acquisition Trials\n")
-data_file.write(summary)
+header = ["subject","experiment","experimenter",
+        "date","time","acquisition",
+        "acquisition_trials","retention",
+        "retention_trials","generalization",
+        "generalization_trials"]
+info = [participant, expName, experimenter,
+        date, time, acquisition, acquisition_trials,
+        retention, retention_trials, generalization,
+        generalization_trials]
 
-# Close file
-data_file.close()
+summaries_path = os.path.join(data_path, "summaries")
+summary_filename = data_filename.split(".")[0] + "_summary.csv"
+
+with open(os.path.join(summaries_path, summary_filename), "w", newline="") as csvfile:
+    writer = csv.writer(csvfile, delimiter=",", quotechar="\"", quoting=csv.QUOTE_NONNUMERIC)
+    writer.writerow(header)
+    writer.writerow(info)
+
 # keep track of which components have finished
 goodbyeComponents = [goodbye_text1, goodbye_text2, goodbye_tally, goodbye_text3, goodbye_text4, goodbye_key]
 for thisComponent in goodbyeComponents:
@@ -3506,6 +3533,7 @@ win.flip()
 # these shouldn't be strictly necessary (should auto-save)
 thisExp.saveAsWideText(filename+'.csv', delim='auto')
 thisExp.saveAsPickle(filename)
+logging.flush()
 # make sure everything is closed down
 if eyetracker:
     eyetracker.setConnectionState(False)
