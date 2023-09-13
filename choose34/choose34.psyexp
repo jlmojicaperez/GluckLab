@@ -517,7 +517,7 @@
         <Param val="from exp settings" valType="str" updates="None" name="units"/>
         <Param val="" valType="num" updates="constant" name="wrapWidth"/>
       </TextComponent>
-      <CodeComponent name="earlyTransition2" plugin="None">
+      <CodeComponent name="earlyTransition" plugin="None">
         <Param val="" valType="extendedCode" updates="constant" name="Before Experiment"/>
         <Param val="if ((consecutiveCorrectResponses &gt;= criterion)) {&amp;#10;    trialLoop.finished = true;&amp;#10;}&amp;#10;" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin Experiment"/>
@@ -532,7 +532,7 @@
         <Param val="" valType="extendedCode" updates="constant" name="End JS Routine"/>
         <Param val="" valType="extendedCode" updates="constant" name="End Routine"/>
         <Param val="False" valType="bool" updates="None" name="disabled"/>
-        <Param val="earlyTransition2" valType="code" updates="None" name="name"/>
+        <Param val="earlyTransition" valType="code" updates="None" name="name"/>
       </CodeComponent>
     </Routine>
     <Routine name="experimentInstructions">
@@ -714,25 +714,6 @@
         <Param val="False" valType="bool" updates="constant" name="storeCorrect"/>
         <Param val="True" valType="bool" updates="constant" name="syncScreenRefresh"/>
       </KeyboardComponent>
-    </Routine>
-    <Routine name="transition">
-      <CodeComponent name="updatePhase" plugin="None">
-        <Param val="" valType="extendedCode" updates="constant" name="Before Experiment"/>
-        <Param val="" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
-        <Param val="" valType="extendedCode" updates="constant" name="Begin Experiment"/>
-        <Param val="" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
-        <Param val="" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
-        <Param val="if(not transitionedEarly and currentPhase == &quot;practice&quot;):&amp;#10;    currentPhase = &quot;training&quot;&amp;#10;elif(not transitionedEarly and currentPhase == &quot;training&quot;):&amp;#10;    currentPhase = &quot;testing&quot;&amp;#10;elif(not transitionedEarly):&amp;#10;    phasesLoop.finished = True" valType="extendedCode" updates="constant" name="Begin Routine"/>
-        <Param val="Py" valType="str" updates="None" name="Code Type"/>
-        <Param val="" valType="extendedCode" updates="constant" name="Each Frame"/>
-        <Param val="" valType="extendedCode" updates="constant" name="Each JS Frame"/>
-        <Param val="" valType="extendedCode" updates="constant" name="End Experiment"/>
-        <Param val="" valType="extendedCode" updates="constant" name="End JS Experiment"/>
-        <Param val="" valType="extendedCode" updates="constant" name="End JS Routine"/>
-        <Param val="" valType="extendedCode" updates="constant" name="End Routine"/>
-        <Param val="True" valType="bool" updates="None" name="disabled"/>
-        <Param val="updatePhase" valType="code" updates="None" name="name"/>
-      </CodeComponent>
     </Routine>
     <Routine name="copyrightInfo">
       <TextComponent name="copyright" plugin="None">

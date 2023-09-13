@@ -27,6 +27,35 @@ more severe symptoms of post-traumatic stress disorder (PTSD) symptoms
 showed an increased tendency to generalize, compared to peers with few/no
 PTSD symptoms.
 
+## Data
+
+PsychoPy automatically generates a data file which contains all
+the necessary information about the experiment, each stimuli and subject
+response (found in the `GluckLab/choose34/data/`directory).
+Addtionally, a custom summary statistics file is also generated
+(found in the `GluckLab/choose34/data/summaries` directory).
+This file is a CSV file with the following fields:
+
+| Field | Description|
+|-------|------------|
+|Subject | Value for the `Participant` field entered in the experiment settings. |
+|Experiment| Experiment name, i.e. "Choose34."|
+| Experimenter | Value for the `Experimenter` field entered in the experiment settings. |
+| Date | Date experiment started in the format `Weekday(full name), Month(full name) Day(dd), Year(yyyy)`.|
+| Time | Time the experiment started in the format `Hour(00-12):Minute(00-59):Second(00-59) AM/PM`.|
+| Condition | Which condition was set in the experiment's settings (`C` for concurrent training, `S` for shaping).|
+| Task | This is just a legacy parameter from Choose 32.1 which is not included in Choose 34. However it is included in the data sumary to make Choose 34 summaries identical in structure to those generated for Choose 32.1. |
+| Training Accuracy Average | Subject's accuracy $\left(\frac{\text{Correct Responses}}{\text{Total Responses}}\right)$ during the training phase.
+| Training Errors | Number of errors the subject had during the training phase. |
+| Training Average RT | Average response time in seconds during the training phase. |
+| Train Trials | Number of trials in the training phase. |
+| Probe Accuracy Average | Subject's accuracy $\left(\frac{\text{Correct Responses}}{\text{Total Responses}}\right)$ during the probe/testing phase.
+|Probe Errors | Number of errors the subject had during the probe/testing phase. |
+| Probe Average RT | Average response time in seconds during the probe/testing phase. |
+| Probe Trials | Number of trials in the probing/testing phase. |
+
+This summary file contains all the data ready to be uploaded to the Gluck Lab database.
+
 ## PsychoPy Implementation
 
 The PsychoPy implementation of the main parts of Choose 34 is
@@ -111,8 +140,9 @@ broken down into the following routines:
   - End routine:
 
     - If the subject's consecutive correct responses reached the
-    `criterion`, we update the `currentPhase` to the next phase and we
-    terminate trials loop early by setting `trialsLoop.finished = True`.
+    `criterion`, we terminate trials loop early by setting
+    `trialsLoop.finished = True`. The next iteration of `phasesLoop` sets
+    the `currentPhase` variable to the next phase of the experiment.
     In the case that we are evaluating to a fixed number of trials
     `criterion` is set to infinity, so early transition will never happen.
 
@@ -128,13 +158,6 @@ broken down into the following routines:
     - Simple screen with text instructions:
       ![Choose 34 Post Practice Screen](../imgs/Choose34PostPracticeScreen.png)
     - Routine terminates once the subject gives any valid keyboard response.
-
-- Transtion
-
-  - Begin Routine:
-
-    - In case there was no early transition, this updates `currentPhase`
-    to the next phase after the trials loop is finished.
 
 - End Experiment:
 
@@ -409,31 +432,5 @@ this second problem and allowed us to make all the objects have a
 transparent background. Making the the backgrounds transparent made
 it so the objects didn't look like patches on the screen, improving
 the overall visual quality of the experiment. This small delay also
-made it so the experiment looks more alike the Choose 33 MacOS experiment.
+made it so the experiment looks more like the Choose 33 MacOS experiment.
 
-## Data
-
-PsychoPy automatically generates a data file which contains all
-the necessary information about the experiment, each stimuli and subject
-response. However, these files (found in the `GluckLab/choose34/data/`
-directory) also contain unnecessary information which makes the file
-a little cluttered. Addtionally, a custom summary statistics
-file is also generated (found in the `GluckLab/choose34/data/summaries`
-directory). This file is a CSV file with the following fields:
-
-| Field | Description|
-|-------|------------|
-|Experiment| Experiment name, i.e. "Choose34."|
-|Subject ID| Value for the `Participant` field entered in the experiment settings. |
-| Experimenter | Value for the `Experimenter` field entered in the experiment settings. |
-| Date | Date experiment started in the format `Weekday(full name), Month(full name) Day(dd), Year(yyyy)`|
-| Time | Time the experiment started in the format `Hour(00-12):Minute(00-59):Second(00-59) AM/PM`|
-| Training Accuracy Average | Subject's accuracy $\left(\frac{\text{Correct Responses}}{\text{Total Responses}}\right)$ during the training phase.
-| Training RT Average | Average response time in seconds during the training phase. |
-| Training Errors | Number of errors the subject had during the training phase. |
-| Probe Accuracy Average | Subject's accuracy $\left(\frac{\text{Correct Responses}}{\text{Total Responses}}\right)$ during the probe/testing phase.
-| Probe RT Average | Average response time in seconds during the probe/testing phase. |
-|Probe Errors | Number of errors the subject had during the probe/testing phase. |
-
-This summary file contains all the data ready to be uploaded to the Gluck Lab data
-base.

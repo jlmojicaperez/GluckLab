@@ -1,5 +1,5 @@
-face,leftFish,rightFish,correctResponse
-girl,blue,red,left
-girl,red,blue,right
-woman,red,blue,left
-woman,blue,red,right
+"face","leftFish","rightFish","correctResponse"
+"woman","red","blue","left"
+"woman","blue","red","right"
+"girl","blue","red","left"
+"girl","red","blue","right"
