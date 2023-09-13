@@ -49,17 +49,19 @@ down into the following routines:
 
 - Train Instructions:
     - Begin Routine:
-        - Shows a screen with the instructions for the training phases of
-        the experiment.
         - Initializes data summary variables (acquisition, retention,
         generalization scores, etc.)
         - Initializes variables that are used by Fish 14's legacy code.
         - Writes the header for that face onto the custom data file.
+        - Shows a screen with the instructions for the training phases of
+        the experiment.
+        ![Fish 15 Training Instructions Screen](../imgs/Fish15TrainInstructionsScreen.png)
 
 - Run Trial:
     - Begin Routine:
         - Shows a screen with a face and two fishes and prompts the subject
         to choose which fish corresponds to that face.
+        ![Fish 15 Run Trial Screen](../imgs/Fish15TrainingChooseScreen.png)
     - End Routine:
         - Updates the summary variables based on the results of the current
         trial.
@@ -71,6 +73,8 @@ down into the following routines:
         - Reveals the correct answer to the subject by showing a circle of
         in the positon of their response, hiding the incorrect choice, and
         showing a text saying either correct or incorrect.
+        ![Fish 15 DoFBX Screen Correct Subject Answer](../imgs/Fish15TrainingRevealScreenCorrect.png)
+        ![Fish 15 DoFBX Screen Incorrect Subject Answer](../imgs/Fish15TrainingRevealScreenIncorrect.png)
     - End Routine:
         - If the subject's consecutive correct answers have reached the
         criterion value then the current phase is terminated early.
@@ -83,27 +87,32 @@ down into the following routines:
 
 - Test Instructions:
     - Begin Routine:
+        - Writes the header for the test phase onto the custom data file.
         - Shows the instructions for the probing/testing phase of the
         experiment (phase 3).
-        - Writes the header for the test phase onto the custom data file.
+        ![Fish 15 Test Instructions Screen](../imgs/Fish15TestInstructionsScreen.png)
 
 - NoFB:
     - Begin Routine:
-        - Shows a circle in the postion of the subject's response (left or
-        right). **Does not** reveal the correct answer in any form.
         - Updates variables used by the Fish 14 legacy code.
+        - Shows a circle in the postion of the subject's response (left or
+        right). This routine **does not** reveal the correct answer in any form,
+        regardless of the subject's response.
+        ![Fish 15 NoFB Screen](../imgs/Fish15TestingRevealScreenCorrect.png)
+        ![Fish 15 NoFB Screen](../imgs/Fish15TestingRevealScreenIncorrect.png)
 
 - Goodbye:
     - Begin Routine:
-        - Shows a screen instructing the subject that the experiment has
-        ended, along with a tally of their correct responses throughout
-        the experiment.
         - Calculates the subject's acquisition, retention, and
         generalization score.  
         - Creates and writes a summary file with all the scores
         and experiment information (subject, experiment, experimenter,
         date, and time). This file can be found in
         `GluckLab/fish15/data/summaries`.
+        - Shows a screen instructing the subject that the experiment has
+        ended, along with a tally of their correct responses throughout
+        the experiment.
+        ![Fish 15 Goodbye Screen](../imgs/Fish15GoodbyeScreen.png)
 
 ## Phases
 
@@ -222,3 +231,4 @@ shares the same pair of fishes. This pairings are written as a CSV
 file to `GluckLab/experimentFiles/face_fish_pairings.csv`
 
 ### Stimuli Files
+
