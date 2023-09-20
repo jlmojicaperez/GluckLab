@@ -31,7 +31,7 @@ PTSD symptoms.
 
 PsychoPy automatically generates a data file which contains all
 the necessary information about the experiment, each stimuli and subject
-response (found in the `GluckLab/choose34/data/`directory).
+response (found in the `GluckLab/choose34/data/` directory).
 Addtionally, a custom summary statistics file is also generated
 (found in the `GluckLab/choose34/data/summaries` directory).
 This file is a CSV file with the following fields:
@@ -45,11 +45,11 @@ This file is a CSV file with the following fields:
 | Time | Time the experiment started in the format `Hour(00-12):Minute(00-59):Second(00-59) AM/PM`.|
 | Condition | Which condition was set in the experiment's settings (`C` for concurrent training, `S` for shaping).|
 | Task | This is just a legacy parameter from Choose 32.1 which is not included in Choose 34. However it is included in the data sumary to make Choose 34 summaries identical in structure to those generated for Choose 32.1. |
-| Training Accuracy Average | Subject's accuracy $\left(\frac{\text{Correct Responses}}{\text{Total Responses}}\right)$ during the training phase.
+| Training Accuracy Average | Subject's accuracy during the training phase $\left(\frac{\text{Correct Responses}}{\text{Train Trials}}\right)$.|
 | Training Errors | Number of errors the subject had during the training phase. |
 | Training Average RT | Average response time in seconds during the training phase. |
 | Train Trials | Number of trials in the training phase. |
-| Probe Accuracy Average | Subject's accuracy $\left(\frac{\text{Correct Responses}}{\text{Total Responses}}\right)$ during the probe/testing phase.
+| Probe Accuracy Average | Subject's accuracy  during the probe/testing phase $\left(\frac{\text{Correct Responses}}{\text{Probe Trials}}\right)$.|
 |Probe Errors | Number of errors the subject had during the probe/testing phase. |
 | Probe Average RT | Average response time in seconds during the probe/testing phase. |
 | Probe Trials | Number of trials in the probing/testing phase. |
