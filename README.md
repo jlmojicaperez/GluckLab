@@ -12,8 +12,18 @@ Alliance. Developed at Rutgers University CMBN - Gluck Lab.
 Current content:
 - [Fish 15](./fish15/): Fish Acquired Equivalence task implemented as a PsychoPy experiment
 - [Choose 34](./choose34/): Choose Concurrent Discrimination Task implemented as a PsychoPy experiment
-- [Utils](./utils/): Useful scripts and tools
-  - [Autoscore](./utils/autoscore): a program which automatically scores Fish 8.1a and/or Choose 32.1 output files
+- [Utils](./utils/): Useful scripts and tools.
+  - [Autoscore](./utils/autoscore.py): a program which automatically scores Fish 8.1a and/or Choose 32.1 output files
+
+## Get the repository
+
+Clone this repository using git and the following command **(Recommeneded)**:
+
+```text
+git clone https://github.com/J-Mojica/GluckLab.git
+```
+
+- Alternatively you can download and decompress the zipped repository. [Click here to download.][GluckLabZippedRepo]
 
 ## Running the Generalization Tasks
 
@@ -34,16 +44,6 @@ All versions of the Standalone app can be found [here][PsychoPyReleases].
   - Click the add button.
   - Select the PsychoPy app in the list, then click Open.
   
-### Get the Files Repository
-
-- Clone this repository using git and the following command **(Recommeneded)**:
-
-```text
-git clone https://github.com/J-Mojica/GluckLab.git
-```
-
-- Alternatively you can download and decompress the zipped repository. [Click here to download.][GluckLabZippedRepo]
-
 ### Fish 15
 
 - Open the file named `fish15.psyexp` found in `GluckLab/fish15/`. If prompted,
@@ -72,6 +72,20 @@ Acceptable values: Any positive integer.
 appears in both the left and right position. e.g. 1 block of 8 pairs -> 16 trials, 1 block of 6 pairs -> 12 trials.
 Acceptable values: Any positive integer.
 
+## Autoscoring Fish 8.1a and Choose 32.1 Output files
+
+The [utils directory](./utils/) contains an auto-scoring program
+for the output files of Fish 8.1a and Choose 32.1. To use it:
+
+- Copy all the Fish 8.1a and Choose 32.1 you wish to score on a single
+directory and copy its path (`<DATA PATH>`).
+- Navigate to the `GluckLab` repository on a terminal.
+- Use the following command:
+
+```python
+python utils/autoscore.py <DATA PATH>
+```
+
 [PsychoPyDownloadInstructions]: https://www.psychopy.org/download.html
 [PsychoPyReleases]: https://github.com/psychopy/psychopy/releases
 [PyschoPy2023.1.2]: https://github.com/psychopy/psychopy/releases/tag/2023.1.2
@@ -80,3 +94,5 @@ Acceptable values: Any positive integer.
 [GluckLabZippedRepo]: https://github.com/J-Mojica/GluckLab/archive/refs/heads/main.zip
 [RutgersBrainLogo]: ./imgs/Rutgers-AgingAndBrainHealthAllianceLogo.png
 [RutgersBrainHealthWebsite]: https://brainhealth.rutgers.edu/
+
+
