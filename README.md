@@ -1,9 +1,14 @@
 # GluckLab
 
+<div align="center">
+  <a href="https://brainhealth.rutgers.edu/">
+    <img src=./imgs/Rutgers-AgingAndBrainHealthAllianceLogo.png width=500/>
+  </a>
+</div>
 
-[![Rutgers-AgingAndBrainHealthAllianceLogo][RutgersBrainLogo]][RutgersBrainHealthWebsite]
+
 <p align="center">
-【 <a href="./documentation/fish15_documentation.md">Fish 15 Documentation</a> | <a href="./documentation/choose34_documentation.md">Choose 34 Documentation</a> | <a heref="./documentation/utils_documentation.md">Utils Documentaton </a>】
+【 <a href="./documentation/fish15_documentation.md">Fish 15 Documentation</a> | <a href="./documentation/choose34_documentation.md">Choose 34 Documentation</a> | <a href="./documentation/utils_documentation.md">Utils Documentaton</a> 】
 </p>
 
 GluckLab is a repository for the software created for the Aging and Brain Health
