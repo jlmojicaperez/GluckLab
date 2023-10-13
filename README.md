@@ -57,7 +57,8 @@ in the PsychoPy app.
 - Select the "Run Experiment" button and follow the instructions on screen.
 - The "LEFT" and "RIGHT" keys are `z` and `m` or the left and right arrow keys.
 - To quit the experiment early press the ESC key.
-
+#### Settings
+- **Language**: Changes the language of the experiment on-screen instructions. The following languages are supported: `english` and `spanish`(`español`).
 ### Choose 34
 
 - Open the file named `choose34.psyexp` found in `GluckLab/choose34/`. If prompted,
@@ -67,6 +68,7 @@ in the PsychoPy app.
 - The "LEFT" and "RIGHT" keys are `z` and `m`.
 - To quit the experiment early press the ESC key.
 #### Settings
+- **Language**: Changes the language of the experiment on-screen instructions. The following languages are supported: `english` and `spanish`(`español`).
 - **Condition**: Concurrent training or Shaping. Currently this setting does not do anything. Acceptable values: `C` or `S`.
 - **Number of pairs**: How many pairs of objects to use during the experiment. Acceptable values: Any value on the range `[1,8]`.
 - **Evaluate to criterion or fixed number of trials?**: Acceptable values: `criterion`, `Criterion`, `fixed`, `Fixed`
@@ -95,7 +97,7 @@ python utils/autoscore.py <DATA PATH>
 [PsychoPyReleases]: https://github.com/psychopy/psychopy/releases
 [PyschoPy2023.1.2]: https://github.com/psychopy/psychopy/releases/tag/2023.1.2
 [PyschoPy2023.1.2Windows]: https://github.com/psychopy/psychopy/releases/download/2023.1.2/StandalonePsychoPy-2023.1.2-win64.exe
-[PyschoPy2023.1.2MacOS]:[https://github.com/psychopy/psychopy/releases/download/2023.1.2/StandalonePsychoPy-2023.1.2-macOS.dmg]
+[PyschoPy2023.1.2MacOS]:https://github.com/psychopy/psychopy/releases/download/2023.1.2/StandalonePsychoPy-2023.1.2-macOS.dmg
 [GluckLabZippedRepo]: https://github.com/J-Mojica/GluckLab/archive/refs/heads/main.zip
 [RutgersBrainLogo]: ./imgs/Rutgers-AgingAndBrainHealthAllianceLogo.png
 [RutgersBrainHealthWebsite]: https://brainhealth.rutgers.edu/
