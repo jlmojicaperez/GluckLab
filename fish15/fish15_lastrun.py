@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2023.1.2),
-    on October 13, 2023, at 14:03
+    on October 13, 2023, at 15:53
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -339,12 +339,18 @@ fb_text = {
     False: {"english":"Incorrect!", "spanish":"¡Incorrecto!"},
 }
 
+supported_languages = ["english", "español"]
+
 language = expInfo["language"].lower()
 if(language == "spanish" or language == "español"):
     language = "spanish"
 elif(language == "english"):
     language = "english"
-
+else:
+    print("Language not supported. The supported languages are:", file=sys.stderr)
+    for lang in supported_languages:
+        print(lang, file=sys.stderr)
+        
 texts = {}
 
 with open(os.path.join(exp_files_path, "texts.csv"), mode="r", newline="", encoding="utf-8") as csvfile:
@@ -996,7 +1002,7 @@ for thisComponent in train_instrComponents:
 routineTimer.reset()
 
 # set up handler to look after randomisation of conditions etc
-trials1 = data.TrialHandler(nReps=1, method='random', 
+trials1 = data.TrialHandler(nReps=5, method='random', 
     extraInfo=expInfo, originPath=-1,
     trialList=data.importConditions('experimentFiles/phase0.csv'),
     seed=None, name='trials1')
@@ -1476,7 +1482,7 @@ for thisTrials1 in trials1:
     routineTimer.reset()
     thisExp.nextEntry()
     
-# completed 1 repeats of 'trials1'
+# completed 5 repeats of 'trials1'
 
 
 # --- Prepare to start Routine "next_stage" ---
@@ -1550,7 +1556,7 @@ for thisComponent in next_stageComponents:
 routineTimer.reset()
 
 # set up handler to look after randomisation of conditions etc
-trials2 = data.TrialHandler(nReps=1, method='random', 
+trials2 = data.TrialHandler(nReps=5, method='random', 
     extraInfo=expInfo, originPath=-1,
     trialList=data.importConditions('experimentFiles/phase1.csv'),
     seed=None, name='trials2')
@@ -2030,7 +2036,7 @@ for thisTrials2 in trials2:
     routineTimer.reset()
     thisExp.nextEntry()
     
-# completed 1 repeats of 'trials2'
+# completed 5 repeats of 'trials2'
 
 
 # --- Prepare to start Routine "next_stage" ---
@@ -2104,7 +2110,7 @@ for thisComponent in next_stageComponents:
 routineTimer.reset()
 
 # set up handler to look after randomisation of conditions etc
-trials3 = data.TrialHandler(nReps=1, method='sequential', 
+trials3 = data.TrialHandler(nReps=5, method='sequential', 
     extraInfo=expInfo, originPath=-1,
     trialList=data.importConditions('experimentFiles/phase2.csv'),
     seed=None, name='trials3')
@@ -2584,7 +2590,7 @@ for thisTrials3 in trials3:
     routineTimer.reset()
     thisExp.nextEntry()
     
-# completed 1 repeats of 'trials3'
+# completed 5 repeats of 'trials3'
 
 
 # --- Prepare to start Routine "test_instr" ---
@@ -2702,7 +2708,7 @@ for thisComponent in test_instrComponents:
 routineTimer.reset()
 
 # set up handler to look after randomisation of conditions etc
-test_trials = data.TrialHandler(nReps=1, method='random', 
+test_trials = data.TrialHandler(nReps=3, method='random', 
     extraInfo=expInfo, originPath=-1,
     trialList=data.importConditions('experimentFiles/phase3.csv'),
     seed=None, name='test_trials')
@@ -3152,7 +3158,7 @@ for thisTest_trial in test_trials:
     routineTimer.reset()
     thisExp.nextEntry()
     
-# completed 1 repeats of 'test_trials'
+# completed 3 repeats of 'test_trials'
 
 
 # --- Prepare to start Routine "goodbye" ---

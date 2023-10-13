@@ -1,5 +1,5 @@
 Left_Stim,Right_Stim,Correct_Response
-s1c3,s2c3,right
-s2c3,s1c3,left
-s22c24,s23c24,right
-s23c24,s22c24,left
+s3c1,s3c2,left
+s3c2,s3c1,right
+s10c8,s10c98,left
+s10c98,s10c8,right

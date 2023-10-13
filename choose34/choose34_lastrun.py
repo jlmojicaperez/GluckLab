@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2023.1.2),
-    on October 13, 2023, at 14:49
+    on October 13, 2023, at 15:48
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -200,9 +200,9 @@ if(int(expInfo["Number of pairs"]) > 8 or int(expInfo["Number of pairs"]) < 1):
     exit()
     
 critOrFixed = expInfo["Evaluate to criterion or fixed number of trials?"]
-if(critOrFixed in set(["criterion", "Criterion"])):
+if(critOrFixed.lower() != "criterion"):
     evalToCriterion = True
-elif(critOrFixed in set(["fixed", "Fixed"])):
+elif(critOrFixed.lower() != "fixed"):
     evalToCriterion = False
 else:
     print("Evaluate to criterion or fixed number of trials must set to either 'criterion' or 'fixed'", file=sys.stderr)
@@ -280,11 +280,17 @@ with open(os.path.join(expFilesPath, "practice.csv"), "w") as f:
     f.write(f"{practice0},{practice1}\n")
     f.write(f"{practice1},{practice0}\n")
 # Run 'Begin Experiment' code from language
+supported_languages = ["english", "español"]
+
 language = expInfo["Language"].lower()
 if(language == "spanish" or language == "español"):
     language = "spanish"
 elif(language == "english"):
     language = "english"
+else:
+    print("Language not supported. The supported languages are:", file=sys.stderr)
+    for lang in supported_languages:
+        print(lang, file=sys.stderr)
 
 texts = {}
 
@@ -295,7 +301,7 @@ with open(os.path.join(expFilesPath, "texts.csv"), mode="r", newline="", encodin
 
 # --- Initialize components for Routine "copyrightInfo" ---
 copyright = visual.TextStim(win=win, name='copyright',
-    text='Choose 34, running on PsychoPy (v.2023.1.2)\n\nChoose 34 is a neuroscience experiment to test the generalization performance of individuals.\n   Copyright (C) 2023 Jose Mojica Perez\n\n    This program is free software: you can redistribute it and/or modify\n    it under the terms of the GNU Affero General Public License as\n    published by the Free Software Foundation, either version 3 of the\n    License, or (at your option) any later version.\n\n    This program is distributed in the hope that it will be useful,\n    but WITHOUT ANY WARRANTY; without even the implied warranty of\n    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n    GNU Affero General Public License for more details.\n\n    You should have received a copy of the GNU Affero General Public License\n    along with this program.  If not, see <https://www.gnu.org/licenses/>.\n\nPress either the "LEFT" or "RIGHT" key to continue.',
+    text='',
     font='Open Sans',
     pos=(0, 0), height=0.035, wrapWidth=1.5, ori=0.0, 
     color='black', colorSpace='rgb', opacity=None, 
@@ -305,7 +311,7 @@ copyrightResponse = keyboard.Keyboard()
 
 # --- Initialize components for Routine "reference" ---
 referenceText = visual.TextStim(win=win, name='referenceText',
-    text='Design is adapted from the task originally described in: \nMyers, C. E., Kluger, A., Golomb, J., Ferris, S., de Leon, M., Schnirman, G. & Gluck, M. \n(2002). Hippocampal atrophy disrupts transfer generalization in non-demented elderly. \nJournal of Geriatric Psychiatry and Neurology, 15(2), 82-90. PMID: 12083598; \ndoi:10.1177/089198870201500206\n\nDesign is based on the description of Choose 33 written by Catherine E. Myers.\n\nPress either the "LEFT" or "RIGHT" key to continue.',
+    text='',
     font='Open Sans',
     pos=(0, 0), height=0.035, wrapWidth=1.5, ori=0.0, 
     color='black', colorSpace='rgb', opacity=None, 
@@ -539,7 +545,7 @@ while continueRoutine:
     # if copyright is active this frame...
     if copyright.status == STARTED:
         # update params
-        pass
+        copyright.setText(texts["copyright"], log=False)
     
     # *copyrightResponse* updates
     waitOnFlip = False
@@ -639,7 +645,7 @@ while continueRoutine:
     # if referenceText is active this frame...
     if referenceText.status == STARTED:
         # update params
-        pass
+        referenceText.setText(texts["referenceText"], log=False)
     
     # *referenceResponse* updates
     waitOnFlip = False
