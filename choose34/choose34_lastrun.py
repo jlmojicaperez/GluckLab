@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2023.1.2),
-    on September 13, 2023, at 13:24
+    on October 13, 2023, at 15:48
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -37,12 +37,20 @@ import random
 import csv
 import datetime
 # Run 'Before Experiment' code from constants
-assetsPath = "./assets/"
-trainingPath =  "./assets/training/"
-testingPath = "./assets/testing/"
-expFilesPath = "./experimentFiles/"
-dataPath = "./data/"
-summariesPath = dataPath + "summaries/"
+assetsPath = os.path.join(os.getcwd(), "assets")
+trainingPath =  os.path.join(assetsPath, "training")
+testingPath = os.path.join(assetsPath, "testing")
+expFilesPath = os.path.join(os.getcwd(), "experimentFiles")
+dataPath = os.path.join(os.getcwd(), "data")
+summariesPath = os.path.join(dataPath, "summaries")
+
+if(not os.path.exists(dataPath)):
+    os.mkdir(dataPath)
+if(not os.path.exists(summariesPath)):
+    os.mkdir(summariesPath)
+if(not os.path.exists(expFilesPath)):
+    os.mkdir(expFilesPath)
+
 
 expDateTime = datetime.datetime.now()
 # Weekday(full name), Month(full name) Day(dd), Year(yyyy)
@@ -116,6 +124,7 @@ expName = 'Choose34'  # from the Builder filename that created this script
 expInfo = {
     'Participant': '',
     'Experimenter': '',
+    'Language': 'english',
     'Condition': 'C',
     'Number of pairs': '8',
     'Evaluate to criterion or fixed number of trials?': 'criterion',
@@ -150,7 +159,7 @@ frameTolerance = 0.001  # how close to onset before 'same' frame
 
 # --- Setup the Window ---
 win = visual.Window(
-    size=[1536, 960], fullscr=True, screen=0, 
+    size=[1920, 1200], fullscr=True, screen=0, 
     winType='pyglet', allowStencil=False,
     monitor='testMonitor', color=[1.0000, 1.0000, 1.0000], colorSpace='rgb',
     backgroundImage='', backgroundFit='none',
@@ -191,9 +200,9 @@ if(int(expInfo["Number of pairs"]) > 8 or int(expInfo["Number of pairs"]) < 1):
     exit()
     
 critOrFixed = expInfo["Evaluate to criterion or fixed number of trials?"]
-if(critOrFixed in set(["criterion", "Criterion"])):
+if(critOrFixed.lower() != "criterion"):
     evalToCriterion = True
-elif(critOrFixed in set(["fixed", "Fixed"])):
+elif(critOrFixed.lower() != "fixed"):
     evalToCriterion = False
 else:
     print("Evaluate to criterion or fixed number of trials must set to either 'criterion' or 'fixed'", file=sys.stderr)
@@ -247,8 +256,8 @@ for pair in pairs:
         
 
 # Run 'Begin Experiment' code from generateStimFiles
-with open(expFilesPath + "training.csv", "w") as f1:
-    with open(expFilesPath + "testing.csv", "w") as f2:
+with open(os.path.join(expFilesPath, "training.csv"), "w") as f1:
+    with open(os.path.join(expFilesPath, "testing.csv"), "w") as f2:
         f1.write("Left_Stim,Right_Stim,Correct_Response\n")
         f2.write("Left_Stim,Right_Stim,Correct_Response\n")
         for pair in pairs:
@@ -265,15 +274,34 @@ with open(expFilesPath + "training.csv", "w") as f1:
                 f2.write(f"{test0},{test1},right\n")
                 f2.write(f"{test1},{test0},left\n")
                 
-with open(expFilesPath + "practice.csv", "w") as f:
+with open(os.path.join(expFilesPath, "practice.csv"), "w") as f:
     f.write("Left_Stim,Right_Stim\n")
     practice0, practice1 = practicePair
     f.write(f"{practice0},{practice1}\n")
     f.write(f"{practice1},{practice0}\n")
+# Run 'Begin Experiment' code from language
+supported_languages = ["english", "español"]
+
+language = expInfo["Language"].lower()
+if(language == "spanish" or language == "español"):
+    language = "spanish"
+elif(language == "english"):
+    language = "english"
+else:
+    print("Language not supported. The supported languages are:", file=sys.stderr)
+    for lang in supported_languages:
+        print(lang, file=sys.stderr)
+
+texts = {}
+
+with open(os.path.join(expFilesPath, "texts.csv"), mode="r", newline="", encoding="utf-8") as csvfile:
+    reader = csv.DictReader(csvfile)
+    for row in reader:
+        texts[row["text_object"]] = row[language].replace("\\n","\n")
 
 # --- Initialize components for Routine "copyrightInfo" ---
 copyright = visual.TextStim(win=win, name='copyright',
-    text='Choose 34, running on PsychoPy (v.2023.1.2)\n\nChoose 34 is a neuroscience experiment to test the generalization performance of individuals.\n   Copyright (C) 2023 Jose Mojica Perez\n\n    This program is free software: you can redistribute it and/or modify\n    it under the terms of the GNU Affero General Public License as\n    published by the Free Software Foundation, either version 3 of the\n    License, or (at your option) any later version.\n\n    This program is distributed in the hope that it will be useful,\n    but WITHOUT ANY WARRANTY; without even the implied warranty of\n    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n    GNU Affero General Public License for more details.\n\n    You should have received a copy of the GNU Affero General Public License\n    along with this program.  If not, see <https://www.gnu.org/licenses/>.\n\nPress either the "LEFT" or "RIGHT" key to continue.',
+    text='',
     font='Open Sans',
     pos=(0, 0), height=0.035, wrapWidth=1.5, ori=0.0, 
     color='black', colorSpace='rgb', opacity=None, 
@@ -283,7 +311,7 @@ copyrightResponse = keyboard.Keyboard()
 
 # --- Initialize components for Routine "reference" ---
 referenceText = visual.TextStim(win=win, name='referenceText',
-    text='Design is adapted from the task originally described in: \nMyers, C. E., Kluger, A., Golomb, J., Ferris, S., de Leon, M., Schnirman, G. & Gluck, M. \n(2002). Hippocampal atrophy disrupts transfer generalization in non-demented elderly. \nJournal of Geriatric Psychiatry and Neurology, 15(2), 82-90. PMID: 12083598; \ndoi:10.1177/089198870201500206\n\nDesign is based on the description of Choose 33 written by Catherine E. Myers.\n\nPress either the "LEFT" or "RIGHT" key to continue.',
+    text='',
     font='Open Sans',
     pos=(0, 0), height=0.035, wrapWidth=1.5, ori=0.0, 
     color='black', colorSpace='rgb', opacity=None, 
@@ -293,7 +321,7 @@ referenceResponse = keyboard.Keyboard()
 
 # --- Initialize components for Routine "experimentInstructions" ---
 instructions1 = visual.TextStim(win=win, name='instructions1',
-    text='Welcome to the experiment.\n\nYou will see pairs of objects. Each time there is a smiley face hidden under one of the objects. It looks like this:',
+    text='',
     font='Open Sans',
     pos=(0, 0.15), height=0.035, wrapWidth=None, ori=0.0, 
     color='black', colorSpace='rgb', opacity=None, 
@@ -308,7 +336,7 @@ smileySample = visual.ImageStim(
     flipHoriz=False, flipVert=False,
     texRes=128.0, interpolate=True, depth=-1.0)
 instructions2 = visual.TextStim(win=win, name='instructions2',
-    text='Each time, use the \'\'LEFT" or "RIGHT" key to choose the object you think the smiley face is under. In the beginning you will have to guess.\n\nPress the button to see an example of the first kind of pair.',
+    text='',
     font='Open Sans',
     pos=(0, -0.15), height=0.035, wrapWidth=None, ori=0.0, 
     color='black', colorSpace='rgb', opacity=None, 
@@ -344,7 +372,7 @@ floorLine = visual.ImageStim(
     flipHoriz=False, flipVert=False,
     texRes=128.0, interpolate=True, depth=-3.0)
 textPrompt = visual.TextStim(win=win, name='textPrompt',
-    text='Which object is the smiley face under?',
+    text='',
     font='Open Sans',
     pos=(0, -0.25), height=0.035, wrapWidth=None, ori=0.0, 
     color='black', colorSpace='rgb', opacity=1.0, 
@@ -386,7 +414,7 @@ floorLineReveal = visual.ImageStim(
     flipHoriz=False, flipVert=False,
     texRes=128.0, interpolate=True, depth=-3.0)
 textPrompt2 = visual.TextStim(win=win, name='textPrompt2',
-    text='Which object is the smiley face under?',
+    text='',
     font='Open Sans',
     pos=(0, -0.25), height=0.035, wrapWidth=None, ori=0.0, 
     color='black', colorSpace='rgb', opacity=1.0, 
@@ -395,7 +423,7 @@ textPrompt2 = visual.TextStim(win=win, name='textPrompt2',
 
 # --- Initialize components for Routine "postPracticeInstructions" ---
 postPracticeText = visual.TextStim(win=win, name='postPracticeText',
-    text='Good!\n\nNow you will see different pairs.\n\nKeep trying to find the smiley face each time.\n\nPress either the "LEFT" or "RIGHT" key to continue.',
+    text='',
     font='Open Sans',
     pos=(0, 0), height=0.035, wrapWidth=None, ori=0.0, 
     color='black', colorSpace='rgb', opacity=None, 
@@ -405,7 +433,7 @@ postPracticeResp = keyboard.Keyboard()
 
 # --- Initialize components for Routine "endExperiment" ---
 endText = visual.TextStim(win=win, name='endText',
-    text='The End.\n\nThanks for playing.\n\nPlease inform the experimenter that you are done.',
+    text='',
     font='Open Sans',
     pos=(0, 0), height=0.035, wrapWidth=None, ori=0.0, 
     color='black', colorSpace='rgb', opacity=None, 
@@ -517,7 +545,7 @@ while continueRoutine:
     # if copyright is active this frame...
     if copyright.status == STARTED:
         # update params
-        pass
+        copyright.setText(texts["copyright"], log=False)
     
     # *copyrightResponse* updates
     waitOnFlip = False
@@ -617,7 +645,7 @@ while continueRoutine:
     # if referenceText is active this frame...
     if referenceText.status == STARTED:
         # update params
-        pass
+        referenceText.setText(texts["referenceText"], log=False)
     
     # *referenceResponse* updates
     waitOnFlip = False
@@ -717,7 +745,7 @@ while continueRoutine:
     # if instructions1 is active this frame...
     if instructions1.status == STARTED:
         # update params
-        pass
+        instructions1.setText(texts["instructions1"], log=False)
     
     # *smileySample* updates
     
@@ -753,7 +781,7 @@ while continueRoutine:
     # if instructions2 is active this frame...
     if instructions2.status == STARTED:
         # update params
-        pass
+        instructions2.setText(texts["instructions2"], log=False)
     
     # *expInstructionsResponse* updates
     waitOnFlip = False
@@ -915,8 +943,8 @@ for thisPhasesLoop in phasesLoop:
         continueRoutine = True
         # update component parameters for each repeat
         # Run 'Begin Routine' code from setImgsPaths
-        leftImgPath = assetsPath + currentPhase + "/" + Left_Stim + ".png"
-        rightImgPath = assetsPath + currentPhase + "/" + Right_Stim + ".png"
+        leftImgPath = os.path.join(assetsPath, currentPhase, Left_Stim + ".png")
+        rightImgPath = os.path.join(assetsPath, currentPhase, Right_Stim + ".png")
         
         
         leftStim.setImage(leftImgPath)
@@ -1018,7 +1046,7 @@ for thisPhasesLoop in phasesLoop:
             # if textPrompt is active this frame...
             if textPrompt.status == STARTED:
                 # update params
-                pass
+                textPrompt.setText(texts["textPrompt"], log=False)
             
             # *Subject_Response* updates
             waitOnFlip = False
@@ -1293,7 +1321,7 @@ for thisPhasesLoop in phasesLoop:
             # if textPrompt2 is active this frame...
             if textPrompt2.status == STARTED:
                 # update params
-                pass
+                textPrompt2.setText(texts["textPrompt2"], log=False)
             
             # if textPrompt2 is stopping this frame...
             if textPrompt2.status == STARTED:
@@ -1407,7 +1435,7 @@ for thisPhasesLoop in phasesLoop:
             # if postPracticeText is active this frame...
             if postPracticeText.status == STARTED:
                 # update params
-                pass
+                postPracticeText.setText(texts["postPracticeText"], log=False)
             
             # *postPracticeResp* updates
             waitOnFlip = False
@@ -1492,8 +1520,8 @@ info = {
         "probe_trials": probeTrials
     }
 
-summary_filename = f"{summariesPath}{expName}_{expInfo['Participant']}_summary.csv"
-with open(summary_filename, "w", newline="") as csvfile:
+summary_file = os.path.join(summariesPath, f"{expName}_{expInfo['Participant']}_summary.csv")
+with open(summary_file, "w", newline="") as csvfile:
     writer = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_NONNUMERIC)
     writer.writerow([key for key in info])
     writer.writerow([val for val in info.values()]) 
@@ -1540,7 +1568,7 @@ while continueRoutine:
     # if endText is active this frame...
     if endText.status == STARTED:
         # update params
-        pass
+        endText.setText(texts["endText"], log=False)
     
     # *endResp* updates
     waitOnFlip = False
