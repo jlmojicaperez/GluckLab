@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2023.1.2),
-    on September 13, 2023, at 14:36
+    on October 13, 2023, at 14:03
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -34,37 +34,6 @@ from psychopy.hardware import keyboard
 # Run 'Before Experiment' code from imports
 import random
 import csv
-# Run 'Before Experiment' code from license_and_terms
-'''
-Fish v. 15 software, running on PsychoPy (v.2023.1.2)
-
-This software is adapted from software which was written by Catherine E. Myers 
-under funding from the Department of Veterans Affairs, 
-Office of Research and Development. 
-
-Design is adapted from the task originally described in 
-Myers et al. (2003) Journal of Cognitive Neuroscience, 15(2), 
-185-193.
-
-Fish v.15 is a neuroscience experiment to asses the generalization performance of individuals
-Copyright (C) 2023  Jose Mojica Perez
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU Affero General Public License as
-published by the Free Software Foundation, either version 3 of the
-License, or (at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU Affero General Public License for more details.
-
-You should have received a copy of the GNU Affero General Public License
-along with this program.  If not, see <https://www.gnu.org/licenses/>.
-
-Author's contact information: 
-    email: jmojicaperez@acm.org
-'''
 # Run 'Before Experiment' code from face_fish_pairing
 
 # File names of faces and fishes without extension
@@ -72,14 +41,9 @@ fishes = ["green", "blue", "purple", "red"]
 faces = ["boy", "girl", "man", "woman"]
 
 # Generating the random pairings
-random_numbers = []
-for _ in range(4):
-    r = random.randint(0,3)
-    while r in random_numbers:
-        r = random.randint(0,3)
-    random_numbers.append(r)
+# Distinct random numbers in [0, 3]
+r1, r2, r3, r4 = random.sample(population=range(4), k=4)
 
-r1, r2, r3, r4 = random_numbers
 exp_files_path = os.path.join(os.getcwd(), "experimentFiles")
 pairs_filename = "face_fish_pairings.csv"
 pairings_filepath = os.path.join(exp_files_path, pairs_filename)
@@ -162,7 +126,7 @@ def remove_crit_pairs(faces, fishes, filename, pairings):
     '''
 
     # Phase 3 critical pairs:
-    # Face B: Fish c/d, Face D: fish c/d
+    # Face B: Fish a/b, Face D: fish c/d
     do_not_include = {faces[1]: pairings[faces[1]][1], faces[3]: pairings[faces[3]][1]}
     
     file = open(filename, "r")
@@ -184,7 +148,7 @@ def remove_crit_pairs(faces, fishes, filename, pairings):
         else: # critical pair
             stim =  ",".join([face, fish1, fish2, correct])
             crit_pairs_stims.add(stim)
-            continue
+
     file.close()
     file = open(filename, "w", newline="")
     header = ["face","leftFish","rightFish","correctResponse"]
@@ -241,6 +205,37 @@ phase3_faces = faces
 phase3_fishes = fishes
 phase3_file = os.path.join(exp_files_path, "phase3.csv")
 generate_phase_file(pairings, phase3_faces, phase3_fishes, phase3_file)
+# Run 'Before Experiment' code from license_and_terms
+'''
+Fish v. 15 software, running on PsychoPy (v.2023.1.2)
+
+This software is adapted from software which was written by Catherine E. Myers 
+under funding from the Department of Veterans Affairs, 
+Office of Research and Development. 
+
+Design is adapted from the task originally described in 
+Myers et al. (2003) Journal of Cognitive Neuroscience, 15(2), 
+185-193.
+
+Fish v.15 is a neuroscience experiment to asses the generalization performance of individuals
+Copyright (C) 2023  Jose Mojica Perez
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+Author's contact information: 
+    email: jmojicaperez@acm.org
+'''
 # Run 'Before Experiment' code from code_3
 myFaceFileName="temp"
 myLeftFishFileName="temp"
@@ -280,6 +275,7 @@ expName = 'Fish15'  # from the Builder filename that created this script
 expInfo = {
     'participant': '',
     'experimenter': '',
+    'language': 'english',
 }
 # --- Show participant info dialog --
 dlg = gui.DlgFromDict(dictionary=expInfo, sortKeys=False, title=expName)
@@ -309,7 +305,7 @@ frameTolerance = 0.001  # how close to onset before 'same' frame
 
 # --- Setup the Window ---
 win = visual.Window(
-    size=[1536, 960], fullscr=True, screen=0, 
+    size=[1920, 1200], fullscr=True, screen=0, 
     winType='pyglet', allowStencil=False,
     monitor='testMonitor', color='white', colorSpace='rgb',
     backgroundImage='', backgroundFit='none',
@@ -337,18 +333,36 @@ eyetracker = None
 defaultKeyboard = keyboard.Keyboard(backend='iohub')
 
 # --- Initialize components for Routine "startup" ---
+# Run 'Begin Experiment' code from language
+fb_text = {
+    True: {"english":"Correct!", "spanish":"¡Correcto!"},
+    False: {"english":"Incorrect!", "spanish":"¡Incorrecto!"},
+}
+
+language = expInfo["language"].lower()
+if(language == "spanish" or language == "español"):
+    language = "spanish"
+elif(language == "english"):
+    language = "english"
+
+texts = {}
+
+with open(os.path.join(exp_files_path, "texts.csv"), mode="r", newline="", encoding="utf-8") as csvfile:
+    reader = csv.DictReader(csvfile)
+    for row in reader:
+        texts[row["text_object"]] = row[language].replace("\\n","\n")
 License_And_Terms = visual.TextStim(win=win, name='License_And_Terms',
-    text='Fish v. 15 software, running on PsychoPy (v.2023.1.2)\n\nThis software is adapted from software which was written by Catherine E. Myers  under funding from the Department of Veterans Affairs, Office of Research and Development. \n\nDesign is adapted from the task originally described in Myers et al. (2003) Journal of Cognitive Neuroscience, 15(2), 185-193.\n\nFish 15 is a neuroscience experiment to test the generalization performance of individuals\n   Copyright (C) 2023 Jose Mojica Perez\n\n    This program is free software: you can redistribute it and/or modify\n    it under the terms of the GNU Affero General Public License as\n    published by the Free Software Foundation, either version 3 of the\n    License, or (at your option) any later version.\n\n    This program is distributed in the hope that it will be useful,\n    but WITHOUT ANY WARRANTY; without even the implied warranty of\n    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n    GNU Affero General Public License for more details.\n\n    You should have received a copy of the GNU Affero General Public License\n    along with this program.  If not, see <https://www.gnu.org/licenses/>.\n\nPress the space bar to continue.',
-    font='Open Sans',
+    text='',
+    font='Arial',
     pos=(0, 0), height=0.05, wrapWidth=1.5, ori=0.0, 
     color='black', colorSpace='rgb', opacity=None, 
     languageStyle='LTR',
-    depth=-1.0);
+    depth=-6.0);
 conditions_key = keyboard.Keyboard()
 
 # --- Initialize components for Routine "train_instr" ---
 train_instructions_text = visual.TextStim(win=win, name='train_instructions_text',
-    text='Welcome to the experiment.\n\nYou will see drawings of people who each have some pet fish.\n\nDifferent people have different kinds of fish.\n\nYour job is to learn which kind of fish each person has.\n\nEach time you see a face, press the LEFT or RIGHT key, depending on which fish you think the person has. In the beginning, you will have to guess. The choice you make will be circled and you will be told whether it is correct or incorrect. Try to learn the correct answers, because you will be tested later.\n\nPress the LEFT or RIGHT key to begin.\n\n',
+    text='',
     font='Arial',
     pos=(0, 0), height=0.065, wrapWidth=1.5, ori=0, 
     color='black', colorSpace='rgb', opacity=1, 
@@ -389,7 +403,7 @@ trial_face = visual.ImageStim(
     flipHoriz=False, flipVert=False,
     texRes=128, interpolate=True, depth=-1.0)
 trial_text = visual.TextStim(win=win, name='trial_text',
-    text='Which fish does this person have?\nUse LEFT or RIGHT key to choose.',
+    text='',
     font='Arial',
     pos=(0, -.3), height=0.05, wrapWidth=None, ori=0, 
     color='black', colorSpace='rgb', opacity=1, 
@@ -446,14 +460,13 @@ FB1_rightFish = visual.ImageStim(
     color=[1,1,1], colorSpace='rgb', opacity=1,
     flipHoriz=False, flipVert=False,
     texRes=128, interpolate=True, depth=-3.0)
-FB1_text = visual.ImageStim(
-    win=win,
-    name='FB1_text', 
-    image='default.png', mask=None, anchor='center',
-    ori=0, pos=(0, -0.3), size=None,
-    color=[1,1,1], colorSpace='rgb', opacity=1,
-    flipHoriz=False, flipVert=False,
-    texRes=128, interpolate=True, depth=-4.0)
+FB1_text = visual.TextStim(win=win, name='FB1_text',
+    text='',
+    font='Open Sans',
+    pos=(0, -0.3), height=0.1, wrapWidth=None, ori=0.0, 
+    color=[-1.0000, -1.0000, -1.0000], colorSpace='rgb', opacity=None, 
+    languageStyle='LTR',
+    depth=-5.0);
 
 # --- Initialize components for Routine "next_stage" ---
 
@@ -467,7 +480,7 @@ trial_face = visual.ImageStim(
     flipHoriz=False, flipVert=False,
     texRes=128, interpolate=True, depth=-1.0)
 trial_text = visual.TextStim(win=win, name='trial_text',
-    text='Which fish does this person have?\nUse LEFT or RIGHT key to choose.',
+    text='',
     font='Arial',
     pos=(0, -.3), height=0.05, wrapWidth=None, ori=0, 
     color='black', colorSpace='rgb', opacity=1, 
@@ -524,14 +537,13 @@ FB2_rightFish = visual.ImageStim(
     color=[1,1,1], colorSpace='rgb', opacity=1,
     flipHoriz=False, flipVert=False,
     texRes=128, interpolate=True, depth=-3.0)
-FB2_text = visual.ImageStim(
-    win=win,
-    name='FB2_text', 
-    image='default.png', mask=None, anchor='center',
-    ori=0, pos=(0, -0.3), size=None,
-    color=[1,1,1], colorSpace='rgb', opacity=1,
-    flipHoriz=False, flipVert=False,
-    texRes=128, interpolate=True, depth=-4.0)
+FB2_text = visual.TextStim(win=win, name='FB2_text',
+    text='',
+    font='Open Sans',
+    pos=(0, -0.3), height=0.1, wrapWidth=None, ori=0.0, 
+    color=[-1.0000, -1.0000, -1.0000], colorSpace='rgb', opacity=None, 
+    languageStyle='LTR',
+    depth=-5.0);
 
 # --- Initialize components for Routine "next_stage" ---
 
@@ -545,7 +557,7 @@ trial_face = visual.ImageStim(
     flipHoriz=False, flipVert=False,
     texRes=128, interpolate=True, depth=-1.0)
 trial_text = visual.TextStim(win=win, name='trial_text',
-    text='Which fish does this person have?\nUse LEFT or RIGHT key to choose.',
+    text='',
     font='Arial',
     pos=(0, -.3), height=0.05, wrapWidth=None, ori=0, 
     color='black', colorSpace='rgb', opacity=1, 
@@ -602,72 +614,22 @@ FB3_rightFish = visual.ImageStim(
     color=[1,1,1], colorSpace='rgb', opacity=1,
     flipHoriz=False, flipVert=False,
     texRes=128, interpolate=True, depth=-3.0)
-FB3_text = visual.ImageStim(
-    win=win,
-    name='FB3_text', 
-    image='default.png', mask=None, anchor='center',
-    ori=0, pos=(0, -0.3), size=None,
-    color=[1,1,1], colorSpace='rgb', opacity=1,
-    flipHoriz=False, flipVert=False,
-    texRes=128, interpolate=True, depth=-4.0)
+FB3_text = visual.TextStim(win=win, name='FB3_text',
+    text='',
+    font='Open Sans',
+    pos=(0, -0.3), height=0.1, wrapWidth=None, ori=0.0, 
+    color=[-1.0000, -1.0000, -1.0000], colorSpace='rgb', opacity=None, 
+    languageStyle='LTR',
+    depth=-5.0);
 
 # --- Initialize components for Routine "test_instr" ---
-test_text1 = visual.TextStim(win=win, name='test_text1',
-    text='Good!',
+test_text = visual.TextStim(win=win, name='test_text',
+    text='',
     font='Arial',
-    pos=(0, 0.55), height=0.075, wrapWidth=None, ori=0, 
+    pos=(0, 0), height=0.075, wrapWidth=None, ori=0, 
     color='black', colorSpace='rgb', opacity=1, 
     languageStyle='LTR',
     depth=0.0);
-test_text2 = visual.TextStim(win=win, name='test_text2',
-    text='In this part of the experiment, you will need',
-    font='Arial',
-    pos=(0, 0.3), height=0.075, wrapWidth=None, ori=0, 
-    color='black', colorSpace='rgb', opacity=1, 
-    languageStyle='LTR',
-    depth=-1.0);
-test_text3 = visual.TextStim(win=win, name='test_text3',
-    text='to remember what you have learned so far.',
-    font='Arial',
-    pos=(0, 0.2), height=0.075, wrapWidth=None, ori=0, 
-    color='black', colorSpace='rgb', opacity=1, 
-    languageStyle='LTR',
-    depth=-2.0);
-test_text4 = visual.TextStim(win=win, name='test_text4',
-    text='You will NOT be shown the correct answers.',
-    font='Arial',
-    pos=(0, 0.1), height=0.075, wrapWidth=None, ori=0, 
-    color='black', colorSpace='rgb', opacity=1, 
-    languageStyle='LTR',
-    depth=-3.0);
-test_text5 = visual.TextStim(win=win, name='test_text5',
-    text='At the end of the experiment, the computer will',
-    font='Arial',
-    pos=(0, -0.05), height=0.075, wrapWidth=None, ori=0, 
-    color='black', colorSpace='rgb', opacity=1, 
-    languageStyle='LTR',
-    depth=-4.0);
-test_text6 = visual.TextStim(win=win, name='test_text6',
-    text='tell you how many you got right.',
-    font='Arial',
-    pos=(0, -0.15), height=0.075, wrapWidth=None, ori=0, 
-    color='black', colorSpace='rgb', opacity=1, 
-    languageStyle='LTR',
-    depth=-5.0);
-test_text7 = visual.TextStim(win=win, name='test_text7',
-    text='Good luck!',
-    font='Arial',
-    pos=(0, -0.3), height=0.075, wrapWidth=None, ori=0, 
-    color='black', colorSpace='rgb', opacity=1, 
-    languageStyle='LTR',
-    depth=-6.0);
-test_text8 = visual.TextStim(win=win, name='test_text8',
-    text='Press the LEFT or RIGHT key to begin.',
-    font='Arial',
-    pos=(0, -0.55), height=0.075, wrapWidth=None, ori=0, 
-    color='black', colorSpace='rgb', opacity=1, 
-    languageStyle='LTR',
-    depth=-7.0);
 test_instr_key = keyboard.Keyboard()
 
 # --- Initialize components for Routine "runTrial" ---
@@ -680,7 +642,7 @@ trial_face = visual.ImageStim(
     flipHoriz=False, flipVert=False,
     texRes=128, interpolate=True, depth=-1.0)
 trial_text = visual.TextStim(win=win, name='trial_text',
-    text='Which fish does this person have?\nUse LEFT or RIGHT key to choose.',
+    text='',
     font='Arial',
     pos=(0, -.3), height=0.05, wrapWidth=None, ori=0, 
     color='black', colorSpace='rgb', opacity=1, 
@@ -740,40 +702,26 @@ noFB_rightFish = visual.ImageStim(
 
 # --- Initialize components for Routine "goodbye" ---
 goodbye_text1 = visual.TextStim(win=win, name='goodbye_text1',
-    text='The end.',
+    text='',
     font='Arial',
-    pos=(0, 0.5), height=0.08, wrapWidth=None, ori=0, 
+    pos=(0, 0.25), height=0.08, wrapWidth=None, ori=0, 
     color='black', colorSpace='rgb', opacity=1, 
     languageStyle='LTR',
     depth=0.0);
-goodbye_text2 = visual.TextStim(win=win, name='goodbye_text2',
-    text='Your final point total was:',
-    font='Arial',
-    pos=(0, 0.1), height=0.08, wrapWidth=None, ori=0, 
-    color='black', colorSpace='rgb', opacity=1, 
-    languageStyle='LTR',
-    depth=-1.0);
-goodbye_tally = visual.TextStim(win=win, name='goodbye_tally',
+tally = visual.TextStim(win=win, name='tally',
     text='',
     font='Arial',
-    pos=(0,0), height=0.08, wrapWidth=None, ori=0, 
-    color='black', colorSpace='rgb', opacity=1, 
+    pos=(0, 0), height=0.08, wrapWidth=None, ori=0.0, 
+    color='black', colorSpace='rgb', opacity=None, 
+    languageStyle='LTR',
+    depth=-1.0);
+goodbye_text2 = visual.TextStim(win=win, name='goodbye_text2',
+    text='',
+    font='Arial',
+    pos=(0, -0.25), height=0.08, wrapWidth=None, ori=0.0, 
+    color='black', colorSpace='rgb', opacity=None, 
     languageStyle='LTR',
     depth=-2.0);
-goodbye_text3 = visual.TextStim(win=win, name='goodbye_text3',
-    text='Thanks for participating.',
-    font='Arial',
-    pos=(0, -.25), height=0.08, wrapWidth=None, ori=0, 
-    color='black', colorSpace='rgb', opacity=1, 
-    languageStyle='LTR',
-    depth=-3.0);
-goodbye_text4 = visual.TextStim(win=win, name='goodbye_text4',
-    text='Press the space bar to exit.',
-    font='Arial',
-    pos=(0, -.5), height=0.05, wrapWidth=None, ori=0, 
-    color='black', colorSpace='rgb', opacity=1, 
-    languageStyle='LTR',
-    depth=-4.0);
 goodbye_key = keyboard.Keyboard()
 
 # Create some handy timers
@@ -783,9 +731,6 @@ routineTimer = core.Clock()  # to track time remaining of each (possibly non-sli
 # --- Prepare to start Routine "startup" ---
 continueRoutine = True
 # update component parameters for each repeat
-conditions_key.keys = []
-conditions_key.rt = []
-_conditions_key_allKeys = []
 # Run 'Begin Routine' code from start_data_log
 import datetime
 
@@ -793,6 +738,11 @@ participant = expInfo["participant"]
 experimenter = expInfo["experimenter"]
 
 data_path = os.path.join(os.getcwd(), "data")
+
+# Create data directory if it doesn't exist
+if(not os.path.exists(data_path)):
+    os.mkdir(data_path)
+
 data_filename = expName + "_" + participant + ".csv"
 data_file = open(os.path.join(data_path, data_filename), "w")
 
@@ -822,6 +772,9 @@ data_file.write(f"Time: {time}\n")
 data_file.write(f"\"Note: Critical Pairs = {crit_pairs}\"\n")
 
 
+conditions_key.keys = []
+conditions_key.rt = []
+_conditions_key_allKeys = []
 # keep track of which components have finished
 startupComponents = [License_And_Terms, conditions_key]
 for thisComponent in startupComponents:
@@ -864,7 +817,7 @@ while continueRoutine:
     # if License_And_Terms is active this frame...
     if License_And_Terms.status == STARTED:
         # update params
-        pass
+        License_And_Terms.setText(texts["License_And_Terms"], log=False)
     
     # *conditions_key* updates
     waitOnFlip = False
@@ -988,7 +941,7 @@ while continueRoutine:
     # if train_instructions_text is active this frame...
     if train_instructions_text.status == STARTED:
         # update params
-        pass
+        train_instructions_text.setText(texts["train_instructions_text"], log=False)
     
     # *train_instr_key* updates
     waitOnFlip = False
@@ -1043,7 +996,7 @@ for thisComponent in train_instrComponents:
 routineTimer.reset()
 
 # set up handler to look after randomisation of conditions etc
-trials1 = data.TrialHandler(nReps=5, method='random', 
+trials1 = data.TrialHandler(nReps=1, method='random', 
     extraInfo=expInfo, originPath=-1,
     trialList=data.importConditions('experimentFiles/phase0.csv'),
     seed=None, name='trials1')
@@ -1132,7 +1085,7 @@ for thisTrials1 in trials1:
         # if trial_text is active this frame...
         if trial_text.status == STARTED:
             # update params
-            pass
+            trial_text.setText(texts["trial_text"], log=False)
         
         # *fishOnLeft* updates
         
@@ -1315,7 +1268,7 @@ for thisTrials1 in trials1:
     FB2_Circle.setPos([myCircleHoriz, myCircleVert])
     FB1_leftFish.setImage(showLeftFish)
     FB1_rightFish.setImage(showRightFish)
-    FB1_text.setImage(myFeedbackImage)
+    FB1_text.setText(fb_text[myTrialCorrect][language])
     # keep track of which components have finished
     doFB1Components = [FB2_face, FB2_Circle, FB1_leftFish, FB1_rightFish, FB1_text]
     for thisComponent in doFB1Components:
@@ -1459,12 +1412,14 @@ for thisTrials1 in trials1:
         # *FB1_text* updates
         
         # if FB1_text is starting this frame...
-        if FB1_text.status == NOT_STARTED and tThisFlip >= 0-frameTolerance:
+        if FB1_text.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
             # keep track of start time/frame for later
             FB1_text.frameNStart = frameN  # exact frame index
             FB1_text.tStart = t  # local t and not account for scr refresh
             FB1_text.tStartRefresh = tThisFlipGlobal  # on global time
             win.timeOnFlip(FB1_text, 'tStartRefresh')  # time at next scr refresh
+            # add timestamp to datafile
+            thisExp.timestampOnFlip(win, 'FB1_text.started')
             # update status
             FB1_text.status = STARTED
             FB1_text.setAutoDraw(True)
@@ -1477,10 +1432,12 @@ for thisTrials1 in trials1:
         # if FB1_text is stopping this frame...
         if FB1_text.status == STARTED:
             # is it time to stop? (based on global clock, using actual start)
-            if tThisFlipGlobal > FB1_text.tStartRefresh + myISIduration-frameTolerance:
+            if tThisFlipGlobal > FB1_text.tStartRefresh + 1.0-frameTolerance:
                 # keep track of stop time/frame for later
                 FB1_text.tStop = t  # not accounting for scr refresh
                 FB1_text.frameNStop = frameN  # exact frame index
+                # add timestamp to datafile
+                thisExp.timestampOnFlip(win, 'FB1_text.stopped')
                 # update status
                 FB1_text.status = FINISHED
                 FB1_text.setAutoDraw(False)
@@ -1519,7 +1476,7 @@ for thisTrials1 in trials1:
     routineTimer.reset()
     thisExp.nextEntry()
     
-# completed 5 repeats of 'trials1'
+# completed 1 repeats of 'trials1'
 
 
 # --- Prepare to start Routine "next_stage" ---
@@ -1593,7 +1550,7 @@ for thisComponent in next_stageComponents:
 routineTimer.reset()
 
 # set up handler to look after randomisation of conditions etc
-trials2 = data.TrialHandler(nReps=5, method='random', 
+trials2 = data.TrialHandler(nReps=1, method='random', 
     extraInfo=expInfo, originPath=-1,
     trialList=data.importConditions('experimentFiles/phase1.csv'),
     seed=None, name='trials2')
@@ -1682,7 +1639,7 @@ for thisTrials2 in trials2:
         # if trial_text is active this frame...
         if trial_text.status == STARTED:
             # update params
-            pass
+            trial_text.setText(texts["trial_text"], log=False)
         
         # *fishOnLeft* updates
         
@@ -1865,7 +1822,7 @@ for thisTrials2 in trials2:
     FB2_Circle_2.setPos([myCircleHoriz, myCircleVert])
     FB2_leftFish.setImage(showLeftFish)
     FB2_rightFish.setImage(showRightFish)
-    FB2_text.setImage(myFeedbackImage)
+    FB2_text.setText(fb_text[myTrialCorrect][language])
     # keep track of which components have finished
     doFB2Components = [FB2_face_2, FB2_Circle_2, FB2_leftFish, FB2_rightFish, FB2_text]
     for thisComponent in doFB2Components:
@@ -2009,12 +1966,14 @@ for thisTrials2 in trials2:
         # *FB2_text* updates
         
         # if FB2_text is starting this frame...
-        if FB2_text.status == NOT_STARTED and tThisFlip >= 0-frameTolerance:
+        if FB2_text.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
             # keep track of start time/frame for later
             FB2_text.frameNStart = frameN  # exact frame index
             FB2_text.tStart = t  # local t and not account for scr refresh
             FB2_text.tStartRefresh = tThisFlipGlobal  # on global time
             win.timeOnFlip(FB2_text, 'tStartRefresh')  # time at next scr refresh
+            # add timestamp to datafile
+            thisExp.timestampOnFlip(win, 'FB2_text.started')
             # update status
             FB2_text.status = STARTED
             FB2_text.setAutoDraw(True)
@@ -2027,10 +1986,12 @@ for thisTrials2 in trials2:
         # if FB2_text is stopping this frame...
         if FB2_text.status == STARTED:
             # is it time to stop? (based on global clock, using actual start)
-            if tThisFlipGlobal > FB2_text.tStartRefresh + myISIduration-frameTolerance:
+            if tThisFlipGlobal > FB2_text.tStartRefresh + 1.0-frameTolerance:
                 # keep track of stop time/frame for later
                 FB2_text.tStop = t  # not accounting for scr refresh
                 FB2_text.frameNStop = frameN  # exact frame index
+                # add timestamp to datafile
+                thisExp.timestampOnFlip(win, 'FB2_text.stopped')
                 # update status
                 FB2_text.status = FINISHED
                 FB2_text.setAutoDraw(False)
@@ -2069,7 +2030,7 @@ for thisTrials2 in trials2:
     routineTimer.reset()
     thisExp.nextEntry()
     
-# completed 5 repeats of 'trials2'
+# completed 1 repeats of 'trials2'
 
 
 # --- Prepare to start Routine "next_stage" ---
@@ -2143,7 +2104,7 @@ for thisComponent in next_stageComponents:
 routineTimer.reset()
 
 # set up handler to look after randomisation of conditions etc
-trials3 = data.TrialHandler(nReps=5, method='sequential', 
+trials3 = data.TrialHandler(nReps=1, method='sequential', 
     extraInfo=expInfo, originPath=-1,
     trialList=data.importConditions('experimentFiles/phase2.csv'),
     seed=None, name='trials3')
@@ -2232,7 +2193,7 @@ for thisTrials3 in trials3:
         # if trial_text is active this frame...
         if trial_text.status == STARTED:
             # update params
-            pass
+            trial_text.setText(texts["trial_text"], log=False)
         
         # *fishOnLeft* updates
         
@@ -2415,7 +2376,7 @@ for thisTrials3 in trials3:
     FB3_Circle.setPos([myCircleHoriz, myCircleVert])
     FB3_leftFish.setImage(showLeftFish)
     FB3_rightFish.setImage(showRightFish)
-    FB3_text.setImage(myFeedbackImage)
+    FB3_text.setText(fb_text[myTrialCorrect][language])
     # keep track of which components have finished
     doFB3Components = [FB3_face, FB3_Circle, FB3_leftFish, FB3_rightFish, FB3_text]
     for thisComponent in doFB3Components:
@@ -2559,12 +2520,14 @@ for thisTrials3 in trials3:
         # *FB3_text* updates
         
         # if FB3_text is starting this frame...
-        if FB3_text.status == NOT_STARTED and tThisFlip >= 0-frameTolerance:
+        if FB3_text.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
             # keep track of start time/frame for later
             FB3_text.frameNStart = frameN  # exact frame index
             FB3_text.tStart = t  # local t and not account for scr refresh
             FB3_text.tStartRefresh = tThisFlipGlobal  # on global time
             win.timeOnFlip(FB3_text, 'tStartRefresh')  # time at next scr refresh
+            # add timestamp to datafile
+            thisExp.timestampOnFlip(win, 'FB3_text.started')
             # update status
             FB3_text.status = STARTED
             FB3_text.setAutoDraw(True)
@@ -2577,10 +2540,12 @@ for thisTrials3 in trials3:
         # if FB3_text is stopping this frame...
         if FB3_text.status == STARTED:
             # is it time to stop? (based on global clock, using actual start)
-            if tThisFlipGlobal > FB3_text.tStartRefresh + myISIduration-frameTolerance:
+            if tThisFlipGlobal > FB3_text.tStartRefresh + 1.0-frameTolerance:
                 # keep track of stop time/frame for later
                 FB3_text.tStop = t  # not accounting for scr refresh
                 FB3_text.frameNStop = frameN  # exact frame index
+                # add timestamp to datafile
+                thisExp.timestampOnFlip(win, 'FB3_text.stopped')
                 # update status
                 FB3_text.status = FINISHED
                 FB3_text.setAutoDraw(False)
@@ -2619,7 +2584,7 @@ for thisTrials3 in trials3:
     routineTimer.reset()
     thisExp.nextEntry()
     
-# completed 5 repeats of 'trials3'
+# completed 1 repeats of 'trials3'
 
 
 # --- Prepare to start Routine "test_instr" ---
@@ -2641,7 +2606,7 @@ header = "Trial,Face,Left Fish,Right Fish,Correct Response,Subject Response,Resp
 data_file.write(header)
 
 # keep track of which components have finished
-test_instrComponents = [test_text1, test_text2, test_text3, test_text4, test_text5, test_text6, test_text7, test_text8, test_instr_key]
+test_instrComponents = [test_text, test_instr_key]
 for thisComponent in test_instrComponents:
     thisComponent.tStart = None
     thisComponent.tStop = None
@@ -2664,149 +2629,23 @@ while continueRoutine:
     frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
     # update/draw components on each frame
     
-    # *test_text1* updates
+    # *test_text* updates
     
-    # if test_text1 is starting this frame...
-    if test_text1.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+    # if test_text is starting this frame...
+    if test_text.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
         # keep track of start time/frame for later
-        test_text1.frameNStart = frameN  # exact frame index
-        test_text1.tStart = t  # local t and not account for scr refresh
-        test_text1.tStartRefresh = tThisFlipGlobal  # on global time
-        win.timeOnFlip(test_text1, 'tStartRefresh')  # time at next scr refresh
+        test_text.frameNStart = frameN  # exact frame index
+        test_text.tStart = t  # local t and not account for scr refresh
+        test_text.tStartRefresh = tThisFlipGlobal  # on global time
+        win.timeOnFlip(test_text, 'tStartRefresh')  # time at next scr refresh
         # update status
-        test_text1.status = STARTED
-        test_text1.setAutoDraw(True)
+        test_text.status = STARTED
+        test_text.setAutoDraw(True)
     
-    # if test_text1 is active this frame...
-    if test_text1.status == STARTED:
+    # if test_text is active this frame...
+    if test_text.status == STARTED:
         # update params
-        pass
-    
-    # *test_text2* updates
-    
-    # if test_text2 is starting this frame...
-    if test_text2.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-        # keep track of start time/frame for later
-        test_text2.frameNStart = frameN  # exact frame index
-        test_text2.tStart = t  # local t and not account for scr refresh
-        test_text2.tStartRefresh = tThisFlipGlobal  # on global time
-        win.timeOnFlip(test_text2, 'tStartRefresh')  # time at next scr refresh
-        # update status
-        test_text2.status = STARTED
-        test_text2.setAutoDraw(True)
-    
-    # if test_text2 is active this frame...
-    if test_text2.status == STARTED:
-        # update params
-        pass
-    
-    # *test_text3* updates
-    
-    # if test_text3 is starting this frame...
-    if test_text3.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-        # keep track of start time/frame for later
-        test_text3.frameNStart = frameN  # exact frame index
-        test_text3.tStart = t  # local t and not account for scr refresh
-        test_text3.tStartRefresh = tThisFlipGlobal  # on global time
-        win.timeOnFlip(test_text3, 'tStartRefresh')  # time at next scr refresh
-        # update status
-        test_text3.status = STARTED
-        test_text3.setAutoDraw(True)
-    
-    # if test_text3 is active this frame...
-    if test_text3.status == STARTED:
-        # update params
-        pass
-    
-    # *test_text4* updates
-    
-    # if test_text4 is starting this frame...
-    if test_text4.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-        # keep track of start time/frame for later
-        test_text4.frameNStart = frameN  # exact frame index
-        test_text4.tStart = t  # local t and not account for scr refresh
-        test_text4.tStartRefresh = tThisFlipGlobal  # on global time
-        win.timeOnFlip(test_text4, 'tStartRefresh')  # time at next scr refresh
-        # update status
-        test_text4.status = STARTED
-        test_text4.setAutoDraw(True)
-    
-    # if test_text4 is active this frame...
-    if test_text4.status == STARTED:
-        # update params
-        pass
-    
-    # *test_text5* updates
-    
-    # if test_text5 is starting this frame...
-    if test_text5.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-        # keep track of start time/frame for later
-        test_text5.frameNStart = frameN  # exact frame index
-        test_text5.tStart = t  # local t and not account for scr refresh
-        test_text5.tStartRefresh = tThisFlipGlobal  # on global time
-        win.timeOnFlip(test_text5, 'tStartRefresh')  # time at next scr refresh
-        # update status
-        test_text5.status = STARTED
-        test_text5.setAutoDraw(True)
-    
-    # if test_text5 is active this frame...
-    if test_text5.status == STARTED:
-        # update params
-        pass
-    
-    # *test_text6* updates
-    
-    # if test_text6 is starting this frame...
-    if test_text6.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-        # keep track of start time/frame for later
-        test_text6.frameNStart = frameN  # exact frame index
-        test_text6.tStart = t  # local t and not account for scr refresh
-        test_text6.tStartRefresh = tThisFlipGlobal  # on global time
-        win.timeOnFlip(test_text6, 'tStartRefresh')  # time at next scr refresh
-        # update status
-        test_text6.status = STARTED
-        test_text6.setAutoDraw(True)
-    
-    # if test_text6 is active this frame...
-    if test_text6.status == STARTED:
-        # update params
-        pass
-    
-    # *test_text7* updates
-    
-    # if test_text7 is starting this frame...
-    if test_text7.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-        # keep track of start time/frame for later
-        test_text7.frameNStart = frameN  # exact frame index
-        test_text7.tStart = t  # local t and not account for scr refresh
-        test_text7.tStartRefresh = tThisFlipGlobal  # on global time
-        win.timeOnFlip(test_text7, 'tStartRefresh')  # time at next scr refresh
-        # update status
-        test_text7.status = STARTED
-        test_text7.setAutoDraw(True)
-    
-    # if test_text7 is active this frame...
-    if test_text7.status == STARTED:
-        # update params
-        pass
-    
-    # *test_text8* updates
-    
-    # if test_text8 is starting this frame...
-    if test_text8.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-        # keep track of start time/frame for later
-        test_text8.frameNStart = frameN  # exact frame index
-        test_text8.tStart = t  # local t and not account for scr refresh
-        test_text8.tStartRefresh = tThisFlipGlobal  # on global time
-        win.timeOnFlip(test_text8, 'tStartRefresh')  # time at next scr refresh
-        # update status
-        test_text8.status = STARTED
-        test_text8.setAutoDraw(True)
-    
-    # if test_text8 is active this frame...
-    if test_text8.status == STARTED:
-        # update params
-        pass
+        test_text.setText(texts["test_text"], log=False)
     
     # *test_instr_key* updates
     waitOnFlip = False
@@ -2863,7 +2702,7 @@ for thisComponent in test_instrComponents:
 routineTimer.reset()
 
 # set up handler to look after randomisation of conditions etc
-test_trials = data.TrialHandler(nReps=3, method='random', 
+test_trials = data.TrialHandler(nReps=1, method='random', 
     extraInfo=expInfo, originPath=-1,
     trialList=data.importConditions('experimentFiles/phase3.csv'),
     seed=None, name='test_trials')
@@ -2952,7 +2791,7 @@ for thisTest_trial in test_trials:
         # if trial_text is active this frame...
         if trial_text.status == STARTED:
             # update params
-            pass
+            trial_text.setText(texts["trial_text"], log=False)
         
         # *fishOnLeft* updates
         
@@ -3313,7 +3152,7 @@ for thisTest_trial in test_trials:
     routineTimer.reset()
     thisExp.nextEntry()
     
-# completed 3 repeats of 'test_trials'
+# completed 1 repeats of 'test_trials'
 
 
 # --- Prepare to start Routine "goodbye" ---
@@ -3343,6 +3182,11 @@ info = [participant, expName, experimenter,
         generalization_trials]
 
 summaries_path = os.path.join(data_path, "summaries")
+
+# Create summaries dir if it doesn't exist:
+if(not os.path.exists(summaries_path)):
+    os.mkdir(summaries_path)
+    
 summary_filename = data_filename.split(".")[0] + "_summary.csv"
 
 with open(os.path.join(summaries_path, summary_filename), "w", newline="") as csvfile:
@@ -3351,7 +3195,7 @@ with open(os.path.join(summaries_path, summary_filename), "w", newline="") as cs
     writer.writerow(info)
 
 # keep track of which components have finished
-goodbyeComponents = [goodbye_text1, goodbye_text2, goodbye_tally, goodbye_text3, goodbye_text4, goodbye_key]
+goodbyeComponents = [goodbye_text1, tally, goodbye_text2, goodbye_key]
 for thisComponent in goodbyeComponents:
     thisComponent.tStart = None
     thisComponent.tStop = None
@@ -3390,7 +3234,27 @@ while continueRoutine:
     # if goodbye_text1 is active this frame...
     if goodbye_text1.status == STARTED:
         # update params
-        pass
+        goodbye_text1.setText(texts["goodbye_text1"], log=False)
+    
+    # *tally* updates
+    
+    # if tally is starting this frame...
+    if tally.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+        # keep track of start time/frame for later
+        tally.frameNStart = frameN  # exact frame index
+        tally.tStart = t  # local t and not account for scr refresh
+        tally.tStartRefresh = tThisFlipGlobal  # on global time
+        win.timeOnFlip(tally, 'tStartRefresh')  # time at next scr refresh
+        # add timestamp to datafile
+        thisExp.timestampOnFlip(win, 'tally.started')
+        # update status
+        tally.status = STARTED
+        tally.setAutoDraw(True)
+    
+    # if tally is active this frame...
+    if tally.status == STARTED:
+        # update params
+        tally.setText(str(myTally), log=False)
     
     # *goodbye_text2* updates
     
@@ -3401,6 +3265,8 @@ while continueRoutine:
         goodbye_text2.tStart = t  # local t and not account for scr refresh
         goodbye_text2.tStartRefresh = tThisFlipGlobal  # on global time
         win.timeOnFlip(goodbye_text2, 'tStartRefresh')  # time at next scr refresh
+        # add timestamp to datafile
+        thisExp.timestampOnFlip(win, 'goodbye_text2.started')
         # update status
         goodbye_text2.status = STARTED
         goodbye_text2.setAutoDraw(True)
@@ -3408,61 +3274,7 @@ while continueRoutine:
     # if goodbye_text2 is active this frame...
     if goodbye_text2.status == STARTED:
         # update params
-        pass
-    
-    # *goodbye_tally* updates
-    
-    # if goodbye_tally is starting this frame...
-    if goodbye_tally.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-        # keep track of start time/frame for later
-        goodbye_tally.frameNStart = frameN  # exact frame index
-        goodbye_tally.tStart = t  # local t and not account for scr refresh
-        goodbye_tally.tStartRefresh = tThisFlipGlobal  # on global time
-        win.timeOnFlip(goodbye_tally, 'tStartRefresh')  # time at next scr refresh
-        # update status
-        goodbye_tally.status = STARTED
-        goodbye_tally.setAutoDraw(True)
-    
-    # if goodbye_tally is active this frame...
-    if goodbye_tally.status == STARTED:
-        # update params
-        goodbye_tally.setText(myTally, log=False)
-    
-    # *goodbye_text3* updates
-    
-    # if goodbye_text3 is starting this frame...
-    if goodbye_text3.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-        # keep track of start time/frame for later
-        goodbye_text3.frameNStart = frameN  # exact frame index
-        goodbye_text3.tStart = t  # local t and not account for scr refresh
-        goodbye_text3.tStartRefresh = tThisFlipGlobal  # on global time
-        win.timeOnFlip(goodbye_text3, 'tStartRefresh')  # time at next scr refresh
-        # update status
-        goodbye_text3.status = STARTED
-        goodbye_text3.setAutoDraw(True)
-    
-    # if goodbye_text3 is active this frame...
-    if goodbye_text3.status == STARTED:
-        # update params
-        pass
-    
-    # *goodbye_text4* updates
-    
-    # if goodbye_text4 is starting this frame...
-    if goodbye_text4.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-        # keep track of start time/frame for later
-        goodbye_text4.frameNStart = frameN  # exact frame index
-        goodbye_text4.tStart = t  # local t and not account for scr refresh
-        goodbye_text4.tStartRefresh = tThisFlipGlobal  # on global time
-        win.timeOnFlip(goodbye_text4, 'tStartRefresh')  # time at next scr refresh
-        # update status
-        goodbye_text4.status = STARTED
-        goodbye_text4.setAutoDraw(True)
-    
-    # if goodbye_text4 is active this frame...
-    if goodbye_text4.status == STARTED:
-        # update params
-        pass
+        goodbye_text2.setText(texts["goodbye_text2"], log=False)
     
     # *goodbye_key* updates
     waitOnFlip = False

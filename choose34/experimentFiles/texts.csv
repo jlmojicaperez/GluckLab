@@ -1,0 +1,7 @@
+text_object,english,spanish
+instructions1,"Welcome to the experiment.\n\nYou will see pairs of objects. Each time there is a smiley face hidden under one of the objects. It looks like this:","Bienvenido/a al experimento.\n\nDurante este experimento usted verá varios pares de objetos. Cada vez habrá una carita sonriente escondida debajo de uno de los objetos. Se ve así: "
+instructions2,"Each time, use the LEFT or RIGHT key to choose the object you think the smiley face is under. In the beginning you will have to guess.\n\nPress the LEFT or RIGHT key to see an example of the first kind of pair.","Cada vez, use la tecla IZQUIERDA o DERECHA para escoger el objeto debajo del cual cree que la carita sonriente está. Al principio tendrá que adivinar.\n\nPresione la tecla IZQUIERDA o DERECHA para ver un ejemplo del primer tipo de par."
+textPrompt,Which object is the smiley face under?,¿Debajo de cuál objeto está la carita sonriente?
+textPrompt2,Which object is the smiley face under?,¿Debajo de cuál objeto está la carita sonriente?
+postPracticeText,"Good!\n\nNow you will see different pairs.\n\nKeep trying to find the smiley face each time.\n\nPress either the LEFT or RIGHT key to continue.","¡Bien!\n\nAhora verá pares diferentes.\n\nSiga intentando encontrar la carita sonriente cada vez.\n\nPresione la tecla IZQUIERDA o DERECHA para continuar."
+endText,"The End.\n\nThanks for playing.\n\nPlease inform the experimenter that you are done.","Fin.\n\nGracias por participar.\n\nPor favor informe al experimentador que ha terminado."

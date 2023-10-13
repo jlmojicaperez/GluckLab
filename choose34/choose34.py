@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2023.1.2),
-    on September 13, 2023, at 13:01
+    on October 13, 2023, at 14:11
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -116,6 +116,7 @@ expName = 'Choose34'  # from the Builder filename that created this script
 expInfo = {
     'Participant': '',
     'Experimenter': '',
+    'Language': 'english',
     'Condition': 'C',
     'Number of pairs': '8',
     'Evaluate to criterion or fixed number of trials?': 'criterion',
@@ -150,7 +151,7 @@ frameTolerance = 0.001  # how close to onset before 'same' frame
 
 # --- Setup the Window ---
 win = visual.Window(
-    size=[1536, 960], fullscr=True, screen=0, 
+    size=[1920, 1200], fullscr=True, screen=0, 
     winType='pyglet', allowStencil=False,
     monitor='testMonitor', color=[1.0000, 1.0000, 1.0000], colorSpace='rgb',
     backgroundImage='', backgroundFit='none',
@@ -270,6 +271,19 @@ with open(expFilesPath + "practice.csv", "w") as f:
     practice0, practice1 = practicePair
     f.write(f"{practice0},{practice1}\n")
     f.write(f"{practice1},{practice0}\n")
+# Run 'Begin Experiment' code from language
+language = expInfo["Language"].lower()
+if(language == "spanish" or language == "español"):
+    language = "spanish"
+elif(language == "english"):
+    language = "english"
+
+texts = {}
+
+with open(os.path.join(expFilesPath, "texts.csv"), mode="r", newline="", encoding="utf-8") as csvfile:
+    reader = csv.DictReader(csvfile)
+    for row in reader:
+        texts[row["text_object"]] = row[language].replace("\\n","\n")
 
 # --- Initialize components for Routine "copyrightInfo" ---
 copyright = visual.TextStim(win=win, name='copyright',
@@ -293,7 +307,7 @@ referenceResponse = keyboard.Keyboard()
 
 # --- Initialize components for Routine "experimentInstructions" ---
 instructions1 = visual.TextStim(win=win, name='instructions1',
-    text='Welcome to the experiment.\n\nYou will see pairs of objects. Each time there is a smiley face hidden under one of the objects. It looks like this:',
+    text='',
     font='Open Sans',
     pos=(0, 0.15), height=0.035, wrapWidth=None, ori=0.0, 
     color='black', colorSpace='rgb', opacity=None, 
@@ -308,7 +322,7 @@ smileySample = visual.ImageStim(
     flipHoriz=False, flipVert=False,
     texRes=128.0, interpolate=True, depth=-1.0)
 instructions2 = visual.TextStim(win=win, name='instructions2',
-    text='Each time, use the \'\'LEFT" or "RIGHT" key to choose the object you think the smiley face is under. In the beginning you will have to guess.\n\nPress the button to see an example of the first kind of pair.',
+    text='',
     font='Open Sans',
     pos=(0, -0.15), height=0.035, wrapWidth=None, ori=0.0, 
     color='black', colorSpace='rgb', opacity=None, 
@@ -344,7 +358,7 @@ floorLine = visual.ImageStim(
     flipHoriz=False, flipVert=False,
     texRes=128.0, interpolate=True, depth=-3.0)
 textPrompt = visual.TextStim(win=win, name='textPrompt',
-    text='Which object is the smiley face under?',
+    text='',
     font='Open Sans',
     pos=(0, -0.25), height=0.035, wrapWidth=None, ori=0.0, 
     color='black', colorSpace='rgb', opacity=1.0, 
@@ -386,7 +400,7 @@ floorLineReveal = visual.ImageStim(
     flipHoriz=False, flipVert=False,
     texRes=128.0, interpolate=True, depth=-3.0)
 textPrompt2 = visual.TextStim(win=win, name='textPrompt2',
-    text='Which object is the smiley face under?',
+    text='',
     font='Open Sans',
     pos=(0, -0.25), height=0.035, wrapWidth=None, ori=0.0, 
     color='black', colorSpace='rgb', opacity=1.0, 
@@ -395,7 +409,7 @@ textPrompt2 = visual.TextStim(win=win, name='textPrompt2',
 
 # --- Initialize components for Routine "postPracticeInstructions" ---
 postPracticeText = visual.TextStim(win=win, name='postPracticeText',
-    text='Good!\n\nNow you will see different pairs.\n\nKeep trying to find the smiley face each time.\n\nPress either the "LEFT" or "RIGHT" key to continue.',
+    text='',
     font='Open Sans',
     pos=(0, 0), height=0.035, wrapWidth=None, ori=0.0, 
     color='black', colorSpace='rgb', opacity=None, 
@@ -405,7 +419,7 @@ postPracticeResp = keyboard.Keyboard()
 
 # --- Initialize components for Routine "endExperiment" ---
 endText = visual.TextStim(win=win, name='endText',
-    text='The End.\n\nThanks for playing.\n\nPlease inform the experimenter that you are done.',
+    text='',
     font='Open Sans',
     pos=(0, 0), height=0.035, wrapWidth=None, ori=0.0, 
     color='black', colorSpace='rgb', opacity=None, 
@@ -717,7 +731,7 @@ while continueRoutine:
     # if instructions1 is active this frame...
     if instructions1.status == STARTED:
         # update params
-        pass
+        instructions1.setText(texts["instructions1"], log=False)
     
     # *smileySample* updates
     
@@ -753,7 +767,7 @@ while continueRoutine:
     # if instructions2 is active this frame...
     if instructions2.status == STARTED:
         # update params
-        pass
+        instructions2.setText(texts["instructions2"], log=False)
     
     # *expInstructionsResponse* updates
     waitOnFlip = False
@@ -1018,7 +1032,7 @@ for thisPhasesLoop in phasesLoop:
             # if textPrompt is active this frame...
             if textPrompt.status == STARTED:
                 # update params
-                pass
+                textPrompt.setText(texts["textPrompt"], log=False)
             
             # *Subject_Response* updates
             waitOnFlip = False
@@ -1293,7 +1307,7 @@ for thisPhasesLoop in phasesLoop:
             # if textPrompt2 is active this frame...
             if textPrompt2.status == STARTED:
                 # update params
-                pass
+                textPrompt2.setText(texts["textPrompt2"], log=False)
             
             # if textPrompt2 is stopping this frame...
             if textPrompt2.status == STARTED:
@@ -1407,7 +1421,7 @@ for thisPhasesLoop in phasesLoop:
             # if postPracticeText is active this frame...
             if postPracticeText.status == STARTED:
                 # update params
-                pass
+                postPracticeText.setText(texts["postPracticeText"], log=False)
             
             # *postPracticeResp* updates
             waitOnFlip = False
@@ -1540,7 +1554,7 @@ while continueRoutine:
     # if endText is active this frame...
     if endText.status == STARTED:
         # update params
-        pass
+        endText.setText(texts["endText"], log=False)
     
     # *endResp* updates
     waitOnFlip = False
