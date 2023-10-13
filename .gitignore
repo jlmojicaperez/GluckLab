@@ -162,5 +162,23 @@ cython_debug/
 # Data folders for the experiments
 
 /choose34/data/
+/choose34/data/summaries/
+
 /fish15/data/
+/fish15/data/summaries/
 /fish15/psychopyOutput/
+
+# Constantly changing files for the experiments
+/choose34/experimentFiles/testing.csv
+/choose34/experimentFiles/training.csv
+/choose34/experimentFiles/phases.csv
+/choose34/experimentFiles/practice.csv
+
+/fish15/experimentFiles/phase0.csv
+/fish15/experimentFiles/phase1.csv
+/fish15/experimentFiles/phase2.csv
+/fish15/experimentFiles/phase3.csv
+/fish15/experimentFiles/face_fish_pairings.csv
+
+# last runs of the experiments
+*_lastrun.py
