@@ -64,7 +64,8 @@ class G:
     pygame.display.set_icon(pygame.transform.scale(BRAIN_IMAGE, (32, 32)))
 
     # Background
-    BACKGROUND_IMAGE = pygame.image.load(os.path.join(ASSETS_PATH, "background.jpg"))
+    BACKGROUND_IMAGE = pygame.transform.scale(pygame.image.load(os.path.join(ASSETS_PATH, "background.png")),
+                                              (DISPLAY_WIDTH, DISPLAY_HEIGHT))
 
 
     # Colors
