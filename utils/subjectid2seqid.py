@@ -1,7 +1,16 @@
 import sys
 import os
+import re
 
-def seqid_from_longitudinal_subject(subjectid):
+class SubjectID:
+    exercise_pattern = r"^AA(_[3-9]?R)?[0-9]{3}(_L)?$"
+    longitudinal_pattern = r"^AAL_([3-9]?R)?[0-9]{3}$"
+    new_participant_pattern = r"^COV(_[3-9]?R)?[0-9]{3}$"
+
+    def is_valid(subjectid):
+        return re.match(SubjectID.exercise_pattern, subjectid) or re.match(SubjectID.longitudinal_pattern, subjectid) or re.match(SubjectID.new_participant_pattern, subjectid)
+
+def get_instance_number_from_longitudinal_subject(subjectid):
     '''
     Subject ID -> SeqID conversion have the following format: 
         AA###   ->  A### (instance 1)
@@ -10,18 +19,13 @@ def seqid_from_longitudinal_subject(subjectid):
         AA_4R### -> A### (instance 4)
         AA_5R### -> A### (instance 5)
     '''
-    seqid = None
     instance_no = None
-
-    # Ex: AAL_3R001 AAL_4R001, AAL_5R001
-
-    seqid = "L" + subjectid[-3:] # L + last 3 digits of subject id
 
     instance_info = subjectid.split("_")
     if(len(instance_info) > 1):
         instance_info = instance_info[1] # AAL_3R001 -> 3R001
     else: # Invalid subject id
-        return None, None
+        return None
 
     if(instance_info[0].isdigit() and instance_info[1] == "R"): 
         # instances 3, 4, 5. Ex: 3R001 4R001, 5R001
@@ -35,11 +39,12 @@ def seqid_from_longitudinal_subject(subjectid):
         # instance 1. Ex: 001 (no R in instance info)
         instance_no = 1
 
-    return seqid, instance_no
+    return instance_no
 
-def seqid_from_exercise_subject(subjectid):
+def get_instance_number_from_exercise_subject(subjectid):
     '''
     Subject ID -> SeqID conversion have the following format:
+        EX###       -> E### (instance 1)
         AA###       -> A### (instance 1)
         AA_R###     -> A### (instance 2)
         AA_R###_L   -> A### (instance 3)
@@ -47,7 +52,6 @@ def seqid_from_exercise_subject(subjectid):
         AA_4R###_L  -> A### (instance 5)
         AA_5R###_L  -> A### (instance 6)
     '''
-    seqid = None
     instance_no = None
 
     instance_info = subjectid.split("_")
@@ -72,20 +76,16 @@ def seqid_from_exercise_subject(subjectid):
         # then subject id is something like AA001
         seqid = "A" + subjectid[-3:] # A + last 3 digits of subject id
         instance_no = 1
-    return seqid, instance_no
+    return instance_no
 
-def seqid_from_new_subject(subjectid):
+def get_instance_number_from_new_subject(subjectid):
     '''
     Subject ID -> SeqID conversion have the following format:
         COV###      -> C### (instance 1)
         COV_R###    -> C### (instance 2)
         COV_3R###   -> C### (instance 3)
     '''
-    seqid = None
     instance_no = None
-
-    seqid = "C" + subjectid[-3:] # C + last 3 digits of subject id
-
     instance_info = subjectid.split("_")
 
     if(len(instance_info) > 1):
@@ -97,34 +97,85 @@ def seqid_from_new_subject(subjectid):
     else:
         instance_no = 1
 
-    return seqid, instance_no
+    return instance_no
 
-def get_seqid_and_instance(subjectid):
+def get_instance_number(subjectid):
     '''
-    Converts subject id to seqid and instance number.
+    Gets instance number from subject id.
 
     Args:
         subjectid (str): Subject ID
     Returns:
-        seqid (str): SeqID
         instance_no (int): Instance number
     '''
-    seqid = None
     instance_no = None
+
+    if(re.match(SubjectID.exercise_pattern, subjectid)):
+        instance_no = get_instance_number_from_exercise_subject(subjectid)
+    elif(re.match(SubjectID.longitudinal_pattern, subjectid)):
+        instance_no = get_instance_number_from_longitudinal_subject(subjectid)
+    elif(re.match(SubjectID.new_participant_pattern, subjectid)):
+        instance_no = get_instance_number_from_new_subject(subjectid)
+
+    return instance_no
+
+def get_seqid(subjectid):
+
+    seqid = None
+
+    if(SubjectID.is_valid(subjectid)):
+        digits = re.search(r"[0-9]{3}", subjectid).group()
+        if(re.match(SubjectID.exercise_pattern, subjectid)):
+            seqid = "A" + digits
+        elif(re.match(SubjectID.longitudinal_pattern, subjectid)):
+            seqid = "L" + digits
+        elif(re.match(SubjectID.new_participant_pattern, subjectid)):
+            seqid = "C" + digits
+
+    return seqid
+
+def get_subjectid(seqid, instance_no):
+    '''
+    Converts seqid and instance number to subject id.
+
+    Args:
+        seqid (str): SeqID
+        instance_no (int): Instance number
+    Returns:
+        subjectid (str): Subject ID
+    '''
+    subjectid = None
+
+    digits = seqid[1:] # remove first letter from seqid
+
+    if(seqid[0] == "A"): # Exercise participant
+
+        if(instance_no == 1):
+            subjectid = "AA" + digits
+        elif(instance_no == 2):
+            subjectid = "AA_R" + digits
+        elif(instance_no == 3):
+            subjectid = "AA_R" + digits + "_L"
+        else:
+            subjectid = "AA_" + str(instance_no - 1) + "R" + digits + "_L"
+
+    elif(seqid[0] == "L"): # Longitudinal participant
+        if(instance_no == 1):
+            subjectid = "AAL_" + digits
+        elif(instance_no == 2):
+            subjectid = "AAL_R" + digits
+        else:
+            subjectid = "AAL_" + str(instance_no) + "R" + digits
+
+    elif(seqid[0] == "C"): # New participant
+        if(instance_no == 1):
+            subjectid = "COV" + digits
+        elif(instance_no == 2):
+            subjectid = "COV_R" + digits
+        else:
+            subjectid = "COV_" + str(instance_no - 1) + "R" + digits
  
-    if(subjectid[:3] == "AAL"): # Longitudinal participant
-        seqid, instance_no = seqid_from_longitudinal_subject(subjectid)
-
-
-    elif(subjectid[:2] == "AA"): # Exercise participant
-        seqid, instance_no = seqid_from_exercise_subject(subjectid)
-
-
-
-    elif(subjectid[:3] == "COV"): # New participant
-        seqid, instance_no = seqid_from_new_subject(subjectid)
-    
-    return seqid, instance_no
+    return subjectid
 
 def menu():
     print("Subject ID to SeqID converter")
@@ -137,7 +188,8 @@ def menu():
             if(subjectid == "exit"):
                 break
 
-            seqid, instance_no = get_seqid_and_instance(subjectid)
+            seqid = get_seqid(subjectid)
+            instance_no = get_instance_number(subjectid)
             if(seqid != None and instance_no != None):
                 print("Subject ID: " + subjectid + " -> SeqID: " + seqid + " Instance: " + str(instance_no))
             else:
@@ -158,7 +210,8 @@ def main():
             return
         
         for subjectid in subjectids:
-            seqid, instance_no = get_seqid_and_instance(subjectid)
+            seqid = get_seqid(subjectid)
+            instance_no = get_instance_number(subjectid)
             if(seqid != None and instance_no != None):
                 seqids.append((seqid, instance_no))
             else:
