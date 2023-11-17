@@ -201,6 +201,7 @@ def main():
     elif(len(sys.argv) == 3 and sys.argv[1] == "-f"): # File mode
         subjectids = []
         seqids = []
+        instance_nos = []
         try:
             with open(sys.argv[2], "r") as f:
                 for line in f:
@@ -209,32 +210,35 @@ def main():
             print("Error reading file.")
             return
         
-        for subjectid in subjectids:
+        for i, subjectid in enumerate(subjectids):
             seqid = get_seqid(subjectid)
             instance_no = get_instance_number(subjectid)
             if(seqid != None and instance_no != None):
-                seqids.append((seqid, instance_no))
+                seqids.append(seqid)
+                instance_nos.append(instance_no)
             else:
                 print("Invalid subject ID: " + subjectid)
+                seqids.append("")
+                instance_nos.append("")
         try:
             # open file for writing in same directory as input file
             path = os.path.dirname(os.path.abspath(sys.argv[2]))
             csv_path = os.path.join(path, "SeqIDs.csv")
-            
+        
             with open(csv_path, "w", newline="") as csv_file:
                 csv_file.write("SubjectID,SeqID,Instance\n")
                 for i in range(len(subjectids)):
-                    csv_file.write(subjectids[i] + "," + seqids[i][0] + "," + str(seqids[i][1]) + "\n")
+                    csv_file.write(subjectids[i] + "," + str(seqids[i]) + "," + str(instance_nos[i]) + "\n")
         except:
             print("Error writing to file. Outputting to console instead.")
             for i in range(len(subjectids)):
-                print(subjectids[i] + "," + seqids[i][0] + "," + str(seqids[i][1]))
+                print(subjectids[i] + "," + str(seqids[i]) + "," + str(instance_nos[i]))
             return
     else:
-        print("Usage: python subjectid2seqid.py [-f <file>]")
+        print("Usage: python subjectid2seqid.py [-f <file>]\n")
         print("Interactive mode: python subjectid2seqid.py")
         print("In interactive mode you will be prompted to enter one or many subject IDs separated by spaces")
-        print("The output will be printed to the console/n")
+        print("The output will be printed to the console\n")
         print("File mode: python subjectid2seqid.py -f <file>")
         print("The file input for file mode is a text file with each line containing a subject ID")
         print("The output will be a CSV file named SeqIDs.csv in the same directory as the input file")
