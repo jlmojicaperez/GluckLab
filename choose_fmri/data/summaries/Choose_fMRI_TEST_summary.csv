@@ -1,0 +1,2 @@
+"subject","experiment","experimenter","date","time","train_accuracy","train_errors","train_avg_rt","train_trials","probe_accuracy","probe_errors","probe_rt_avg","probe_trials"
+"TEST","Choose_fMRI","TESTER","""Tuesday, January 02, 2024""","""02:43:23 PM""",0.7692307692307693,3,0.14349485384655752,13,1.0,0,0.06838811250008803,8
