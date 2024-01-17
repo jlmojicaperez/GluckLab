@@ -59,7 +59,6 @@ def get_instance_number_from_exercise_subject(subjectid):
     if(len(instance_info) > 2):
         # Subject id is something like AA_R001_L
         instance_info = instance_info[1] # AA_R001_L -> R001
-        seqid = "A" + instance_info[-3:] # A + last 3 digits of instance info
 
         if(instance_info[0] == "R"):
             instance_no = 3
@@ -70,11 +69,9 @@ def get_instance_number_from_exercise_subject(subjectid):
     elif(len(instance_info) > 1):
         # then subject id is something like AA_R001
         instance_no = 2
-        seqid = "A" + subjectid[-3:] # A + last 3 digits of subject id
 
     else:
         # then subject id is something like AA001
-        seqid = "A" + subjectid[-3:] # A + last 3 digits of subject id
         instance_no = 1
     return instance_no
 
@@ -235,11 +232,11 @@ def main():
                 print(subjectids[i] + "," + str(seqids[i]) + "," + str(instance_nos[i]))
             return
     else:
-        print("Usage: python subjectid2seqid.py [-f <file>]\n")
+        print("Usage: python subjectid2seqid.py [-f <file_path>]\n")
         print("Interactive mode: python subjectid2seqid.py")
         print("In interactive mode you will be prompted to enter one or many subject IDs separated by spaces")
         print("The output will be printed to the console\n")
-        print("File mode: python subjectid2seqid.py -f <file>")
+        print("File mode: python subjectid2seqid.py -f <file_path>")
         print("The file input for file mode is a text file with each line containing a subject ID")
         print("The output will be a CSV file named SeqIDs.csv in the same directory as the input file")
 
