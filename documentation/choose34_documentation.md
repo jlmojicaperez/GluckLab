@@ -34,7 +34,7 @@ the necessary information about the experiment, each stimuli and subject
 response (found in the `GluckLab/choose34/data/` directory).
 Addtionally, a custom summary statistics file is also generated
 (found in the `GluckLab/choose34/data/summaries` directory).
-This file is a CSV file with the following fields:
+The summary file is a CSV file with the following fields:
 
 | Field | Description|
 |-------|------------|
@@ -43,7 +43,6 @@ This file is a CSV file with the following fields:
 | Experimenter | Value for the `Experimenter` field entered in the experiment settings. |
 | Date | Date experiment started in the format `Weekday(full name), Month(full name) Day(dd), Year(yyyy)`.|
 | Time | Time the experiment started in the format `Hour(00-12):Minute(00-59):Second(00-59) AM/PM`.|
-| Condition | Which condition was set in the experiment's settings (`C` for concurrent training, `S` for shaping).|
 | Task | This is just a legacy parameter from Choose 32.1 which is not included in Choose 34. However it is included in the data sumary to make Choose 34 summaries identical in structure to those generated for Choose 32.1. |
 | Training Accuracy Average | Subject's accuracy during the training phase $\left(\frac{\text{Correct Responses}}{\text{Train Trials}}\right)$.|
 | Training Errors | Number of errors the subject had during the training phase. |
@@ -357,7 +356,7 @@ at the beginning of the experiment rather than simply having static files
 is because we want to allow the user to change the number of pairs available
 in the experiment, and in case the user decides to not use all the pairs
 we want to choose which pairs are selected to be in the experiment to be
-random as well. To achieve this depending on the `Number of pairs`
+random as well. To achieve this, depending on the `Number of pairs`
 parameter from the user-entered settings, we elimnate
 (`8 - Number of pairs`) of the `pairs` dictionary at random.
 
