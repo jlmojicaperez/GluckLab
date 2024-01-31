@@ -1,4 +1,4 @@
-# Choose 34
+# Choose fMRI
 
 ## Description
 
@@ -59,7 +59,7 @@ This summary file contains all the data ready to be uploaded to the Gluck Lab da
 The PsychoPy implementation of the main parts of Choose 34 is
 broken down into the following routines:
 
-![Choose 34 Routine Diagram](../imgs/Choose34Diagram.png)
+![Choose 34 Routine Diagram](../imgs/ChooseFMRIDiagram.png)
 
 - Setup:
   
@@ -109,12 +109,18 @@ broken down into the following routines:
       - Infinity, if the current phase is not the practice
       phase and evaluating for a fixed number of trials.
 
+- Show Stimuli:
+  - Begin routine:
+    - Sets the path to the stimuli objects
+    - Shows the pair of objects to the subject for five seconds without prompting
+      for a keyboard response.
+
 - Choose:
 
   - Begin routine:
 
     - Shows the pair of objects to the subject and prompts a keyboard
-    response:
+    response for three seconds:
       ![Choose 34 Choose Screen](../imgs/Choose34TrainingChooseScreen.png)
 
   - End routine:
@@ -125,6 +131,9 @@ broken down into the following routines:
     chose an object, then we assign the smiley face to the object which
     the subject **did not** choose.
     - Updates the data summary variables based on subject's response.
+    - If the subject did not respond within the allotted time (three seconds),
+      then the trial is ignored: the consecutive correct responses do not reset,
+      the trial is not taken into account for the subject's accuracy or errors.
 
 - Reveal:
 
@@ -143,6 +152,11 @@ broken down into the following routines:
     the `current_phase` variable to the next phase of the experiment.
     In the case that we are evaluating to a fixed number of trials
     `criterion` is set to infinity, so early transition will never happen.
+
+- Break screen:
+  - Begin routine:
+    - Shows the resting state fMRI screen for 2 seconds: 
+      ![Resting state screen. Grey background with a black cross in the center](../choose_fmri/assets/rest_screen.png)
 
 - Post-Practice Instructions:
 

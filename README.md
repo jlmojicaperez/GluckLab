@@ -59,25 +59,52 @@ in the PsychoPy app.
 - To quit the experiment early press the ESC key.
 #### Settings
 - **Language**: Changes the language of the experiment on-screen instructions. The following languages are supported: `english` and `spanish`(`español`).
+
 ### Choose 34
 
 - Open the file named `choose34.psyexp` found in `GluckLab/choose34/`. If prompted,
 select the PsyschoPy app to open this file. The experiment should open
 in the PsychoPy app.
 - Select the "Run Experiment" button and follow the instructions on screen.
-- The "LEFT" and "RIGHT" keys are `z` and `m`.
+- The "LEFT" and "RIGHT" keys are `z` and `m` by default, but it can be changed in the experiment settings.
 - To quit the experiment early press the ESC key.
 #### Settings
 - **Language**: Changes the language of the experiment on-screen instructions. The following languages are supported: `english` and `spanish`(`español`).
-- **Condition**: Concurrent training or Shaping. Currently this setting does not do anything. Acceptable values: `C` or `S`.
 - **Number of pairs**: How many pairs of objects to use during the experiment. Acceptable values: Any value on the range `[1,8]`.
-- **Evaluate to criterion or fixed number of trials?**: Acceptable values: `criterion`, `Criterion`, `fixed`, `Fixed`
+- **Evaluate to criterion or fixed number of trials?**: Acceptable values: `criterion`, `fixed`.
 - **Training phase max blocks**: Each trial block consists of each pair of training objects. Among each pair each object
 appears in both the left and right position. e.g. 1 block of 8 pairs -> 16 trials, 1 block of 6 pairs -> 12 trials.
 Acceptable values: Any positive integer.
 - **Testing phase max blocks**: Each trial block consists of each pair of testing objects. Among each pair each object
 appears in both the left and right position. e.g. 1 block of 8 pairs -> 16 trials, 1 block of 6 pairs -> 12 trials.
 Acceptable values: Any positive integer.
+- **Left Key**/**Right Key**: Acceptable values: The name of any key recognized by PsychoPy. To find the name of a key:
+  - Open the PyschoPy app
+  - In the "Coder" window click on Demos -> Input -> keyNameFinder.py
+  - Select run and follow the instructions on screen.
+
+### Choose fMRI
+
+- Open the file named `choose_fmri.psyexp` found in `GluckLab/choose_fmri/`. If prompted,
+select the PsyschoPy app to open this file. The experiment should open
+in the PsychoPy app.
+- Select the "Run Experiment" button and follow the instructions on screen.
+- The "LEFT" and "RIGHT" keys are `z` and `m` by default, but it can be changed in the experiment settings.
+- To quit the experiment early press the ESC key.
+#### Settings
+- **Language**: Changes the language of the experiment on-screen instructions. The following languages are supported: `english` and `spanish`(`español`).
+- **Number of pairs**: How many pairs of objects to use during the experiment. Acceptable values: Any value on the range `[1,4]`.
+- **Evaluate to criterion or fixed number of trials?**: Acceptable values: `criterion`, `fixed`.
+- **Training phase max blocks**: Each trial block consists of each pair of training objects. Among each pair each object
+appears in both the left and right position. e.g. 1 block of 4 pairs -> 8 trials, 1 block of 2 pairs -> 4 trials.
+Acceptable values: Any positive integer.
+- **Testing phase max blocks**: Each trial block consists of each pair of testing objects. Among each pair each object
+appears in both the left and right position. e.g. 1 block of 4 pairs -> 8 trials, 1 block of 2 pairs -> 4 trials.
+Acceptable values: Any positive integer.
+- **Left Key**/**Right Key**: Acceptable values: The name of any key recognized by PsychoPy. To find the name of a key:
+  - Open the PyschoPy app
+  - In the "Coder" window click on Demos -> Input -> keyNameFinder.py
+  - Select run and follow the instructions on screen.
 
 ## Autoscoring Fish 8.1a and Choose 32.1 Output files
 
