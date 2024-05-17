@@ -161,12 +161,15 @@ cython_debug/
 
 # Data folders for the experiments
 
-/choose34/data/
-/choose34/data/summaries/
+choose34/data/
+choose34/data/summaries/
 
-/fish15/data/
-/fish15/data/summaries/
-/fish15/psychopyOutput/
+choose_fmri/data/
+choose_fmri/data/summaries/
+
+fish15/data/
+fish15/data/summaries/
+fish15/psychopyOutput/
 
 /choose34/data/
 /choose34/data/summaries/
@@ -177,16 +180,21 @@ choose_fmri/data/summaries/
 charts/data/
 
 # Constantly changing files for the experiments
-/choose34/experimentFiles/testing.csv
-/choose34/experimentFiles/training.csv
-/choose34/experimentFiles/phases.csv
-/choose34/experimentFiles/practice.csv
+choose34/experiment_files/testing.csv
+choose34/experiment_files/training.csv
+choose34/experiment_files/phases.csv
+choose34/experiment_files/practice.csv
 
-/fish15/experimentFiles/phase0.csv
-/fish15/experimentFiles/phase1.csv
-/fish15/experimentFiles/phase2.csv
-/fish15/experimentFiles/phase3.csv
-/fish15/experimentFiles/face_fish_pairings.csv
+choose_fmri/experiment_files/testing.csv
+choose_fmri/experiment_files/training.csv
+choose_fmri/experiment_files/phases.csv
+choose_fmri/experiment_files/practice.csv
+
+fish15/experiment_files/phase0.csv
+fish15/experiment_files/phase1.csv
+fish15/experiment_files/phase2.csv
+fish15/experiment_files/phase3.csv
+fish15/experiment_files/face_fish_pairings.csv
 
 # last runs of the experiments
 *_lastrun.py
