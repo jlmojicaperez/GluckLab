@@ -8,7 +8,7 @@
     <Param val="u'data/%s_%s' % (expName, expInfo['Participant'])" valType="code" updates="None" name="Data filename"/>
     <Param val="True" valType="bool" updates="None" name="Enable Escape"/>
     <Param val="" valType="str" updates="None" name="End Message"/>
-    <Param val="{'Participant': '', 'Experimenter': '', 'Language': 'english', 'Number of pairs': '4', 'Evaluate to criterion or fixed number of trials?': 'fixed', 'Training phase max blocks': '8', 'Testing phase max blocks': '8', 'Left Key': 'b', 'Right Key': 'r'}" valType="code" updates="None" name="Experiment info"/>
+    <Param val="{'Participant': '', 'Experimenter': '', 'Language': 'english', 'Number of pairs': '4', 'Evaluate to criterion or fixed number of trials?': 'fixed', 'Training phase max blocks': '8', 'Testing phase max blocks': '8', 'Left Key': 'z', 'Right Key': 'm'}" valType="code" updates="None" name="Experiment info"/>
     <Param val="True" valType="bool" updates="None" name="Force stereo"/>
     <Param val="True" valType="bool" updates="None" name="Full-screen window"/>
     <Param val="" valType="str" updates="None" name="HTML path"/>
@@ -68,7 +68,7 @@
     <Param val="1000" valType="num" updates="None" name="plPupilRemoteTimeoutMs"/>
     <Param val="False" valType="bool" updates="None" name="plPupillometryOnly"/>
     <Param val="psychopy_iohub_surface" valType="str" updates="None" name="plSurfaceName"/>
-    <Param val="1" valType="code" updates="None" name="runMode"/>
+    <Param val="0" valType="code" updates="None" name="runMode"/>
     <Param val="False" valType="bool" updates="None" name="rush"/>
     <Param val="time" valType="str" updates="None" name="sortColumns"/>
     <Param val="" valType="str" updates="None" name="tbLicenseFile"/>
@@ -1157,66 +1157,6 @@
       </KeyboardComponent>
     </Routine>
     <Routine name="break_screen">
-      <ImageComponent name="rest_screen" plugin="None">
-        <Param val="center" valType="str" updates="constant" name="anchor"/>
-        <Param val="$[1,1,1]" valType="color" updates="constant" name="color"/>
-        <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
-        <Param val="1" valType="num" updates="constant" name="contrast"/>
-        <Param val="False" valType="bool" updates="None" name="disabled"/>
-        <Param val="" valType="code" updates="None" name="durationEstim"/>
-        <Param val="False" valType="bool" updates="constant" name="flipHoriz"/>
-        <Param val="False" valType="bool" updates="constant" name="flipVert"/>
-        <Param val="assets/rest_screen.png" valType="file" updates="constant" name="image"/>
-        <Param val="linear" valType="str" updates="constant" name="interpolate"/>
-        <Param val="" valType="str" updates="constant" name="mask"/>
-        <Param val="rest_screen" valType="code" updates="None" name="name"/>
-        <Param val="" valType="num" updates="constant" name="opacity"/>
-        <Param val="0" valType="num" updates="constant" name="ori"/>
-        <Param val="(0, 0)" valType="list" updates="constant" name="pos"/>
-        <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
-        <Param val="win.size" valType="list" updates="constant" name="size"/>
-        <Param val="" valType="code" updates="None" name="startEstim"/>
-        <Param val="time (s)" valType="str" updates="None" name="startType"/>
-        <Param val="0.0" valType="code" updates="None" name="startVal"/>
-        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
-        <Param val="2.0" valType="code" updates="constant" name="stopVal"/>
-        <Param val="True" valType="bool" updates="None" name="syncScreenRefresh"/>
-        <Param val="128" valType="num" updates="constant" name="texture resolution"/>
-        <Param val="pix" valType="str" updates="None" name="units"/>
-      </ImageComponent>
-    </Routine>
-    <Routine name="long_break_screen">
-      <ImageComponent name="long_rest_screen" plugin="None">
-        <Param val="center" valType="str" updates="constant" name="anchor"/>
-        <Param val="$[1,1,1]" valType="color" updates="constant" name="color"/>
-        <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
-        <Param val="1" valType="num" updates="constant" name="contrast"/>
-        <Param val="False" valType="bool" updates="None" name="disabled"/>
-        <Param val="" valType="code" updates="None" name="durationEstim"/>
-        <Param val="False" valType="bool" updates="constant" name="flipHoriz"/>
-        <Param val="False" valType="bool" updates="constant" name="flipVert"/>
-        <Param val="assets/rest_screen.png" valType="file" updates="constant" name="image"/>
-        <Param val="linear" valType="str" updates="constant" name="interpolate"/>
-        <Param val="" valType="str" updates="constant" name="mask"/>
-        <Param val="long_rest_screen" valType="code" updates="None" name="name"/>
-        <Param val="" valType="num" updates="constant" name="opacity"/>
-        <Param val="0" valType="num" updates="constant" name="ori"/>
-        <Param val="(0, 0)" valType="list" updates="constant" name="pos"/>
-        <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
-        <Param val="win.size" valType="list" updates="constant" name="size"/>
-        <Param val="" valType="code" updates="None" name="startEstim"/>
-        <Param val="time (s)" valType="str" updates="None" name="startType"/>
-        <Param val="0.0" valType="code" updates="None" name="startVal"/>
-        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
-        <Param val="15.0" valType="code" updates="constant" name="stopVal"/>
-        <Param val="True" valType="bool" updates="None" name="syncScreenRefresh"/>
-        <Param val="128" valType="num" updates="constant" name="texture resolution"/>
-        <Param val="pix" valType="str" updates="None" name="units"/>
-      </ImageComponent>
-    </Routine>
-<<<<<<< Updated upstream
-=======
-    <Routine name="break_screen">
       <RoutineSettingsComponent name="break_screen" plugin="None">
         <Param val="none" valType="str" updates="None" name="backgroundFit"/>
         <Param val="" valType="str" updates="None" name="backgroundImg"/>
@@ -1306,7 +1246,6 @@
         <Param val="" valType="code" updates="None" name="validator"/>
       </ImageComponent>
     </Routine>
->>>>>>> Stashed changes
   </Routines>
   <Flow>
     <Routine name="setup"/>
@@ -1337,20 +1276,6 @@
       <Param name="random seed" updates="None" val="" valType="code"/>
     </LoopInitiator>
     <Routine name="long_break_screen"/>
-<<<<<<< Updated upstream
-=======
-    <LoopInitiator loopType="TrialHandler" name="blocks_loop">
-      <Param name="Selected rows" updates="None" val="" valType="str"/>
-      <Param name="conditions" updates="None" val="None" valType="str"/>
-      <Param name="conditionsFile" updates="None" val="" valType="file"/>
-      <Param name="endPoints" updates="None" val="[0, 1]" valType="num"/>
-      <Param name="isTrials" updates="None" val="True" valType="bool"/>
-      <Param name="loopType" updates="None" val="random" valType="str"/>
-      <Param name="nReps" updates="None" val="1 if current_phase == &quot;practice&quot; else trial_num_reps[current_phase]" valType="num"/>
-      <Param name="name" updates="None" val="blocks_loop" valType="code"/>
-      <Param name="random seed" updates="None" val="" valType="code"/>
-    </LoopInitiator>
->>>>>>> Stashed changes
     <LoopInitiator loopType="TrialHandler" name="trial_loop">
       <Param name="Selected rows" updates="None" val="" valType="str"/>
       <Param name="conditions" updates="None" val="[OrderedDict([('pair', 'practice'), ('Left_Stim', 's3c1'), ('Right_Stim', 's3c2')]), OrderedDict([('pair', 'practice'), ('Left_Stim', 's3c2'), ('Right_Stim', 's3c1')])]" valType="str"/>
@@ -1368,11 +1293,6 @@
     <Routine name="break_screen"/>
     <LoopTerminator name="trial_loop"/>
     <LoopTerminator name="blocks_loop"/>
-<<<<<<< Updated upstream
-=======
-    <Routine name="long_break_screen"/>
-    <LoopTerminator name="blocks_loop"/>
->>>>>>> Stashed changes
     <LoopInitiator loopType="TrialHandler" name="post_practice_screen_loop">
       <Param name="Selected rows" updates="None" val="" valType="str"/>
       <Param name="conditions" updates="None" val="None" valType="str"/>
