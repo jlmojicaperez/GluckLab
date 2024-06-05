@@ -8,24 +8,32 @@
 
 
 <p align="center">
-【 <a href="./documentation/fish15_documentation.md">Fish 15 Documentation</a> | <a href="./documentation/choose34_documentation.md">Choose 34 Documentation</a> | <a href="./documentation/utils_documentation.md">Utils Documentaton</a> 】
+【 <a href="./documentation/fish15_documentation.md">Fish 15</a> | <a href="./documentation/choose34_documentation.md">Choose 34</a> | <a href="./documentation/choose_fmri_documentation.md">Choose fMRI</a> | <a href="./documentation/charts_documentation.md">Charts</a> | <a href="./documentation/utils_documentation.md">Utils</a> 】
+
 </p>
 
+---
+
 GluckLab is a repository for the software created for the Aging and Brain Health
-Alliance. Developed at Rutgers University CMBN - Gluck Lab.
+Alliance.
 
 Current content:
-- [Fish 15](./fish15/): Fish Acquired Equivalence task implemented as a PsychoPy experiment
-- [Choose 34](./choose34/): Choose Concurrent Discrimination Task implemented as a PsychoPy experiment
+- [Fish 15](./fish15/): Fish Acquired Equivalence task implemented as a PsychoPy experiment.
+- [Choose 34](./choose34/): Choose Concurrent Discrimination Task implemented as a PsychoPy experiment.
+- [Choose fMRI](./choose_fmri/): Modified Choose Concurrent Discrimination Task as an fMRI tas implemented as a PsychoPy experiment.
+- [Charts](./charts/): Experiment designed to monitor a subject's progress in learning deterministic categorization and analyze their subsequent generalizations.
+Implemented as a Psychopy exeperiment
 - [Utils](./utils/): Useful scripts and tools.
   - [Autoscore](./utils/autoscore.py): a program which automatically scores Fish 8.1a and/or Choose 32.1 output files
+  - [SubjectID to Seqid](./utils/subjectid_to_seqid.py): a program to convert Subject IDs to 
+SeqIDs + REDCap instance number and viceversa.
 
 ## Get the repository
 
 Clone this repository using git and the following command **(Recommeneded)**:
 
 ```text
-git clone https://github.com/J-Mojica/GluckLab.git
+git clone https://github.com/jlmojicaperez/GluckLab.git
 ```
 
 - Alternatively you can download and decompress the zipped repository. [Click here to download.][GluckLabZippedRepo]
@@ -37,11 +45,8 @@ first install the PsychoPy app. The following section explains how.
 
 ### Install PsychoPy
 
-- Download and install [PsychoPy version 2023.1.2 standalone app][PyschoPy2023.1.2].
-**Make sure to install this version as other versions may not be compatible**. 
+- Download and install [the latest version of the PsychoPy standalone app][PsychoPyDownloadInstructions].
 All versions of the Standalone app can be found [here][PsychoPyReleases].
-  - [PsychoPy 2023.1.2 standalone app for Windows][PyschoPy2023.1.2Windows]
-  - [PsychoPy 2023.1.2 standalone app for MacOS][PyschoPy2023.1.2MacOS]
   
 - MacOS users may have to give permission to PsychoPy to control their computer. To do this:
   - Go to System Settings -> Privacy & Security -> Accessibility
@@ -105,6 +110,20 @@ Acceptable values: Any positive integer.
   - Open the PyschoPy app
   - In the "Coder" window click on Demos -> Input -> keyNameFinder.py
   - Select run and follow the instructions on screen.
+  
+### Charts
+- Open the file named `charts.psyexp` found in `GluckLab/charts/`. If prompted,
+select the PsyschoPy app to open this file. The experiment should open
+in the PsychoPy app.
+- Select the "Run Experiment" button and follow the instructions on screen.
+- The "LEFT" and "RIGHT" keys are `z` and `m` by default, but it can be changed in the experiment settings.
+- To quit the experiment early press the ESC key.
+#### Settings
+- **Left Key**/**Right Key**: Acceptable values: The name of any key recognized by PsychoPy. To find the name of a key:
+  - Open the PyschoPy app
+  - In the "Coder" window click on Demos -> Input -> keyNameFinder.py
+  - Select run and follow the instructions on screen.
+
 
 ## Autoscoring Fish 8.1a and Choose 32.1 Output files
 
@@ -125,7 +144,7 @@ python utils/autoscore.py <DATA PATH>
 [PyschoPy2023.1.2]: https://github.com/psychopy/psychopy/releases/tag/2023.1.2
 [PyschoPy2023.1.2Windows]: https://github.com/psychopy/psychopy/releases/download/2023.1.2/StandalonePsychoPy-2023.1.2-win64.exe
 [PyschoPy2023.1.2MacOS]:https://github.com/psychopy/psychopy/releases/download/2023.1.2/StandalonePsychoPy-2023.1.2-macOS.dmg
-[GluckLabZippedRepo]: https://github.com/J-Mojica/GluckLab/archive/refs/heads/main.zip
+[GluckLabZippedRepo]: https://github.com/jlmojicaperez/GluckLab/archive/refs/heads/main.zip
 [RutgersBrainLogo]: ./imgs/Rutgers-AgingAndBrainHealthAllianceLogo.png
 [RutgersBrainHealthWebsite]: https://brainhealth.rutgers.edu/
 
