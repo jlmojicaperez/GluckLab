@@ -138,6 +138,41 @@ directory and copy its path (`<DATA PATH>`).
 ```python
 python utils/autoscore.py <DATA PATH>
 ```
+## SubjectID to SeqID
+
+[SubjectID to SeqID](../utils/subjectid_to_seqid.py) is a program that allows you to get a
+subject's Sequential ID and REDCap repeat instance (A.K.A. visit number, instance number,
+instance) based on their SubjectID and vice versa.
+
+### Usage
+
+```bash
+python subjectid2seqid.py [-f <FILE PATH>]
+```
+
+In the command line, the program can be used in two modes: **file mode** and 
+**interactive mode.**
+
+#### File mode:
+
+```bash
+python subjectid2seqid.py -f <FILE PATH>
+```
+
+The file input for file mode is a text file with each line containing a SubjectID.
+The output will be a CSV file named SeqIDs.csv in the same directory as the input file.
+
+#### Interactive mode:
+
+```bash
+python subjectid2seqid.py 
+```
+
+In interactive mode you will be prompted to enter one or many subject IDs separated by spaces.
+The output will be printed to the terminal.
+
+For more information and examples on using the SubjectID to SeqID program read the [utils
+documentation](./documentation/utils_documentation.md)
 
 [PsychoPyDownloadInstructions]: https://www.psychopy.org/download.html
 [PsychoPyReleases]: https://github.com/psychopy/psychopy/releases
