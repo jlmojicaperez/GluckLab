@@ -171,6 +171,15 @@ fish15/data/
 fish15/data/summaries/
 fish15/psychopyOutput/
 
+/choose34/data/
+/choose34/data/summaries/
+
+choose_fmri/data/
+choose_fmri/data/summaries/
+
+charts/data/
+charts/experiment_files/
+
 # Constantly changing files for the experiments
 choose34/experiment_files/testing.csv
 choose34/experiment_files/training.csv

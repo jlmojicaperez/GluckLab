@@ -1,8 +1,8 @@
 ﻿#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-This experiment was created using PsychoPy3 Experiment Builder (v2023.1.2),
-    on October 13, 2023, at 15:48
+This experiment was created using PsychoPy3 Experiment Builder (v2023.1.3),
+    on June 05, 2024, at 16:21
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -10,6 +10,10 @@ If you publish work using this script the most relevant publication is:
         https://doi.org/10.3758/s13428-018-01193-y
 
 """
+
+import psychopy
+psychopy.useVersion('2023.1.3')
+
 
 # --- Import packages ---
 from psychopy import locale_setup
@@ -19,6 +23,7 @@ plugins.activatePlugins()
 prefs.hardware['audioLib'] = 'ptb'
 prefs.hardware['audioLatencyMode'] = '3'
 from psychopy import sound, gui, visual, core, data, event, logging, clock, colors, layout
+from psychopy.tools import environmenttools
 from psychopy.constants import (NOT_STARTED, STARTED, PLAYING, PAUSED,
                                 STOPPED, FINISHED, PRESSED, RELEASED, FOREVER)
 
@@ -37,32 +42,30 @@ import random
 import csv
 import datetime
 # Run 'Before Experiment' code from constants
-assetsPath = os.path.join(os.getcwd(), "assets")
-trainingPath =  os.path.join(assetsPath, "training")
-testingPath = os.path.join(assetsPath, "testing")
-expFilesPath = os.path.join(os.getcwd(), "experimentFiles")
-dataPath = os.path.join(os.getcwd(), "data")
-summariesPath = os.path.join(dataPath, "summaries")
+assets_path = os.path.join(os.getcwd(), "assets")
+training_path =  os.path.join(assets_path, "training")
+testing_path = os.path.join(assets_path, "testing")
+exp_files_path = os.path.join(os.getcwd(), "experiment_files")
+data_path = os.path.join(os.getcwd(), "data")
+summaries_path = os.path.join(data_path, "summaries")
 
-if(not os.path.exists(dataPath)):
-    os.mkdir(dataPath)
-if(not os.path.exists(summariesPath)):
-    os.mkdir(summariesPath)
-if(not os.path.exists(expFilesPath)):
-    os.mkdir(expFilesPath)
+if(not os.path.exists(data_path)):
+    os.mkdir(data_path)
+if(not os.path.exists(summaries_path)):
+    os.mkdir(summaries_path)
+if(not os.path.exists(exp_files_path)):
+    os.mkdir(exp_files_path)
 
 
-expDateTime = datetime.datetime.now()
+exp_date_time = datetime.datetime.now()
 # Weekday(full name), Month(full name) Day(dd), Year(yyyy)
-date = "\"" + expDateTime.strftime("%A, %B %d, %Y") + "\""
+date = "\"" + exp_date_time.strftime("%A, %B %d, %Y") + "\""
 # Hour(00-12):Minute(00-59):Second(00-59) AM/PM
-time = "\"" + expDateTime.strftime("%I:%M:%S %p") + "\""
+time = "\"" + exp_date_time.strftime("%I:%M:%S %p") + "\""
 
-stimsFieldNames = ["Left_Stim", "Right_Stim"]
-leftKey = 'z'
-rightKey = 'm'
+stims_field_names = ["Left_Stim", "Right_Stim"]
 
-practicePair = ["circle", "triangle"]
+practice_pair = ["circle", "triangle"]
 
 # Stores the testing phase equivalent of every pair ofobjects 
 # from the training phase. Each entry is one pair:
@@ -77,59 +80,59 @@ pairs = {
     ("s24c22", "s24c23"): ("s25c22", "s25c23"),
     ("s22c24", "s23c24"): ("s22c25", "s23c25")
     }
-
-# Run 'Before Experiment' code from initializeVars
+# Run 'Before Experiment' code from initialize_vars
 
 # This dictionary tells which object has a smiley 
 # it has the format {<object_name> : True/False}.
-hasSmiley = {}
+has_smiley = {}
 
 # First practice answer is always wrong. So we assigned the smiley AFTER
 # subject's response. We use this variable to determine if we have assigned 
 # the smiley yet
-firstChoice = True
+first_choice = True
 
 # We use this variable to determine what phase we are in and 
 # update it accordingly
-currentPhase = "practice"
+current_phase = "practice"
 
 # Changes on trialLoop
-consecutiveCorrectResponses = 0
+consecutive_correct_responses = 0
 
 # Initialized to avoid errors
 Right_Stim = ""
 Left_Stim = ""
 
-evalToCriterion = True
+eval_to_criterion = True
 
-showPostPractice = True
-# Run 'Before Experiment' code from dataSummaryVars
-trainAccuracy = 0
-trainAvgRT = 0.0
-trainError = 0
-trainTrials = 0
+show_post_practice = True
+# Run 'Before Experiment' code from data_summary_vars
+train_accuracy = 0
+train_avg_RT = 0.0
+train_error = 0
+train_trials = 0
 
-probeAccuracy = 0
-probeAvgRT = 0.0
-probeError = 0
-probeTrials = 0
+probe_accuracy = 0
+probe_avg_RT = 0.0
+probe_error = 0
+probe_trials = 0
 
 
 # Ensure that relative paths start from the same directory as this script
 _thisDir = os.path.dirname(os.path.abspath(__file__))
 os.chdir(_thisDir)
 # Store info about the experiment session
-psychopyVersion = '2023.1.2'
-expName = 'Choose34'  # from the Builder filename that created this script
+psychopyVersion = '2023.1.3'
+expName = 'Choose_34'  # from the Builder filename that created this script
 expInfo = {
     'Participant': '',
     'Experimenter': '',
     'Language': 'english',
-    'Condition': 'C',
     'Number of pairs': '8',
     'Evaluate to criterion or fixed number of trials?': 'criterion',
     'Training phase max blocks': '6',
     'Testing phase max blocks': '6',
+    'Left Key': 'z',
+    'Right Key': 'm',
 }
 # --- Show participant info dialog --
 dlg = gui.DlgFromDict(dictionary=expInfo, sortKeys=False, title=expName)
@@ -188,54 +191,63 @@ eyetracker = None
 defaultKeyboard = keyboard.Keyboard(backend='iohub')
 
 # --- Initialize components for Routine "setup" ---
-# Run 'Begin Experiment' code from validateExpInfo
-if(expInfo["Condition"] != "C" and expInfo["Condition"] != "S"):
-    print("Condition must be \"C\" or \"S\"", file=sys.stderr)
-    exit()
+# Run 'Begin Experiment' code from validate_exp_info
+# number of pairs
 if(not expInfo["Number of pairs"].isdigit()):
-   print("Number of pairs must be a positive number in the range [1,8]", file=sys.stderr) 
+   print("Number of pairs must be a positive number in the range [1,4]", file=sys.stderr) 
    exit()
 if(int(expInfo["Number of pairs"]) > 8 or int(expInfo["Number of pairs"]) < 1):
     print("Number of pairs must be in the range [1,8]", file=sys.stderr)
     exit()
-    
-critOrFixed = expInfo["Evaluate to criterion or fixed number of trials?"]
-if(critOrFixed.lower() != "criterion"):
-    evalToCriterion = True
-elif(critOrFixed.lower() != "fixed"):
-    evalToCriterion = False
+
+# Left and right keys
+if(len(expInfo["Left Key"]) < 1):
+    print("The Left Key parameter is empty. You must specify a vaild key.", file=sys.stderr)
+    exit()
+if(len(expInfo["Right Key"]) < 1):
+    print("The Right Key parameter is empty. You must specify a vaild key.", file=sys.stderr)
+    exit()
+
+# Criterion or fixed
+crit_or_fixed = expInfo["Evaluate to criterion or fixed number of trials?"]
+if(crit_or_fixed.lower() == "criterion"):
+    eval_to_criterion = True
+elif(crit_or_fixed.lower() == "fixed"):
+    eval_to_criterion = False
 else:
     print("Evaluate to criterion or fixed number of trials must set to either 'criterion' or 'fixed'", file=sys.stderr)
     exit()
     
+# Max trial blocks
 if(not expInfo["Training phase max blocks"].isdigit() or not expInfo["Testing phase max blocks"].isdigit()):
     print("Max blocks must be a number", file=sys.stderr) 
     exit()
 # Run 'Begin Experiment' code from constants
 
-delPairs = 8 - int(expInfo["Number of pairs"])
-if(delPairs > 0):
-    pairsToDelete = random.sample(pairs.keys(), delPairs)
-    for pair in pairsToDelete:
+del_pairs = 8 - int(expInfo["Number of pairs"])
+if(del_pairs > 0):
+    pairs_to_delete = random.sample(pairs.keys(), del_pairs)
+    for pair in pairs_to_delete:
         pairs.pop(pair)
         
-
-# Run 'Begin Experiment' code from initializeVars
+left_key = expInfo["Left Key"]
+right_key = expInfo["Right Key"]
+# Run 'Begin Experiment' code from initialize_vars
 # Number of consecutive correct responses needed to move to next phase
 # this changes in the trialBlocks loop
 criterion = int(expInfo["Number of pairs"]) * 2
 
-trialNumReps = {"practice": 6,
+trial_num_reps = {"practice": 6,
                 "training" : int(expInfo["Training phase max blocks"]),
                 "testing" : int(expInfo["Testing phase max blocks"])
                 }
-# Run 'Begin Experiment' code from assignSmiley
-practice0, practice1 = practicePair
+# Run 'Begin Experiment' code from assign_smiley
+practice0, practice1 = practice_pair
 
 # Initially both practice objects have no smiley. This changes based on the
 # subject's first choice. 
-hasSmiley[practice0] = False
-hasSmiley[practice1] = False
+has_smiley[practice0] = False
+has_smiley[practice1] = False
 
 for pair in pairs:
     train0, train1 = pair
@@ -244,26 +256,26 @@ for pair in pairs:
     r = random.randint(0,1)
     
     if(r == 0):
-        hasSmiley[train0] = True
-        hasSmiley[train1] = False
-        hasSmiley[test0] = True
-        hasSmiley[test1] = False
+        has_smiley[train0] = True
+        has_smiley[train1] = False
+        has_smiley[test0] = True
+        has_smiley[test1] = False
     else:
-        hasSmiley[train0] = False
-        hasSmiley[train1] = True
-        hasSmiley[test0] = False
-        hasSmiley[test1] = True
+        has_smiley[train0] = False
+        has_smiley[train1] = True
+        has_smiley[test0] = False
+        has_smiley[test1] = True
         
 
-# Run 'Begin Experiment' code from generateStimFiles
-with open(os.path.join(expFilesPath, "training.csv"), "w") as f1:
-    with open(os.path.join(expFilesPath, "testing.csv"), "w") as f2:
+# Run 'Begin Experiment' code from generate_stim_files
+with open(os.path.join(exp_files_path, "training.csv"), "w") as f1:
+    with open(os.path.join(exp_files_path, "testing.csv"), "w") as f2:
         f1.write("Left_Stim,Right_Stim,Correct_Response\n")
         f2.write("Left_Stim,Right_Stim,Correct_Response\n")
         for pair in pairs:
             train0, train1 = pair
             test0, test1 = pairs[pair]
-            if(hasSmiley[train0] and hasSmiley[test0]):
+            if(has_smiley[train0] and has_smiley[test0]):
                 f1.write(f"{train0},{train1},left\n")
                 f1.write(f"{train1},{train0},right\n")
                 f2.write(f"{test0},{test1},left\n")
@@ -274,9 +286,9 @@ with open(os.path.join(expFilesPath, "training.csv"), "w") as f1:
                 f2.write(f"{test0},{test1},right\n")
                 f2.write(f"{test1},{test0},left\n")
                 
-with open(os.path.join(expFilesPath, "practice.csv"), "w") as f:
+with open(os.path.join(exp_files_path, "practice.csv"), "w") as f:
     f.write("Left_Stim,Right_Stim\n")
-    practice0, practice1 = practicePair
+    practice0, practice1 = practice_pair
     f.write(f"{practice0},{practice1}\n")
     f.write(f"{practice1},{practice0}\n")
 # Run 'Begin Experiment' code from language
@@ -294,12 +306,12 @@ else:
 
 texts = {}
 
-with open(os.path.join(expFilesPath, "texts.csv"), mode="r", newline="", encoding="utf-8") as csvfile:
+with open(os.path.join(exp_files_path, "texts.csv"), mode="r", newline="", encoding="utf-8") as csvfile:
     reader = csv.DictReader(csvfile)
     for row in reader:
         texts[row["text_object"]] = row[language].replace("\\n","\n")
 
-# --- Initialize components for Routine "copyrightInfo" ---
+# --- Initialize components for Routine "copyright_info" ---
 copyright = visual.TextStim(win=win, name='copyright',
     text='',
     font='Open Sans',
@@ -307,19 +319,19 @@ copyright = visual.TextStim(win=win, name='copyright',
     color='black', colorSpace='rgb', opacity=None, 
     languageStyle='LTR',
     depth=0.0);
-copyrightResponse = keyboard.Keyboard()
+copyright_response = keyboard.Keyboard()
 
 # --- Initialize components for Routine "reference" ---
-referenceText = visual.TextStim(win=win, name='referenceText',
+reference_text = visual.TextStim(win=win, name='reference_text',
     text='',
     font='Open Sans',
     pos=(0, 0), height=0.035, wrapWidth=1.5, ori=0.0, 
     color='black', colorSpace='rgb', opacity=None, 
     languageStyle='LTR',
     depth=0.0);
-referenceResponse = keyboard.Keyboard()
+reference_response = keyboard.Keyboard()
 
-# --- Initialize components for Routine "experimentInstructions" ---
+# --- Initialize components for Routine "experiment_instructions" ---
 instructions1 = visual.TextStim(win=win, name='instructions1',
     text='',
     font='Open Sans',
@@ -327,9 +339,9 @@ instructions1 = visual.TextStim(win=win, name='instructions1',
     color='black', colorSpace='rgb', opacity=None, 
     languageStyle='LTR',
     depth=0.0);
-smileySample = visual.ImageStim(
+smiley_sample = visual.ImageStim(
     win=win,
-    name='smileySample', 
+    name='smiley_sample', 
     image='assets/smiley.png', mask=None, anchor='center',
     ori=0.0, pos=(0, 0), size=(0.0625, 0.0625),
     color=[1,1,1], colorSpace='rgb', opacity=None,
@@ -342,78 +354,78 @@ instructions2 = visual.TextStim(win=win, name='instructions2',
     color='black', colorSpace='rgb', opacity=None, 
     languageStyle='LTR',
     depth=-2.0);
-expInstructionsResponse = keyboard.Keyboard()
+exp_instructions_response = keyboard.Keyboard()
 
-# --- Initialize components for Routine "trialSetup" ---
+# --- Initialize components for Routine "trial_setup" ---
 
 # --- Initialize components for Routine "choose" ---
-leftStim = visual.ImageStim(
+left_stim = visual.ImageStim(
     win=win,
-    name='leftStim', 
+    name='left_stim', 
     image='default.png', mask=None, anchor='center',
     ori=0.0, pos=(-0.25, 0), size=(0.125, 0.125),
     color=[1,1,1], colorSpace='rgb', opacity=None,
     flipHoriz=False, flipVert=False,
     texRes=128.0, interpolate=True, depth=-1.0)
-rightStim = visual.ImageStim(
+right_stim = visual.ImageStim(
     win=win,
-    name='rightStim', 
+    name='right_stim', 
     image='default.png', mask=None, anchor='center',
     ori=0.0, pos=(0.25, 0), size=(0.125, 0.125),
     color=[1,1,1], colorSpace='rgb', opacity=None,
     flipHoriz=False, flipVert=False,
     texRes=128.0, interpolate=True, depth=-2.0)
-floorLine = visual.ImageStim(
+floor_line = visual.ImageStim(
     win=win,
-    name='floorLine', 
+    name='floor_line', 
     image='assets/line.png', mask=None, anchor='center',
     ori=0.0, pos=(0, -0.08), size=(0.75, 0.0125),
     color='white', colorSpace='rgb', opacity=None,
     flipHoriz=False, flipVert=False,
     texRes=128.0, interpolate=True, depth=-3.0)
-textPrompt = visual.TextStim(win=win, name='textPrompt',
+text_prompt = visual.TextStim(win=win, name='text_prompt',
     text='',
     font='Open Sans',
     pos=(0, -0.25), height=0.035, wrapWidth=None, ori=0.0, 
     color='black', colorSpace='rgb', opacity=1.0, 
     languageStyle='LTR',
     depth=-4.0);
-Subject_Response = keyboard.Keyboard()
+subject_response = keyboard.Keyboard()
 
 # --- Initialize components for Routine "reveal" ---
-leftStimReveal = visual.ImageStim(
+left_stim_reveal = visual.ImageStim(
     win=win,
-    name='leftStimReveal', 
+    name='left_stim_reveal', 
     image='default.png', mask=None, anchor='center',
     ori=0.0, pos=[0,0], size=(0.125, 0.125),
     color=[1,1,1], colorSpace='rgb', opacity=None,
     flipHoriz=False, flipVert=False,
     texRes=128.0, interpolate=True, depth=0.0)
-rightStimReveal = visual.ImageStim(
+right_stim_reveal = visual.ImageStim(
     win=win,
-    name='rightStimReveal', 
+    name='right_stim_reveal', 
     image='default.png', mask=None, anchor='center',
     ori=0.0, pos=[0,0], size=(0.125, 0.125),
     color=[1,1,1], colorSpace='rgb', opacity=None,
     flipHoriz=False, flipVert=False,
     texRes=128.0, interpolate=True, depth=-1.0)
-smileyReveal = visual.ImageStim(
+smiley_reveal = visual.ImageStim(
     win=win,
-    name='smileyReveal', 
+    name='smiley_reveal', 
     image='assets/smiley.png', mask=None, anchor='center',
     ori=0.0, pos=[0,0], size=(0.0625, 0.0625),
     color=[1,1,1], colorSpace='rgb', opacity=1.0,
     flipHoriz=False, flipVert=False,
     texRes=128.0, interpolate=True, depth=-2.0)
-floorLineReveal = visual.ImageStim(
+floor_line_reveal = visual.ImageStim(
     win=win,
-    name='floorLineReveal', 
+    name='floor_line_reveal', 
     image='assets/line.png', mask=None, anchor='center',
     ori=0.0, pos=(0, -0.08), size=(0.75, 0.0125),
     color='white', colorSpace='rgb', opacity=None,
     flipHoriz=False, flipVert=False,
     texRes=128.0, interpolate=True, depth=-3.0)
-textPrompt2 = visual.TextStim(win=win, name='textPrompt2',
+text_prompt2 = visual.TextStim(win=win, name='text_prompt2',
     text='',
     font='Open Sans',
     pos=(0, -0.25), height=0.035, wrapWidth=None, ori=0.0, 
@@ -421,25 +433,25 @@ textPrompt2 = visual.TextStim(win=win, name='textPrompt2',
     languageStyle='LTR',
     depth=-4.0);
 
-# --- Initialize components for Routine "postPracticeInstructions" ---
-postPracticeText = visual.TextStim(win=win, name='postPracticeText',
+# --- Initialize components for Routine "post_practice_instructions" ---
+post_practice_text = visual.TextStim(win=win, name='post_practice_text',
     text='',
     font='Open Sans',
     pos=(0, 0), height=0.035, wrapWidth=None, ori=0.0, 
     color='black', colorSpace='rgb', opacity=None, 
     languageStyle='LTR',
     depth=0.0);
-postPracticeResp = keyboard.Keyboard()
+post_practice_resp = keyboard.Keyboard()
 
-# --- Initialize components for Routine "endExperiment" ---
-endText = visual.TextStim(win=win, name='endText',
+# --- Initialize components for Routine "end_experiment" ---
+end_text = visual.TextStim(win=win, name='end_text',
     text='',
     font='Open Sans',
     pos=(0, 0), height=0.035, wrapWidth=None, ori=0.0, 
     color='black', colorSpace='rgb', opacity=None, 
     languageStyle='LTR',
     depth=-1.0);
-endResp = keyboard.Keyboard()
+end_resp = keyboard.Keyboard()
 
 # Create some handy timers
 globalClock = core.Clock()  # to track the time since experiment started
@@ -499,15 +511,15 @@ for thisComponent in setupComponents:
 # the Routine "setup" was not non-slip safe, so reset the non-slip timer
 routineTimer.reset()
 
-# --- Prepare to start Routine "copyrightInfo" ---
+# --- Prepare to start Routine "copyright_info" ---
 continueRoutine = True
 # update component parameters for each repeat
-copyrightResponse.keys = []
-copyrightResponse.rt = []
-_copyrightResponse_allKeys = []
+copyright_response.keys = []
+copyright_response.rt = []
+_copyright_response_allKeys = []
 # keep track of which components have finished
-copyrightInfoComponents = [copyright, copyrightResponse]
-for thisComponent in copyrightInfoComponents:
+copyright_infoComponents = [copyright, copyright_response]
+for thisComponent in copyright_infoComponents:
     thisComponent.tStart = None
     thisComponent.tStop = None
     thisComponent.tStartRefresh = None
@@ -519,7 +531,7 @@ t = 0
 _timeToFirstFrame = win.getFutureFlipTime(clock="now")
 frameN = -1
 
-# --- Run Routine "copyrightInfo" ---
+# --- Run Routine "copyright_info" ---
 routineForceEnded = not continueRoutine
 while continueRoutine:
     # get current time
@@ -547,28 +559,29 @@ while continueRoutine:
         # update params
         copyright.setText(texts["copyright"], log=False)
     
-    # *copyrightResponse* updates
+    # *copyright_response* updates
     waitOnFlip = False
     
-    # if copyrightResponse is starting this frame...
-    if copyrightResponse.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+    # if copyright_response is starting this frame...
+    if copyright_response.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
         # keep track of start time/frame for later
-        copyrightResponse.frameNStart = frameN  # exact frame index
-        copyrightResponse.tStart = t  # local t and not account for scr refresh
-        copyrightResponse.tStartRefresh = tThisFlipGlobal  # on global time
-        win.timeOnFlip(copyrightResponse, 'tStartRefresh')  # time at next scr refresh
+        copyright_response.frameNStart = frameN  # exact frame index
+        copyright_response.tStart = t  # local t and not account for scr refresh
+        copyright_response.tStartRefresh = tThisFlipGlobal  # on global time
+        win.timeOnFlip(copyright_response, 'tStartRefresh')  # time at next scr refresh
         # update status
-        copyrightResponse.status = STARTED
+        copyright_response.status = STARTED
         # keyboard checking is just starting
         waitOnFlip = True
-        win.callOnFlip(copyrightResponse.clock.reset)  # t=0 on next screen flip
-        win.callOnFlip(copyrightResponse.clearEvents, eventType='keyboard')  # clear events on next screen flip
-    if copyrightResponse.status == STARTED and not waitOnFlip:
-        theseKeys = copyrightResponse.getKeys(keyList=[leftKey, rightKey], waitRelease=False)
-        _copyrightResponse_allKeys.extend(theseKeys)
-        if len(_copyrightResponse_allKeys):
-            copyrightResponse.keys = _copyrightResponse_allKeys[-1].name  # just the last key pressed
-            copyrightResponse.rt = _copyrightResponse_allKeys[-1].rt
+        win.callOnFlip(copyright_response.clock.reset)  # t=0 on next screen flip
+        win.callOnFlip(copyright_response.clearEvents, eventType='keyboard')  # clear events on next screen flip
+    if copyright_response.status == STARTED and not waitOnFlip:
+        theseKeys = copyright_response.getKeys(keyList=[left_key, right_key], waitRelease=False)
+        _copyright_response_allKeys.extend(theseKeys)
+        if len(_copyright_response_allKeys):
+            copyright_response.keys = _copyright_response_allKeys[-1].name  # just the last key pressed
+            copyright_response.rt = _copyright_response_allKeys[-1].rt
+            copyright_response.duration = _copyright_response_allKeys[-1].duration
             # a response ends the routine
             continueRoutine = False
     
@@ -583,7 +596,7 @@ while continueRoutine:
         routineForceEnded = True
         break
     continueRoutine = False  # will revert to True if at least one component still running
-    for thisComponent in copyrightInfoComponents:
+    for thisComponent in copyright_infoComponents:
         if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
             continueRoutine = True
             break  # at least one component has not yet finished
@@ -592,21 +605,21 @@ while continueRoutine:
     if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
         win.flip()
 
-# --- Ending Routine "copyrightInfo" ---
-for thisComponent in copyrightInfoComponents:
+# --- Ending Routine "copyright_info" ---
+for thisComponent in copyright_infoComponents:
     if hasattr(thisComponent, "setAutoDraw"):
         thisComponent.setAutoDraw(False)
-# the Routine "copyrightInfo" was not non-slip safe, so reset the non-slip timer
+# the Routine "copyright_info" was not non-slip safe, so reset the non-slip timer
 routineTimer.reset()
 
 # --- Prepare to start Routine "reference" ---
 continueRoutine = True
 # update component parameters for each repeat
-referenceResponse.keys = []
-referenceResponse.rt = []
-_referenceResponse_allKeys = []
+reference_response.keys = []
+reference_response.rt = []
+_reference_response_allKeys = []
 # keep track of which components have finished
-referenceComponents = [referenceText, referenceResponse]
+referenceComponents = [reference_text, reference_response]
 for thisComponent in referenceComponents:
     thisComponent.tStart = None
     thisComponent.tStop = None
@@ -629,46 +642,47 @@ while continueRoutine:
     frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
     # update/draw components on each frame
     
-    # *referenceText* updates
+    # *reference_text* updates
     
-    # if referenceText is starting this frame...
-    if referenceText.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+    # if reference_text is starting this frame...
+    if reference_text.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
         # keep track of start time/frame for later
-        referenceText.frameNStart = frameN  # exact frame index
-        referenceText.tStart = t  # local t and not account for scr refresh
-        referenceText.tStartRefresh = tThisFlipGlobal  # on global time
-        win.timeOnFlip(referenceText, 'tStartRefresh')  # time at next scr refresh
+        reference_text.frameNStart = frameN  # exact frame index
+        reference_text.tStart = t  # local t and not account for scr refresh
+        reference_text.tStartRefresh = tThisFlipGlobal  # on global time
+        win.timeOnFlip(reference_text, 'tStartRefresh')  # time at next scr refresh
         # update status
-        referenceText.status = STARTED
-        referenceText.setAutoDraw(True)
+        reference_text.status = STARTED
+        reference_text.setAutoDraw(True)
     
-    # if referenceText is active this frame...
-    if referenceText.status == STARTED:
+    # if reference_text is active this frame...
+    if reference_text.status == STARTED:
         # update params
-        referenceText.setText(texts["referenceText"], log=False)
+        reference_text.setText(texts["reference_text"], log=False)
     
-    # *referenceResponse* updates
+    # *reference_response* updates
     waitOnFlip = False
     
-    # if referenceResponse is starting this frame...
-    if referenceResponse.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+    # if reference_response is starting this frame...
+    if reference_response.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
         # keep track of start time/frame for later
-        referenceResponse.frameNStart = frameN  # exact frame index
-        referenceResponse.tStart = t  # local t and not account for scr refresh
-        referenceResponse.tStartRefresh = tThisFlipGlobal  # on global time
-        win.timeOnFlip(referenceResponse, 'tStartRefresh')  # time at next scr refresh
+        reference_response.frameNStart = frameN  # exact frame index
+        reference_response.tStart = t  # local t and not account for scr refresh
+        reference_response.tStartRefresh = tThisFlipGlobal  # on global time
+        win.timeOnFlip(reference_response, 'tStartRefresh')  # time at next scr refresh
         # update status
-        referenceResponse.status = STARTED
+        reference_response.status = STARTED
         # keyboard checking is just starting
         waitOnFlip = True
-        win.callOnFlip(referenceResponse.clock.reset)  # t=0 on next screen flip
-        win.callOnFlip(referenceResponse.clearEvents, eventType='keyboard')  # clear events on next screen flip
-    if referenceResponse.status == STARTED and not waitOnFlip:
-        theseKeys = referenceResponse.getKeys(keyList=[leftKey, rightKey], waitRelease=False)
-        _referenceResponse_allKeys.extend(theseKeys)
-        if len(_referenceResponse_allKeys):
-            referenceResponse.keys = _referenceResponse_allKeys[-1].name  # just the last key pressed
-            referenceResponse.rt = _referenceResponse_allKeys[-1].rt
+        win.callOnFlip(reference_response.clock.reset)  # t=0 on next screen flip
+        win.callOnFlip(reference_response.clearEvents, eventType='keyboard')  # clear events on next screen flip
+    if reference_response.status == STARTED and not waitOnFlip:
+        theseKeys = reference_response.getKeys(keyList=[left_key, right_key], waitRelease=False)
+        _reference_response_allKeys.extend(theseKeys)
+        if len(_reference_response_allKeys):
+            reference_response.keys = _reference_response_allKeys[-1].name  # just the last key pressed
+            reference_response.rt = _reference_response_allKeys[-1].rt
+            reference_response.duration = _reference_response_allKeys[-1].duration
             # a response ends the routine
             continueRoutine = False
     
@@ -699,15 +713,15 @@ for thisComponent in referenceComponents:
 # the Routine "reference" was not non-slip safe, so reset the non-slip timer
 routineTimer.reset()
 
-# --- Prepare to start Routine "experimentInstructions" ---
+# --- Prepare to start Routine "experiment_instructions" ---
 continueRoutine = True
 # update component parameters for each repeat
-expInstructionsResponse.keys = []
-expInstructionsResponse.rt = []
-_expInstructionsResponse_allKeys = []
+exp_instructions_response.keys = []
+exp_instructions_response.rt = []
+_exp_instructions_response_allKeys = []
 # keep track of which components have finished
-experimentInstructionsComponents = [instructions1, smileySample, instructions2, expInstructionsResponse]
-for thisComponent in experimentInstructionsComponents:
+experiment_instructionsComponents = [instructions1, smiley_sample, instructions2, exp_instructions_response]
+for thisComponent in experiment_instructionsComponents:
     thisComponent.tStart = None
     thisComponent.tStop = None
     thisComponent.tStartRefresh = None
@@ -719,7 +733,7 @@ t = 0
 _timeToFirstFrame = win.getFutureFlipTime(clock="now")
 frameN = -1
 
-# --- Run Routine "experimentInstructions" ---
+# --- Run Routine "experiment_instructions" ---
 routineForceEnded = not continueRoutine
 while continueRoutine:
     # get current time
@@ -747,21 +761,21 @@ while continueRoutine:
         # update params
         instructions1.setText(texts["instructions1"], log=False)
     
-    # *smileySample* updates
+    # *smiley_sample* updates
     
-    # if smileySample is starting this frame...
-    if smileySample.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+    # if smiley_sample is starting this frame...
+    if smiley_sample.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
         # keep track of start time/frame for later
-        smileySample.frameNStart = frameN  # exact frame index
-        smileySample.tStart = t  # local t and not account for scr refresh
-        smileySample.tStartRefresh = tThisFlipGlobal  # on global time
-        win.timeOnFlip(smileySample, 'tStartRefresh')  # time at next scr refresh
+        smiley_sample.frameNStart = frameN  # exact frame index
+        smiley_sample.tStart = t  # local t and not account for scr refresh
+        smiley_sample.tStartRefresh = tThisFlipGlobal  # on global time
+        win.timeOnFlip(smiley_sample, 'tStartRefresh')  # time at next scr refresh
         # update status
-        smileySample.status = STARTED
-        smileySample.setAutoDraw(True)
+        smiley_sample.status = STARTED
+        smiley_sample.setAutoDraw(True)
     
-    # if smileySample is active this frame...
-    if smileySample.status == STARTED:
+    # if smiley_sample is active this frame...
+    if smiley_sample.status == STARTED:
         # update params
         pass
     
@@ -783,28 +797,29 @@ while continueRoutine:
         # update params
         instructions2.setText(texts["instructions2"], log=False)
     
-    # *expInstructionsResponse* updates
+    # *exp_instructions_response* updates
     waitOnFlip = False
     
-    # if expInstructionsResponse is starting this frame...
-    if expInstructionsResponse.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+    # if exp_instructions_response is starting this frame...
+    if exp_instructions_response.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
         # keep track of start time/frame for later
-        expInstructionsResponse.frameNStart = frameN  # exact frame index
-        expInstructionsResponse.tStart = t  # local t and not account for scr refresh
-        expInstructionsResponse.tStartRefresh = tThisFlipGlobal  # on global time
-        win.timeOnFlip(expInstructionsResponse, 'tStartRefresh')  # time at next scr refresh
+        exp_instructions_response.frameNStart = frameN  # exact frame index
+        exp_instructions_response.tStart = t  # local t and not account for scr refresh
+        exp_instructions_response.tStartRefresh = tThisFlipGlobal  # on global time
+        win.timeOnFlip(exp_instructions_response, 'tStartRefresh')  # time at next scr refresh
         # update status
-        expInstructionsResponse.status = STARTED
+        exp_instructions_response.status = STARTED
         # keyboard checking is just starting
         waitOnFlip = True
-        win.callOnFlip(expInstructionsResponse.clock.reset)  # t=0 on next screen flip
-        win.callOnFlip(expInstructionsResponse.clearEvents, eventType='keyboard')  # clear events on next screen flip
-    if expInstructionsResponse.status == STARTED and not waitOnFlip:
-        theseKeys = expInstructionsResponse.getKeys(keyList=['z','m'], waitRelease=False)
-        _expInstructionsResponse_allKeys.extend(theseKeys)
-        if len(_expInstructionsResponse_allKeys):
-            expInstructionsResponse.keys = _expInstructionsResponse_allKeys[-1].name  # just the last key pressed
-            expInstructionsResponse.rt = _expInstructionsResponse_allKeys[-1].rt
+        win.callOnFlip(exp_instructions_response.clock.reset)  # t=0 on next screen flip
+        win.callOnFlip(exp_instructions_response.clearEvents, eventType='keyboard')  # clear events on next screen flip
+    if exp_instructions_response.status == STARTED and not waitOnFlip:
+        theseKeys = exp_instructions_response.getKeys(keyList=[left_key, right_key], waitRelease=False)
+        _exp_instructions_response_allKeys.extend(theseKeys)
+        if len(_exp_instructions_response_allKeys):
+            exp_instructions_response.keys = _exp_instructions_response_allKeys[-1].name  # just the last key pressed
+            exp_instructions_response.rt = _exp_instructions_response_allKeys[-1].rt
+            exp_instructions_response.duration = _exp_instructions_response_allKeys[-1].duration
             # a response ends the routine
             continueRoutine = False
     
@@ -819,7 +834,7 @@ while continueRoutine:
         routineForceEnded = True
         break
     continueRoutine = False  # will revert to True if at least one component still running
-    for thisComponent in experimentInstructionsComponents:
+    for thisComponent in experiment_instructionsComponents:
         if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
             continueRoutine = True
             break  # at least one component has not yet finished
@@ -828,50 +843,50 @@ while continueRoutine:
     if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
         win.flip()
 
-# --- Ending Routine "experimentInstructions" ---
-for thisComponent in experimentInstructionsComponents:
+# --- Ending Routine "experiment_instructions" ---
+for thisComponent in experiment_instructionsComponents:
     if hasattr(thisComponent, "setAutoDraw"):
         thisComponent.setAutoDraw(False)
-# the Routine "experimentInstructions" was not non-slip safe, so reset the non-slip timer
+# the Routine "experiment_instructions" was not non-slip safe, so reset the non-slip timer
 routineTimer.reset()
 
 # set up handler to look after randomisation of conditions etc
-phasesLoop = data.TrialHandler(nReps=1.0, method='sequential', 
+phases_loop = data.TrialHandler(nReps=1.0, method='sequential', 
     extraInfo=expInfo, originPath=-1,
-    trialList=data.importConditions('experimentFiles/phases.csv'),
-    seed=None, name='phasesLoop')
-thisExp.addLoop(phasesLoop)  # add the loop to the experiment
-thisPhasesLoop = phasesLoop.trialList[0]  # so we can initialise stimuli with some values
-# abbreviate parameter names if possible (e.g. rgb = thisPhasesLoop.rgb)
-if thisPhasesLoop != None:
-    for paramName in thisPhasesLoop:
-        exec('{} = thisPhasesLoop[paramName]'.format(paramName))
+    trialList=data.importConditions('experiment_files/phases.csv'),
+    seed=None, name='phases_loop')
+thisExp.addLoop(phases_loop)  # add the loop to the experiment
+thisPhases_loop = phases_loop.trialList[0]  # so we can initialise stimuli with some values
+# abbreviate parameter names if possible (e.g. rgb = thisPhases_loop.rgb)
+if thisPhases_loop != None:
+    for paramName in thisPhases_loop:
+        exec('{} = thisPhases_loop[paramName]'.format(paramName))
 
-for thisPhasesLoop in phasesLoop:
-    currentLoop = phasesLoop
-    # abbreviate parameter names if possible (e.g. rgb = thisPhasesLoop.rgb)
-    if thisPhasesLoop != None:
-        for paramName in thisPhasesLoop:
-            exec('{} = thisPhasesLoop[paramName]'.format(paramName))
+for thisPhases_loop in phases_loop:
+    currentLoop = phases_loop
+    # abbreviate parameter names if possible (e.g. rgb = thisPhases_loop.rgb)
+    if thisPhases_loop != None:
+        for paramName in thisPhases_loop:
+            exec('{} = thisPhases_loop[paramName]'.format(paramName))
     
-    # --- Prepare to start Routine "trialSetup" ---
+    # --- Prepare to start Routine "trial_setup" ---
     continueRoutine = True
     # update component parameters for each repeat
-    # Run 'Begin Routine' code from trialSetupCode
-    trialConditionsFile = "./experimentFiles/" + currentPhase + ".csv"
+    # Run 'Begin Routine' code from trial_setup_code
+    trial_conditions_file = "./experiment_files/" + current_phase + ".csv"
     
-    consecutiveCorrectResponses = 0
-    transitionedEarly = False
+    consecutive_correct_responses = 0
+    transitioned_early = False
     
-    if(currentPhase == "practice"):
+    if(current_phase == "practice"):
         criterion = 3
-    elif(evalToCriterion):
+    elif(eval_to_criterion):
         criterion = int(expInfo["Number of pairs"]) * 2
     else:
         criterion = float("inf")
     # keep track of which components have finished
-    trialSetupComponents = []
-    for thisComponent in trialSetupComponents:
+    trial_setupComponents = []
+    for thisComponent in trial_setupComponents:
         thisComponent.tStart = None
         thisComponent.tStop = None
         thisComponent.tStartRefresh = None
@@ -883,7 +898,7 @@ for thisPhasesLoop in phasesLoop:
     _timeToFirstFrame = win.getFutureFlipTime(clock="now")
     frameN = -1
     
-    # --- Run Routine "trialSetup" ---
+    # --- Run Routine "trial_setup" ---
     routineForceEnded = not continueRoutine
     while continueRoutine:
         # get current time
@@ -904,7 +919,7 @@ for thisPhasesLoop in phasesLoop:
             routineForceEnded = True
             break
         continueRoutine = False  # will revert to True if at least one component still running
-        for thisComponent in trialSetupComponents:
+        for thisComponent in trial_setupComponents:
             if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
                 continueRoutine = True
                 break  # at least one component has not yet finished
@@ -913,47 +928,47 @@ for thisPhasesLoop in phasesLoop:
         if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
             win.flip()
     
-    # --- Ending Routine "trialSetup" ---
-    for thisComponent in trialSetupComponents:
+    # --- Ending Routine "trial_setup" ---
+    for thisComponent in trial_setupComponents:
         if hasattr(thisComponent, "setAutoDraw"):
             thisComponent.setAutoDraw(False)
-    # the Routine "trialSetup" was not non-slip safe, so reset the non-slip timer
+    # the Routine "trial_setup" was not non-slip safe, so reset the non-slip timer
     routineTimer.reset()
     
     # set up handler to look after randomisation of conditions etc
-    trialLoop = data.TrialHandler(nReps=trialNumReps[currentPhase], method='random', 
+    trial_loop = data.TrialHandler(nReps=trial_num_reps[current_phase], method='random', 
         extraInfo=expInfo, originPath=-1,
-        trialList=data.importConditions((trialConditionsFile)),
-        seed=None, name='trialLoop')
-    thisExp.addLoop(trialLoop)  # add the loop to the experiment
-    thisTrialLoop = trialLoop.trialList[0]  # so we can initialise stimuli with some values
-    # abbreviate parameter names if possible (e.g. rgb = thisTrialLoop.rgb)
-    if thisTrialLoop != None:
-        for paramName in thisTrialLoop:
-            exec('{} = thisTrialLoop[paramName]'.format(paramName))
+        trialList=data.importConditions((trial_conditions_file)),
+        seed=None, name='trial_loop')
+    thisExp.addLoop(trial_loop)  # add the loop to the experiment
+    thisTrial_loop = trial_loop.trialList[0]  # so we can initialise stimuli with some values
+    # abbreviate parameter names if possible (e.g. rgb = thisTrial_loop.rgb)
+    if thisTrial_loop != None:
+        for paramName in thisTrial_loop:
+            exec('{} = thisTrial_loop[paramName]'.format(paramName))
     
-    for thisTrialLoop in trialLoop:
-        currentLoop = trialLoop
-        # abbreviate parameter names if possible (e.g. rgb = thisTrialLoop.rgb)
-        if thisTrialLoop != None:
-            for paramName in thisTrialLoop:
-                exec('{} = thisTrialLoop[paramName]'.format(paramName))
+    for thisTrial_loop in trial_loop:
+        currentLoop = trial_loop
+        # abbreviate parameter names if possible (e.g. rgb = thisTrial_loop.rgb)
+        if thisTrial_loop != None:
+            for paramName in thisTrial_loop:
+                exec('{} = thisTrial_loop[paramName]'.format(paramName))
         
         # --- Prepare to start Routine "choose" ---
         continueRoutine = True
         # update component parameters for each repeat
-        # Run 'Begin Routine' code from setImgsPaths
-        leftImgPath = os.path.join(assetsPath, currentPhase, Left_Stim + ".png")
-        rightImgPath = os.path.join(assetsPath, currentPhase, Right_Stim + ".png")
+        # Run 'Begin Routine' code from set_imgs_paths
+        left_img_path = os.path.join(assets_path, current_phase, Left_Stim + ".png")
+        right_img_path = os.path.join(assets_path, current_phase, Right_Stim + ".png")
         
         
-        leftStim.setImage(leftImgPath)
-        rightStim.setImage(rightImgPath)
-        Subject_Response.keys = []
-        Subject_Response.rt = []
-        _Subject_Response_allKeys = []
+        left_stim.setImage(left_img_path)
+        right_stim.setImage(right_img_path)
+        subject_response.keys = []
+        subject_response.rt = []
+        _subject_response_allKeys = []
         # keep track of which components have finished
-        chooseComponents = [leftStim, rightStim, floorLine, textPrompt, Subject_Response]
+        chooseComponents = [left_stim, right_stim, floor_line, text_prompt, subject_response]
         for thisComponent in chooseComponents:
             thisComponent.tStart = None
             thisComponent.tStop = None
@@ -976,107 +991,108 @@ for thisPhasesLoop in phasesLoop:
             frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
             # update/draw components on each frame
             
-            # *leftStim* updates
+            # *left_stim* updates
             
-            # if leftStim is starting this frame...
-            if leftStim.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+            # if left_stim is starting this frame...
+            if left_stim.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
                 # keep track of start time/frame for later
-                leftStim.frameNStart = frameN  # exact frame index
-                leftStim.tStart = t  # local t and not account for scr refresh
-                leftStim.tStartRefresh = tThisFlipGlobal  # on global time
-                win.timeOnFlip(leftStim, 'tStartRefresh')  # time at next scr refresh
+                left_stim.frameNStart = frameN  # exact frame index
+                left_stim.tStart = t  # local t and not account for scr refresh
+                left_stim.tStartRefresh = tThisFlipGlobal  # on global time
+                win.timeOnFlip(left_stim, 'tStartRefresh')  # time at next scr refresh
                 # update status
-                leftStim.status = STARTED
-                leftStim.setAutoDraw(True)
+                left_stim.status = STARTED
+                left_stim.setAutoDraw(True)
             
-            # if leftStim is active this frame...
-            if leftStim.status == STARTED:
+            # if left_stim is active this frame...
+            if left_stim.status == STARTED:
                 # update params
                 pass
             
-            # *rightStim* updates
+            # *right_stim* updates
             
-            # if rightStim is starting this frame...
-            if rightStim.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+            # if right_stim is starting this frame...
+            if right_stim.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
                 # keep track of start time/frame for later
-                rightStim.frameNStart = frameN  # exact frame index
-                rightStim.tStart = t  # local t and not account for scr refresh
-                rightStim.tStartRefresh = tThisFlipGlobal  # on global time
-                win.timeOnFlip(rightStim, 'tStartRefresh')  # time at next scr refresh
+                right_stim.frameNStart = frameN  # exact frame index
+                right_stim.tStart = t  # local t and not account for scr refresh
+                right_stim.tStartRefresh = tThisFlipGlobal  # on global time
+                win.timeOnFlip(right_stim, 'tStartRefresh')  # time at next scr refresh
                 # update status
-                rightStim.status = STARTED
-                rightStim.setAutoDraw(True)
+                right_stim.status = STARTED
+                right_stim.setAutoDraw(True)
             
-            # if rightStim is active this frame...
-            if rightStim.status == STARTED:
+            # if right_stim is active this frame...
+            if right_stim.status == STARTED:
                 # update params
                 pass
             
-            # *floorLine* updates
+            # *floor_line* updates
             
-            # if floorLine is starting this frame...
-            if floorLine.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+            # if floor_line is starting this frame...
+            if floor_line.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
                 # keep track of start time/frame for later
-                floorLine.frameNStart = frameN  # exact frame index
-                floorLine.tStart = t  # local t and not account for scr refresh
-                floorLine.tStartRefresh = tThisFlipGlobal  # on global time
-                win.timeOnFlip(floorLine, 'tStartRefresh')  # time at next scr refresh
+                floor_line.frameNStart = frameN  # exact frame index
+                floor_line.tStart = t  # local t and not account for scr refresh
+                floor_line.tStartRefresh = tThisFlipGlobal  # on global time
+                win.timeOnFlip(floor_line, 'tStartRefresh')  # time at next scr refresh
                 # update status
-                floorLine.status = STARTED
-                floorLine.setAutoDraw(True)
+                floor_line.status = STARTED
+                floor_line.setAutoDraw(True)
             
-            # if floorLine is active this frame...
-            if floorLine.status == STARTED:
+            # if floor_line is active this frame...
+            if floor_line.status == STARTED:
                 # update params
                 pass
             
-            # *textPrompt* updates
+            # *text_prompt* updates
             
-            # if textPrompt is starting this frame...
-            if textPrompt.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+            # if text_prompt is starting this frame...
+            if text_prompt.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
                 # keep track of start time/frame for later
-                textPrompt.frameNStart = frameN  # exact frame index
-                textPrompt.tStart = t  # local t and not account for scr refresh
-                textPrompt.tStartRefresh = tThisFlipGlobal  # on global time
-                win.timeOnFlip(textPrompt, 'tStartRefresh')  # time at next scr refresh
+                text_prompt.frameNStart = frameN  # exact frame index
+                text_prompt.tStart = t  # local t and not account for scr refresh
+                text_prompt.tStartRefresh = tThisFlipGlobal  # on global time
+                win.timeOnFlip(text_prompt, 'tStartRefresh')  # time at next scr refresh
                 # update status
-                textPrompt.status = STARTED
-                textPrompt.setAutoDraw(True)
+                text_prompt.status = STARTED
+                text_prompt.setAutoDraw(True)
             
-            # if textPrompt is active this frame...
-            if textPrompt.status == STARTED:
+            # if text_prompt is active this frame...
+            if text_prompt.status == STARTED:
                 # update params
-                textPrompt.setText(texts["textPrompt"], log=False)
+                text_prompt.setText(texts["text_prompt"], log=False)
             
-            # *Subject_Response* updates
+            # *subject_response* updates
             waitOnFlip = False
             
-            # if Subject_Response is starting this frame...
-            if Subject_Response.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+            # if subject_response is starting this frame...
+            if subject_response.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
                 # keep track of start time/frame for later
-                Subject_Response.frameNStart = frameN  # exact frame index
-                Subject_Response.tStart = t  # local t and not account for scr refresh
-                Subject_Response.tStartRefresh = tThisFlipGlobal  # on global time
-                win.timeOnFlip(Subject_Response, 'tStartRefresh')  # time at next scr refresh
+                subject_response.frameNStart = frameN  # exact frame index
+                subject_response.tStart = t  # local t and not account for scr refresh
+                subject_response.tStartRefresh = tThisFlipGlobal  # on global time
+                win.timeOnFlip(subject_response, 'tStartRefresh')  # time at next scr refresh
                 # add timestamp to datafile
-                thisExp.timestampOnFlip(win, 'Subject_Response.started')
+                thisExp.timestampOnFlip(win, 'subject_response.started')
                 # update status
-                Subject_Response.status = STARTED
+                subject_response.status = STARTED
                 # keyboard checking is just starting
                 waitOnFlip = True
-                win.callOnFlip(Subject_Response.clock.reset)  # t=0 on next screen flip
-                win.callOnFlip(Subject_Response.clearEvents, eventType='keyboard')  # clear events on next screen flip
-            if Subject_Response.status == STARTED and not waitOnFlip:
-                theseKeys = Subject_Response.getKeys(keyList=[leftKey, rightKey], waitRelease=False)
-                _Subject_Response_allKeys.extend(theseKeys)
-                if len(_Subject_Response_allKeys):
-                    Subject_Response.keys = _Subject_Response_allKeys[-1].name  # just the last key pressed
-                    Subject_Response.rt = _Subject_Response_allKeys[-1].rt
+                win.callOnFlip(subject_response.clock.reset)  # t=0 on next screen flip
+                win.callOnFlip(subject_response.clearEvents, eventType='keyboard')  # clear events on next screen flip
+            if subject_response.status == STARTED and not waitOnFlip:
+                theseKeys = subject_response.getKeys(keyList=[left_key, right_key], waitRelease=False)
+                _subject_response_allKeys.extend(theseKeys)
+                if len(_subject_response_allKeys):
+                    subject_response.keys = _subject_response_allKeys[-1].name  # just the last key pressed
+                    subject_response.rt = _subject_response_allKeys[-1].rt
+                    subject_response.duration = _subject_response_allKeys[-1].duration
                     # was this correct?
-                    if (Subject_Response.keys == str((leftKey if hasSmiley[Left_Stim] else rightKey if hasSmiley[Right_Stim] else ''))) or (Subject_Response.keys == (leftKey if hasSmiley[Left_Stim] else rightKey if hasSmiley[Right_Stim] else '')):
-                        Subject_Response.corr = 1
+                    if (subject_response.keys == str((left_key if has_smiley[Left_Stim] else right_key if has_smiley[Right_Stim] else ''))) or (subject_response.keys == (left_key if has_smiley[Left_Stim] else right_key if has_smiley[Right_Stim] else '')):
+                        subject_response.corr = 1
                     else:
-                        Subject_Response.corr = 0
+                        subject_response.corr = 0
                     # a response ends the routine
                     continueRoutine = False
             
@@ -1105,68 +1121,76 @@ for thisPhasesLoop in phasesLoop:
             if hasattr(thisComponent, "setAutoDraw"):
                 thisComponent.setAutoDraw(False)
         # check responses
-        if Subject_Response.keys in ['', [], None]:  # No response was made
-            Subject_Response.keys = None
+        if subject_response.keys in ['', [], None]:  # No response was made
+            subject_response.keys = None
             # was no response the correct answer?!
-            if str((leftKey if hasSmiley[Left_Stim] else rightKey if hasSmiley[Right_Stim] else '')).lower() == 'none':
-               Subject_Response.corr = 1;  # correct non-response
+            if str((left_key if has_smiley[Left_Stim] else right_key if has_smiley[Right_Stim] else '')).lower() == 'none':
+               subject_response.corr = 1;  # correct non-response
             else:
-               Subject_Response.corr = 0;  # failed to respond (incorrectly)
-        # store data for trialLoop (TrialHandler)
-        trialLoop.addData('Subject_Response.keys',Subject_Response.keys)
-        trialLoop.addData('Subject_Response.corr', Subject_Response.corr)
-        if Subject_Response.keys != None:  # we had a response
-            trialLoop.addData('Subject_Response.rt', Subject_Response.rt)
-        # Run 'End Routine' code from correctResponse
-        correctResponse = False
+               subject_response.corr = 0;  # failed to respond (incorrectly)
+        # store data for trial_loop (TrialHandler)
+        trial_loop.addData('subject_response.keys',subject_response.keys)
+        trial_loop.addData('subject_response.corr', subject_response.corr)
+        if subject_response.keys != None:  # we had a response
+            trial_loop.addData('subject_response.rt', subject_response.rt)
+            trial_loop.addData('subject_response.duration', subject_response.duration)
+        # Run 'End Routine' code from correct_response
+        correct_response = False
             
-        if(Subject_Response.keys == leftKey and hasSmiley[Left_Stim]):
-            consecutiveCorrectResponses += 1
-            correctResponse = True
-        elif(Subject_Response.keys == rightKey and hasSmiley[Right_Stim]):
-            consecutiveCorrectResponses += 1
-            correctResponse = True
-        else:
-            consecutiveCorrectResponses = 0
-        # Run 'End Routine' code from practiceAssignSmiley
-        if(firstChoice and Subject_Response.keys == leftKey):
-            hasSmiley[Right_Stim] = True
-            hasSmiley[Left_Stim] = False
-            firstChoice = False
-        elif(firstChoice and Subject_Response.keys == rightKey):
-            hasSmiley[Right_Stim] = False
-            hasSmiley[Left_Stim] = True
-            firstChoice = False
-        # Run 'End Routine' code from updateSummaryVars
-        if(currentPhase == "training"):
-            trainTrials += 1
-            trainAvgRT += Subject_Response.rt
-            if(correctResponse):
-                trainAccuracy += 1
+        if(subject_response.keys == left_key and has_smiley[Left_Stim]):
+            consecutive_correct_responses += 1
+            correct_response = True
+        elif(subject_response.keys == right_key and has_smiley[Right_Stim]):
+            consecutive_correct_responses += 1
+            correct_response = True
+        # Only wrong answers reset the consecutive correct responses
+        # if the subject doesn't respond on time then we just 
+        # ignore that it happened
+        elif(subject_response.keys):
+            consecutive_correct_responses = 0
+        
+        # Run 'End Routine' code from practice_assign_smiley
+        if(first_choice and subject_response.keys == left_key):
+            has_smiley[Right_Stim] = True
+            has_smiley[Left_Stim] = False
+            first_choice = False
+        elif(first_choice and subject_response.keys == right_key):
+            has_smiley[Right_Stim] = False
+            has_smiley[Left_Stim] = True
+            first_choice = False
+        # Run 'End Routine' code from update_summary_vars
+        
+        # type(subject_response.rt) == float is True 
+        # if the subject responded within the alloted time (3 secs)
+        if(current_phase == "training" and type(subject_response.rt) == float):
+            train_trials += 1
+            train_avg_RT += subject_response.rt
+            if(correct_response):
+                train_accuracy += 1
             else:
-                trainError += 1
-        elif(currentPhase == "testing"):
-            probeTrials += 1
-            probeAvgRT += Subject_Response.rt
-            if(correctResponse):
-                probeAccuracy += 1
+                train_error += 1   
+        elif(current_phase == "testing" and type(subject_response.rt) == float):
+            probe_trials += 1
+            probe_avg_RT += subject_response.rt
+            if(correct_response):
+                probe_accuracy += 1
             else:
-                probeError += 1
+                probe_error += 1
         # the Routine "choose" was not non-slip safe, so reset the non-slip timer
         routineTimer.reset()
         
         # --- Prepare to start Routine "reveal" ---
         continueRoutine = True
         # update component parameters for each repeat
-        leftStimReveal.setImage(leftImgPath)
-        rightStimReveal.setImage(rightImgPath)
-        smileyReveal.setOpacity(1 if correctResponse else 0 )
-        smileyReveal.setPos((-0.25, 0) if hasSmiley[Left_Stim] else (0.25,0))
-        # Run 'Begin Routine' code from earlyTransition
-        if(consecutiveCorrectResponses >= criterion):
-                trialLoop.finished = True
+        left_stim_reveal.setImage(left_img_path)
+        right_stim_reveal.setImage(right_img_path)
+        smiley_reveal.setOpacity(1 if correct_response else 0 )
+        smiley_reveal.setPos((-0.25, 0) if has_smiley[Left_Stim] else (0.25,0))
+        # Run 'Begin Routine' code from early_transition
+        if(consecutive_correct_responses >= criterion):
+                trial_loop.finished = True
         # keep track of which components have finished
-        revealComponents = [leftStimReveal, rightStimReveal, smileyReveal, floorLineReveal, textPrompt2]
+        revealComponents = [left_stim_reveal, right_stim_reveal, smiley_reveal, floor_line_reveal, text_prompt2]
         for thisComponent in revealComponents:
             thisComponent.tStart = None
             thisComponent.tStop = None
@@ -1189,150 +1213,150 @@ for thisPhasesLoop in phasesLoop:
             frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
             # update/draw components on each frame
             
-            # *leftStimReveal* updates
+            # *left_stim_reveal* updates
             
-            # if leftStimReveal is starting this frame...
-            if leftStimReveal.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+            # if left_stim_reveal is starting this frame...
+            if left_stim_reveal.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
                 # keep track of start time/frame for later
-                leftStimReveal.frameNStart = frameN  # exact frame index
-                leftStimReveal.tStart = t  # local t and not account for scr refresh
-                leftStimReveal.tStartRefresh = tThisFlipGlobal  # on global time
-                win.timeOnFlip(leftStimReveal, 'tStartRefresh')  # time at next scr refresh
+                left_stim_reveal.frameNStart = frameN  # exact frame index
+                left_stim_reveal.tStart = t  # local t and not account for scr refresh
+                left_stim_reveal.tStartRefresh = tThisFlipGlobal  # on global time
+                win.timeOnFlip(left_stim_reveal, 'tStartRefresh')  # time at next scr refresh
                 # update status
-                leftStimReveal.status = STARTED
-                leftStimReveal.setAutoDraw(True)
+                left_stim_reveal.status = STARTED
+                left_stim_reveal.setAutoDraw(True)
             
-            # if leftStimReveal is active this frame...
-            if leftStimReveal.status == STARTED:
+            # if left_stim_reveal is active this frame...
+            if left_stim_reveal.status == STARTED:
                 # update params
-                leftStimReveal.setPos([-0.25, min(0.1, frameN/100)] if (Subject_Response.keys == leftKey) else [-0.25, 0], log=False)
+                left_stim_reveal.setPos([-0.25, min(0.1, frameN/100)] if (subject_response.keys == left_key) else [-0.25, 0], log=False)
             
-            # if leftStimReveal is stopping this frame...
-            if leftStimReveal.status == STARTED:
+            # if left_stim_reveal is stopping this frame...
+            if left_stim_reveal.status == STARTED:
                 # is it time to stop? (based on global clock, using actual start)
-                if tThisFlipGlobal > leftStimReveal.tStartRefresh + 1-frameTolerance:
+                if tThisFlipGlobal > left_stim_reveal.tStartRefresh + 1.0-frameTolerance:
                     # keep track of stop time/frame for later
-                    leftStimReveal.tStop = t  # not accounting for scr refresh
-                    leftStimReveal.frameNStop = frameN  # exact frame index
+                    left_stim_reveal.tStop = t  # not accounting for scr refresh
+                    left_stim_reveal.frameNStop = frameN  # exact frame index
                     # update status
-                    leftStimReveal.status = FINISHED
-                    leftStimReveal.setAutoDraw(False)
+                    left_stim_reveal.status = FINISHED
+                    left_stim_reveal.setAutoDraw(False)
             
-            # *rightStimReveal* updates
+            # *right_stim_reveal* updates
             
-            # if rightStimReveal is starting this frame...
-            if rightStimReveal.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+            # if right_stim_reveal is starting this frame...
+            if right_stim_reveal.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
                 # keep track of start time/frame for later
-                rightStimReveal.frameNStart = frameN  # exact frame index
-                rightStimReveal.tStart = t  # local t and not account for scr refresh
-                rightStimReveal.tStartRefresh = tThisFlipGlobal  # on global time
-                win.timeOnFlip(rightStimReveal, 'tStartRefresh')  # time at next scr refresh
+                right_stim_reveal.frameNStart = frameN  # exact frame index
+                right_stim_reveal.tStart = t  # local t and not account for scr refresh
+                right_stim_reveal.tStartRefresh = tThisFlipGlobal  # on global time
+                win.timeOnFlip(right_stim_reveal, 'tStartRefresh')  # time at next scr refresh
                 # update status
-                rightStimReveal.status = STARTED
-                rightStimReveal.setAutoDraw(True)
+                right_stim_reveal.status = STARTED
+                right_stim_reveal.setAutoDraw(True)
             
-            # if rightStimReveal is active this frame...
-            if rightStimReveal.status == STARTED:
+            # if right_stim_reveal is active this frame...
+            if right_stim_reveal.status == STARTED:
                 # update params
-                rightStimReveal.setPos([0.25, min(0.1, frameN/100)] if (Subject_Response.keys == rightKey) else [0.25, 0], log=False)
+                right_stim_reveal.setPos([0.25, min(0.1, frameN/100)] if (subject_response.keys == right_key) else [0.25, 0], log=False)
             
-            # if rightStimReveal is stopping this frame...
-            if rightStimReveal.status == STARTED:
+            # if right_stim_reveal is stopping this frame...
+            if right_stim_reveal.status == STARTED:
                 # is it time to stop? (based on global clock, using actual start)
-                if tThisFlipGlobal > rightStimReveal.tStartRefresh + 1-frameTolerance:
+                if tThisFlipGlobal > right_stim_reveal.tStartRefresh + 1.0-frameTolerance:
                     # keep track of stop time/frame for later
-                    rightStimReveal.tStop = t  # not accounting for scr refresh
-                    rightStimReveal.frameNStop = frameN  # exact frame index
+                    right_stim_reveal.tStop = t  # not accounting for scr refresh
+                    right_stim_reveal.frameNStop = frameN  # exact frame index
                     # update status
-                    rightStimReveal.status = FINISHED
-                    rightStimReveal.setAutoDraw(False)
+                    right_stim_reveal.status = FINISHED
+                    right_stim_reveal.setAutoDraw(False)
             
-            # *smileyReveal* updates
+            # *smiley_reveal* updates
             
-            # if smileyReveal is starting this frame...
-            if smileyReveal.status == NOT_STARTED and tThisFlip >= 0.15-frameTolerance:
+            # if smiley_reveal is starting this frame...
+            if smiley_reveal.status == NOT_STARTED and tThisFlip >= 0.15-frameTolerance:
                 # keep track of start time/frame for later
-                smileyReveal.frameNStart = frameN  # exact frame index
-                smileyReveal.tStart = t  # local t and not account for scr refresh
-                smileyReveal.tStartRefresh = tThisFlipGlobal  # on global time
-                win.timeOnFlip(smileyReveal, 'tStartRefresh')  # time at next scr refresh
+                smiley_reveal.frameNStart = frameN  # exact frame index
+                smiley_reveal.tStart = t  # local t and not account for scr refresh
+                smiley_reveal.tStartRefresh = tThisFlipGlobal  # on global time
+                win.timeOnFlip(smiley_reveal, 'tStartRefresh')  # time at next scr refresh
                 # update status
-                smileyReveal.status = STARTED
-                smileyReveal.setAutoDraw(True)
+                smiley_reveal.status = STARTED
+                smiley_reveal.setAutoDraw(True)
             
-            # if smileyReveal is active this frame...
-            if smileyReveal.status == STARTED:
-                # update params
-                pass
-            
-            # if smileyReveal is stopping this frame...
-            if smileyReveal.status == STARTED:
-                # is it time to stop? (based on global clock, using actual start)
-                if tThisFlipGlobal > smileyReveal.tStartRefresh + 0.85-frameTolerance:
-                    # keep track of stop time/frame for later
-                    smileyReveal.tStop = t  # not accounting for scr refresh
-                    smileyReveal.frameNStop = frameN  # exact frame index
-                    # update status
-                    smileyReveal.status = FINISHED
-                    smileyReveal.setAutoDraw(False)
-            
-            # *floorLineReveal* updates
-            
-            # if floorLineReveal is starting this frame...
-            if floorLineReveal.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-                # keep track of start time/frame for later
-                floorLineReveal.frameNStart = frameN  # exact frame index
-                floorLineReveal.tStart = t  # local t and not account for scr refresh
-                floorLineReveal.tStartRefresh = tThisFlipGlobal  # on global time
-                win.timeOnFlip(floorLineReveal, 'tStartRefresh')  # time at next scr refresh
-                # update status
-                floorLineReveal.status = STARTED
-                floorLineReveal.setAutoDraw(True)
-            
-            # if floorLineReveal is active this frame...
-            if floorLineReveal.status == STARTED:
+            # if smiley_reveal is active this frame...
+            if smiley_reveal.status == STARTED:
                 # update params
                 pass
             
-            # if floorLineReveal is stopping this frame...
-            if floorLineReveal.status == STARTED:
+            # if smiley_reveal is stopping this frame...
+            if smiley_reveal.status == STARTED:
                 # is it time to stop? (based on global clock, using actual start)
-                if tThisFlipGlobal > floorLineReveal.tStartRefresh + 1.0-frameTolerance:
+                if tThisFlipGlobal > smiley_reveal.tStartRefresh + 0.85-frameTolerance:
                     # keep track of stop time/frame for later
-                    floorLineReveal.tStop = t  # not accounting for scr refresh
-                    floorLineReveal.frameNStop = frameN  # exact frame index
+                    smiley_reveal.tStop = t  # not accounting for scr refresh
+                    smiley_reveal.frameNStop = frameN  # exact frame index
                     # update status
-                    floorLineReveal.status = FINISHED
-                    floorLineReveal.setAutoDraw(False)
+                    smiley_reveal.status = FINISHED
+                    smiley_reveal.setAutoDraw(False)
             
-            # *textPrompt2* updates
+            # *floor_line_reveal* updates
             
-            # if textPrompt2 is starting this frame...
-            if textPrompt2.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+            # if floor_line_reveal is starting this frame...
+            if floor_line_reveal.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
                 # keep track of start time/frame for later
-                textPrompt2.frameNStart = frameN  # exact frame index
-                textPrompt2.tStart = t  # local t and not account for scr refresh
-                textPrompt2.tStartRefresh = tThisFlipGlobal  # on global time
-                win.timeOnFlip(textPrompt2, 'tStartRefresh')  # time at next scr refresh
+                floor_line_reveal.frameNStart = frameN  # exact frame index
+                floor_line_reveal.tStart = t  # local t and not account for scr refresh
+                floor_line_reveal.tStartRefresh = tThisFlipGlobal  # on global time
+                win.timeOnFlip(floor_line_reveal, 'tStartRefresh')  # time at next scr refresh
                 # update status
-                textPrompt2.status = STARTED
-                textPrompt2.setAutoDraw(True)
+                floor_line_reveal.status = STARTED
+                floor_line_reveal.setAutoDraw(True)
             
-            # if textPrompt2 is active this frame...
-            if textPrompt2.status == STARTED:
+            # if floor_line_reveal is active this frame...
+            if floor_line_reveal.status == STARTED:
                 # update params
-                textPrompt2.setText(texts["textPrompt2"], log=False)
+                pass
             
-            # if textPrompt2 is stopping this frame...
-            if textPrompt2.status == STARTED:
+            # if floor_line_reveal is stopping this frame...
+            if floor_line_reveal.status == STARTED:
                 # is it time to stop? (based on global clock, using actual start)
-                if tThisFlipGlobal > textPrompt2.tStartRefresh + 1.0-frameTolerance:
+                if tThisFlipGlobal > floor_line_reveal.tStartRefresh + 1.0-frameTolerance:
                     # keep track of stop time/frame for later
-                    textPrompt2.tStop = t  # not accounting for scr refresh
-                    textPrompt2.frameNStop = frameN  # exact frame index
+                    floor_line_reveal.tStop = t  # not accounting for scr refresh
+                    floor_line_reveal.frameNStop = frameN  # exact frame index
                     # update status
-                    textPrompt2.status = FINISHED
-                    textPrompt2.setAutoDraw(False)
+                    floor_line_reveal.status = FINISHED
+                    floor_line_reveal.setAutoDraw(False)
+            
+            # *text_prompt2* updates
+            
+            # if text_prompt2 is starting this frame...
+            if text_prompt2.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                # keep track of start time/frame for later
+                text_prompt2.frameNStart = frameN  # exact frame index
+                text_prompt2.tStart = t  # local t and not account for scr refresh
+                text_prompt2.tStartRefresh = tThisFlipGlobal  # on global time
+                win.timeOnFlip(text_prompt2, 'tStartRefresh')  # time at next scr refresh
+                # update status
+                text_prompt2.status = STARTED
+                text_prompt2.setAutoDraw(True)
+            
+            # if text_prompt2 is active this frame...
+            if text_prompt2.status == STARTED:
+                # update params
+                text_prompt2.setText(texts["text_prompt2"], log=False)
+            
+            # if text_prompt2 is stopping this frame...
+            if text_prompt2.status == STARTED:
+                # is it time to stop? (based on global clock, using actual start)
+                if tThisFlipGlobal > text_prompt2.tStartRefresh + 1.0-frameTolerance:
+                    # keep track of stop time/frame for later
+                    text_prompt2.tStop = t  # not accounting for scr refresh
+                    text_prompt2.frameNStop = frameN  # exact frame index
+                    # update status
+                    text_prompt2.status = FINISHED
+                    text_prompt2.setAutoDraw(False)
             
             # check for quit (typically the Esc key)
             if endExpNow or defaultKeyboard.getKeys(keyList=["escape"]):
@@ -1365,39 +1389,39 @@ for thisPhasesLoop in phasesLoop:
             routineTimer.addTime(-1.000000)
         thisExp.nextEntry()
         
-    # completed trialNumReps[currentPhase] repeats of 'trialLoop'
+    # completed trial_num_reps[current_phase] repeats of 'trial_loop'
     
     
     # set up handler to look after randomisation of conditions etc
-    postPracticeScreenLoop = data.TrialHandler(nReps=1 if showPostPractice else 0, method='random', 
+    post_practice_screen_loop = data.TrialHandler(nReps=1 if show_post_practice else 0, method='random', 
         extraInfo=expInfo, originPath=-1,
         trialList=[None],
-        seed=None, name='postPracticeScreenLoop')
-    thisExp.addLoop(postPracticeScreenLoop)  # add the loop to the experiment
-    thisPostPracticeScreenLoop = postPracticeScreenLoop.trialList[0]  # so we can initialise stimuli with some values
-    # abbreviate parameter names if possible (e.g. rgb = thisPostPracticeScreenLoop.rgb)
-    if thisPostPracticeScreenLoop != None:
-        for paramName in thisPostPracticeScreenLoop:
-            exec('{} = thisPostPracticeScreenLoop[paramName]'.format(paramName))
+        seed=None, name='post_practice_screen_loop')
+    thisExp.addLoop(post_practice_screen_loop)  # add the loop to the experiment
+    thisPost_practice_screen_loop = post_practice_screen_loop.trialList[0]  # so we can initialise stimuli with some values
+    # abbreviate parameter names if possible (e.g. rgb = thisPost_practice_screen_loop.rgb)
+    if thisPost_practice_screen_loop != None:
+        for paramName in thisPost_practice_screen_loop:
+            exec('{} = thisPost_practice_screen_loop[paramName]'.format(paramName))
     
-    for thisPostPracticeScreenLoop in postPracticeScreenLoop:
-        currentLoop = postPracticeScreenLoop
-        # abbreviate parameter names if possible (e.g. rgb = thisPostPracticeScreenLoop.rgb)
-        if thisPostPracticeScreenLoop != None:
-            for paramName in thisPostPracticeScreenLoop:
-                exec('{} = thisPostPracticeScreenLoop[paramName]'.format(paramName))
+    for thisPost_practice_screen_loop in post_practice_screen_loop:
+        currentLoop = post_practice_screen_loop
+        # abbreviate parameter names if possible (e.g. rgb = thisPost_practice_screen_loop.rgb)
+        if thisPost_practice_screen_loop != None:
+            for paramName in thisPost_practice_screen_loop:
+                exec('{} = thisPost_practice_screen_loop[paramName]'.format(paramName))
         
-        # --- Prepare to start Routine "postPracticeInstructions" ---
+        # --- Prepare to start Routine "post_practice_instructions" ---
         continueRoutine = True
         # update component parameters for each repeat
-        postPracticeResp.keys = []
-        postPracticeResp.rt = []
-        _postPracticeResp_allKeys = []
-        # Run 'Begin Routine' code from updateShowPostPractice
-        showPostPractice = False
+        post_practice_resp.keys = []
+        post_practice_resp.rt = []
+        _post_practice_resp_allKeys = []
+        # Run 'Begin Routine' code from update_show_post_practice
+        show_post_practice = False
         # keep track of which components have finished
-        postPracticeInstructionsComponents = [postPracticeText, postPracticeResp]
-        for thisComponent in postPracticeInstructionsComponents:
+        post_practice_instructionsComponents = [post_practice_text, post_practice_resp]
+        for thisComponent in post_practice_instructionsComponents:
             thisComponent.tStart = None
             thisComponent.tStop = None
             thisComponent.tStartRefresh = None
@@ -1409,7 +1433,7 @@ for thisPhasesLoop in phasesLoop:
         _timeToFirstFrame = win.getFutureFlipTime(clock="now")
         frameN = -1
         
-        # --- Run Routine "postPracticeInstructions" ---
+        # --- Run Routine "post_practice_instructions" ---
         routineForceEnded = not continueRoutine
         while continueRoutine:
             # get current time
@@ -1419,46 +1443,47 @@ for thisPhasesLoop in phasesLoop:
             frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
             # update/draw components on each frame
             
-            # *postPracticeText* updates
+            # *post_practice_text* updates
             
-            # if postPracticeText is starting this frame...
-            if postPracticeText.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+            # if post_practice_text is starting this frame...
+            if post_practice_text.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
                 # keep track of start time/frame for later
-                postPracticeText.frameNStart = frameN  # exact frame index
-                postPracticeText.tStart = t  # local t and not account for scr refresh
-                postPracticeText.tStartRefresh = tThisFlipGlobal  # on global time
-                win.timeOnFlip(postPracticeText, 'tStartRefresh')  # time at next scr refresh
+                post_practice_text.frameNStart = frameN  # exact frame index
+                post_practice_text.tStart = t  # local t and not account for scr refresh
+                post_practice_text.tStartRefresh = tThisFlipGlobal  # on global time
+                win.timeOnFlip(post_practice_text, 'tStartRefresh')  # time at next scr refresh
                 # update status
-                postPracticeText.status = STARTED
-                postPracticeText.setAutoDraw(True)
+                post_practice_text.status = STARTED
+                post_practice_text.setAutoDraw(True)
             
-            # if postPracticeText is active this frame...
-            if postPracticeText.status == STARTED:
+            # if post_practice_text is active this frame...
+            if post_practice_text.status == STARTED:
                 # update params
-                postPracticeText.setText(texts["postPracticeText"], log=False)
+                post_practice_text.setText(texts["post_practice_text"], log=False)
             
-            # *postPracticeResp* updates
+            # *post_practice_resp* updates
             waitOnFlip = False
             
-            # if postPracticeResp is starting this frame...
-            if postPracticeResp.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+            # if post_practice_resp is starting this frame...
+            if post_practice_resp.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
                 # keep track of start time/frame for later
-                postPracticeResp.frameNStart = frameN  # exact frame index
-                postPracticeResp.tStart = t  # local t and not account for scr refresh
-                postPracticeResp.tStartRefresh = tThisFlipGlobal  # on global time
-                win.timeOnFlip(postPracticeResp, 'tStartRefresh')  # time at next scr refresh
+                post_practice_resp.frameNStart = frameN  # exact frame index
+                post_practice_resp.tStart = t  # local t and not account for scr refresh
+                post_practice_resp.tStartRefresh = tThisFlipGlobal  # on global time
+                win.timeOnFlip(post_practice_resp, 'tStartRefresh')  # time at next scr refresh
                 # update status
-                postPracticeResp.status = STARTED
+                post_practice_resp.status = STARTED
                 # keyboard checking is just starting
                 waitOnFlip = True
-                win.callOnFlip(postPracticeResp.clock.reset)  # t=0 on next screen flip
-                win.callOnFlip(postPracticeResp.clearEvents, eventType='keyboard')  # clear events on next screen flip
-            if postPracticeResp.status == STARTED and not waitOnFlip:
-                theseKeys = postPracticeResp.getKeys(keyList=[leftKey, rightKey], waitRelease=False)
-                _postPracticeResp_allKeys.extend(theseKeys)
-                if len(_postPracticeResp_allKeys):
-                    postPracticeResp.keys = _postPracticeResp_allKeys[-1].name  # just the last key pressed
-                    postPracticeResp.rt = _postPracticeResp_allKeys[-1].rt
+                win.callOnFlip(post_practice_resp.clock.reset)  # t=0 on next screen flip
+                win.callOnFlip(post_practice_resp.clearEvents, eventType='keyboard')  # clear events on next screen flip
+            if post_practice_resp.status == STARTED and not waitOnFlip:
+                theseKeys = post_practice_resp.getKeys(keyList=[left_key, right_key], waitRelease=False)
+                _post_practice_resp_allKeys.extend(theseKeys)
+                if len(_post_practice_resp_allKeys):
+                    post_practice_resp.keys = _post_practice_resp_allKeys[-1].name  # just the last key pressed
+                    post_practice_resp.rt = _post_practice_resp_allKeys[-1].rt
+                    post_practice_resp.duration = _post_practice_resp_allKeys[-1].duration
                     # a response ends the routine
                     continueRoutine = False
             
@@ -1473,7 +1498,7 @@ for thisPhasesLoop in phasesLoop:
                 routineForceEnded = True
                 break
             continueRoutine = False  # will revert to True if at least one component still running
-            for thisComponent in postPracticeInstructionsComponents:
+            for thisComponent in post_practice_instructionsComponents:
                 if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
                     continueRoutine = True
                     break  # at least one component has not yet finished
@@ -1482,55 +1507,53 @@ for thisPhasesLoop in phasesLoop:
             if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
                 win.flip()
         
-        # --- Ending Routine "postPracticeInstructions" ---
-        for thisComponent in postPracticeInstructionsComponents:
+        # --- Ending Routine "post_practice_instructions" ---
+        for thisComponent in post_practice_instructionsComponents:
             if hasattr(thisComponent, "setAutoDraw"):
                 thisComponent.setAutoDraw(False)
-        # the Routine "postPracticeInstructions" was not non-slip safe, so reset the non-slip timer
+        # the Routine "post_practice_instructions" was not non-slip safe, so reset the non-slip timer
         routineTimer.reset()
-    # completed 1 if showPostPractice else 0 repeats of 'postPracticeScreenLoop'
+    # completed 1 if show_post_practice else 0 repeats of 'post_practice_screen_loop'
     
-# completed 1.0 repeats of 'phasesLoop'
+# completed 1.0 repeats of 'phases_loop'
 
 
-# --- Prepare to start Routine "endExperiment" ---
+# --- Prepare to start Routine "end_experiment" ---
 continueRoutine = True
 # update component parameters for each repeat
-# Run 'Begin Routine' code from writeSummary
-trainAccuracy /= trainTrials
-trainAvgRT /= trainTrials
+# Run 'Begin Routine' code from write_summary
+train_accuracy /= train_trials
+train_avg_RT /= train_trials
 
-probeAccuracy /= probeTrials
-probeAvgRT /= probeTrials
+probe_accuracy /= probe_trials
+probe_avg_RT /= probe_trials
 info = {
         "subject": expInfo["Participant"],
         "experiment": expName,
         "experimenter": expInfo["Experimenter"],
         "date": date,
         "time": time,
-        "condition": expInfo["Condition"],
-        "task": "P",
-        "train_accuracy": trainAccuracy,
-        "train_errors": trainError,
-        "train_avg_rt": trainAvgRT,
-        "train_trials": trainTrials,
-        "probe_accuracy": probeAccuracy,
-        "probe_errors": probeError,
-        "probe_rt_avg": probeAvgRT,
-        "probe_trials": probeTrials
+        "train_accuracy": train_accuracy,
+        "train_errors": train_error,
+        "train_avg_rt": train_avg_RT,
+        "train_trials": train_trials,
+        "probe_accuracy": probe_accuracy,
+        "probe_errors": probe_error,
+        "probe_rt_avg": probe_avg_RT,
+        "probe_trials": probe_trials
     }
 
-summary_file = os.path.join(summariesPath, f"{expName}_{expInfo['Participant']}_summary.csv")
+summary_file = os.path.join(summaries_path, f"{expName}_{expInfo['Participant']}_summary.csv")
 with open(summary_file, "w", newline="") as csvfile:
     writer = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_NONNUMERIC)
     writer.writerow([key for key in info])
     writer.writerow([val for val in info.values()]) 
-endResp.keys = []
-endResp.rt = []
-_endResp_allKeys = []
+end_resp.keys = []
+end_resp.rt = []
+_end_resp_allKeys = []
 # keep track of which components have finished
-endExperimentComponents = [endText, endResp]
-for thisComponent in endExperimentComponents:
+end_experimentComponents = [end_text, end_resp]
+for thisComponent in end_experimentComponents:
     thisComponent.tStart = None
     thisComponent.tStop = None
     thisComponent.tStartRefresh = None
@@ -1542,7 +1565,7 @@ t = 0
 _timeToFirstFrame = win.getFutureFlipTime(clock="now")
 frameN = -1
 
-# --- Run Routine "endExperiment" ---
+# --- Run Routine "end_experiment" ---
 routineForceEnded = not continueRoutine
 while continueRoutine:
     # get current time
@@ -1552,46 +1575,47 @@ while continueRoutine:
     frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
     # update/draw components on each frame
     
-    # *endText* updates
+    # *end_text* updates
     
-    # if endText is starting this frame...
-    if endText.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+    # if end_text is starting this frame...
+    if end_text.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
         # keep track of start time/frame for later
-        endText.frameNStart = frameN  # exact frame index
-        endText.tStart = t  # local t and not account for scr refresh
-        endText.tStartRefresh = tThisFlipGlobal  # on global time
-        win.timeOnFlip(endText, 'tStartRefresh')  # time at next scr refresh
+        end_text.frameNStart = frameN  # exact frame index
+        end_text.tStart = t  # local t and not account for scr refresh
+        end_text.tStartRefresh = tThisFlipGlobal  # on global time
+        win.timeOnFlip(end_text, 'tStartRefresh')  # time at next scr refresh
         # update status
-        endText.status = STARTED
-        endText.setAutoDraw(True)
+        end_text.status = STARTED
+        end_text.setAutoDraw(True)
     
-    # if endText is active this frame...
-    if endText.status == STARTED:
+    # if end_text is active this frame...
+    if end_text.status == STARTED:
         # update params
-        endText.setText(texts["endText"], log=False)
+        end_text.setText(texts["end_text"], log=False)
     
-    # *endResp* updates
+    # *end_resp* updates
     waitOnFlip = False
     
-    # if endResp is starting this frame...
-    if endResp.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+    # if end_resp is starting this frame...
+    if end_resp.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
         # keep track of start time/frame for later
-        endResp.frameNStart = frameN  # exact frame index
-        endResp.tStart = t  # local t and not account for scr refresh
-        endResp.tStartRefresh = tThisFlipGlobal  # on global time
-        win.timeOnFlip(endResp, 'tStartRefresh')  # time at next scr refresh
+        end_resp.frameNStart = frameN  # exact frame index
+        end_resp.tStart = t  # local t and not account for scr refresh
+        end_resp.tStartRefresh = tThisFlipGlobal  # on global time
+        win.timeOnFlip(end_resp, 'tStartRefresh')  # time at next scr refresh
         # update status
-        endResp.status = STARTED
+        end_resp.status = STARTED
         # keyboard checking is just starting
         waitOnFlip = True
-        win.callOnFlip(endResp.clock.reset)  # t=0 on next screen flip
-        win.callOnFlip(endResp.clearEvents, eventType='keyboard')  # clear events on next screen flip
-    if endResp.status == STARTED and not waitOnFlip:
-        theseKeys = endResp.getKeys(keyList=[leftKey, rightKey], waitRelease=False)
-        _endResp_allKeys.extend(theseKeys)
-        if len(_endResp_allKeys):
-            endResp.keys = _endResp_allKeys[-1].name  # just the last key pressed
-            endResp.rt = _endResp_allKeys[-1].rt
+        win.callOnFlip(end_resp.clock.reset)  # t=0 on next screen flip
+        win.callOnFlip(end_resp.clearEvents, eventType='keyboard')  # clear events on next screen flip
+    if end_resp.status == STARTED and not waitOnFlip:
+        theseKeys = end_resp.getKeys(keyList=[left_key, right_key], waitRelease=False)
+        _end_resp_allKeys.extend(theseKeys)
+        if len(_end_resp_allKeys):
+            end_resp.keys = _end_resp_allKeys[-1].name  # just the last key pressed
+            end_resp.rt = _end_resp_allKeys[-1].rt
+            end_resp.duration = _end_resp_allKeys[-1].duration
             # a response ends the routine
             continueRoutine = False
     
@@ -1606,7 +1630,7 @@ while continueRoutine:
         routineForceEnded = True
         break
     continueRoutine = False  # will revert to True if at least one component still running
-    for thisComponent in endExperimentComponents:
+    for thisComponent in end_experimentComponents:
         if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
             continueRoutine = True
             break  # at least one component has not yet finished
@@ -1615,11 +1639,11 @@ while continueRoutine:
     if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
         win.flip()
 
-# --- Ending Routine "endExperiment" ---
-for thisComponent in endExperimentComponents:
+# --- Ending Routine "end_experiment" ---
+for thisComponent in end_experimentComponents:
     if hasattr(thisComponent, "setAutoDraw"):
         thisComponent.setAutoDraw(False)
-# the Routine "endExperiment" was not non-slip safe, so reset the non-slip timer
+# the Routine "end_experiment" was not non-slip safe, so reset the non-slip timer
 routineTimer.reset()
 
 # --- End experiment ---

@@ -1,8 +1,8 @@
 ﻿#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-This experiment was created using PsychoPy3 Experiment Builder (v2023.1.2),
-    on October 13, 2023, at 15:53
+This experiment was created using PsychoPy3 Experiment Builder (v2023.1.3),
+    on June 05, 2024, at 17:29
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -11,6 +11,10 @@ If you publish work using this script the most relevant publication is:
 
 """
 
+import psychopy
+psychopy.useVersion('2023.1.3')
+
+
 # --- Import packages ---
 from psychopy import locale_setup
 from psychopy import prefs
@@ -18,6 +22,7 @@ from psychopy import plugins
 plugins.activatePlugins()
 prefs.hardware['audioLib'] = 'ptb'
 from psychopy import sound, gui, visual, core, data, event, logging, clock, colors, layout
+from psychopy.tools import environmenttools
 from psychopy.constants import (NOT_STARTED, STARTED, PLAYING, PAUSED,
                                 STOPPED, FINISHED, PRESSED, RELEASED, FOREVER)
 
@@ -270,7 +275,7 @@ myFeedbackImpage="temp"
 _thisDir = os.path.dirname(os.path.abspath(__file__))
 os.chdir(_thisDir)
 # Store info about the experiment session
-psychopyVersion = '2023.1.2'
+psychopyVersion = '2023.1.3'
 expName = 'Fish15'  # from the Builder filename that created this script
 expInfo = {
     'participant': '',
@@ -847,6 +852,7 @@ while continueRoutine:
         if len(_conditions_key_allKeys):
             conditions_key.keys = _conditions_key_allKeys[-1].name  # just the last key pressed
             conditions_key.rt = _conditions_key_allKeys[-1].rt
+            conditions_key.duration = _conditions_key_allKeys[-1].duration
             # a response ends the routine
             continueRoutine = False
     
@@ -971,6 +977,7 @@ while continueRoutine:
         if len(_train_instr_key_allKeys):
             train_instr_key.keys = _train_instr_key_allKeys[-1].name  # just the last key pressed
             train_instr_key.rt = _train_instr_key_allKeys[-1].rt
+            train_instr_key.duration = _train_instr_key_allKeys[-1].duration
             # a response ends the routine
             continueRoutine = False
     
@@ -1151,6 +1158,7 @@ for thisTrials1 in trials1:
             if len(_trial_response_allKeys):
                 trial_response.keys = _trial_response_allKeys[-1].name  # just the last key pressed
                 trial_response.rt = _trial_response_allKeys[-1].rt
+                trial_response.duration = _trial_response_allKeys[-1].duration
                 # a response ends the routine
                 continueRoutine = False
         
@@ -1184,6 +1192,7 @@ for thisTrials1 in trials1:
     trials1.addData('trial_response.keys',trial_response.keys)
     if trial_response.keys != None:  # we had a response
         trials1.addData('trial_response.rt', trial_response.rt)
+        trials1.addData('trial_response.duration', trial_response.duration)
     # Run 'End Routine' code from code
     nFBleft=0
     nFBright=0
@@ -1705,6 +1714,7 @@ for thisTrials2 in trials2:
             if len(_trial_response_allKeys):
                 trial_response.keys = _trial_response_allKeys[-1].name  # just the last key pressed
                 trial_response.rt = _trial_response_allKeys[-1].rt
+                trial_response.duration = _trial_response_allKeys[-1].duration
                 # a response ends the routine
                 continueRoutine = False
         
@@ -1738,6 +1748,7 @@ for thisTrials2 in trials2:
     trials2.addData('trial_response.keys',trial_response.keys)
     if trial_response.keys != None:  # we had a response
         trials2.addData('trial_response.rt', trial_response.rt)
+        trials2.addData('trial_response.duration', trial_response.duration)
     # Run 'End Routine' code from code
     nFBleft=0
     nFBright=0
@@ -2259,6 +2270,7 @@ for thisTrials3 in trials3:
             if len(_trial_response_allKeys):
                 trial_response.keys = _trial_response_allKeys[-1].name  # just the last key pressed
                 trial_response.rt = _trial_response_allKeys[-1].rt
+                trial_response.duration = _trial_response_allKeys[-1].duration
                 # a response ends the routine
                 continueRoutine = False
         
@@ -2292,6 +2304,7 @@ for thisTrials3 in trials3:
     trials3.addData('trial_response.keys',trial_response.keys)
     if trial_response.keys != None:  # we had a response
         trials3.addData('trial_response.rt', trial_response.rt)
+        trials3.addData('trial_response.duration', trial_response.duration)
     # Run 'End Routine' code from code
     nFBleft=0
     nFBright=0
@@ -2677,6 +2690,7 @@ while continueRoutine:
         if len(_test_instr_key_allKeys):
             test_instr_key.keys = _test_instr_key_allKeys[-1].name  # just the last key pressed
             test_instr_key.rt = _test_instr_key_allKeys[-1].rt
+            test_instr_key.duration = _test_instr_key_allKeys[-1].duration
             # a response ends the routine
             continueRoutine = False
     
@@ -2857,6 +2871,7 @@ for thisTest_trial in test_trials:
             if len(_trial_response_allKeys):
                 trial_response.keys = _trial_response_allKeys[-1].name  # just the last key pressed
                 trial_response.rt = _trial_response_allKeys[-1].rt
+                trial_response.duration = _trial_response_allKeys[-1].duration
                 # a response ends the routine
                 continueRoutine = False
         
@@ -2890,6 +2905,7 @@ for thisTest_trial in test_trials:
     test_trials.addData('trial_response.keys',trial_response.keys)
     if trial_response.keys != None:  # we had a response
         test_trials.addData('trial_response.rt', trial_response.rt)
+        test_trials.addData('trial_response.duration', trial_response.duration)
     # Run 'End Routine' code from code
     nFBleft=0
     nFBright=0
@@ -3304,6 +3320,7 @@ while continueRoutine:
         if len(_goodbye_key_allKeys):
             goodbye_key.keys = _goodbye_key_allKeys[-1].name  # just the last key pressed
             goodbye_key.rt = _goodbye_key_allKeys[-1].rt
+            goodbye_key.duration = _goodbye_key_allKeys[-1].duration
             # a response ends the routine
             continueRoutine = False
     

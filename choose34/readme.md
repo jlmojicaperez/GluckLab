@@ -1,4 +1,4 @@
-# Choose fMRI
+# Choose 34
 
 ## Description
 
@@ -30,10 +30,10 @@ PTSD symptoms.
 ## Data
 
 PsychoPy automatically generates a data file which contains all
-the necessary information about the experiment, each stimulus and subject
-response (found in the `GluckLab/choose_fmri/data/` directory).
+the necessary information about the experiment, each stimuli and subject
+response (found in the `GluckLab/choose34/data/` directory).
 Addtionally, a custom summary statistics file is also generated
-(found in the `GluckLab/choose_fmri/data/summaries` directory).
+(found in the `GluckLab/choose34/data/summaries` directory).
 The summary file is a CSV file with the following fields:
 
 | Field | Description|
@@ -59,7 +59,7 @@ This summary file contains all the data ready to be uploaded to the Gluck Lab da
 The PsychoPy implementation of the main parts of Choose 34 is
 broken down into the following routines:
 
-![Choose 34 Routine Diagram](../imgs/ChooseFMRIDiagram.png)
+![Choose 34 Routine Diagram](../imgs/Choose34Diagram.png)
 
 - Setup:
   
@@ -77,7 +77,7 @@ broken down into the following routines:
     for different purposes.
     - Assigns which objects have a smiley face at random.
     - Generates the `trials_loop` condition files found in
-    `GluckLab/choose_fmri/experiment_files`. These files contain all the
+    `GluckLab/choose34/experiment_files`. These files contain all the
     image stimulus that will be shown to the subject. By setting the
     the `loopType` parameter in `trials_loop` to `random` we make sure
     the stimulus are shown in a random order without repetition within each
@@ -109,25 +109,13 @@ broken down into the following routines:
       - Infinity, if the current phase is not the practice
       phase and evaluating for a fixed number of trials.
 
-- Long Break Screen:
-  - Begin Routine:
-    - Shows the resting state fMRI screen for 15 seconds: 
-      ![Resting state screen. Grey background with a black cross in the center](../choose_fmri/assets/rest_screen.png)
-
-- Show Stimuli:
-  - Begin routine:
-    - Sets the path to the stimuli objects
-    - Shows the pair of objects to the subject for five seconds without prompting
-      for a keyboard response.
-      ![Choose fMRI Choose Screen](../imgs/ChoosefMRITrainingShowStimScreen.png)
-
 - Choose:
 
   - Begin routine:
 
     - Shows the pair of objects to the subject and prompts a keyboard
-    response for three seconds:
-      ![Choose fMRI Choose Screen](../imgs/ChoosefMRITrainingChooseScreen.png)
+    response:
+      ![Choose 34 Choose Screen](../imgs/Choose34TrainingChooseScreen.png)
 
   - End routine:
 
@@ -137,9 +125,6 @@ broken down into the following routines:
     chose an object, then we assign the smiley face to the object which
     the subject **did not** choose.
     - Updates the data summary variables based on subject's response.
-    - If the subject did not respond within the allotted time (three seconds),
-      then the trial is ignored: the consecutive correct responses do not reset,
-      the trial is not taken into account for the subject's accuracy or errors.
 
 - Reveal:
 
@@ -148,7 +133,7 @@ broken down into the following routines:
     - "Lifts" the object chosen by the subject to reveal whether the smiley
     face is under them or not. This is done by updating the position of the
     image stimulus every frame conditioned on the subject response:
-      ![Choose fMRI Reveal Screen](../imgs/ChoosefMRITrainingRevealScreen.png)
+      ![Choose 34 Reveal Screen](../imgs/Choose34TrainingRevealScreen.png)
 
   - End routine:
 
@@ -158,11 +143,6 @@ broken down into the following routines:
     the `current_phase` variable to the next phase of the experiment.
     In the case that we are evaluating to a fixed number of trials
     `criterion` is set to infinity, so early transition will never happen.
-
-- Break screen:
-  - Begin routine:
-    - Shows the resting state fMRI screen for 2 seconds: 
-      ![Resting state screen. Grey background with a black cross in the center](../choose_fmri/assets/rest_screen.png)
 
 - Post-Practice Instructions:
 
