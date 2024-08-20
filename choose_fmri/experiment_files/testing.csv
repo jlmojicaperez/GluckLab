@@ -1,9 +1,9 @@
 Left_Stim,Right_Stim,Correct_Response,Relevant_Feature
 0b,0a,left,color
 0a,0b,right,color
-1b,1a,left,color
-1a,1b,right,color
-2a,2b,left,shape
-2b,2a,right,shape
-3a,3b,left,shape
-3b,3a,right,shape
+1a,1b,left,color
+1b,1a,right,color
+2b,2a,left,shape
+2a,2b,right,shape
+3b,3a,left,shape
+3a,3b,right,shape

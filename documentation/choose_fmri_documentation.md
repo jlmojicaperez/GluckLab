@@ -117,7 +117,7 @@ broken down into the following routines:
 - Show Stimuli:
   - Begin routine:
     - Sets the path to the stimuli objects
-    - Shows the pair of objects to the subject for five seconds without prompting
+    - Shows the pair of objects to the subject for three seconds without prompting
       for a keyboard response.
       ![Choose fMRI Choose Screen](../imgs/ChoosefMRITrainingShowStimScreen.png)
 
