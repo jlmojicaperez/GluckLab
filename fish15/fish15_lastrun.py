@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2023.1.3),
-    on June 05, 2024, at 17:29
+    on August 05, 2024, at 10:57
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -296,7 +296,7 @@ filename = _thisDir + os.sep + u'psychopyOutput/%s_%s' % (expInfo['participant']
 # An ExperimentHandler isn't essential but helps with data saving
 thisExp = data.ExperimentHandler(name=expName, version='',
     extraInfo=expInfo, runtimeInfo=None,
-    originPath='C:\\Users\\josel\\gluck_lab\\GluckLab\\fish15\\fish15_lastrun.py',
+    originPath='\\\\wsl.localhost\\Ubuntu\\home\\jlmojicaperez\\gluck\\GluckLab\\fish15\\fish15_lastrun.py',
     savePickle=True, saveWideText=True,
     dataFileName=filename)
 # save a log file for detail verbose info
