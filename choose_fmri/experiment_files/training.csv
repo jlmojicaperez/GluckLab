@@ -1,6 +1,6 @@
 Left_Stim,Right_Stim,Correct_Response,Relevant_Feature
-0b,0a,left,color
-0a,0b,right,color
+0a,0b,left,color
+0b,0a,right,color
 1a,1b,left,color
 1b,1a,right,color
 2b,2a,left,shape
