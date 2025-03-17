@@ -1,0 +1,3 @@
+seqid,redcap_repeat_instance,redcap_repeat_instrument,choose_doadmin,choosetrainingaccavg,choosetrainingrtavg,choosetrainingnerr,chooseprobeaccavg,chooseprobertavg,chooseprobenerr,choose_task_complete,fish_doadmin,facquisition,facquisition_trials,fretention,fgen,fish_task_complete
+A0test,1,choose_task,08/05/2024,0.8518518518518519,1.3100571333348785,4,1.0,1.3092012874949432,0,1,,,,,,
+A0test,1,fish_task,,,,,,,,,08/05/2024,0.9090909090909092,33,1.0,1.0,1
